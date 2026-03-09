@@ -1,0 +1,207 @@
+{% comment %}
+  Section: Topic Pills — Collections en boutons pill centrés
+  File: sections/topic-pills.liquid
+{% endcomment %}
+
+{%- assign bg_opacity = section.settings.bg_opacity | divided_by: 100.0 -%}
+{%- assign bg = section.settings.bg_color | color_modify: 'alpha', bg_opacity -%}
+{%- assign pill_bg_opacity = section.settings.pill_bg_opacity | divided_by: 100.0 -%}
+{%- assign pill_bg = section.settings.pill_bg_color | color_modify: 'alpha', pill_bg_opacity -%}
+
+<section class="tp" id="tp-{{ section.id }}" style="background-color: {{ bg }}; padding: {{ section.settings.section_pad_v }}px {{ section.settings.section_pad_h }}px;">
+  <div class="tp__inner" style="max-width: {{ section.settings.max_width }}px;">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="tp__heading" style="
+        color: {{ section.settings.heading_color }};
+        font-size: {{ section.settings.heading_size }}px;
+        font-weight: {{ section.settings.heading_weight }};
+        margin-bottom: {{ section.settings.heading_mb }}px;
+      ">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <p class="tp__subtext" style="
+        color: {{ section.settings.subtext_color }};
+        font-size: {{ section.settings.subtext_size }}px;
+        line-height: {{ section.settings.subtext_lh | divided_by: 10.0 }};
+        max-width: {{ section.settings.subtext_max_width }}px;
+        margin-bottom: {{ section.settings.subtext_mb }}px;
+      ">{{ section.settings.subtext }}</p>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="tp__pills" style="gap: {{ section.settings.pill_gap }}px;">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.pill_label != blank -%}
+            <a
+              href="{{ block.settings.pill_url }}"
+              class="tp__pill"
+              style="
+                background-color: {{ pill_bg }};
+                color: {{ section.settings.pill_text_color }};
+                border: {{ section.settings.pill_border_width }}px solid {{ section.settings.pill_border_color }};
+                border-radius: {{ section.settings.pill_radius }}px;
+                font-size: {{ section.settings.pill_font_size }}px;
+                font-weight: {{ section.settings.pill_font_weight }};
+                padding: {{ section.settings.pill_pad_v }}px {{ section.settings.pill_pad_h }}px;
+              "
+              {{ block.shopify_attributes }}
+            >{{ block.settings.pill_label }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  #tp-{{ section.id }}.tp {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  #tp-{{ section.id }} .tp__inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #tp-{{ section.id }} .tp__heading { margin: 0 0 12px; }
+  #tp-{{ section.id }} .tp__subtext { margin: 0; }
+
+  #tp-{{ section.id }} .tp__pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  #tp-{{ section.id }} .tp__pill {
+    display: inline-block;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color .18s ease, color .18s ease, transform .12s ease, box-shadow .18s ease;
+  }
+
+  #tp-{{ section.id }} .tp__pill:hover {
+    background-color: {{ section.settings.pill_hover_bg }} !important;
+    color: {{ section.settings.pill_hover_text }} !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  @media (max-width: {{ section.settings.mobile_breakpoint }}px) {
+    #tp-{{ section.id }}.tp {
+      padding: {{ section.settings.mobile_pad_v }}px {{ section.settings.mobile_pad_h }}px;
+    }
+    #tp-{{ section.id }} .tp__pills {
+      gap: {{ section.settings.mobile_pill_gap }}px;
+    }
+    #tp-{{ section.id }} .tp__pill {
+      font-size: {{ section.settings.mobile_pill_size }}px !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Topic Pills",
+  "tag": "section",
+  "settings": [
+
+    { "type": "header",  "content": "━━ SECTION ━━" },
+    { "type": "color",   "id": "bg_color",          "label": "Fond section",              "default": "#ffffff" },
+    { "type": "range",   "id": "bg_opacity",         "label": "Opacité fond (%)",          "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range",   "id": "section_pad_v",      "label": "Padding vertical (px)",     "min": 0, "max": 120, "step": 4, "default": 56 },
+    { "type": "range",   "id": "section_pad_h",      "label": "Padding horizontal (px)",   "min": 0, "max": 120, "step": 4, "default": 32 },
+    { "type": "range",   "id": "max_width",          "label": "Largeur max (px)",          "min": 600, "max": 1600, "step": 20, "default": 1100 },
+
+    { "type": "header",  "content": "━━ TITRE ━━" },
+    { "type": "textarea","id": "heading",            "label": "Titre",                     "default": "Les sujets préférés de notre communauté" },
+    { "type": "color",   "id": "heading_color",      "label": "Couleur",                   "default": "#111111" },
+    { "type": "range",   "id": "heading_size",       "label": "Taille (px)",               "min": 16, "max": 56, "step": 2, "default": 28 },
+    { "type": "select",  "id": "heading_weight",     "label": "Graisse",                   "default": "700",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra-bold" }
+      ]
+    },
+    { "type": "range",   "id": "heading_mb",         "label": "Marge bas (px)",            "min": 0, "max": 60, "step": 4, "default": 16 },
+
+    { "type": "header",  "content": "━━ SOUS-TITRE ━━" },
+    { "type": "textarea","id": "subtext",            "label": "Texte",                     "default": "Vous ne savez pas par quel bout commencer ? Voici les sujets préférés de notre communauté, les derniers articles et conseils de lecture." },
+    { "type": "color",   "id": "subtext_color",      "label": "Couleur",                   "default": "#444444" },
+    { "type": "range",   "id": "subtext_size",       "label": "Taille (px)",               "min": 12, "max": 22, "step": 1, "default": 16 },
+    { "type": "range",   "id": "subtext_lh",         "label": "Interligne (×10)",          "min": 12, "max": 22, "step": 1, "default": 16 },
+    { "type": "range",   "id": "subtext_max_width",  "label": "Largeur max (px)",          "min": 400, "max": 1000, "step": 20, "default": 780 },
+    { "type": "range",   "id": "subtext_mb",         "label": "Marge bas (px)",            "min": 0, "max": 80, "step": 4, "default": 40 },
+
+    { "type": "header",  "content": "━━ PILLS ━━" },
+    { "type": "color",   "id": "pill_bg_color",      "label": "Fond",                      "default": "#d4f0e8" },
+    { "type": "range",   "id": "pill_bg_opacity",    "label": "Opacité fond (%)",          "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color",   "id": "pill_text_color",    "label": "Couleur texte",             "default": "#2a8a6e" },
+    { "type": "color",   "id": "pill_border_color",  "label": "Couleur bordure",           "default": "#a8dfd0" },
+    { "type": "range",   "id": "pill_border_width",  "label": "Épaisseur bordure (px)",    "min": 0, "max": 4, "step": 1, "default": 1 },
+    { "type": "range",   "id": "pill_radius",        "label": "Arrondi (px)",              "min": 0, "max": 60, "step": 2, "default": 12 },
+    { "type": "range",   "id": "pill_font_size",     "label": "Taille texte (px)",         "min": 12, "max": 22, "step": 1, "default": 15 },
+    { "type": "select",  "id": "pill_font_weight",   "label": "Graisse texte",             "default": "400",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    { "type": "range",   "id": "pill_pad_v",         "label": "Padding vertical (px)",     "min": 4, "max": 32, "step": 2, "default": 10 },
+    { "type": "range",   "id": "pill_pad_h",         "label": "Padding horizontal (px)",   "min": 8, "max": 60, "step": 2, "default": 20 },
+    { "type": "range",   "id": "pill_gap",           "label": "Espace entre pills (px)",   "min": 4, "max": 32, "step": 2, "default": 12 },
+
+    { "type": "header",  "content": "━━ PILLS — HOVER ━━" },
+    { "type": "color",   "id": "pill_hover_bg",      "label": "Fond au survol",            "default": "#2a8a6e" },
+    { "type": "color",   "id": "pill_hover_text",    "label": "Texte au survol",           "default": "#ffffff" },
+
+    { "type": "header",  "content": "━━ MOBILE ━━" },
+    { "type": "range",   "id": "mobile_breakpoint",  "label": "Breakpoint (px)",           "min": 480, "max": 1024, "step": 8, "default": 768 },
+    { "type": "range",   "id": "mobile_pad_v",       "label": "Padding vertical (px)",     "min": 0, "max": 80, "step": 4, "default": 40 },
+    { "type": "range",   "id": "mobile_pad_h",       "label": "Padding horizontal (px)",   "min": 0, "max": 60, "step": 4, "default": 20 },
+    { "type": "range",   "id": "mobile_pill_gap",    "label": "Espace entre pills (px)",   "min": 4, "max": 24, "step": 2, "default": 8 },
+    { "type": "range",   "id": "mobile_pill_size",   "label": "Taille texte (px)",         "min": 11, "max": 18, "step": 1, "default": 13 }
+
+  ],
+  "blocks": [
+    {
+      "type": "pill",
+      "name": "Pill",
+      "settings": [
+        { "type": "text", "id": "pill_label", "label": "Texte",   "default": "Automne" },
+        { "type": "url",  "id": "pill_url",   "label": "Lien vers la collection",
+          "info": "Sélectionne une collection, une page, ou colle une URL." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Topic Pills",
+      "category": "Content",
+      "blocks": [
+        { "type": "pill", "settings": { "pill_label": "Automne" } },
+        { "type": "pill", "settings": { "pill_label": "La Joie" } },
+        { "type": "pill", "settings": { "pill_label": "La gratitude" } },
+        { "type": "pill", "settings": { "pill_label": "La colère" } },
+        { "type": "pill", "settings": { "pill_label": "Noël" } },
+        { "type": "pill", "settings": { "pill_label": "La Guerre" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
