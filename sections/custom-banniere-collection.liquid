@@ -1,0 +1,102 @@
+{% comment %}
+  Section : Bannière de collection personnalisée
+  Affiche : titre, description, bouton, fond image collection avec filtre vert
+{% endcomment %}
+
+<style>
+  .collection-banner {
+    position: relative;
+
+    {% if collection.metafields.custom.image_banniere %}
+      background-image: url('{{ collection.metafields.custom.image_banniere | image_url: width: 2000 }}');
+    {% else %}
+      background-image: url('{{ collection.image | image_url: width: 2000 }}');
+    {% endif %}
+    background-size: cover;
+    background-position: center;
+    text-align: left;
+    padding: 60px 0px;
+  }
+
+  /* Filtre vert semi-transparent */
+  .collection-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(199, 230, 216, 0.8); 
+    z-index: 1;
+  }
+
+  /* Contenu par-dessus le filtre */
+  .collection-banner-content {
+    position: relative;
+    z-index: 2;
+    margin: 0 auto;
+  }
+
+  .collection-banner h1 {
+    margin-bottom: 20px;
+  }
+
+  .collection-banner p {
+    display: inline; /* texte fluide */
+    margin: 0;
+  }
+
+  .collection-banner .banner-button {
+    display: inline-block;
+    margin-top: 20px; /* espace au-dessus du bouton */
+    background-color: #ffffff;
+    color: #8fcdbf;
+    padding: 12px 25px;
+    border-radius: 50px;
+    border: 2px solid #8fcdbf;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .collection-banner .banner-button:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+
+<div class="collection-banner cc-collection-banner">
+  <div class="collection-banner-content container">
+    <h1 class="h3">
+      {% if collection.metafields.custom.titre_h1_collection %}
+        {{ collection.metafields.custom.titre_h1_collection }}
+      {% else %}
+        {{ collection.title }}
+      {% endif %}
+    </h1>
+    
+    <p>{{ collection.description }}</p>
+    
+    {% if collection.metafields.custom.fichier_selection %}
+      {% assign fichier = collection.metafields.custom.fichier_selection.value %}
+      {% if fichier and fichier.url %}
+        <div>
+  <a href="#mc_embed_shell" class="banner-button">
+    Télécharger la sélection
+  </a>
+</div>
+
+      {% endif %}
+    {% endif %}
+    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bannière collection",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Bannière collection personnalisée",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

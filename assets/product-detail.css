@@ -1,0 +1,32 @@
+@media screen and (min-width: 768px) {
+
+.product-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-detail-left-column,
+.product-detail-right-column {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.product-detail-container {
+    margin-top: -70px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-detail-left-column,
+  .product-detail-right-column {
+    width: 100%;
+  }
+
+  .product-detail-container {
+    margin-top: -30px;
+  }
+}
+  
+}

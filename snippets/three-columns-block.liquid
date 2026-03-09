@@ -1,0 +1,15 @@
+{% if block.type == 'richtext' %}
+  <div class="block richtext">{{ block.settings.content }}</div>
+{% elsif block.type == 'image' and block.settings.image != blank %}
+  <div class="block image">
+    <img 
+      src="{{ block.settings.image | image_url: width: 600 }}" 
+      alt="{{ block.settings.alt }}" 
+      width="100%" 
+      height="auto"
+      loading="lazy"
+    >
+  </div>
+{% elsif block.type == 'html' %}
+  <div class="block html">{{ block.settings.code }}</div>
+{% endif %}

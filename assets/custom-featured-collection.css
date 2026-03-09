@@ -1,0 +1,121 @@
+/* Desktop : tout afficher + pas de bouton */
+@media (min-width: 769px){
+  .more__text{
+    display:block;
+    overflow:visible;
+  }
+  .more__btn{
+    display:none;
+  }
+}
+
+/* Mobile : clamp + bouton + toggle */
+@media (max-width: 768px){
+  .more__text{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:5;
+    overflow:hidden;
+  }
+
+  /* optionnel mais recommandé (sinon les <p> bouffent des lignes) */
+  .more__text p{ margin:0; }
+  .more__text p + p{ margin-top:.5rem; }
+
+  .more__btn{
+    display:inline-block;
+    margin-top:.25rem;
+    cursor:pointer;
+    text-decoration:underline;
+  }
+
+  .more__toggle:checked ~ .more__text{
+    display:block;
+    -webkit-line-clamp:unset;
+    -webkit-box-orient:unset;
+    overflow:visible;
+  }
+
+  .more__toggle:checked ~ .more__btn{
+    display:none;
+  }
+}
+
+.note-comite {
+  gap: 10px;
+  margin-top: auto;
+  flex-wrap: wrap;     
+  display:flex;
+  flex-direction:column;
+}
+
+.note-comite-product {
+  flex-direction: column; 
+  align-items: left;    
+}
+
+.note-comite-product strong,
+.note-comite strong,
+.texte-note strong {
+  color: #8FCDBF;
+}
+
+.etoiles {
+  display: flex; 
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.etoiles-product {
+  display: flex; 
+  gap: 4px;
+  align-items: center;
+}
+
+.etoile {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.etoile.full {
+  background-image: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/full_star.png?v=1750245446");
+}
+
+.etoile.half {
+  background-image: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/half_empty_star.png?v=1750245445");
+}
+
+.etoile.empty {
+  background-image: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/full_empty_star.png?v=1750245445");
+}
+
+/*
+@media (max-width:768px){
+  .texte-note {
+    display: none; /* On mobile we hide the text 
+  }
+}
+*/
+
+.texte-note {
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.product-card__bottom{
+  margin-top:auto;             /* pousse en bas */
+  display:flex;
+  flex-direction:column;
+}
+
+.product-card__title{
+  min-height: 3.2em;           
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
+}

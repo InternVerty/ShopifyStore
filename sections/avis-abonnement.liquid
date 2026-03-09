@@ -1,0 +1,309 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'avis-abonnement.css' | asset_url | stylesheet_tag }}
+
+{%- if section.blocks.size > 1 -%}
+  <script src="{{ 'slideshow.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- liquid
+  assign color_scheme = section.settings.color_scheme
+  assign bg_color = false
+
+  if color_scheme == '1'
+    assign bg_color = settings.color_scheme_1_bg
+  elsif color_scheme == '2'
+    assign bg_color = settings.color_scheme_2_bg
+  elsif color_scheme == '3'
+    assign bg_color = settings.color_scheme_3_bg
+  endif
+
+  if bg_color == settings.bg_color or bg_color == 'rgba(0,0,0,0)'
+    assign bg_color = false
+  endif
+-%}
+
+{%- if section.settings.autoplay -%}
+  {%- style -%}
+    #{{ section.id }} {
+      --duration: {{ section.settings.autoplay_speed }}s;
+      --play-state: paused;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{%- unless section.settings.full_width -%}
+  <div class="container">
+{%- endunless -%}
+
+<div class="section{% unless bg_color == false %} section--padded{% if section.settings.full_width %} section--full-width{% endif %}{% endunless %}{% unless color_scheme == 'default' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %} relative" id="{{ section.id }}"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
+  <div class="container {{ section.settings.text_position }} l-testimonial-container">
+    {%- if section.settings.heading != blank -%}
+      <div class="section__header">
+        <h2 class="h4 {{ section.settings.text_align }}">{{ section.settings.heading | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="l-swiper-container">
+      <div class="swiper testimonials-swiper" id="testimonials-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="l-testimonial-item m-testimonial">
+
+                <div class="testimonial__author-image overflow-hidden shrink-0">
+                  <div class="media relative" style="padding-top: 100%;">
+                    {% render 'image',
+                      image: block.settings.author_image,
+                      src_width: 48,
+                      srcset_2x: true,
+                      lazy_load: false,
+                      class: 'img-fit'
+                    %}
+                  </div>
+                </div>
+
+                <div class="m-testimonial__body">
+                  <div class="l-content">
+                    {{ block.settings.testimonial }}
+                  </div>
+
+                  {% if block.settings.show_star_rating %}
+                    <div class="l-rating" aria-label="Note {{ block.settings.star_rating }} sur 5">
+                      {%- for i in (1..5) -%}
+                        <span class="l-star{% if i <= block.settings.star_rating %} is-active{% endif %}" aria-hidden="true">★</span>
+                      {%- endfor -%}
+                    </div>
+                  {% endif %}
+
+                  <div class="l-author">
+                    <h3 class="h6 mb-0">{{ block.settings.author | escape }}</h3>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <div class="slider-nav absolute top-middle end md:block no-js-hidden">
+        <button type="button" class="slider-nav__btn tap-target btn btn--primary has-ltr-icon l-btn-next" name="next" aria-controls="testimonials-{{ section.id }}">
+          <span class="visually-hidden">Suivant</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="presentation" class="icon">
+            <path d="m9.693 4.5 7.5 7.5-7.5 7.5" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="slider-nav__btn tap-target btn btn--primary has-ltr-icon l-btn-prev" name="prev" aria-controls="testimonials-{{ section.id }}" disabled="">
+          <span class="visually-hidden">Précédent</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" role="presentation" class="icon">
+            <path d="m6.797 11.625 8.03-8.03 1.06 1.06-6.97 6.97 6.97 6.97-1.06 1.06z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- unless section.settings.full_width -%}
+  </div>
+{%- endunless -%}
+
+
+
+
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}"></script>
+
+<script>
+  (() => {
+    const root = document.getElementById('{{ section.id }}');
+    if (!root) return;
+
+    const swiperEl = root.querySelector('.testimonials-swiper');
+    const nextBtn  = root.querySelector('.l-btn-next');
+    const prevBtn  = root.querySelector('.l-btn-prev');
+    const pagEl    = root.querySelector('.swiper-pagination');
+    if (!swiperEl) return;
+
+    new Swiper(swiperEl, {
+  slidesPerView: 'auto',
+  centeredSlides: true,
+
+  loop: false,
+  rewind: true,                 // <-- clé : revient au début après le dernier
+  initialSlide: 1,   // démarre sur le 2e avis
+
+  spaceBetween: 24,
+  watchSlidesProgress: true,
+  roundLengths: true,
+
+  observer: true,
+  observeParents: true,
+  resizeObserver: true,
+
+  preloadImages: false,
+  updateOnImagesReady: true,
+
+  navigation: { nextEl: nextBtn, prevEl: prevBtn },
+  pagination: { el: pagEl, clickable: true },
+
+  breakpoints: {
+    320: { spaceBetween: 12 },
+    640: { spaceBetween: 16 },
+    990: { spaceBetween: 24 },
+  },
+
+  on: {
+    init(sw) {
+      requestAnimationFrame(() => sw.update());
+      setTimeout(() => sw.update(), 80);
+      root.querySelectorAll('img').forEach(img => {
+        if (img.complete) return;
+        img.addEventListener('load', () => sw.update(), { once: true });
+      });
+    }
+  }
+});
+
+  })();
+</script>
+
+
+
+
+
+
+
+{% schema %}
+{
+  "name": "Avis Abonnement",
+  "tag": "section",
+  "class": "cc-testimonials l-testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Testimonials"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quotes",
+      "label": "Show quote marks above each testimonial",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "1",
+          "label": "Scheme 1"
+        },
+        {
+          "value": "2",
+          "label": "Scheme 2"
+        },
+        {
+          "value": "3",
+          "label": "Scheme 3"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section background full width",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "testimonial",
+          "label": "Testimonial",
+          "default": "<p>Add customer reviews and testimonials to showcase your store's happy customers.</p>",
+          "info": "For best results, keep the word count similar in each quote."
+        },
+        {
+          "type": "header",
+          "content": "Author"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Name",
+          "default": "Author's name"
+        },
+        {
+          "type": "text",
+          "id": "author_info",
+          "label": "Location or other information",
+          "default": "Author information"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Image",
+          "info": "Logo or profile photo."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_star_rating",
+          "label": "Show star rating",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "star_rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star rating",
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avis abonnement",
+      "blocks": [
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "aside"
+    ]
+  }
+}
+{% endschema %}

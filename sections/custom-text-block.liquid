@@ -1,0 +1,155 @@
+{% schema %}
+{
+  "name": "Texte personnalisé",
+  "tag": "section",
+  "class": "custom-text-block-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Titre de section"
+    },
+    {
+      "type": "text",
+      "id": "title_anchor_id",
+      "label": "Ancre à ajouter au titre",
+      "info": "Ex : ancre-tout-voir",
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_center",
+      "label": "Centrer le bloc sur mobile",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Niveau de titre (balise HTML)",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" },
+        { "value": "p", "label": "P" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_style_class",
+      "label": "Style visuel du titre (classe CSS)",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "Style H1" },
+        { "value": "h2", "label": "Style H2" },
+        { "value": "h3", "label": "Style H3" },
+        { "value": "h4", "label": "Style H4" },
+        { "value": "h5", "label": "Style H5" },
+        { "value": "h6", "label": "Style H6" },
+        { "value": "p", "label": "P" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Contenu texte dynamique",
+      "default": "<p>Voici votre contenu personnalisé.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alignement du titre",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centré" },
+        { "value": "right", "label": "Droite" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "p_align",
+      "label": "Alignement du paragraphe",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centré" },
+        { "value": "right", "label": "Droite" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title_margin_top",
+      "label": "Marge du titre (haut)",
+      "default": "20",
+      "info": "Entrez une valeur en pixels, positive ou négative"
+    },
+    {
+      "type": "text",
+      "id": "title_margin_bottom",
+      "label": "Marge du titre (bas)",
+      "default": "20",
+      "info": "Entrez une valeur en pixels, positive ou négative"
+    },
+    {
+      "type": "text",
+      "id": "p_margin_top",
+      "label": "Marge du paragraphe (haut)",
+      "default": "20",
+      "info": "Entrez une valeur en pixels, positive ou négative"
+    },
+    {
+      "type": "text",
+      "id": "p_margin_bottom",
+      "label": "Marge du paragraphe (bas)",
+      "default": "20",
+      "info": "Entrez une valeur en pixels, positive ou négative"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bloc texte avancé"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-text-section container">
+  {% assign heading_tag = section.settings.heading_tag %}
+  {% assign heading_class = section.settings.heading_style_class %}
+  {% assign mobile_center = section.settings.mobile_center %}
+  {% assign title_margin_top = section.settings.title_margin_top %}
+  {% assign title_margin_bottom = section.settings.title_margin_bottom %}
+  {% assign p_margin_top = section.settings.p_margin_top %}
+  {% assign p_margin_bottom = section.settings.p_margin_bottom %}
+
+  <{{ heading_tag }}
+  class="custom-text-title {{ heading_class }}{% if mobile_center %} mobile-title-center{% endif %}"
+  {% if section.settings.title_anchor_id != blank %}
+    id="{{ section.settings.title_anchor_id }}"
+  {% endif %}
+  style="text-align: {{ section.settings.text_align }}; margin-top: {{ title_margin_top }}px; margin-bottom: {{ title_margin_bottom }}px;">
+  {{ section.settings.title }}
+</{{ heading_tag }}>
+
+
+  <div class="custom-text-content" style="text-align: {{ section.settings.p_align }}; margin-top: {{ p_margin_top }}px; margin-bottom: {{ p_margin_bottom }}px;">
+    {{ section.settings.text }}
+  </div>
+</div>
+
+<style>
+  
+  .custom-text-content {
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-title-center {
+      text-align: center !important;
+    }
+  }
+</style>

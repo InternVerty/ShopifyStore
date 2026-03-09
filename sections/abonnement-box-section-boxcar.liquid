@@ -1,0 +1,118 @@
+{% comment %}
+  Hero centré avec fond arrondi + image posée à droite
+{% endcomment %}
+
+<section class="abo-hero ">
+  <div class="abo-hero__bg ">
+    <div class="abo-hero__inner ">
+      <h2 class="abo-hero__title h4">Un abonnement personnalisé à chaque enfant!</h2>
+      <p class="abo-hero__subtitle">
+        Dites-nous ce que votre enfant aime, nous adaptons la sélection à son âge, son niveau de lecture et ses centres d’intérêts!
+      </p>
+      <a class="abo-hero__btn" href="#">J'abonne un enfant</a>
+    </div>
+
+    <img
+      class="abo-hero__image"
+      src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/boxcar_all.png?v=1769171577"
+      alt=""
+      loading="lazy"
+    >
+  </div>
+</section>
+
+<style>
+  .abo-hero{
+    padding: 48px 0px;
+  }
+
+  /* Fond centré, pas full width */
+  .abo-hero__bg{
+    position: relative;
+    max-width:1260px;
+    margin: 0 auto;
+    background:rgba(213, 246, 233, 0.6);
+    border-radius: 24px;
+    padding: 56px 0px;
+    overflow: visible; /* autorise le dépassement de l’image */
+  }
+
+  /* Texte centré */
+  .abo-hero__inner{
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .abo-hero__title{
+    margin: 0 0 12px;
+    line-height: 1.1;
+  }
+
+  .abo-hero__subtitle{
+    margin: 0 0 18px;
+    line-height: 1.5;
+  }
+
+  .abo-hero__btn{
+    display: inline-block;
+    background: #b7ebdc;
+    color: #0b0b0b;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+
+  .abo-hero__btn:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+
+.abo-hero__btn:active{
+  transform: translateY(0);
+}
+
+  /* Image posée à droite du fond */
+  .abo-hero__image{
+    position: absolute;
+    right: -60px; /* dépassement */
+    top: 70%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Tablet */
+  @media (max-width: 999px){
+    .abo-hero__image{
+      width: 320px;
+      right: -40px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 749px){
+    .abo-hero__bg{
+      padding: 40px 16px 28px;
+    }
+
+    .abo-hero__title{
+      font-size: 30px;
+    }
+
+    .abo-hero__image{
+      position: static;
+      transform: none;
+      display: block;
+      margin: 24px auto 0;
+      width: min(360px, 86vw);
+      pointer-events: auto;
+    }
+  }
+</style>

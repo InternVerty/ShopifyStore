@@ -1,0 +1,147 @@
+
+{% if template.suffix != 'collection-thematique' or collection.metafields.custom.type_de_collection != 'Age' %}
+
+{% if collection.metafields.custom.sous_categories.value.count > 0 %}
+
+  <div class="sous-categories container">
+    
+    {% assign heading_tag = section.settings.heading_tag | default: 'h2' %}
+    {% assign heading_style = section.settings.heading_style | default: 'h4' %}
+    
+    {% capture heading_classes %}
+      section__block section__block--heading {{ heading_style }}
+      {% if section.settings.text_align %} text-{{ section.settings.text_align }}{% endif %}
+    {% endcapture %}
+
+    {% if section.settings.heading != blank %}
+      <{{ heading_tag }} 
+        class="{{ heading_classes | strip }}" 
+        style="color: {{ section.settings.heading_color }};">
+        {{ section.settings.heading }}
+      </{{ heading_tag }}>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <p class="sous-categories-description {% if section.settings.text_align %}text-{{ section.settings.text_align }}{% endif %}">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+
+    <ul class="container">
+      {% for sous_categorie in collection.metafields.custom.sous_categories.value %}
+  {% if sous_categorie.products_count > 0 %}
+    <li>
+      <a 
+        href="{{ sous_categorie.url }}" 
+        class="sous-categorie-btn"
+        style="
+          color: {{ section.settings.button_text_color }};
+          background-color: {{ section.settings.button_bg_color }};
+          border-color: {{ section.settings.button_border_color }};">
+        {{ sous_categorie.metafields.custom.age }}
+      </a>
+    </li>
+  {% endif %}
+{% endfor %}
+
+    </ul>
+  </div>
+{% endif %}
+{% endif %}
+
+
+
+{% schema %}
+{
+  "name": "Sous-catégories par âge",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre de la section",
+      "default": "Sous-catégories"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Balise HTML du titre",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" },
+        { "value": "p", "label": "P" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Style du titre",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" },
+        { "value": "p", "label": "P" }
+      ],
+      "default": "h4"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alignement du texte",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centré" },
+        { "value": "right", "label": "Droite" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Description des sous-catégories"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Couleur du titre",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Couleur du texte des boutons",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Couleur du fond des boutons",
+      "default": "#8FCDBF"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Couleur de la bordure des boutons",
+      "default": "#8FCDBF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sous-catégories par âge",
+      "category": "Collections"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+

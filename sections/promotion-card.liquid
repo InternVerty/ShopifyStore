@@ -1,0 +1,62 @@
+<div class="collection-promotion">
+  <div class="container">
+  <div class="promotion-inner">
+    {% for block in section.blocks %}
+      <div class="Place-promotion">
+        <img src="{{ block.settings.promotion_img | img_url:'master' }}">
+        <a href="{{ block.settings.promotion_lnk }}" class="card__title h6 mb-2 card-link text-current">{{ block.settings.promotion_txt }}</a>
+      </div>
+    {% endfor %}
+  </div>
+  </div>
+</div>
+<style>
+  .promotion-inner {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}.Place-promotion img {
+    max-width: 390px;
+    margin-bottom: 15px;
+}
+@media screen and (max-width: 767px) {
+.promotion-inner {
+    flex-wrap: wrap;
+}.Place-promotion img {
+    max-width: 330px;
+}
+}
+</style>
+{% schema %}
+{
+  "name": "Promotion Card",
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Promotion Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "promotion_img",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "promotion_txt",
+          "label": "Content"
+        },
+        {
+          "type": "url",
+          "id": "promotion_lnk",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promotion Card"
+    }
+  ]
+}
+{% endschema %}

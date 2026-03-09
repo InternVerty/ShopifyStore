@@ -1,0 +1,549 @@
+{%- if section.index > 2 -%}
+  <link rel="stylesheet" href="{{ 'featured-collection.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- else -%}
+  {{ 'featured-collection.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- if settings.enable_quick_add -%}
+  <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'product.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'variant-picker.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'custom-select.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<div x-data="customCollectionApp">
+{% assign count = 0 %}
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'collection_filter_by_tag' %}
+      {% render 'featured-collection-filter-by-tag', block: block %}
+    {% else %}
+      {% assign count = count | plus: 1 %}
+      {% if count > 3 %}
+        {% render 'featured-collection', block: block, hide: true %}  
+      {% else %}
+        {% render 'featured-collection', block: block %}  
+      {% endif %}
+  {% endcase %}
+{% endfor %}
+{% if count > 3 %}
+  <div class="l-show-more container">
+    <a href="#" class="btn btn--secondary btn--narrow" @click.prevent="toggleCollections()">
+    <template x-if="visible"><span>Voir moins</span></template>
+    <template x-if="!visible"><span>Voir plus</span></template>
+    </a>
+  </div> 
+{% endif %}
+</div>
+
+<script>
+
+  function customCollectionApp() {
+    return {
+      visible: false,
+      toggleCollections() {
+        const hidden_collections = this.$root.querySelectorAll('.l-featured-collection')
+        
+        if(this.visible) {
+          hidden_collections.forEach(item => item.classList.replace('l-show', 'l-hide'));
+          this.visible = false
+        } else {
+          hidden_collections.forEach(item => item.classList.replace('l-hide', 'l-show'));
+          this.visible = true
+        }
+      }
+    }
+  }
+
+</script>
+
+
+{% schema %}
+  {
+    "name": "Custom collections",
+    "tag": "section",
+    "class": "l-custom-collections",
+    "blocks": [
+      {
+        "type": "collection_filter_by_tag",
+        "name": "Collection filter by tag",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Section header"
+          },
+          {
+            "type": "text",
+            "id": "filter_by_tag",
+            "label": "Filter by tag",
+            "info": "Filter featured collection by product tag"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Filter by tag collection"
+          },
+          {
+            "type": "select",
+            "id": "heading_align",
+            "label": "Heading alignment",
+            "options": [
+              {
+                "value": "text-start",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-end",
+                "label": "Right"
+              }
+            ],
+            "default": "text-start"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_view_all",
+            "label": "Show \"View all\" link",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Layout",
+            "options": [
+              {
+                "value": "carousel",
+                "label": "Carousel"
+              },
+              {
+                "value": "carousel_on_mobile",
+                "label": "Carousel on mobile"
+              },
+              {
+                "value": "grid",
+                "label": "Grid"
+              }
+            ],
+            "default": "carousel"
+          },
+          {
+            "type": "select",
+            "id": "card_size_mobile",
+            "label": "Product card size on mobile",
+            "options": [
+              {
+                "value": "small",
+                "label": "Small"
+              },
+              {
+                "value": "large",
+                "label": "Large"
+              }
+            ],
+            "default": "small"
+          },
+          {
+            "type": "select",
+            "id": "card_size",
+            "label": "Product card size on large screens",
+            "options": [
+              {
+                "value": "small",
+                "label": "Small"
+              },
+              {
+                "value": "medium",
+                "label": "Medium"
+              },
+              {
+                "value": "large",
+                "label": "Large"
+              }
+            ],
+            "default": "small"
+          },
+          {
+            "type": "header",
+            "content": "Promotion card"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_promo_info",
+            "label": "Show promotion",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "select",
+            "id": "image_ratio",
+            "label": "Image aspect ratio",
+            "options": [
+              {
+                "value": "natural",
+                "label": "Natural"
+              },
+              {
+                "value": "fill",
+                "label": "Fill"
+              },
+              {
+                "value": "1.77",
+                "label": "Landscape"
+              },
+              {
+                "value": "1",
+                "label": "Square"
+              },
+              {
+                "value": "0.75",
+                "label": "Portrait"
+              }
+            ],
+            "default": "fill"
+          },
+          {
+            "type": "text",
+            "id": "promo_title",
+            "label": "Title",
+            "default": "A headline to grab attention"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "default": "<p>Use this card with an image to highlight your collections or introduce a promotion.</p>",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "URL"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label",
+            "default": "Button",
+            "info": "The button will link to the URL specified above."
+          },
+          {
+            "type": "header",
+            "content": "Style"
+          },
+          {
+            "type": "select",
+            "id": "color_scheme",
+            "label": "Promotion card color scheme",
+            "options": [
+              {
+                "value": "none",
+                "label": "Default"
+              },
+              {
+                "value": "1",
+                "label": "Scheme 1"
+              },
+              {
+                "value": "2",
+                "label": "Scheme 2"
+              },
+              {
+                "value": "3",
+                "label": "Scheme 3"
+              }
+            ],
+            "default": "2"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Promotion card button",
+            "options": [
+              {
+                "value": "link",
+                "label": "Link"
+              },
+              {
+                "value": "btn btn--primary",
+                "label": "Primary button"
+              },
+              {
+                "value": "btn btn--secondary",
+                "label": "Secondary button"
+              }
+            ],
+            "default": "btn btn--primary"
+          }
+        ]
+      },
+      {
+        "type": "collection_item",
+        "name": "Featured collection",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Section header"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Featured collection"
+          },
+          {
+            "type": "select",
+            "id": "heading_align",
+            "label": "Heading alignment",
+            "options": [
+              {
+                "value": "text-start",
+                "label": "Left"
+              },
+              {
+                "value": "text-center",
+                "label": "Center"
+              },
+              {
+                "value": "text-end",
+                "label": "Right"
+              }
+            ],
+            "default": "text-start"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_view_all",
+            "label": "Show \"View all\" link",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Layout",
+            "options": [
+              {
+                "value": "carousel",
+                "label": "Carousel"
+              },
+              {
+                "value": "carousel_on_mobile",
+                "label": "Carousel on mobile"
+              },
+              {
+                "value": "grid",
+                "label": "Grid"
+              }
+            ],
+            "default": "carousel"
+          },
+          {
+            "type": "select",
+            "id": "card_size_mobile",
+            "label": "Product card size on mobile",
+            "options": [
+              {
+                "value": "small",
+                "label": "Small"
+              },
+              {
+                "value": "large",
+                "label": "Large"
+              }
+            ],
+            "default": "small"
+          },
+          {
+            "type": "select",
+            "id": "card_size",
+            "label": "Product card size on large screens",
+            "options": [
+              {
+                "value": "small",
+                "label": "Small"
+              },
+              {
+                "value": "medium",
+                "label": "Medium"
+              },
+              {
+                "value": "large",
+                "label": "Large"
+              }
+            ],
+            "default": "small"
+          },
+          {
+            "type": "range",
+            "id": "products_to_show",
+            "label": "Maximum products to show",
+            "min": 4,
+            "max": 24,
+            "step": 1,
+            "default": 8
+          },
+          {
+            "type": "header",
+            "content": "Promotion card"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_promo_info",
+            "label": "Show promotion",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "select",
+            "id": "image_ratio",
+            "label": "Image aspect ratio",
+            "options": [
+              {
+                "value": "natural",
+                "label": "Natural"
+              },
+              {
+                "value": "fill",
+                "label": "Fill"
+              },
+              {
+                "value": "1.77",
+                "label": "Landscape"
+              },
+              {
+                "value": "1",
+                "label": "Square"
+              },
+              {
+                "value": "0.75",
+                "label": "Portrait"
+              }
+            ],
+            "default": "fill"
+          },
+          {
+            "type": "text",
+            "id": "promo_title",
+            "label": "Title",
+            "default": "A headline to grab attention"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "default": "<p>Use this card with an image to highlight your collections or introduce a promotion.</p>",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "URL"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label",
+            "default": "Button",
+            "info": "The button will link to the URL specified above."
+          },
+          {
+            "type": "header",
+            "content": "Style"
+          },
+          {
+            "type": "select",
+            "id": "color_scheme",
+            "label": "Promotion card color scheme",
+            "options": [
+              {
+                "value": "none",
+                "label": "Default"
+              },
+              {
+                "value": "1",
+                "label": "Scheme 1"
+              },
+              {
+                "value": "2",
+                "label": "Scheme 2"
+              },
+              {
+                "value": "3",
+                "label": "Scheme 3"
+              }
+            ],
+            "default": "2"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Promotion card button",
+            "options": [
+              {
+                "value": "link",
+                "label": "Link"
+              },
+              {
+                "value": "btn btn--primary",
+                "label": "Primary button"
+              },
+              {
+                "value": "btn btn--secondary",
+                "label": "Secondary button"
+              }
+            ],
+            "default": "btn btn--primary"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom collections",
+        "blocks": [
+          {
+            "type": "collection_filter_by_tag"
+          },
+          {
+            "type": "collection_item"
+          },
+                  {
+            "type": "collection_item"
+          },
+                  {
+            "type": "collection_item"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

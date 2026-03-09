@@ -1,0 +1,234 @@
+{% comment %}
+  Section: lecture-hero.liquid
+{% endcomment %}
+
+<section
+  class="lecture-hero"
+  style="background: {{ section.settings.bg_color | color_modify: 'alpha', section.settings.bg_opacity }};">
+  <div class="lecture-hero__inner page-width">
+    <div class="lecture-hero__content">
+      <h1 class="h2 lecture-hero__title">{{ section.settings.title | escape }}</h1>
+
+        {% if section.settings.subtitle != blank %}
+        <div class="lecture-hero__subtitle rte">
+        {{ section.settings.subtitle }}
+        </div>
+        {% endif %}
+
+
+      <div class="lecture-hero__segmented" role="group" aria-label="Choix abonnement">
+  {% if section.settings.primary_label != blank %}
+    <a class="lecture-hero__seg-btn is-active" href="{{ section.settings.primary_link }}">
+      <span class="lecture-hero__seg-dot" aria-hidden="true"></span>
+      <span class="lecture-hero__seg-text">{{ section.settings.primary_label | escape }}</span>
+    </a>
+  {% endif %}
+
+  {% if section.settings.secondary_label != blank %}
+    <a class="lecture-hero__seg-btn" href="{{ section.settings.secondary_link }}">
+      <span class="lecture-hero__seg-text">{{ section.settings.secondary_label | escape }}</span>
+    </a>
+  {% endif %}
+</div>
+    </div>
+
+    <div class="lecture-hero__media">
+      {% if section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 1400 | image_tag:
+          loading: 'lazy',
+          class: 'lecture-hero__image',
+          alt: section.settings.image.alt | default: section.settings.title
+        }}
+      {% else %}
+        <div class="lecture-hero__placeholder">
+          Ajoute une image dans les réglages de la section.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lecture-hero{
+    padding: 21px 0;
+    overflow: hidden;
+  }
+
+  .lecture-hero__inner{
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+  }
+
+  .lecture-hero__title{
+    margin: 0 0 14px;
+  }
+
+  .lecture-hero__subtitle{
+    margin: 0 0 20px;
+    font-size: 18px;
+  }
+
+  /* Segmented control (pill) */
+.lecture-hero__segmented{
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 2px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.50);
+  border: 1px solid rgba(255,255,255,.55);
+  backdrop-filter: blur(2px);
+}
+
+/* each segment */
+.lecture-hero__seg-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 40px;
+  padding: 4px 48px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  color: #0b0b0b;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: transform .12s ease, background-color .12s ease, border-color .12s ease, box-shadow .12s ease;
+  white-space: nowrap;
+  
+}
+
+.lecture-hero__seg-btn:active{ transform: translateY(1px); }
+
+/* active segment like the screenshot */
+.lecture-hero__seg-btn.is-active{
+  background: #fff;
+  border-color: rgba(151, 232, 199, 0.5)
+  box-shadow: 0 10px 18px rgba(0,0,0,.06);
+  border-color: rgba(151, 232, 199, 0.5);
+}
+
+/* dot */
+.lecture-hero__seg-dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #66d1b8;
+  box-shadow: 0 0 0 4px rgba(102,209,184,.22);
+  flex: 0 0 auto;
+}
+
+/* hide dot on non-active by default */
+.lecture-hero__seg-btn:not(.is-active) .lecture-hero__seg-dot{
+  display: none;
+}
+
+
+  .lecture-hero__media{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lecture-hero__image{
+    width: 100%;
+    height: auto;
+    max-width: 720px;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .lecture-hero__placeholder{
+    width: 100%;
+    min-height: 240px;
+    border-radius: 18px;
+    border: 1px dashed rgba(0,0,0,.18);
+    display: grid;
+    place-items: center;
+    color: rgba(0,0,0,.6);
+    background: rgba(255,255,255,.25);
+    padding: 24px;
+    text-align: center;
+  }
+
+  @media (max-width: 900px){
+    .lecture-hero{
+      padding: 34px 0;
+    }
+    .lecture-hero__inner{
+      grid-template-columns: 1fr;
+    }
+    .lecture-hero__media{
+      order: -1;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero abonnement lecture",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#DFF3EE"
+    },
+    {
+      "type": "range",
+      "id": "bg_opacity",
+      "label": "Opacité du fond",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "L’abonnement lecture qui fait vraiment grandir"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "<p>Les rituels qui donnent le goût des livres !</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (illustration à droite)"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Bouton principal - texte",
+      "default": "J’abonne"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Bouton principal - lien"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Bouton secondaire - texte",
+      "default": "J’offre"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Bouton secondaire - lien"
+    }
+  ],
+  "presets": [
+    { "name": "Hero abonnement lecture" }
+  ]
+}
+{% endschema %}

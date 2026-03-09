@@ -1,0 +1,80 @@
+/* Réinitialisation générale */
+
+.boutons-collection-section {
+  padding: 20px 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.boutons-collection-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.boutons-collection-text {
+  text-align: center;
+  max-width: 100%;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+}
+
+.boutons-collection-text h2 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.boutons-collection-text p {
+  margin: 0;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.button-collection {
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  min-width: 140px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.button-collection {
+  transition: transform 0.2s ease, background-color 0.3s;
+}
+
+.button-collection:hover {
+  transform: scale(1.05);
+}
+
+
+/* ✅ Responsive - 768px et moins */
+@media screen and (max-width: 768px) {
+
+  .button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Crée 2 colonnes */
+    gap: 10px;
+  }
+
+  .button-collection {
+    width: auto; /* Garde la largeur automatique pour un bouton à taille normale */
+    min-width: 140px; /* Taille minimale si nécessaire */
+  }
+}

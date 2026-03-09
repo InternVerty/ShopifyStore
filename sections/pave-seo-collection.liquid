@@ -1,0 +1,116 @@
+{%- comment -%}
+  Format : namespace.key|balise_html|classe_css
+  - balise_html : p, h1, h2, ..., ou vide pour pas de balise
+  - classe_css : optionnelle, sinon la même que balise_html
+{%- endcomment -%}
+
+{% assign metafields_config = "
+  custom.h3_titre_elements_regardes_par_le_comite_pour_cet_age|h3|h6,
+  custom.h3_elements_regardes_par_le_comite_pour_cet_age|p|p,
+  custom.h2_titre_importance_pour_les_enfants_de_cet_age_de_lire|h2|h4,
+  custom.h2_importance_pour_les_enfants_de_cet_age_de_lire|p|p,
+  custom.h2_titre_importance_pour_les_enfants_de_lire_cette_collec|h2|h4,
+  custom.h2importance_pour_les_enfants_de_lire_cette_collec|p|p,
+  custom.h2_titre_pourquoi_offrir_des_livres_de_cette_collection|h2|h4,
+  custom.h2_pourquoi_offrir_des_livres_de_cette_collection|p|p
+" | strip | split: ',' %}
+
+
+{%- assign disable_wrapper = section.settings.disable_wrapper -%}
+
+<div class="metafield-html-content container"
+     style="{% if section.settings.justify %}text-align: justify;{% else %}text-align: {{ section.settings.text_align }};{% endif %}">
+
+  
+
+  {%- for item in metafields_config -%}
+    {%- assign item = item | strip -%}
+    {%- if item == blank -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {%- assign parts = item | split: '|' -%}
+    {%- assign namespace_key = parts[0] | strip -%}
+    {%- assign tag = parts[1] | strip -%}
+    {%- assign css_class = parts[2] | strip -%}
+
+    {%- if css_class == blank -%}
+      {%- assign css_class = tag -%}
+    {%- endif -%}
+
+    {%- assign metafield_parts = namespace_key | split: '.' -%}
+    {%- assign namespace = metafield_parts[0] -%}
+    {%- assign key = metafield_parts[1] -%}
+
+    {%- assign content = collection.metafields[namespace][key] -%}
+
+    {%- if content and content != blank -%}
+      {%- if disable_wrapper -%}
+        {{ content }}
+      {%- else -%}
+        {%- if tag != blank -%}
+          <{{ tag }} class="{{ css_class }}">{{ content }}</{{ tag }}>
+        {%- else -%}
+          {{ content }}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+
+  {%- endfor -%}
+
+</div>
+
+<style>
+    .metafield-html-content ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+    .metafield-html-content ol {
+      list-style-type: decimal;
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+    .metafield-html-content li {
+      margin-bottom: 0.5rem;
+      margin-left: 2rem;
+    }
+  </style>
+
+{% schema %}
+{
+  "name": "Bloc pavé SEO collec",
+  "tag": "section",
+  "class": "metafield-html-block",
+  "settings": [
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alignement du texte",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centré" },
+        { "value": "right", "label": "Droite" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "justify",
+      "label": "Justifier le texte",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_wrapper",
+      "label": "Ne pas entourer avec une balise (utile pour HTML brut)",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bloc pavé SEO collec"
+    }
+  ]
+}
+{% endschema %}

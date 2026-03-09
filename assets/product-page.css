@@ -1,0 +1,245 @@
+/* Classe hover personnalisée pour page produit */
+.hover-highlight {
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.hover-highlight:hover {
+  color: #8FCDBF;
+  text-decoration: underline;
+  text-decoration-color: #8FCDBF;
+}
+
+
+.block-expediteur,.note-comite, .price,.product-inventory {
+  display: flex;
+  align-items: center; /* // AJOUT : centrage vertical pour tous */
+}
+
+/* Style du wrapper du bouton d'affiliation */
+.affiliate-buttons__wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
+  margin-bottom: 25px;
+}
+
+/* Style du bouton d'affiliation */
+.affiliate_button {
+  background-color: #8fcdbf;
+  color: #fff;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  display: inline-block;
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  width: auto; /* ✅ S'adapte au contenu */
+}
+
+/* Hover state */
+.affiliate_button:hover {
+  background-color: #76b9aa;
+}
+
+
+.note-comite {
+  gap: 10px;
+  margin-top: -20px;
+  align-items: center; /* // AJOUT : centrage vertical spécifique */
+  flex-wrap: wrap;     /* // AJOUT : permet retour à la ligne propre sur petit écran */
+}
+
+.note-comite strong {
+  color: #8FCDBF;
+}
+
+.etoiles {
+  display: flex; /* // AJOUT : aligne proprement les étoiles */
+  gap: 4px;       /* // AJOUT : petit espace entre les étoiles */
+}
+
+.etoile {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.etoile.full {
+  background-image: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/full_star.png?v=1750245446");
+}
+
+.etoile.half {
+  background-image: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/half_empty_star.png?v=1750245445");
+}
+
+.etoile.empty {
+  background-image: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/full_empty_star.png?v=1750245445");
+}
+
+@media (min-width: 1008px) {
+  .product{
+    margin: -20 -40px -30px -40px;
+  }
+}
+@media (min-width: 768px) {
+  .product {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--product-column-padding);
+  }
+
+  .product-media {
+    width: 20%;
+    padding-inline-end: var(--product-column-padding);
+    margin: 0;
+  }
+
+  .product-info {
+    width: 55%;
+    padding-inline: var(--product-column-padding);
+    background-color: rgba(var(--bg-color));
+    position: relative;
+  }
+  .product-info__title{
+    margin-top: 0 !important;
+  }
+  .rich-text-auteur-destkop-only, .block-author{
+    margin-top: 0 !important;
+  }
+  
+  .buy-buttons {
+    margin-top: -30px !important;
+  }
+
+  .product-price-buy {
+    width: 20%;
+    padding-inline-start: var(--product-column-padding);
+    background-color: rgba(var(--bg-color));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-info::after {
+    background-color: rgba(var(--text-color)/0.15);
+  }
+
+  .block-expediteur {
+    margin-top: -30px;
+  }
+
+  product-inventory {
+    margin-top: -10px !important;
+    text-align: center;
+  }
+
+  .wishlist-hero-product-app-block {
+    margin-top: -20px;
+  }
+
+  .block-expediteur {
+    font-size: 12px;
+  }
+
+  .titre-avec-ligne {
+    display: flex;
+    align-items: center;
+  }
+
+  .titre-avec-ligne h2 {
+    font-weight: bold;
+    margin: 0;
+    padding-right: 20px;
+    white-space: nowrap;
+  }
+
+  .titre-avec-ligne .ligne {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+  }
+  
+  .resume-livre, .avis-verty{
+    margin-bottom: -20px;
+    margin-top: -20px;
+    font-size:16px;
+  }
+}
+
+/* Responsive fallback */
+@media (max-width: 768px) {
+  .product {
+    display: block;
+  }
+
+  .product-info,
+  .product-price-buy {
+    width: 100%;
+    padding: calc(5 * var(--space-unit)) 0;
+    border: none;
+  }
+
+  .note-comite,
+  .price,
+  .block-expediteur,
+  .product-inventory {
+    justify-content: center;
+  }
+
+  .note-comite {
+    margin-top: -20px;
+  }  
+
+  .product-media {
+    max-width: 50vw;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  .product-info__title,
+  .rich-text-auteur-destkop-only, .block-author {
+    display: none;
+  }
+
+  .note-comite {
+    flex-direction: column; /* Texte passe sous les étoiles */
+    align-items: center;    /* Centrage horizontal */
+    text-align: center;     /* Centrage du texte */
+  }
+
+  .note-comite .texte-note {
+    margin-top: 5px; /* Petit espace au-dessus du texte */
+  }
+}
+
+/* TEST AVEC EMOJI */ 
+.media-text-inline {
+  background-color: rgba(143, 205, 191, 0.17);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin: -20px 0;
+}
+
+.media-text-inline p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #1a1a1a;
+  text-align: justify;
+}
+
+.media-text-inline .emoji-logo {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  object-fit: contain;
+}

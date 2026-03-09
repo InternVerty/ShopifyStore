@@ -1,0 +1,151 @@
+{% comment %}
+  Section : Bannière de collection personnalisée
+  Affiche : titre, description, bouton, fond image collection avec filtre vert
+{% endcomment %}
+
+<style>
+  .collection-banner {
+    position: relative;
+    background-image: url('{{ collection.image | image_url: width: 2000 }}');
+    background-size: cover;
+    background-position: center;
+    text-align: left;
+    padding: 60px 0;
+  }
+
+  .collection-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(199, 230, 216, 0.8);
+    z-index: 1;
+  }
+
+  .collection-banner-content {
+    position: relative;
+    z-index: 2;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .collection-banner-text {
+    flex: 1;
+    text-align: justify;
+    padding-right: 30px;
+  }
+
+  .collection-banner-image {
+    flex: 0 0 20%;
+  }
+
+  .collection-banner-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+  }
+
+  .collection-banner h1 {
+    margin-bottom: 20px;
+  }
+
+  .collection-banner p {
+    display: inline;
+    margin: 0;
+  }
+
+  .collection-banner .banner-button {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #ffffff;
+    color: #8fcdbf;
+    padding: 12px 25px;
+    border-radius: 50px;
+    border: 2px solid #8fcdbf;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .collection-banner .banner-button:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* ------ Responsive ------ */
+  @media (max-width: 768px) {
+    .collection-banner-content {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 20px;
+    }
+
+    .collection-banner-text {
+      padding-right: 0;
+    }
+
+    .collection-banner-image {
+      width: 100%;
+      max-width: 250px;
+      align-self: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .collection-banner {
+      padding: 40px 20px;
+    }
+
+    .collection-banner .banner-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="collection-banner cc-collection-banner">
+  <div class="collection-banner-content container">
+    
+    <!-- Colonne Texte -->
+    <div class="collection-banner-text">
+      <h1 class="h3">{{ collection.metafields.custom.nom_collection }}</h1>
+
+      <p>{{ collection.description }}</p>
+
+      <div>
+        <a href="#ancre" class="banner-button">
+          À propos de l’auteur
+        </a>
+      </div>
+    </div>
+
+    <!-- Colonne Image -->
+    <div class="collection-banner-image">
+      {% if collection.image %}
+        <img 
+          src="{{ collection.image | image_url: width: 600 }}" 
+          width="{{ collection.image.width }}" 
+          height="{{ collection.image.height }}" 
+          alt="{{ collection.title }}"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bannière auteur",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Bannière collection auteur",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,98 @@
+.collection-banner__content.color-scheme {
+  padding: var(--gutter-sm, 20px);
+}
+.collection-banner__content.color-scheme h1 {
+  padding-top: calc(4 * var(--space-unit));
+}
+
+.collection-banner__media {
+  order: 2;
+}
+
+.collection-banner__heading {
+  margin-inline-end: 5px;
+}
+
+.collection-banner__count {
+  color: rgba(var(--heading-color)/0.6);
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+  white-space: nowrap;
+}
+
+.verty--collection-banner_media-bg,
+.verty--collection-banner-bg-full,
+.verty--banner-container {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.verty--banner-bg-full.container::before {
+  content: "";
+  background-color: rgba(151, 232, 199, 0.4);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+
+.verty--banner-bg-full.container > div:not(.verty--collection-banner_media-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+.verty--collection-banner_media-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: .3;
+  z-index: -1;
+}
+
+.verty--read-more-btn {
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  .collection-banner__content--with-media {
+    padding-inline-end: calc(8 * var(--space-unit));
+  }
+  .collection-banner__content.color-scheme {
+    padding: calc(10 * var(--space-unit));
+  }
+  .collection-banner__content.color-scheme h1 {
+    padding-top: calc(2 * var(--space-unit));
+  }
+}
+@media (min-width: 769px) {
+  .collection-banner__content {
+    width: 50%;
+    min-width: 400px;
+  }
+  .collection-banner__content.color-scheme {
+    padding: calc(12 * var(--space-unit));
+  }
+  .collection-banner__content-wide {
+    width: 66%;
+  }
+  .verty--banner-bg-on.collection-banner__content-wide {
+    width: 100%;
+  }
+}
+@media (min-width: 1024px) {
+  .collection-banner__content--with-media.text-start,
+.collection-banner__content--with-media.panel.text-start {
+    padding-inline-end: 112px;
+  }
+}
+@media (min-width: 1200px) {
+  .collection-banner__content--with-media.text-start {
+    padding-inline-end: 0;
+  }
+}

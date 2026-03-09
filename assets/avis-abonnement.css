@@ -1,0 +1,192 @@
+/* =========================
+   Testimonials (Swiper) — clean
+   Scope: avis-abonnement block
+   ========================= */
+
+
+   
+/* Container: cut sides + edge fade */
+.l-swiper-container{
+  position: relative;
+  overflow: hidden;
+}
+
+.l-swiper-container::before,
+.l-swiper-container::after{
+  content:"";
+  position:absolute;
+  top:0;
+  width: 140px;
+  height: 100%;
+  z-index: 5;
+  pointer-events:none !important;
+}
+
+/* Adapter la couleur (ici blanc) si le fond de section est différent */
+.l-swiper-container::before{
+  left:0;
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.l-swiper-container::after{
+  right:0;
+  background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+/* Swiper base */
+.testimonials-swiper{
+  --swiper-pagination-color: rgb(143 205 191);
+  --swiper-pagination-bullet-size: 15px;
+  padding-bottom: 40px;
+}
+
+.testimonials-swiper .swiper-wrapper{
+  align-items: stretch;
+}
+
+/* Slide sizing: stable base (centered) */
+.testimonials-swiper .swiper-slide{
+  width: clamp(320px, 60vw, 720px) !important;
+  transition: transform .35s ease, opacity .35s ease, filter .35s ease;
+  transform: scale(.92);
+  opacity: .55;
+  filter: blur(.2px);
+}
+
+/* Side slides visually smaller */
+.testimonials-swiper .swiper-slide-prev,
+.testimonials-swiper .swiper-slide-next{
+  transform: scale(.94);
+  opacity: .75;
+  filter: none;
+}
+
+.testimonials-swiper .swiper-slide-active{
+  transform: scale(1);
+  opacity: 1;
+  filter: none;
+  z-index: 2;
+}
+
+/* === Force arrows visible + above fades (scope: cette section) === */
+.l-testimonial-container .slider-nav{
+  display: flex !important;
+  flex-direction: column !important;   /* empile verticalement */
+  align-items: center;                 /* centre les boutons */
+  justify-content: center;
+
+  position: absolute !important;
+  top: 50% !important;
+  right: 16px !important;
+  transform: translateY(-50%) !important;
+
+  z-index: 999 !important;
+  gap: 0px;
+  pointer-events: auto !important;
+}
+
+
+.l-testimonial-container .slider-nav__btn{
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 1000;
+}
+
+
+/* =========================
+   Testimonial card
+   ========================= */
+.m-testimonial{
+  padding: 16px;
+  display: flex;
+  gap: 24px;
+  align-items: stretch;   /* IMPORTANT */
+  border-radius: 16px;
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+
+
+.testimonial__author-image{
+  flex: 0 0 160px;
+  width: 160px;
+}
+
+.testimonial__author-image .media{
+  padding-top: 235px !important; /* format 160x235 */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Le body prend toute la hauteur dispo, et pousse l'auteur en bas */
+.m-testimonial__body{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100%;
+}
+
+.l-author{
+  margin-top: auto; /* pousse le bloc auteur en bas */
+}
+
+
+.m-testimonial p{
+  font-size:16px;
+  margin: 0;
+}
+
+.l-star{
+  font-size: 0;              /* cache le caractère ★ */
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+
+  background-color: #d1d5db; /* couleur étoiles vides */
+  mask: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/star-02.svg?v=1769522717") no-repeat center / contain;
+  -webkit-mask: url("https://cdn.shopify.com/s/files/1/0844/5447/4021/files/star-02.svg?v=1769522717") no-repeat center / contain;
+}
+
+.l-star.is-active{
+  background-color: #f5b301; /* jaune étoiles actives */
+}
+.l-rating{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+
+
+/* =========================
+   Desktop tweaks
+   ========================= */
+@media (min-width: 768px){
+  .l-swiper-container{
+    position: relative;
+  }
+
+  .l-swiper-container .slider-nav:not(.slide-nav--inline){
+    right: 0;
+  }
+
+  .swiper-pagination{
+    display: none;
+  }
+}
+
+/* =========================
+   Mobile fallback (avoid cramped half slides)
+   ========================= */
+@media (max-width: 767.98px){
+  .testimonials-swiper .swiper-slide{
+    width: 100% !important;
+  }
+
+  
+  
+}

@@ -1,0 +1,404 @@
+{% schema %}
+{
+  "name": "Produit - 3 colonnes",
+  "max_blocks": 50,
+  "settings": [
+  {
+    "type": "color",
+    "id": "border_color",
+    "label": "Couleur de la bordure",
+    "default": "#e5e5e5"
+  },
+  {
+    "type": "range",
+    "id": "border_width",
+    "label": "Largeur de la bordure (px)",
+    "min": 0,
+    "max": 10,
+    "step": 1,
+    "default": 1
+  },
+  {
+    "type": "range",
+    "id": "border_radius",
+    "label": "Arrondi des angles (px)",
+    "min": 0,
+    "max": 50,
+    "step": 2,
+    "default": 12
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_shadow",
+    "label": "Afficher une ombre portée",
+    "default": true
+  },
+    {
+  "type": "select",
+  "id": "button_alignment",
+  "label": "Alignement des boutons",
+  "default": "center",
+  "options": [
+    { "value": "left", "label": "Gauche" },
+    { "value": "center", "label": "Centré" },
+    { "value": "right", "label": "Droite" }
+  ]
+},
+{
+  "type": "checkbox",
+  "id": "button_full_width",
+  "label": "Boutons en pleine largeur",
+  "default": false
+}
+],
+  
+  "blocks": [
+    {
+      "type": "title_col1",
+      "name": "Titre colonne 1",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        }
+      ]
+    },
+    {
+      "type": "text_col1",
+      "name": "Texte colonne 1",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Texte"
+        }
+      ]
+    },
+    {
+      "type": "image_col1",
+      "name": "Image colonne 1",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "button_col1",
+      "name": "Bouton colonne 1",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texte du bouton"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien du bouton"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Couleur du bouton",
+          "default": "#8FCDBF"
+      }
+
+      ]
+    },
+
+    {
+      "type": "title_col2",
+      "name": "Titre colonne 2",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        }
+      ]
+    },
+    {
+      "type": "text_col2",
+      "name": "Texte colonne 2",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Texte"
+        }
+      ]
+    },
+    {
+      "type": "image_col2",
+      "name": "Image colonne 2",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "button_col2",
+      "name": "Bouton colonne 2",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texte du bouton"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien du bouton"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Couleur du bouton",
+          "default": "#8FCDBF"
+      }
+      ]
+    },
+
+    {
+      "type": "title_col3",
+      "name": "Titre colonne 3",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        }
+      ]
+    },
+    {
+      "type": "text_col3",
+      "name": "Texte colonne 3",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Texte"
+        }
+      ]
+    },
+    {
+      "type": "image_col3",
+      "name": "Image colonne 3",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "button_col3",
+      "name": "Bouton colonne 3",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texte du bouton"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien du bouton"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Couleur du bouton",
+          "default": "#8FCDBF"
+      }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "3 colonnes avec blocs",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
+
+<div class="product-3-columns container">
+  <div class="columns-wrapper">
+    {% assign num_colonnes = 3 %}
+    {% for i in (1..num_colonnes) %}
+      <div class="column col-{{ i }}" 
+        style="border: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+      border-radius: {{ section.settings.border_radius }}px;
+      {% if section.settings.enable_shadow %}
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      {% else %}
+        box-shadow: none;
+      {% endif %} ">
+        
+        {% assign suffix = 'col' | append: i %}
+        {% for block in section.blocks %}
+          {% if block.type contains suffix %}
+            {% if block.type contains 'title_' %}
+              <h2 class="block-title">{{ block.settings.title }}</h2>
+            {% elsif block.type contains 'text_' %}
+              <div class="block-text">{{ block.settings.content }}</div>
+            {% elsif block.type contains 'image_' %}
+              {% assign image = block.settings.image %}
+              {% if image != blank %}
+                <div class="block-image">
+                  <img
+                    src="{{ image | image_url: width: 600 }}"
+                    width="{{ image.width }}"
+                    height="{{ image.height }}"
+                    alt="{{ image.alt | escape }}"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+            {% elsif block.type contains 'button_' %}
+              {% if block.settings.label != blank and block.settings.link != blank %}
+                {% assign align_class = 'align-' | append: section.settings.button_alignment %}
+                {% if section.settings.button_full_width %}
+                  {% assign full_class = 'full-width' %}
+                {% else %}
+                  {% assign full_class = '' %}
+                {% endif %}
+                <a
+                  class="block-button {{ align_class }} {{ full_class }}"
+                  href="{{ block.settings.link }}"
+                  style="background-color: {{ block.settings.color }};"
+                >
+                  {{ block.settings.label }}
+                </a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+
+<style>
+.product-3-columns .columns-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.product-3-columns .column {
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.product-3-columns .block-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.product-3-columns .block-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.product-3-columns .block-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem auto;
+  display: block;
+}
+
+.product-3-columns .block-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 6px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  /* Par défaut on ne met pas d'alignement spécifique ici */
+}
+
+/* Hover effet scale uniquement sur les boutons */
+.product-3-columns .block-button:hover {
+  transform: scale(1.05);
+}
+
+/* Alignement des boutons */
+.product-3-columns .block-button.align-left {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: auto;
+  text-align: left;
+}
+
+.product-3-columns .block-button.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.product-3-columns .block-button.align-right {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 0;
+  text-align: right;
+}
+
+/* Largeur pleine */
+.product-3-columns .block-button.full-width {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .product-3-columns .columns-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .product-3-columns .block-title,
+  .product-3-columns .block-text {
+    text-align: left;
+  }
+
+  /* Sur mobile, si full-width activé, bouton prend toute la largeur */
+  .product-3-columns .block-button.full-width {
+    width: 100% !important;
+  }
+}
+
+
+</style>
+

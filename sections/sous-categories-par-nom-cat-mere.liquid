@@ -1,0 +1,192 @@
+{% comment %}
+  === LOGIQUE DE SELECTION DES SOUS-CATEGORIES ET DU TITRE AUTOMATIQUE ===
+
+  1. On commence par déterminer la source des sous-catégories à afficher,
+     selon la valeur choisie dans les paramètres de la section (source_metafield).
+     Chaque option correspond à un champ métadonnée de la collection actuelle.
+     Exemple :
+     - Si l'utilisateur a sélectionné "vertus_de_cet_age", on récupère 
+       collection.metafields.custom.vertus_de_cet_age.value.
+
+  2. Ensuite, on initialise le titre de la section (heading) en fonction
+     de ce que l'utilisateur a éventuellement saisi manuellement.
+
+     Si aucun titre n'a été saisi dans l'éditeur (champ vide), 
+     on assigne un titre par défaut qui dépend du choix de source_metafield.
+     Chaque option a un texte personnalisé pour contextualiser le bloc :
+     - Vertus → "Explorez les livres selon les vertus qu'elles peuvent apprendre aux enfants"
+     - Genres littéraires → "Vous pouvez aussi explorer tous les genres littéraires de cet âge"
+     - Centres d'intérêt → "Découvrez notre sélection de livre classée selon les centres d'intérêt"
+     - Sous-catégories classiques → "Sous-catégories"
+
+  3. Une fois les données récupérées et le titre défini, 
+     on vérifie que la liste de sous-catégories contient bien des éléments.
+     Si c'est le cas, on affiche tout le bloc HTML : 
+     - Titre de la section (heading) avec style personnalisable
+     - Description (si renseignée)
+     - Liste de boutons menant vers chaque sous-catégorie
+       (lien + styles de couleurs définis via l’éditeur)
+
+  NB : Toute cette logique permet d’avoir **un seul bloc réutilisable** 
+       pour plusieurs logiques éditoriales, simplement en changeant une option 
+       dans l’éditeur Shopify. Ultra flexible et pratique pour ton cas !
+
+{% endcomment %}
+
+
+{% case section.settings.source_metafield %}
+  {% when 'vertus_de_cet_age' %}
+    {% assign sous_categories = collection.metafields.custom.vertus_de_cet_age.value %}
+  {% when 'sous_categories' %}
+    {% assign sous_categories = collection.metafields.custom.sous_categories.value %}
+  {% when 'genres_litteraires_de_cet_age' %}
+    {% assign sous_categories = collection.metafields.custom.genres_litteraires_de_cet_age.value %}
+  {% when 'centres_d_interet_de_cet_age' %}
+    {% assign sous_categories = collection.metafields.custom.centres_d_interet_de_cet_age.value %}
+  {% else %}
+    {% assign sous_categories = blank %}
+{% endcase %}
+
+{% assign heading = section.settings.heading %}
+
+{% if heading == blank %}
+  {% case section.settings.source_metafield %}
+    {% when 'vertus_de_cet_age' %}
+      {% assign heading = "Explorez les livres selon les vertus qu'elles peuvent apprendre aux enfants" %}
+    {% when 'genres_litteraires_de_cet_age' %}
+      {% assign heading = "Vous pouvez aussi explorer tous les genres littéraires de cet âge" %}
+    {% when 'centres_d_interet_de_cet_age' %}
+      {% assign heading = "Découvrez notre sélection de livres classés selon les centres d'intérêt" %}
+    {% when 'sous_categories' %}
+      {% assign heading = "Sous-catégories" %}
+  {% endcase %}
+{% endif %}
+
+
+{% if sous_categories.count > 0 %}
+  <div class="sous-categories container">
+    
+    {% assign heading_tag = section.settings.heading_tag | default: 'h2' %}
+    {% assign heading_style = section.settings.heading_style | default: 'h4' %}
+    
+    {% capture heading_classes %}
+      section__block section__block--heading {{ heading_style }}
+      {% if section.settings.text_align %} text-{{ section.settings.text_align }}{% endif %}
+    {% endcapture %}
+
+    {% if heading != blank %}
+  <{{ heading_tag }} 
+    class="{{ heading_classes | strip }}" 
+    style="color: {{ section.settings.heading_color }};">
+    {{ heading }}
+  </{{ heading_tag }}>
+{% endif %}
+
+
+    {% if section.settings.description != blank %}
+      <p class="sous-categories-description {% if section.settings.text_align %}text-{{ section.settings.text_align }}{% endif %}">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+
+    <ul class="container">
+      {% for sous_categorie in sous_categories %}
+        <li>
+          <a 
+            href="{{ sous_categorie.url }}" 
+            class="sous-categorie-btn"
+            style="
+              color: {{ section.settings.button_text_color }};
+              background-color: {{ section.settings.button_bg_color }};
+              border-color: {{ section.settings.button_border_color }};">
+            {{ sous_categorie.metafields.custom.nom_collection_mere }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+
+
+
+
+
+
+
+        
+{% schema %}
+{
+  "name": "Choix de sous catégories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre de la section",
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Couleur du titre",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Couleur du texte des boutons",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Couleur du fond des boutons",
+      "default": "#8FCDBF"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Couleur de la bordure des boutons",
+      "default": "#8FCDBF"
+    },
+    {
+  "type": "select",
+  "id": "source_metafield",
+  "label": "Source des sous-catégories",
+  "options": [
+    {
+      "value": "vertus_de_cet_age",
+      "label": "Vertus de cet âge"
+    },
+    {
+      "value": "sous_categories",
+      "label": "Sous-catégories classiques"
+    },
+    {
+      "value": "genres_litteraires_de_cet_age",
+      "label": "Genres litteraires de cet âge"
+    },
+    {
+      "value": "centres_d_interet_de_cet_age",
+      "label": "Centres d'intérêt de cet âge"
+    }
+  ],
+  "default": "sous_categories"
+  }
+  ],
+  "presets": [
+    {
+      "name": "Sous-catégories avec choix",
+      "category": "Collections"
+    }
+  ]
+}
+
+{% endschema %}
+
+
+

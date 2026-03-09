@@ -1,0 +1,213 @@
+{% comment %}
+  Section : 2 offres (structure simple, texte uniquement)
+{% endcomment %}
+
+<section class="offers-simple">
+  <div class="offers-simple__wrap">
+    <div class="offers-simple__grid">
+
+      <!-- Offre gauche -->
+      <div class="offer-simple">
+        <img
+        class="offres__image"
+        src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/avion_papier_1.png?v=1769364153"
+        alt="avion icone"
+        loading="lazy">
+        <h3 class="offer-simple__title h4">Sans engagement</h3>
+
+        <p class="offer-simple__desc">
+          Par email, recevez des conseils de lecture et une sélection de livres choisis par nos libraires.
+          Découvrez des ouvrages faits pour vous, en toute liberté : vous n’achetez que si vous le voulez.
+        </p>
+        <div class="offer-simple__divider"></div>
+
+        <ul class="offer-simple__list">
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/face-id-02.svg?v=1769362821" alt="" class="offer-simple__icon">
+            <span>Sélection personnalisée</span>
+          </li>
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/calendar-check.svg?v=1769363160" alt="" class="offer-simple__icon">
+            <span>Chaque mois une recommandation de 4 livres</span>
+          </li>
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/book-02.svg?v=1769363160" alt="" class="offer-simple__icon">
+            <span>Possibilité d’achat rapide</span>
+          </li>
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/lock-open-01.svg?v=1769363160" alt="" class="offer-simple__icon">
+            <span>Sans engagement</span>
+          </li>
+        </ul>
+        <div class="offer-simple__divider"></div>
+
+        <p class="offer-simple__price">
+          Recevoir nos recommandations pour <strong>6€/mois</strong>
+        </p>
+
+        <a href="#" class="offer-simple__btn">
+          Recevoir l'offre sans engagement
+        </a>
+      </div>
+
+      <!-- Offre droite -->
+      <div class="offer-simple offer-simple--alt">
+        <img
+        class="offres__image"
+        src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/livres_premium_1.png?v=1769363971"
+        alt="livre icone"
+        loading="lazy">
+        <h3 class="offer-simple__title h4">Premium</h3>
+
+        <p class="offer-simple__desc">
+          Chaque mois, recevez chez vous une sélection de livres pensée pour l’âge des enfants et leurs centres
+          d’intérêt. Nous nous occupons de tout, y compris de repérer les éventuels doublons.
+        </p>
+        <div class="offer-simple__divider"></div>
+
+        <ul class="offer-simple__list">
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/face-id-02.svg?v=1769362821" alt="" class="offer-simple__icon">
+            <span>Sélection personnalisée</span>
+          </li>
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/file-plus-01.svg?v=1769363879" alt="" class="offer-simple__icon">
+            <span>Choisissez la quantité de livres</span>
+          </li>
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/overlap.svg?v=1769363879" alt="" class="offer-simple__icon">
+            <span>Aide anti-doublon</span>
+          </li>
+          <li class="offer-simple__item">
+            <img src="https://cdn.shopify.com/s/files/1/0844/5447/4021/files/lock-open-01.svg?v=1769363160" alt="" class="offer-simple__icon">
+            <span>Sans engagement</span>
+          </li>
+        </ul>
+        <div class="offer-simple__divider"></div>
+        <p class="offer-simple__price">
+          Recevez vos livres à partir de <strong>20€/mois</strong>
+        </p>
+
+        <a href="#" class="offer-simple__btn">
+          Recevoir l'offre premium
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+
+  .offer-simple__divider{
+  width: 400px;
+  height: 2px;
+  background: rgba(151, 232, 199, 0.4);
+  margin: 12px auto;
+  border-radius: 8px;
+  }
+
+    .offer-simple__list{
+    list-style: none;
+    padding: 0;
+    margin: 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .offer-simple__item{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .offer-simple__icon{
+    width: 18px;
+    height: 18px;
+  }
+
+  .offers-simple{
+    padding: 48px 16px;
+  }
+
+  .offers-simple__wrap{
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .offers-simple__grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .offer-simple{
+    border: 1px solid rgba(59,199,167,.45);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    background: #fff;
+  }
+
+  .offer-simple--alt{
+    background: rgba(223,245,238,.55);
+  }
+
+  .offer-simple__title{
+    margin: 0 0 14px;
+    font-weight: 700;
+  }
+
+  .offer-simple__desc{
+    margin: 0 auto 18px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+
+  .offer-simple__price{
+    margin: 0 0 20px;
+    font-size: 16px;
+  }
+
+  .offer-simple__btn{
+    display: inline-block;
+    background: #b7ebdc;
+    color: #0b0b0b;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  .offer-simple__btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.12);
+  }
+
+  .offres__image{
+  width: 160px;
+  height: auto;
+  }
+
+  @media (min-width: 900px){
+    .offers-simple__grid{
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Offres – 2 blocs",
+  "presets": [
+    {
+      "name": "Offres - 2 blocs"
+    }
+  ]
+}
+{% endschema %}

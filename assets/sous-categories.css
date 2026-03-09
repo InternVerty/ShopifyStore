@@ -1,0 +1,67 @@
+/* ====== SECTION SOUS-CATÉGORIES ====== */
+
+/* Conteneur principal */
+.sous-categories {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background: transparent;
+  border-radius: 5px;
+}
+
+/* Description */
+.sous-categories-description {
+  font-size: 16px;
+  color: #333333;
+  margin-bottom: 20px;
+  font-family: 'Satoshi';
+}
+
+@media (max-width: 768.98px) {
+  .center-on-mobile {
+    text-align: center;
+  }
+}
+
+/* Liste des sous-catégories */
+.sous-categories ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0;
+}
+
+/* Suppression des puces */
+.sous-categories li {
+  list-style: none;
+}
+
+/* Boutons (liens) */
+.sous-categorie-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border: 3px solid;
+  border-radius: 20px;
+  background: transparent;
+  font-family: 'Satoshi';
+  letter-spacing: 1px;
+  margin: 5px 10px;
+  transition: transform 0.2s ease;
+  color: var(--button-text-color, #ffffff); /* Couleur du texte dynamique */
+  background-color: var(--button-bg-color, #8FCDBF); /* Couleur de fond dynamique */
+  border-color: var(--button-border-color, #8FCDBF); /* Couleur de bordure dynamique */
+}
+
+/* Effet au survol : zoom sans changer la couleur */
+.sous-categorie-btn:hover {
+  transform: scale(1.05); /* Agrandissement au survol */
+}
+
+/* Responsive : taille du texte des boutons réduite */
+@media (max-width: 768.98px) {
+  .sous-categorie-btn {
+    font-size: 0.88em;
+  }
+}

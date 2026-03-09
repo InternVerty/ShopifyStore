@@ -1,0 +1,122 @@
+{% schema %}
+{
+  "name": "Bloc HTML métafield",
+  "tag": "section",
+  "class": "metafield-html-block",
+  "settings": [
+    {
+      "type": "text",
+      "id": "namespace_key",
+      "label": "Clé du métafield (ex: custom.description)"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alignement du texte",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centré" },
+        { "value": "right", "label": "Droite" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "justify",
+      "label": "Justifier le texte",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "tag_type",
+      "label": "Balise HTML du contenu",
+      "default": "p",
+      "options": [
+        { "value": "p", "label": "Paragraphe (p)" },
+        { "value": "h1", "label": "Titre H1" },
+        { "value": "h2", "label": "Titre H2" },
+        { "value": "h3", "label": "Titre H3" },
+        { "value": "h4", "label": "Titre H4" },
+        { "value": "h5", "label": "Titre H5" },
+        { "value": "h6", "label": "Titre H6" },
+        { "value": "", "label": "Aucune" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "tag_class",
+      "label": "Classe CSS à appliquer",
+      "default": "",
+      "options": [
+        { "value": "", "label": "Aucune" },
+        { "value": "h1", "label": "Style H1" },
+        { "value": "h2", "label": "Style H2" },
+        { "value": "h3", "label": "Style H3" },
+        { "value": "h4", "label": "Style H4" },
+        { "value": "h5", "label": "Style H5" },
+        { "value": "h6", "label": "Style H6" },
+        { "value": "p", "label": "Style P" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_wrapper",
+      "label": "Ne pas entourer avec une balise (utile pour les listes, etc)",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bloc HTML métafield"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+{% assign metafield_parts = section.settings.namespace_key | split: '.' %}
+{% assign namespace = metafield_parts[0] %}
+{% assign key = metafield_parts[1] %}
+{% assign content = collection.metafields[namespace][key] %}
+{% assign tag = section.settings.tag_type %}
+{% assign tag_class = section.settings.tag_class %}
+{% assign disable_wrapper = section.settings.disable_wrapper %}
+
+{% if content %}
+  <div id="ancre" class="metafield-html-content container"
+       style="{% if section.settings.justify %}text-align: justify;{% else %}text-align: {{ section.settings.text_align }};{% endif %}">
+
+    <style>
+      .metafield-html-content ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+      .metafield-html-content ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+      .metafield-html-content li {
+        margin-bottom: 0.5rem;
+        margin-left: 2rem;
+      }
+    </style>
+
+    {% if disable_wrapper %}
+      {{ content }}
+    {% else %}
+      {% if tag != blank %}
+        <{{ tag }}{% if tag_class != blank %} id="ancre" class="{{ tag_class }}"{% endif %}>{{ content }}</{{ tag }}>
+      {% else %}
+        {{ content }}
+      {% endif %}
+    {% endif %}
+    
+  </div>
+{% endif %}
+
+
+
+
