@@ -129,7 +129,7 @@
         "section_bg": "#ffffff",
         "section_bg_opacity": 100,
         "section_height": 500,
-        "section_padding_v": 12,
+        "section_padding_v": 28,
         "section_padding_h": 8,
         "max_width": 1400,
         "columns_gap": 60,
