@@ -11,8 +11,16 @@
   "sections": {
     "redirect": {
       "type": "page-redirect",
-      "settings": {}
+      "settings": {
+        "redirect_url": "https://tally.so/r/Npqe1G",
+        "og_title": "Recevez une sélection de livres personnalisée pour votre enfant",
+        "og_description": "En 2 minutes, recevez chaque mois une sélection de livres adaptée à l'âge et aux centres d'intérêt de votre enfant. 100% gratuit, sans engagement.",
+        "og_image": "shopify://shop_images/Logo-Verty_0c0f61e7-96e0-4151-9dc4-962fcffd97de.png",
+        "og_site_name": "Verty"
+      }
     }
   },
-  "order": ["redirect"]
+  "order": [
+    "redirect"
+  ]
 }
