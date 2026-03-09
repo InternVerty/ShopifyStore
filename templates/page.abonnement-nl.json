@@ -99,7 +99,7 @@
         "subtext_lh": 16,
         "subtext_mb": 36,
         "btn_label": "Je me lance",
-        "btn_url": "",
+        "btn_url": "shopify://pages/formulaire-verty",
         "btn_bg": "#97e8c7",
         "btn_color": "#111111",
         "btn_border_color": "#6ecfb5",
@@ -222,7 +222,7 @@
         "body_lh": 17,
         "body_gap": 16,
         "btn_label": "Je me lance",
-        "btn_url": "",
+        "btn_url": "shopify://pages/formulaire-verty",
         "btn_bg": "#97e8c7",
         "btn_color": "#000000",
         "btn_border_color": "#6ecfb5",
@@ -682,106 +682,6 @@
         "prevent_animation": false
       }
     },
-    "topic_pills_abonnement_6Ykahy": {
-      "type": "topic-pills-abonnement",
-      "blocks": {
-        "pill_6YXYVN": {
-          "type": "pill",
-          "settings": {
-            "pill_label": "Le deuil",
-            "pill_url": "shopify://collections/parler-de-la-mort-a-travers-les-livres"
-          }
-        },
-        "pill_jFPq6h": {
-          "type": "pill",
-          "settings": {
-            "pill_label": "Automne",
-            "pill_url": "shopify://collections/la-beaute-de-la-nature-en-automne"
-          }
-        },
-        "pill_kMKPiB": {
-          "type": "pill",
-          "settings": {
-            "pill_label": "La Joie",
-            "pill_url": "shopify://collections/la-joie"
-          }
-        },
-        "pill_9xqwF9": {
-          "type": "pill",
-          "settings": {
-            "pill_label": "La gratitude",
-            "pill_url": "shopify://collections/gratitude-notre-selection-de-livres-pour-aider-son-enfant-a-etre-plus-heureux-et-confiant"
-          }
-        },
-        "pill_44yjJm": {
-          "type": "pill",
-          "settings": {
-            "pill_label": "La colère",
-            "pill_url": "shopify://collections/la-colere-des-enfants-une-tempete-qui-cache-un-tresor-de-vie"
-          }
-        },
-        "pill_EU4trE": {
-          "type": "pill",
-          "settings": {
-            "pill_label": "Noël",
-            "pill_url": "shopify://collections/meilleurs-livres-pour-vivre-la-magie-de-noel-1"
-          }
-        },
-        "pill_9LKccV": {
-          "type": "pill",
-          "settings": {
-            "pill_label": "La première Guerre Mondiale",
-            "pill_url": "shopify://collections/des-livres-qui-parlent-de-la-premiere-guerre-mondiale"
-          }
-        }
-      },
-      "block_order": [
-        "pill_6YXYVN",
-        "pill_jFPq6h",
-        "pill_kMKPiB",
-        "pill_9xqwF9",
-        "pill_44yjJm",
-        "pill_EU4trE",
-        "pill_9LKccV"
-      ],
-      "name": "Topic Pills",
-      "settings": {
-        "bg_color": "#ffffff",
-        "bg_opacity": 100,
-        "section_pad_v": 56,
-        "section_pad_h": 32,
-        "max_width": 1100,
-        "heading": "Les sujets préférés de notre communauté",
-        "heading_color": "#111111",
-        "heading_size": 28,
-        "heading_weight": "700",
-        "heading_mb": 16,
-        "subtext": "Vous ne savez pas par quel bout commencer ? Voici les sujets préférés de notre communauté, les derniers articles et conseils de lecture.",
-        "subtext_color": "#444444",
-        "subtext_size": 16,
-        "subtext_lh": 16,
-        "subtext_max_width": 780,
-        "subtext_mb": 40,
-        "pill_bg_color": "#97e8c7",
-        "pill_bg_opacity": 40,
-        "pill_text_color": "#2a8a6e",
-        "pill_border_color": "#97e8c7",
-        "pill_border_width": 1,
-        "pill_radius": 12,
-        "pill_font_size": 15,
-        "pill_font_weight": "400",
-        "pill_pad_v": 10,
-        "pill_pad_h": 20,
-        "pill_gap": 12,
-        "pill_hover_bg": "#2a8a6e",
-        "pill_hover_text": "#ffffff",
-        "mobile_breakpoint": 768,
-        "mobile_pad_v": 40,
-        "mobile_pad_h": 20,
-        "mobile_pill_gap": 8,
-        "mobile_pill_size": 13
-      }
-    },
     "custom_text_block_Ad8p3r": {
       "type": "custom-text-block",
       "name": "Nos lecteurs parlent de nous",
@@ -881,6 +781,106 @@
         "color_scheme": "none",
         "image_ratio": "1.77",
         "button_style": "btn btn--primary"
+      }
+    },
+    "topic_pills_abonnement_6Ykahy": {
+      "type": "topic-pills-abonnement",
+      "blocks": {
+        "pill_6YXYVN": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "Le deuil",
+            "pill_url": "shopify://collections/parler-de-la-mort-a-travers-les-livres"
+          }
+        },
+        "pill_jFPq6h": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "Automne",
+            "pill_url": "shopify://collections/la-beaute-de-la-nature-en-automne"
+          }
+        },
+        "pill_kMKPiB": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La Joie",
+            "pill_url": "shopify://collections/la-joie"
+          }
+        },
+        "pill_9xqwF9": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La gratitude",
+            "pill_url": "shopify://collections/gratitude-notre-selection-de-livres-pour-aider-son-enfant-a-etre-plus-heureux-et-confiant"
+          }
+        },
+        "pill_44yjJm": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La colère",
+            "pill_url": "shopify://collections/la-colere-des-enfants-une-tempete-qui-cache-un-tresor-de-vie"
+          }
+        },
+        "pill_EU4trE": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "Noël",
+            "pill_url": "shopify://collections/meilleurs-livres-pour-vivre-la-magie-de-noel-1"
+          }
+        },
+        "pill_9LKccV": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La première Guerre Mondiale",
+            "pill_url": "shopify://collections/des-livres-qui-parlent-de-la-premiere-guerre-mondiale"
+          }
+        }
+      },
+      "block_order": [
+        "pill_6YXYVN",
+        "pill_jFPq6h",
+        "pill_kMKPiB",
+        "pill_9xqwF9",
+        "pill_44yjJm",
+        "pill_EU4trE",
+        "pill_9LKccV"
+      ],
+      "name": "Topic Pills",
+      "settings": {
+        "bg_color": "#ffffff",
+        "bg_opacity": 100,
+        "section_pad_v": 56,
+        "section_pad_h": 32,
+        "max_width": 1100,
+        "heading": "Les sujets préférés de notre communauté",
+        "heading_color": "#111111",
+        "heading_size": 28,
+        "heading_weight": "700",
+        "heading_mb": 16,
+        "subtext": "Vous ne savez pas par quel bout commencer ? Voici les sujets préférés de notre communauté, les derniers articles et conseils de lecture.",
+        "subtext_color": "#444444",
+        "subtext_size": 16,
+        "subtext_lh": 16,
+        "subtext_max_width": 780,
+        "subtext_mb": 40,
+        "pill_bg_color": "#97e8c7",
+        "pill_bg_opacity": 40,
+        "pill_text_color": "#2a8a6e",
+        "pill_border_color": "#97e8c7",
+        "pill_border_width": 1,
+        "pill_radius": 12,
+        "pill_font_size": 15,
+        "pill_font_weight": "400",
+        "pill_pad_v": 10,
+        "pill_pad_h": 20,
+        "pill_gap": 12,
+        "pill_hover_bg": "#2a8a6e",
+        "pill_hover_text": "#ffffff",
+        "mobile_breakpoint": 768,
+        "mobile_pad_v": 40,
+        "mobile_pad_h": 20,
+        "mobile_pill_gap": 8,
+        "mobile_pill_size": 13
       }
     }
   },
