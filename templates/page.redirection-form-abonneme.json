@@ -1,1 +1,193 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"show_page_title":false,"heading_align":"text-center"}},"custom_text_block_aHKUph":{"type":"custom-text-block","name":"Merci pour votre inscription","settings":{"title":"🎉 Merci pour votre inscription !","title_anchor_id":"","mobile_center":true,"heading_tag":"h2","heading_style_class":"h1","text":"","text_align":"center","p_align":"left","title_margin_top":"50","title_margin_bottom":"20","p_margin_top":"20","p_margin_bottom":"20"}},"custom_liquid_WYJ4q4":{"type":"custom-liquid","name":"Custom HTML\/Liquid","settings":{"custom_liquid":"<div class=\"cta-share\">\n    <div class=\"cta-block--share\">\n      <div class=\"cta-title\">\n        <h5> Aidez d'autres parents ! Partagez ce formulaire<\/h5>\n      <\/div>\n\n      <!-- Desktop share buttons\n          On desktop the call to navigator.share() will check if the user has the FB app, the whatsapp app, etc ... most users are using\n          these services on their navigators so we display buttons which open the site on another tab.\n      -->\n      <div class=\"share-desktop\">\n        <a class=\"btn btn--ghost\" href=\"https:\/\/wa.me\/?text=Regarde%20%C3%A7a%20:%20https%3A%2F%2Ftally.so%2Fr%2FNpqe1G%2F\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/whatsapp-black.png?v=1772798038\" alt=\"Whatsapp\" width=\"30\" height=\"30\">\n        <\/a>\n        <a class=\"btn btn--ghost\" href=\"https:\/\/www.facebook.com\/sharer\/sharer.php?u=https%3A%2F%2Ftally.so%2Fr%2FNpqe1G%2F\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/facebook-black.png?v=1772798039\" alt=\"Facebook\" width=\"30\" height=\"30\">\n        <\/a>\n        <a class=\"btn btn--ghost\" href=\"https:\/\/instagram.com\/verty.eu\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/instagram-black.png?v=1772798038\" alt=\"Instagram\" width=\"30\" height=\"30\">\n        <\/a>\n        <button class=\"btn btn--ghost\" type=\"button\" id=\"copyLinkBtn\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/share.png?v=1772797715\" alt=\"Copy link\" width=\"30\" height=\"30\">\n        <\/button>\n      <\/div>\n\n      <!-- We only put the mobie share button because mobile version can call the native OS share card -->\n      <div class=\"share\">\n        <button class=\"btn btn--ghost\" type=\"button\" id=\"shareBtn\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/share.png?v=1772797715\" alt=\"Partager\" width=\"30\" height=\"30\">\n        <\/button>\n      <\/div>\n    <\/div>\n\n    <!-- ══════════ ROW 2 — CTA ══════════ -->\n    <div class=\"cta-block cta-block--enroll\">\n      <div class=\"cta-block__left\">\n        <h5> Votre aventurier fait des jaloux à la maison ?<\/h5>\n        <p>Profitez d'une sélection personnalisée pour chacun de vos enfants.<\/p>\n      <\/div>\n\n      <div class=\"cta-block__arrow\" aria-hidden=\"true\">\n        <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/Vector-arrow.svg?v=1772796925\" alt=\"arrow\" class=\"arrow-img\">\n      <\/div>\n\n      <div class=\"cta-block__right\">\n        <a class=\"btn\" href=\"https:\/\/tally.so\/r\/Npqe1G\/\" target=\"_blank\" rel=\"noopener\">\n          Inscrire un autre enfant\n        <\/a>\n      <\/div>\n    <\/div>\n\n  <\/div>\n\n  <div id=\"toast\" role=\"status\" aria-live=\"polite\"><\/div>\n\n  <style>\n    .cta-share {\n      max-width: 1100px;\n      padding: 0 16px;\n      display: flex;\n      flex-direction: column;\n      gap: 24px;\n      margin: 8px auto 40px;\n    }\n\n    .cta-block {\n      border: 1px solid #97E8C7;\n      border-radius: 16px;\n      background: rgba(151, 232, 199, .12);\n      padding: 32px 48px;\n    }\n\n    .cta-block--share {\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: flex-start;\n      margin-top: -50px; \n      gap: 16px;\n      padding: 4px 0 0 0;\n    }\n\n    .cta-title h5 {\n      margin: 0;\n      letter-spacing: .02em;\n      text-transform: uppercase;\n      opacity: .75;\n      font-size: 0.95rem;\n    }\n\n    .share-desktop {\n      display: inline-flex;\n      justify-content: center;\n      align-items: center;\n      gap: 10px;\n      flex-wrap: wrap;\n    }\n\n    .share {\n      display: none;\n      align-items: center;\n      justify-content: center;\n    }\n\n    @media (max-width: 768px) {\n      .share-desktop { display: none; }\n      .share         { display: inline-flex; }\n    }\n\n    \/* ── ROW 2 — Enroll block ── *\/\n    .cta-block--enroll {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 24px;\n      padding: 36px 48px;\n    }\n\n    .cta-block__left {\n      flex: 2 1 0;\n      display: flex;\n      flex-direction: column;\n    }\n\n    .cta-block__left h5 {\n      margin: 0;\n      font-size: 24px;\n      font-weight: 700;\n      letter-spacing: .01em;\n      text-transform: none;\n      opacity: 1;\n    }\n\n    .cta-block__left p {\n      margin: 0;\n      font-size: 16px;\n      color: #444;\n      line-height: 1.5;\n    }\n\n    .cta-block__arrow {\n      flex: 1 1 0;\n      width: 120px;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n    }\n\n    .cta-block__arrow .arrow-img {\n      width: 100%;\n      height: auto;\n    }\n\n    .cta-block__right {\n      flex: 1 1 0;\n    }\n\n    \/* Mobile — enroll block stacks vertically *\/\n    @media (max-width: 640px) {\n      .cta-block--enroll {\n        flex-direction: column;\n        align-items: flex-start;\n        text-align: left;\n      }\n\n      .cta-block__arrow { \n        display: none;\n      }\n\n      .cta-block__right {\n        width: 100%;\n      }\n\n      .cta-block__right .btn {\n        width: 100%;\n        justify-content: center;\n      }\n    }\n\n    \/* ── Buttons ── *\/\n    .btn {\n      display: inline-flex;\n      gap: 8px;\n      align-items: center;\n      justify-content: center;\n      height: 44px;\n      padding: 0 18px;\n      border-radius: 999px;\n      border: 1px solid rgba(0,0,0,.12);\n      background: #8FCCBF;\n      color: #fff;\n      letter-spacing: .01em;\n      text-decoration: none;\n      box-shadow: 0 1px 2px rgba(0,0,0,.10);\n      cursor: pointer;\n      user-select: none;\n      -webkit-tap-highlight-color: transparent;\n      transition: transform .06s ease, box-shadow .15s ease, background-color .15s ease;\n      white-space: nowrap;\n      font-weight: 600;\n    }\n\n    .btn:hover {\n      background: #000;\n      box-shadow: 0 6px 18px rgba(0,0,0,.14);\n    }\n\n    .btn:active {\n      transform: translateY(1px);\n      box-shadow: 0 1px 2px rgba(0,0,0,.10);\n    }\n\n    .btn:focus-visible {\n      outline: none;\n      box-shadow: 0 0 0 3px rgba(0,0,0,.18), 0 1px 2px rgba(0,0,0,.10);\n    }\n\n    .btn--ghost {\n      background: transparent;\n      color: #8FCCBF;\n      box-shadow: none;\n      border: none;\n    }\n\n    .btn--ghost:hover {\n      background: rgba(0,0,0,.04);\n      box-shadow: none;\n      color: inherit;\n    }\n\n    \/* ── Toast ── *\/\n    #toast {\n      position: fixed;\n      bottom: 24px;\n      left: 50%;\n      transform: translateX(-50%) translateY(16px);\n      background: #111;\n      color: #fff;\n      padding: 10px 20px;\n      border-radius: 999px;\n      font-size: 0.9rem;\n      opacity: 0;\n      pointer-events: none;\n      transition: opacity .2s ease, transform .2s ease;\n      z-index: 9999;\n    }\n\n    #toast.show {\n      opacity: 1;\n      transform: translateX(-50%) translateY(0);\n    }\n  <\/style>\n\n  <script>\n    (function () {\n      const urlToCopy = \"https:\/\/tally.so\/r\/Npqe1G\/\";\n      const toastEl   = document.getElementById(\"toast\");\n\n      \/* ── Toast helper ── *\/\n      function showToast(msg) {\n        if (!toastEl) return;\n        toastEl.textContent = msg;\n        toastEl.classList.add(\"show\");\n        clearTimeout(showToast._t);\n        showToast._t = setTimeout(() => toastEl.classList.remove(\"show\"), 1600);\n      }\n\n      \/* ── Clipboard helper ── *\/\n      async function copyToClipboard(text) {\n        try {\n          await navigator.clipboard.writeText(text);\n          return true;\n        } catch {\n          const ta = Object.assign(document.createElement(\"textarea\"), {\n            value: text,\n            readOnly: true,\n            style: \"position:fixed;left:-9999px\"\n          });\n          document.body.appendChild(ta);\n          ta.select();\n          const ok = document.execCommand(\"copy\");\n          document.body.removeChild(ta);\n          return ok;\n        }\n      }\n\n      \/* ── Copy link button (desktop) ── *\/\n      const copyBtn = document.getElementById(\"copyLinkBtn\");\n      if (copyBtn) {\n        copyBtn.addEventListener(\"click\", async () => {\n          const ok = await copyToClipboard(urlToCopy);\n          showToast(ok ? \"Lien copié ✓\" : \"Impossible de copier ❌\");\n        });\n      }\n\n      \/* ── Share \/ fallback button (mobile) ── *\/\n      const shareBtn = document.getElementById(\"shareBtn\");\n      if (shareBtn) {\n        if (!navigator.share) shareBtn.title = \"Copier le lien\";\n\n        shareBtn.addEventListener(\"click\", async () => {\n          if (navigator.share) {\n            try {\n              await navigator.share({ title: document.title, url: urlToCopy });\n              return;\n            } catch { \/* user cancelled — fall through *\/ }\n          }\n          const ok = await copyToClipboard(urlToCopy);\n          showToast(ok ? \"Lien copié ✅\" : \"Impossible de copier le lien ❌\");\n        });\n      }\n    })();\n  <\/script>","section_height":"default","full_width":false,"dividers":"none","prevent_animation":false}},"featured_collection_mbXBmW":{"type":"featured-collection","name":"Featured collection","settings":{"title":"","use_linked_title":true,"heading_align":"text-center","show_view_all":false,"use_anchor_for_view_all":false,"collection":"coin-des-parents","layout":"carousel","card_size_mobile":"small","card_size":"small","products_to_show":8,"show_promo_info":true,"image_ratio":"fill","dis":"Parce que la lecture n'est pas réservée qu'aux plus jeunes, découvrez notre sélection pour les parents !","content":"<p>Parce que la lecture n'est pas réservée qu'aux plus jeunes, découvrez notre sélection pour les parents !<\/p>","link_url":"shopify:\/\/collections\/coin-des-parents","button_label":"Tout voir","color_scheme":"none","button_style":"link"}},"testimonials_YrkexD":{"type":"testimonials","blocks":{"testimonial_HAfceX":{"type":"testimonial","settings":{"testimonial":"<p>« <em>Apprendre à lire, c'est allumer un feu; chaque syllabe épelée est une étincelle.<\/em> »<\/p><p><strong>Victor Hugo<\/strong><\/p>","author":"","author_info":"","show_star_rating":false,"star_rating":5}}},"block_order":["testimonial_HAfceX"],"disabled":true,"custom_css":[".testimonials .testimonials__slide--no-padding {background-color: #8fcdbf; color: black; padding: 20px;}"],"name":"Citation Jules Renard","settings":{"heading":"","show_quotes":true,"testimonial_size":"h6","text_position":"justify-center","text_align":"text-center justify-center","nav_style":"slideshow_nav_lines","transition":"slide-fade","autoplay":false,"slider_pause":false,"autoplay_speed":5,"color_scheme":"default","full_width":true}},"custom_text_block_n6B3jW":{"type":"custom-text-block","name":"Rejoignez la communauté vertueuse de Verty","settings":{"title":"Rejoignez la communauté vertueuse de Verty :","title_anchor_id":"","mobile_center":true,"heading_tag":"h2","heading_style_class":"h4","text":"","text_align":"center","p_align":"left","title_margin_top":"20","title_margin_bottom":"20","p_margin_top":"20","p_margin_bottom":"20"}},"icons_with_text_A79AAC":{"type":"icons-with-text","blocks":{"item_feXXHH":{"type":"item","settings":{"icon":"truck","custom_icon":"shopify:\/\/shop_images\/Instagram.png","heading":"","text":"","link":"https:\/\/www.instagram.com\/verty.eu\/"}},"item_6UDmER":{"type":"item","settings":{"icon":"award","custom_icon":"shopify:\/\/shop_images\/Facebook.png","heading":"","text":"","link":"https:\/\/www.facebook.com\/verty.eu\/?locale=fr_FR"}},"item_3XhyGL":{"type":"item","settings":{"icon":"return","custom_icon":"shopify:\/\/shop_images\/Logo_linkedin_transparent_2d554945-1aa3-470b-9763-22eb9e999c0d.png","heading":"","text":"","link":"https:\/\/fr.linkedin.com\/company\/verty-eu"}}},"block_order":["item_feXXHH","item_6UDmER","item_3XhyGL"],"name":"Les réseaux sociaux","settings":{"heading":"","heading_align":"text-center","icon_size":48,"title_type_scale":"extra_small","text_type_scale":"extra_small","icon_position":"above","mobile_stack":false,"section_height":"small","color_scheme":"none","full_width":false,"dividers":"none","prevent_animation":false}}},"order":["main","custom_text_block_aHKUph","custom_liquid_WYJ4q4","featured_collection_mbXBmW","testimonials_YrkexD","custom_text_block_n6B3jW","icons_with_text_A79AAC"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page_title": false,
+        "heading_align": "text-center"
+      }
+    },
+    "custom_text_block_aHKUph": {
+      "type": "custom-text-block",
+      "name": "Merci pour votre inscription",
+      "settings": {
+        "title": "🎉 Merci pour votre inscription !",
+        "title_anchor_id": "",
+        "mobile_center": true,
+        "heading_tag": "h2",
+        "heading_style_class": "h1",
+        "text": "",
+        "text_align": "center",
+        "p_align": "left",
+        "title_margin_top": "50",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
+    "custom_liquid_WYJ4q4": {
+      "type": "custom-liquid",
+      "name": "Custom HTML/Liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"cta-share\">\n    <div class=\"cta-block--share\">\n      <div class=\"cta-title\">\n        <h5> Aidez d'autres parents ! Partagez ce formulaire</h5>\n      </div>\n\n      <!-- Desktop share buttons\n          On desktop the call to navigator.share() will check if the user has the FB app, the whatsapp app, etc ... most users are using\n          these services on their navigators so we display buttons which open the site on another tab.\n      -->\n      <div class=\"share-desktop\">\n        <a class=\"btn btn--ghost\" href=\"https://wa.me/?text=Regarde%20%C3%A7a%20:%20https%3A%2F%2Ftally.so%2Fr%2FNpqe1G%2F\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/whatsapp-black.png?v=1772798038\" alt=\"Whatsapp\" width=\"30\" height=\"30\">\n        </a>\n        <a class=\"btn btn--ghost\" href=\"https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftally.so%2Fr%2FNpqe1G%2F\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/facebook-black.png?v=1772798039\" alt=\"Facebook\" width=\"30\" height=\"30\">\n        </a>\n        <a class=\"btn btn--ghost\" href=\"https://instagram.com/verty.eu\" target=\"_blank\" rel=\"noopener\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/instagram-black.png?v=1772798038\" alt=\"Instagram\" width=\"30\" height=\"30\">\n        </a>\n        <button class=\"btn btn--ghost\" type=\"button\" id=\"copyLinkBtn\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/share.png?v=1772797715\" alt=\"Copy link\" width=\"30\" height=\"30\">\n        </button>\n      </div>\n\n      <!-- We only put the mobie share button because mobile version can call the native OS share card -->\n      <div class=\"share\">\n        <button class=\"btn btn--ghost\" type=\"button\" id=\"shareBtn\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/share.png?v=1772797715\" alt=\"Partager\" width=\"30\" height=\"30\">\n        </button>\n      </div>\n    </div>\n\n    <!-- ══════════ ROW 2 — CTA ══════════ -->\n    <div class=\"cta-block cta-block--enroll\">\n      <div class=\"cta-block__left\">\n        <h5> Votre aventurier fait des jaloux à la maison ?</h5>\n        <p>Profitez d'une sélection personnalisée pour chacun de vos enfants.</p>\n      </div>\n\n      <div class=\"cta-block__arrow\" aria-hidden=\"true\">\n        <img src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/Vector-arrow.svg?v=1772796925\" alt=\"arrow\" class=\"arrow-img\">\n      </div>\n\n      <div class=\"cta-block__right\">\n        <a class=\"btn\" href=\"https://tally.so/r/Npqe1G/\" target=\"_blank\" rel=\"noopener\">\n          Inscrire un autre enfant\n        </a>\n      </div>\n    </div>\n\n  </div>\n\n  <div id=\"toast\" role=\"status\" aria-live=\"polite\"></div>\n\n  <style>\n    .cta-share {\n      max-width: 1100px;\n      padding: 0 16px;\n      display: flex;\n      flex-direction: column;\n      gap: 24px;\n      margin: 8px auto 40px;\n    }\n\n    .cta-block {\n      border: 1px solid #97E8C7;\n      border-radius: 16px;\n      background: rgba(151, 232, 199, .12);\n      padding: 32px 48px;\n    }\n\n    .cta-block--share {\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n      justify-content: flex-start;\n      margin-top: -50px; \n      gap: 16px;\n      padding: 4px 0 0 0;\n    }\n\n    .cta-title h5 {\n      margin: 0;\n      letter-spacing: .02em;\n      text-transform: uppercase;\n      opacity: .75;\n      font-size: 0.95rem;\n    }\n\n    .share-desktop {\n      display: inline-flex;\n      justify-content: center;\n      align-items: center;\n      gap: 10px;\n      flex-wrap: wrap;\n    }\n\n    .share {\n      display: none;\n      align-items: center;\n      justify-content: center;\n    }\n\n    @media (max-width: 768px) {\n      .share-desktop { display: none; }\n      .share         { display: inline-flex; }\n    }\n\n    /* ── ROW 2 — Enroll block ── */\n    .cta-block--enroll {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 24px;\n      padding: 36px 48px;\n    }\n\n    .cta-block__left {\n      flex: 2 1 0;\n      display: flex;\n      flex-direction: column;\n    }\n\n    .cta-block__left h5 {\n      margin: 0;\n      font-size: 24px;\n      font-weight: 700;\n      letter-spacing: .01em;\n      text-transform: none;\n      opacity: 1;\n    }\n\n    .cta-block__left p {\n      margin: 0;\n      font-size: 16px;\n      color: #444;\n      line-height: 1.5;\n    }\n\n    .cta-block__arrow {\n      flex: 1 1 0;\n      width: 120px;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n    }\n\n    .cta-block__arrow .arrow-img {\n      width: 100%;\n      height: auto;\n    }\n\n    .cta-block__right {\n      flex: 1 1 0;\n    }\n\n    /* Mobile — enroll block stacks vertically */\n    @media (max-width: 640px) {\n      .cta-block--enroll {\n        flex-direction: column;\n        align-items: flex-start;\n        text-align: left;\n      }\n\n      .cta-block__arrow { \n        display: none;\n      }\n\n      .cta-block__right {\n        width: 100%;\n      }\n\n      .cta-block__right .btn {\n        width: 100%;\n        justify-content: center;\n      }\n    }\n\n    /* ── Buttons ── */\n    .btn {\n      display: inline-flex;\n      gap: 8px;\n      align-items: center;\n      justify-content: center;\n      height: 44px;\n      padding: 0 18px;\n      border-radius: 999px;\n      border: 1px solid rgba(0,0,0,.12);\n      background: #8FCCBF;\n      color: #fff;\n      letter-spacing: .01em;\n      text-decoration: none;\n      box-shadow: 0 1px 2px rgba(0,0,0,.10);\n      cursor: pointer;\n      user-select: none;\n      -webkit-tap-highlight-color: transparent;\n      transition: transform .06s ease, box-shadow .15s ease, background-color .15s ease;\n      white-space: nowrap;\n      font-weight: 600;\n    }\n\n    .btn:hover {\n      background: #000;\n      box-shadow: 0 6px 18px rgba(0,0,0,.14);\n    }\n\n    .btn:active {\n      transform: translateY(1px);\n      box-shadow: 0 1px 2px rgba(0,0,0,.10);\n    }\n\n    .btn:focus-visible {\n      outline: none;\n      box-shadow: 0 0 0 3px rgba(0,0,0,.18), 0 1px 2px rgba(0,0,0,.10);\n    }\n\n    .btn--ghost {\n      background: transparent;\n      color: #8FCCBF;\n      box-shadow: none;\n      border: none;\n    }\n\n    .btn--ghost:hover {\n      background: rgba(0,0,0,.04);\n      box-shadow: none;\n      color: inherit;\n    }\n\n    /* ── Toast ── */\n    #toast {\n      position: fixed;\n      bottom: 24px;\n      left: 50%;\n      transform: translateX(-50%) translateY(16px);\n      background: #111;\n      color: #fff;\n      padding: 10px 20px;\n      border-radius: 999px;\n      font-size: 0.9rem;\n      opacity: 0;\n      pointer-events: none;\n      transition: opacity .2s ease, transform .2s ease;\n      z-index: 9999;\n    }\n\n    #toast.show {\n      opacity: 1;\n      transform: translateX(-50%) translateY(0);\n    }\n  </style>\n\n  <script>\n    (function () {\n      const urlToCopy = \"https://tally.so/r/Npqe1G/\";\n      const toastEl   = document.getElementById(\"toast\");\n\n      /* ── Toast helper ── */\n      function showToast(msg) {\n        if (!toastEl) return;\n        toastEl.textContent = msg;\n        toastEl.classList.add(\"show\");\n        clearTimeout(showToast._t);\n        showToast._t = setTimeout(() => toastEl.classList.remove(\"show\"), 1600);\n      }\n\n      /* ── Clipboard helper ── */\n      async function copyToClipboard(text) {\n        try {\n          await navigator.clipboard.writeText(text);\n          return true;\n        } catch {\n          const ta = Object.assign(document.createElement(\"textarea\"), {\n            value: text,\n            readOnly: true,\n            style: \"position:fixed;left:-9999px\"\n          });\n          document.body.appendChild(ta);\n          ta.select();\n          const ok = document.execCommand(\"copy\");\n          document.body.removeChild(ta);\n          return ok;\n        }\n      }\n\n      /* ── Copy link button (desktop) ── */\n      const copyBtn = document.getElementById(\"copyLinkBtn\");\n      if (copyBtn) {\n        copyBtn.addEventListener(\"click\", async () => {\n          const ok = await copyToClipboard(urlToCopy);\n          showToast(ok ? \"Lien copié ✓\" : \"Impossible de copier ❌\");\n        });\n      }\n\n      /* ── Share / fallback button (mobile) ── */\n      const shareBtn = document.getElementById(\"shareBtn\");\n      if (shareBtn) {\n        if (!navigator.share) shareBtn.title = \"Copier le lien\";\n\n        shareBtn.addEventListener(\"click\", async () => {\n          if (navigator.share) {\n            try {\n              await navigator.share({ title: document.title, url: urlToCopy });\n              return;\n            } catch { /* user cancelled — fall through */ }\n          }\n          const ok = await copyToClipboard(urlToCopy);\n          showToast(ok ? \"Lien copié ✅\" : \"Impossible de copier le lien ❌\");\n        });\n      }\n    })();\n  </script>",
+        "section_height": "default",
+        "full_width": false,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    },
+    "featured_collection_mbXBmW": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "use_linked_title": true,
+        "heading_align": "text-center",
+        "show_view_all": false,
+        "use_anchor_for_view_all": false,
+        "collection": "coin-des-parents",
+        "layout": "carousel",
+        "card_size_mobile": "small",
+        "card_size": "small",
+        "products_to_show": 8,
+        "show_promo_info": true,
+        "image_ratio": "fill",
+        "dis": "Parce que la lecture n'est pas réservée qu'aux plus jeunes, découvrez notre sélection pour les parents !",
+        "content": "<p>Parce que la lecture n'est pas réservée qu'aux plus jeunes, découvrez notre sélection pour les parents !</p>",
+        "link_url": "shopify://collections/coin-des-parents",
+        "button_label": "Tout voir",
+        "color_scheme": "none",
+        "button_style": "link"
+      }
+    },
+    "testimonials_YrkexD": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_HAfceX": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<p>« <em>Apprendre à lire, c'est allumer un feu; chaque syllabe épelée est une étincelle.</em> »</p><p><strong>Victor Hugo</strong></p>",
+            "author": "",
+            "author_info": "",
+            "show_star_rating": false,
+            "star_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_HAfceX"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".testimonials .testimonials__slide--no-padding {background-color: #8fcdbf; color: black; padding: 20px;}"
+      ],
+      "name": "Citation Jules Renard",
+      "settings": {
+        "heading": "",
+        "show_quotes": true,
+        "testimonial_size": "h6",
+        "text_position": "justify-center",
+        "text_align": "text-center justify-center",
+        "nav_style": "slideshow_nav_lines",
+        "transition": "slide-fade",
+        "autoplay": false,
+        "slider_pause": false,
+        "autoplay_speed": 5,
+        "color_scheme": "default",
+        "full_width": true
+      }
+    },
+    "custom_text_block_n6B3jW": {
+      "type": "custom-text-block",
+      "name": "Rejoignez la communauté vertueuse de Verty",
+      "settings": {
+        "title": "Rejoignez la communauté vertueuse de Verty :",
+        "title_anchor_id": "",
+        "mobile_center": true,
+        "heading_tag": "h2",
+        "heading_style_class": "h4",
+        "text": "",
+        "text_align": "center",
+        "p_align": "left",
+        "title_margin_top": "20",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
+    "icons_with_text_A79AAC": {
+      "type": "icons-with-text",
+      "blocks": {
+        "item_feXXHH": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "custom_icon": "shopify://shop_images/Instagram.png",
+            "heading": "",
+            "text": "",
+            "link": "https://www.instagram.com/verty.eu/"
+          }
+        },
+        "item_6UDmER": {
+          "type": "item",
+          "settings": {
+            "icon": "award",
+            "custom_icon": "shopify://shop_images/Facebook.png",
+            "heading": "",
+            "text": "",
+            "link": "https://www.facebook.com/verty.eu/?locale=fr_FR"
+          }
+        },
+        "item_3XhyGL": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "custom_icon": "shopify://shop_images/Logo_linkedin_transparent_2d554945-1aa3-470b-9763-22eb9e999c0d.png",
+            "heading": "",
+            "text": "",
+            "link": "https://fr.linkedin.com/company/verty-eu"
+          }
+        }
+      },
+      "block_order": [
+        "item_feXXHH",
+        "item_6UDmER",
+        "item_3XhyGL"
+      ],
+      "name": "Les réseaux sociaux",
+      "settings": {
+        "heading": "",
+        "heading_align": "text-center",
+        "icon_size": 48,
+        "title_type_scale": "extra_small",
+        "text_type_scale": "extra_small",
+        "icon_position": "above",
+        "mobile_stack": false,
+        "section_height": "small",
+        "color_scheme": "none",
+        "full_width": false,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_text_block_aHKUph",
+    "custom_liquid_WYJ4q4",
+    "featured_collection_mbXBmW",
+    "testimonials_YrkexD",
+    "custom_text_block_n6B3jW",
+    "icons_with_text_A79AAC"
+  ]
+}

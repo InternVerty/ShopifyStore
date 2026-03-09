@@ -1,1 +1,917 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"show_page_title":true,"heading_align":"text-center"}},"banniere_abonnement_bMQbe3":{"type":"banniere-abonnement","disabled":true,"name":"Bannière abonnement","settings":{"section_height":200,"left_width":7,"right_width":5,"bg_left":"#97e8c7","bg_left_opacity":40,"panel_padding_v":64,"panel_padding_h":32,"left_align_items":"center","left_justify":"flex-start","left_content_max_width":700,"left_text_align":"left","left_gap":24,"heading":"1 sélection personnalisée de livres pour votre enfant.","heading_color":"#111111","heading_size":32,"heading_weight":"800","heading_lh":12,"body_text":"<p>Ils sont <strong>+20.000 parents<\/strong> à s'inspirer chaque mois de nos recommandations de lecture.<\/p>","body_color":"#333333","body_size":18,"body_lh":16,"btn_label":"Je me lance","btn_url":"","btn_bg":"#97e8c7","btn_color":"#111111","btn_border_color":"#ffffff","btn_border_width":2,"btn_radius":50,"btn_font_size":16,"btn_weight":"600","btn_pad_v":12,"btn_pad_h":40,"btn_min_width":180,"btn_align_self":"flex-start","btn_full_mobile":true,"hero_image":"shopify:\/\/shop_images\/hero-banner-abonnement.png","bg_right":"#97e8c7","bg_right_opacity":40,"img_padding_v":12,"img_padding_h":0,"img_fit":"cover","img_max_width":1200,"img_max_height":1200,"img_align":"center","img_justify":"flex-start","img_overflow":"visible","img_offset_x":0,"img_offset_y":0,"mobile_breakpoint":768,"mobile_img_height":320}},"banner_abonnement_v2_WTTGjg":{"type":"banner-abonnement-v2","name":"Hero Banner — Texte + Image","settings":{"bg_color":"#97e8c7","bg_opacity":40,"section_pad_v":48,"section_pad_h":64,"section_height":460,"max_width":1400,"columns_gap":32,"left_flex":5,"right_flex":5,"left_pad_bottom":48,"heading":"Une sélection personnalisée de livres pour votre enfant.","heading_color":"#111111","heading_size":54,"heading_weight":"800","heading_lh":12,"heading_mb":28,"subtext":"<p>Ils sont <strong>+20.000 parents<\/strong> à s'inspirer chaque mois de nos recommandations de lecture.<\/p>","subtext_color":"#222222","subtext_size":18,"subtext_lh":16,"subtext_mb":36,"btn_label":"Je me lance","btn_url":"","btn_bg":"#97e8c7","btn_color":"#111111","btn_border_color":"#6ecfb5","btn_border_width":2,"btn_radius":50,"btn_font_size":16,"btn_weight":"600","btn_pad_v":14,"btn_pad_h":20,"btn_min_width":180,"hero_image":"shopify:\/\/shop_images\/hero-banner-abonnement.png","image_max_width":460,"image_offset_y":52,"mobile_breakpoint":768,"mobile_pad_v":32,"mobile_pad_h":24,"mobile_left_pb":16,"mobile_img_height":260,"mobile_img_width":90,"btn_full_mobile":true}},"custom_two_cols_form_abo_v2_46grxq":{"type":"custom-two-cols-form-abo-v2","name":"Two Col — Text + Card","settings":{"section_bg":"#ffffff","section_bg_opacity":100,"section_height":500,"section_padding_v":12,"section_padding_h":40,"max_width":1100,"columns_gap":60,"left_flex":1,"right_flex":1,"heading":"Chaque mois, les bons livres.\nSans se tromper.","heading_color":"#111111","body_1":"<p>Après un court questionnaire, notre comité de lecture <strong>sélectionne <\/strong>4 livres vraiment <strong>adaptés à lui<\/strong>: Son âge, son niveau de lecture, ses centres d’intérêt.<br\/><br\/>Vous recevez cette sélection personnalisée <strong>directement dans votre boîte mail<\/strong>.<br\/><br\/>Une recommandation pensée pour votre enfant. En quelques minutes, vous choisissez en confiance sans douter. <br\/><br\/>Et vous restez libre: vous pouvez commander directement sur Verty, ou simplement vous inspirer. <\/p>","body_2":"","body_color":"#333333","body_font_size":16,"body_align":"justify","checklist_count":3,"check_1":"100% Gratuit","check_2":"Sans engagement","check_3":"2 minutes","check_4":"-","check_5":"-","check_color":"#3ecf4a","check_radius":6,"check_size":30,"check_label_color":"#111111","check_font_size":17,"check_font_weight":"700","check_gap":16,"card_bg":"#ffffff","card_border_color":"#97e8c7","card_border_width":2,"card_radius":20,"card_shadow":"0 2px 24px 0 rgba(0,0,0,0.06)","card_height":850,"card_max_width":420,"card_padding_v":36,"card_padding_h":32,"card_image":"shopify:\/\/shop_images\/avion_papier_1.png","card_img_size":110,"card_title":"Formulaire","card_title_size":20,"card_title_color":"#111111","tally_url":"https:\/\/tally.so\/embed\/Npqe1G?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1","tally_height":500,"card_text_size":14,"card_text_color":"#555555","card_text_align":"center"}},"custom_liquid_annWXM":{"type":"custom-liquid","name":"Custom HTML\/Liquid","settings":{"custom_liquid":"<div data-tally-src=\"https:\/\/tally.so\/embed\/Npqe1G?\"\n              data-tally-transparent-background=\"1\"\n              data-tally-hide-title=\"1\"\n              style=\"width:100%;\"><\/div>\n          <script async src=\"https:\/\/tally.so\/widgets\/embed.js\"><\/script>","section_height":"default","full_width":false,"dividers":"none","prevent_animation":false}},"content_media_abonnement_7B4VjG":{"type":"content-media-abonnement","name":"Content + Collage Photos","settings":{"bg_color":"#ffffff","bg_opacity":100,"section_pad_v":48,"section_pad_h":32,"card_bg":"#97e8c7","card_opacity":20,"card_border_color":"#97e8c7","card_border_width":1,"card_radius":24,"card_pad_v":56,"card_pad_h":28,"max_width":1200,"columns_gap":64,"left_flex":5,"right_flex":4,"heading":"Pourquoi est ce qu'on a créé","heading_highlight":"La Sélection personnalisée\nde votre enfant","heading_color":"#111111","highlight_color":"#3ecfb5","heading_size":28,"heading_weight":"700","heading_lh":12,"left_gap":12,"body_1":"<p>Aujourd’hui, il y a <strong>trop<\/strong> de livres. <strong>Trop<\/strong> de choix. <strong>Trop<\/strong> d’avis contradictoires. Et <strong>aucun<\/strong> <strong>parent<\/strong> <strong>ne peut tout lire<\/strong> et tout comparer seul.<\/p>","body_2":"<p>Nous avons créé la sélection mensuelle personnalisée pour redonner de la clarté et de la confiance. Chaque mois, notre comité de lecture choisit avec exigence des livres pensés pour votre enfant, selon son âge, son niveau et ce qu'il traverse.<\/p>","body_3":"<p>Un rendez-vous simple, rassurant, pour vous aider à choisir sans vous tromper, et faire de la lecture un geste serein, profondément formateur.<\/p>","body_color":"#333333","body_size":16,"body_lh":17,"body_gap":16,"btn_label":"Je me lance","btn_url":"","btn_bg":"#97e8c7","btn_color":"#000000","btn_border_color":"#6ecfb5","btn_border_width":2,"btn_radius":50,"btn_font_size":16,"btn_weight":"600","btn_pad_v":14,"btn_pad_h":48,"btn_mt":20,"btn_full_mobile":false,"img_bg":"shopify:\/\/shop_images\/img.png","img_front_left":"shopify:\/\/shop_images\/photo_image_1.png","img_front_right":"shopify:\/\/shop_images\/photo_image.png","img_shadow":"box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;","img_radius":8,"collage_ratio":15,"bg_top":0,"bg_right":0,"bg_size":70,"bg_rotate":3,"fl_bottom":0,"fl_left":0,"fl_size":52,"fl_rotate":-4,"fr_bottom":2,"fr_right":0,"fr_size":48,"fr_rotate":5,"mobile_breakpoint":768}},"custom_text_block_RCAPXX":{"type":"custom-text-block","disabled":true,"name":"Recevez des livres ...","settings":{"title":"Recevez des livres sélectionnés avec discernement par notre comité d'experts, adaptés à chaque enfant, qui donnent le goût de lire et des repères pour grandir","title_anchor_id":"","mobile_center":true,"heading_tag":"h2","heading_style_class":"h4","text":"<p>Vous n’avez plus à chercher, comparer, douter. Verty sélectionne pour vous des livres beaux, simples et vrais, pensés pour nourrir l’esprit, le cœur et l’intelligence de votre enfant.<\/p>","text_align":"left","p_align":"left","title_margin_top":"20","title_margin_bottom":"20","p_margin_top":"20","p_margin_bottom":"20"}},"icons_with_text_dti4ch":{"type":"icons-with-text","blocks":{"item_PBcXaG":{"type":"item","settings":{"icon":"truck","custom_icon":"shopify:\/\/shop_images\/Icone_2.png","heading":"Lu, analysé et validé par notre comité de lecture","text":"","link":""}},"item_gJ9mBU":{"type":"item","settings":{"icon":"price_tag","custom_icon":"shopify:\/\/shop_images\/Icone_3.png","heading":"Personnalisé à chaque enfant","text":"","link":""}},"item_UCbgWQ":{"type":"item","settings":{"icon":"return","custom_icon":"shopify:\/\/shop_images\/Icone_1.png","heading":"Une fois par mois","text":"","link":""}}},"block_order":["item_PBcXaG","item_gJ9mBU","item_UCbgWQ"],"disabled":true,"name":"Icones 1","settings":{"heading":"","heading_align":"text-start","icon_size":104,"title_type_scale":"small","text_type_scale":"medium","icon_position":"above","mobile_stack":true,"section_height":"medium","color_scheme":"none","full_width":true,"dividers":"none","prevent_animation":false}},"abonnement_box_section_boxcar_krpAxp":{"type":"abonnement-box-section-boxcar","disabled":true,"name":"Un abonnement personnalisé","settings":{}},"custom_text_block_ahXKDp":{"type":"custom-text-block","disabled":true,"name":"Choisissez la formule ...","settings":{"title":"Choisissez la formule la plus adaptée pour créer un bon rythme de lecture.","title_anchor_id":"","mobile_center":true,"heading_tag":"h2","heading_style_class":"h4","text":"<p>La lecture stimule l’imagination, améliore la concentration et renforce les capacités de compréhension et d’expression. Elle contribue au développement de votre enfant et à son plaisir d’apprendre.<\/p>","text_align":"center","p_align":"center","title_margin_top":"20","title_margin_bottom":"20","p_margin_top":"20","p_margin_bottom":"20"}},"abonnement_choix_formule_RRU74R":{"type":"abonnement-choix-formule","disabled":true,"name":"Offres – 2 blocs","settings":{}},"icons_with_text_iN3Mbb":{"type":"icons-with-text","blocks":{"item_Bc9RUN":{"type":"item","settings":{"icon":"truck","custom_icon":"shopify:\/\/shop_images\/icones_2.png","heading":"Eveiller la part de beauté de chaque enfant","text":"","link":""}},"item_kBtaby":{"type":"item","settings":{"icon":"price_tag","custom_icon":"shopify:\/\/shop_images\/icones_1.png","heading":"Développer l’imaginaire","text":"","link":""}},"item_FMKDBy":{"type":"item","settings":{"icon":"return","custom_icon":"shopify:\/\/shop_images\/icones_4.png","heading":"Enrichir le vocabulaire et développer le language","text":"","link":""}},"item_NH9cXL":{"type":"item","settings":{"icon":"award","custom_icon":"shopify:\/\/shop_images\/icones_3.png","heading":"Eloigner des écrans","text":"","link":""}}},"block_order":["item_Bc9RUN","item_kBtaby","item_FMKDBy","item_NH9cXL"],"disabled":true,"name":"Icones 2","settings":{"heading":"","heading_align":"text-start","icon_size":104,"title_type_scale":"small","text_type_scale":"medium","icon_position":"above","mobile_stack":true,"section_height":"medium","color_scheme":"none","full_width":true,"dividers":"none","prevent_animation":false}},"custom_text_block_PRGX7P":{"type":"custom-text-block","disabled":true,"name":"Et comment ça marche","settings":{"title":"","title_anchor_id":"","mobile_center":true,"heading_tag":"h2","heading_style_class":"h4","text":"<p>ET COMMENT ÇA MARCHE<\/p>","text_align":"center","p_align":"center","title_margin_top":"20","title_margin_bottom":"20","p_margin_top":"20","p_margin_bottom":"20"}},"custom_text_block_QrcwWY":{"type":"custom-text-block","disabled":true,"name":"Tous les mois, une sélection ...","settings":{"title":"Tous les mois, une sélection personnalisée","title_anchor_id":"","mobile_center":true,"heading_tag":"h2","heading_style_class":"h4","text":"","text_align":"center","p_align":"center","title_margin_top":"20","title_margin_bottom":"20","p_margin_top":"20","p_margin_bottom":"20"}},"icons_with_text_Bdp4Rp":{"type":"icons-with-text","blocks":{"item_cjMfMH":{"type":"item","settings":{"icon":"award","custom_icon":"shopify:\/\/shop_images\/nuage_1.png","heading":"Vous renseignez le profil de votre enfant dédéhudéhudéhuéd","text":"","link":""}},"item_7GEAcp":{"type":"item","settings":{"icon":"truck","custom_icon":"shopify:\/\/shop_images\/nuage_2.png","heading":"Notre comité de lecture prépare sa sélection personnalisée","text":"","link":""}},"item_YxQhRt":{"type":"item","settings":{"icon":"price_tag","custom_icon":"shopify:\/\/shop_images\/nuage_3.png","heading":"En fonction de la formule que vous avez choisi : vous rec","text":"","link":""}},"item_Yq9JkE":{"type":"item","settings":{"icon":"return","custom_icon":"shopify:\/\/shop_images\/nuage_4.png","heading":"Vous ajustez à tout moment selon l’évolution de votre enfant","text":"","link":""}}},"block_order":["item_cjMfMH","item_7GEAcp","item_YxQhRt","item_Yq9JkE"],"disabled":true,"custom_css":["carousel-slider {background-image: url(\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/Pointilles.png?v=1769199868\"); background-repeat: no-repeat; background-position: center; background-size: auto;}",".slider {padding-top: 20px;}"],"name":"Icones 3","settings":{"heading":"","heading_align":"text-start","icon_size":104,"title_type_scale":"small","text_type_scale":"medium","icon_position":"above","mobile_stack":false,"section_height":"medium","color_scheme":"none","full_width":true,"dividers":"none","prevent_animation":false}},"media_with_text_iBQYE8":{"type":"media-with-text","blocks":{"heading_d9mCPt":{"type":"heading","settings":{"heading":"Aider les famille à transmettre ce qu'il y a de meilleur aux enfants","heading_size":"h3","heading_h1":false}},"text_znMr4X":{"type":"text","settings":{"text":"<p>Dans un monde saturé de contenus, choisir un bon livre est devenu un vrai défi.\u2028Verty a créé une solution simple et rassurante : \u2028<\/p><p>✨ Des livres sélectionnés avec discernement\u2028<\/p><p>✨ Adaptés à chaque enfant, \u2028<\/p><p>✨ Qui donnent le goût de lire et des repères pour grandir<\/p><p>\u2028Avec l’abonnement, Verty veut aider les familles à mettre en place des rituels de lecture qui font grandir<\/p>","enlarge_text":false}},"button_3JVXBq":{"type":"button","settings":{"button_label":"Abonner un enfant","button_link":"","button_style":"btn btn--primary"}}},"block_order":["heading_d9mCPt","text_znMr4X","button_3JVXBq"],"disabled":true,"custom_css":[".media-with-text {background-color: rgba(76, 78, 193, 0.16); background-origin: padding-box;}"],"name":"Media with text","settings":{"image":"shopify:\/\/shop_images\/famille_lecture.png","video_external":"","video_description":"","video_autoplay":false,"layout":"right","image_fit":"contain","media_width":50,"media_scale":100,"text_align":"text-start","color_scheme":"none","only_content_color_scheme":false}},"stats_visual_abonnement_JHqVQU":{"type":"stats-visual-abonnement","name":"Stats Visual — 2×2","settings":{"bg_color":"#ffffff","bg_opacity":100,"section_pad_v":40,"section_pad_h":32,"max_width":1200,"card_bg":"#ffffff","card_bg_opacity":100,"card_border_color":"#e8e8e8","card_border_width":0,"card_radius":0,"card_shadow":"none","card_pad_v":48,"card_pad_h":48,"left_flex":5,"right_flex":5,"columns_gap":48,"rows_gap":12,"divider_show":false,"divider_color":"#dddddd","divider_width":1,"divider_offset_top":4,"divider_offset_bottom":4,"left_text":"<p><strong>Parce qu'un enfant passe l'équivalent de 3 années scolaire par an devant les écrans<\/strong> <em>(Vs. 7 jours pour la lecture)*<\/em><\/p>","left_text_color":"#111111","left_text_size":18,"left_text_weight":"400","left_text_lh":16,"left_text_align":"center","left_align":"center","left_text_valign":"center","right_image":"shopify:\/\/shop_images\/picto-page-abo.png","right_img_max_width":200,"right_align":"center","right_img_valign":"flex-start","left_image":"shopify:\/\/shop_images\/Group_4904.png","left_img_max_width":300,"left_img_valign":"center","left_footnote":"*Pour un enfant de 4ème. Faites-Les Lire! Michel Desmurget - 2023","right_text":"<p>Et qu'heureusement vous êtes <strong>2 mères sur 3<\/strong> à pousser vos enfants à lire…<\/p>","right_text_color":"#111111","right_text_size":22,"right_text_weight":"400","right_text_lh":15,"right_text_align":"center","right_text_valign":"flex-start","right_footnote":"","footnote_color":"#888888","footnote_size":12,"mobile_breakpoint":768,"mobile_gap":32,"mobile_img_max_width":280}},"image_block_Tgk3hC":{"type":"image-block","name":"Image Block","settings":{"image":"shopify:\/\/shop_images\/banner-v-v2.png","bg_color":"#ffffff","bg_opacity":100,"section_pad_v":0,"section_pad_h":0,"max_width":1600,"radius":0,"margin_top":-200,"margin_bottom":0,"height":1300,"zoom":105,"object_fit":"contain","mobile_breakpoint":768,"mobile_pad_v":0,"mobile_pad_h":0,"mobile_margin_top":-20,"mobile_margin_bottom":4,"mobile_height":450,"mobile_radius":0,"mobile_object_fit":"cover"}},"custom_liquid_qhKHDP":{"type":"custom-liquid","name":"Custom HTML\/Liquid","settings":{"custom_liquid":"{% comment %}\n  Hero centré avec fond arrondi + image posée à droite\n{% endcomment %}\n\n<section class=\"abo-hero \">\n  <div class=\"abo-hero__bg \">\n    <div class=\"abo-hero__inner \">\n      <h2 class=\"abo-hero__title h4\">Un abonnement personnalisé à chaque enfant!<\/h2>\n      <p class=\"abo-hero__subtitle\">\n        Dites-nous ce que votre enfant aime, nous adaptons la sélection à son âge, son niveau de lecture et ses centres d’intérêts!\n      <\/p>\n      <a class=\"abo-hero__btn\" href=\"#\">J'abonne un enfant<\/a>\n    <\/div>\n\n    <img\n      class=\"abo-hero__image\"\n      src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0844\/5447\/4021\/files\/boxcar_all.png?v=1769171577\"\n      alt=\"\"\n      loading=\"lazy\"\n    >\n  <\/div>\n<\/section>\n\n<style>\n  .abo-hero{\n    padding: 48px 0px;\n  }\n\n  \/* Fond centré, pas full width *\/\n  .abo-hero__bg{\n    position: relative;\n    max-width:1260px;\n    margin: 0 auto;\n    background:rgba(213, 246, 233, 0.6);\n    border-radius: 24px;\n    padding: 56px 0px;\n    overflow: visible; \/* autorise le dépassement de l’image *\/\n  }\n\n  \/* Texte centré *\/\n  .abo-hero__inner{\n    max-width: 820px;\n    margin: 0 auto;\n    text-align: center;\n    position: relative;\n    z-index: 2;\n  }\n\n  .abo-hero__title{\n    margin: 0 0 12px;\n    line-height: 1.1;\n  }\n\n  .abo-hero__subtitle{\n    margin: 0 0 18px;\n    line-height: 1.5;\n  }\n\n  .abo-hero__btn{\n    display: inline-block;\n    background: #97E8C7;\n    color: #0b0b0b;\n    text-decoration: none;\n    padding: 14px 20px;\n    border-radius: 50px;\n    font-weight: 700;\n    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;\n  }\n\n  .abo-hero__btn:hover{\n  transform: translateY(-2px);\n  filter: brightness(1.03);\n}\n\n.abo-hero__btn:active{\n  transform: translateY(0);\n}\n\n  \/* Image posée à droite du fond *\/\n  .abo-hero__image{\n    position: absolute;\n    right: -60px; \/* dépassement *\/\n    top: 70%;\n    transform: translateY(-50%);\n    width: 420px;\n    height: auto;\n    z-index: 1;\n    pointer-events: none;\n  }\n\n  \/* Tablet *\/\n  @media (max-width: 999px){\n    .abo-hero__image{\n      width: 320px;\n      right: -40px;\n    }\n  }\n\n  \/* Mobile *\/\n  @media (max-width: 749px){\n    .abo-hero__bg{\n      padding: 40px 16px 28px;\n    }\n\n    .abo-hero__title{\n      font-size: 30px;\n    }\n\n    .abo-hero__image{\n      position: static;\n      transform: none;\n      display: block;\n      margin: 24px auto 0;\n      width: min(360px, 86vw);\n      pointer-events: auto;\n    }\n  }\n<\/style>","section_height":"default","full_width":false,"dividers":"none","prevent_animation":false}},"custom_text_block_Ad8p3r":{"type":"custom-text-block","name":"Nos lecteurs parlent de nous","settings":{"title":"Nos lecteurs parlent de nous","title_anchor_id":"","mobile_center":true,"heading_tag":"h2","heading_style_class":"h4","text":"<p>Et on les remercie !<\/p>","text_align":"left","p_align":"left","title_margin_top":"20","title_margin_bottom":"20","p_margin_top":"20","p_margin_bottom":"20"}},"avis_abonnement_TnMtk6":{"type":"avis-abonnement","blocks":{"testimonial_cPHh8f":{"type":"testimonial","settings":{"testimonial":"<p>“Verty m’a simplifié la vie.\u2028Plus besoin de comparer, d’hésiter, de douter.\u2028Je reçois des livres que je n’aurais pas su trouver seule.”<\/p>","author":"Élodie, maman de 3 enfants","author_info":"","author_image":"shopify:\/\/shop_images\/testimonial2.jpg","show_star_rating":true,"star_rating":5}},"testimonial_q48FQj":{"type":"testimonial","settings":{"testimonial":"<p>Tellement mâlin comme idée! Je me prenais la tête à trouver des livres biens.<\/p>","author":"Cléa 32 ans, maman ","author_info":"","author_image":"shopify:\/\/shop_images\/testimonial3.png","show_star_rating":true,"star_rating":5}},"testimonial_tPNxPy":{"type":"testimonial","settings":{"testimonial":"<p>Et surtout ne changez rien, notre monde a besoin de gens comme vous, les enfants ont tout à fait besoin de grandir avec du bon, du vrai, du beau…<\/p>","author":"Véronique, 68 ans grand-mère","author_info":"","author_image":"shopify:\/\/shop_images\/testimonial1.png","show_star_rating":true,"star_rating":5}},"testimonial_47Rbep":{"type":"testimonial","settings":{"testimonial":"<p>C’est une tellement belle idée, j’en aurais rêvé et vous l’avez fait !<\/p>","author":" Laetitia, 39 ans , maman","author_info":"","author_image":"shopify:\/\/shop_images\/testimonial4.jpg","show_star_rating":true,"star_rating":5}}},"block_order":["testimonial_cPHh8f","testimonial_q48FQj","testimonial_tPNxPy","testimonial_47Rbep"],"name":"Avis abonnement","settings":{"heading":"","show_quotes":false,"color_scheme":"default","full_width":true}},"featured_blog_p4mwg9":{"type":"featured-blog","name":"Blog posts","settings":{"title":"Retrouvez nos articles sur le blog Verty","heading_align":"text-start","show_view_all":true,"blog":"blog","layout":"carousel","posts_to_show":8,"show_featured_image":true,"show_tags":false,"show_excerpt":true,"show_author":true,"show_date":true,"show_button":false,"color_scheme":"none","image_ratio":"1.77","button_style":"btn btn--primary"}},"boutons_collection_nMUgmq":{"type":"boutons-collection","name":"Boutons collection","settings":{"heading":"Redécouvrez nos sélections temporaires et thématiques","description":"Chaque enfant évolue à son propre rythme...","background_color":"#f5faf9","button_color":"#8fcdbf","margin_top":20,"margin_bottom":20}}},"order":["main","banniere_abonnement_bMQbe3","banner_abonnement_v2_WTTGjg","custom_two_cols_form_abo_v2_46grxq","custom_liquid_annWXM","content_media_abonnement_7B4VjG","custom_text_block_RCAPXX","icons_with_text_dti4ch","abonnement_box_section_boxcar_krpAxp","custom_text_block_ahXKDp","abonnement_choix_formule_RRU74R","icons_with_text_iN3Mbb","custom_text_block_PRGX7P","custom_text_block_QrcwWY","icons_with_text_Bdp4Rp","media_with_text_iBQYE8","stats_visual_abonnement_JHqVQU","image_block_Tgk3hC","custom_liquid_qhKHDP","custom_text_block_Ad8p3r","avis_abonnement_TnMtk6","featured_blog_p4mwg9","boutons_collection_nMUgmq"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page_title": true,
+        "heading_align": "text-center"
+      }
+    },
+    "banniere_abonnement_bMQbe3": {
+      "type": "banniere-abonnement",
+      "disabled": true,
+      "name": "Bannière abonnement",
+      "settings": {
+        "section_height": 560,
+        "left_width": 5,
+        "right_width": 5,
+        "bg_left": "#b2e0d4",
+        "bg_left_opacity": 100,
+        "panel_padding_v": 64,
+        "panel_padding_h": 64,
+        "left_align_items": "center",
+        "left_justify": "flex-start",
+        "left_content_max_width": 560,
+        "left_text_align": "left",
+        "left_gap": 28,
+        "heading": "1 sélection personnalisée de livres pour votre enfant.",
+        "heading_color": "#111111",
+        "heading_size": 52,
+        "heading_weight": "800",
+        "heading_lh": 12,
+        "body_text": "<p>Ils sont <strong>+20.000 parents</strong> à s'inspirer chaque mois de nos recommandations de lecture.</p>",
+        "body_color": "#333333",
+        "body_size": 18,
+        "body_lh": 16,
+        "btn_label": "Je me lance",
+        "btn_url": "",
+        "btn_bg": "#ffffff",
+        "btn_color": "#111111",
+        "btn_border_color": "#6ecfb5",
+        "btn_border_width": 2,
+        "btn_radius": 50,
+        "btn_font_size": 16,
+        "btn_weight": "600",
+        "btn_pad_v": 18,
+        "btn_pad_h": 56,
+        "btn_min_width": 220,
+        "btn_align_self": "flex-start",
+        "btn_full_mobile": true,
+        "bg_right": "#b2e0d4",
+        "bg_right_opacity": 100,
+        "img_padding_v": 0,
+        "img_padding_h": 0,
+        "img_fit": "cover",
+        "img_max_width": 1200,
+        "img_max_height": 1200,
+        "img_align": "flex-end",
+        "img_justify": "center",
+        "img_overflow": "hidden",
+        "img_offset_x": 0,
+        "img_offset_y": 0,
+        "mobile_breakpoint": 768,
+        "mobile_img_height": 300
+      }
+    },
+    "banner_abonnement_v2_WTTGjg": {
+      "type": "banner-abonnement-v2",
+      "name": "Hero Banner — Texte + Image",
+      "settings": {
+        "bg_color": "#97e8c7",
+        "bg_opacity": 40,
+        "section_pad_v": 48,
+        "section_pad_h": 64,
+        "section_height": 460,
+        "max_width": 1400,
+        "columns_gap": 32,
+        "left_flex": 5,
+        "right_flex": 5,
+        "left_pad_bottom": 48,
+        "heading": "Une sélection personnalisée de livres pour votre enfant.",
+        "heading_color": "#111111",
+        "heading_size": 54,
+        "heading_weight": "800",
+        "heading_lh": 12,
+        "heading_mb": 28,
+        "subtext": "<p>Ils sont <strong>+20.000 parents</strong> à s'inspirer chaque mois de nos recommandations de lecture.</p>",
+        "subtext_color": "#222222",
+        "subtext_size": 18,
+        "subtext_lh": 16,
+        "subtext_mb": 36,
+        "btn_label": "Je me lance",
+        "btn_url": "",
+        "btn_bg": "#97e8c7",
+        "btn_color": "#111111",
+        "btn_border_color": "#6ecfb5",
+        "btn_border_width": 2,
+        "btn_radius": 50,
+        "btn_font_size": 16,
+        "btn_weight": "600",
+        "btn_pad_v": 14,
+        "btn_pad_h": 20,
+        "btn_min_width": 180,
+        "hero_image": "shopify://shop_images/hero-banner-abonnement.png",
+        "image_max_width": 460,
+        "image_offset_y": 52,
+        "mobile_breakpoint": 768,
+        "mobile_pad_v": 32,
+        "mobile_pad_h": 24,
+        "mobile_left_pb": 16,
+        "mobile_img_height": 260,
+        "mobile_img_width": 90,
+        "btn_full_mobile": true
+      }
+    },
+    "custom_two_cols_form_abo_v2_46grxq": {
+      "type": "custom-two-cols-form-abo-v2",
+      "name": "Two Col — Text + Card",
+      "settings": {
+        "section_bg": "#ffffff",
+        "section_bg_opacity": 100,
+        "section_height": 500,
+        "section_padding_v": 12,
+        "section_padding_h": 40,
+        "max_width": 1100,
+        "columns_gap": 60,
+        "left_flex": 1,
+        "right_flex": 1,
+        "heading": "Chaque mois, les bons livres.\nSans se tromper.",
+        "heading_color": "#111111",
+        "body_1": "<p>Après un court questionnaire, notre comité de lecture <strong>sélectionne </strong>4 livres vraiment <strong>adaptés à lui</strong>: Son âge, son niveau de lecture, ses centres d’intérêt.<br/><br/>Vous recevez cette sélection personnalisée <strong>directement dans votre boîte mail</strong>.<br/><br/>Une recommandation pensée pour votre enfant. En quelques minutes, vous choisissez en confiance sans douter. <br/><br/>Et vous restez libre: vous pouvez commander directement sur Verty, ou simplement vous inspirer. </p>",
+        "body_2": "",
+        "body_color": "#333333",
+        "body_font_size": 16,
+        "body_align": "justify",
+        "checklist_count": 3,
+        "check_1": "100% Gratuit",
+        "check_2": "Sans engagement",
+        "check_3": "2 minutes",
+        "check_4": "-",
+        "check_5": "-",
+        "check_color": "#3ecf4a",
+        "check_radius": 6,
+        "check_size": 30,
+        "check_label_color": "#111111",
+        "check_font_size": 17,
+        "check_font_weight": "700",
+        "check_gap": 16,
+        "card_bg": "#ffffff",
+        "card_border_color": "#97e8c7",
+        "card_border_width": 2,
+        "card_radius": 20,
+        "card_shadow": "0 2px 24px 0 rgba(0,0,0,0.06)",
+        "card_height": 850,
+        "card_max_width": 420,
+        "card_padding_v": 36,
+        "card_padding_h": 32,
+        "card_image": "shopify://shop_images/avion_papier_1.png",
+        "card_img_size": 110,
+        "card_title": "Formulaire",
+        "card_title_size": 20,
+        "card_title_color": "#111111",
+        "tally_url": "https://tally.so/embed/Npqe1G?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
+        "tally_height": 500,
+        "card_text_size": 14,
+        "card_text_color": "#555555",
+        "card_text_align": "center"
+      }
+    },
+    "custom_liquid_annWXM": {
+      "type": "custom-liquid",
+      "name": "Custom HTML/Liquid",
+      "settings": {
+        "custom_liquid": "<div data-tally-src=\"https://tally.so/embed/Npqe1G?\"\n              data-tally-transparent-background=\"1\"\n              data-tally-hide-title=\"1\"\n              style=\"width:100%;\"></div>\n          <script async src=\"https://tally.so/widgets/embed.js\"></script>",
+        "section_height": "default",
+        "full_width": false,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    },
+    "content_media_abonnement_7B4VjG": {
+      "type": "content-media-abonnement",
+      "name": "Content + Collage Photos",
+      "settings": {
+        "bg_color": "#ffffff",
+        "bg_opacity": 100,
+        "section_pad_v": 48,
+        "section_pad_h": 32,
+        "card_bg": "#97e8c7",
+        "card_opacity": 20,
+        "card_border_color": "#97e8c7",
+        "card_border_width": 1,
+        "card_radius": 24,
+        "card_pad_v": 56,
+        "card_pad_h": 28,
+        "max_width": 1200,
+        "columns_gap": 64,
+        "left_flex": 5,
+        "right_flex": 4,
+        "heading": "Pourquoi est ce qu'on a créé",
+        "heading_highlight": "La Sélection personnalisée\nde votre enfant",
+        "heading_color": "#111111",
+        "highlight_color": "#3ecfb5",
+        "heading_size": 28,
+        "heading_weight": "700",
+        "heading_lh": 12,
+        "left_gap": 12,
+        "body_1": "<p>Aujourd’hui, il y a <strong>trop</strong> de livres. <strong>Trop</strong> de choix. <strong>Trop</strong> d’avis contradictoires. Et <strong>aucun</strong> <strong>parent</strong> <strong>ne peut tout lire</strong> et tout comparer seul.</p>",
+        "body_2": "<p>Nous avons créé la sélection mensuelle personnalisée pour redonner de la clarté et de la confiance. Chaque mois, notre comité de lecture choisit avec exigence des livres pensés pour votre enfant, selon son âge, son niveau et ce qu'il traverse.</p>",
+        "body_3": "<p>Un rendez-vous simple, rassurant, pour vous aider à choisir sans vous tromper, et faire de la lecture un geste serein, profondément formateur.</p>",
+        "body_color": "#333333",
+        "body_size": 16,
+        "body_lh": 17,
+        "body_gap": 16,
+        "btn_label": "Je me lance",
+        "btn_url": "",
+        "btn_bg": "#97e8c7",
+        "btn_color": "#000000",
+        "btn_border_color": "#6ecfb5",
+        "btn_border_width": 2,
+        "btn_radius": 50,
+        "btn_font_size": 16,
+        "btn_weight": "600",
+        "btn_pad_v": 14,
+        "btn_pad_h": 48,
+        "btn_mt": 20,
+        "btn_full_mobile": false,
+        "img_bg": "shopify://shop_images/img.png",
+        "img_front_left": "shopify://shop_images/photo_image_1.png",
+        "img_front_right": "shopify://shop_images/photo_image.png",
+        "img_shadow": "box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;",
+        "img_radius": 8,
+        "collage_ratio": 15,
+        "bg_top": 0,
+        "bg_right": 0,
+        "bg_size": 70,
+        "bg_rotate": 3,
+        "fl_bottom": 0,
+        "fl_left": 0,
+        "fl_size": 52,
+        "fl_rotate": -4,
+        "fr_bottom": 2,
+        "fr_right": 0,
+        "fr_size": 48,
+        "fr_rotate": 5,
+        "mobile_breakpoint": 768
+      }
+    },
+    "custom_text_block_RCAPXX": {
+      "type": "custom-text-block",
+      "disabled": true,
+      "name": "Recevez des livres ...",
+      "settings": {
+        "title": "Recevez des livres sélectionnés avec discernement par notre comité d'experts, adaptés à chaque enfant, qui donnent le goût de lire et des repères pour grandir",
+        "title_anchor_id": "",
+        "mobile_center": true,
+        "heading_tag": "h2",
+        "heading_style_class": "h4",
+        "text": "<p>Vous n’avez plus à chercher, comparer, douter. Verty sélectionne pour vous des livres beaux, simples et vrais, pensés pour nourrir l’esprit, le cœur et l’intelligence de votre enfant.</p>",
+        "text_align": "left",
+        "p_align": "left",
+        "title_margin_top": "20",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
+    "icons_with_text_dti4ch": {
+      "type": "icons-with-text",
+      "blocks": {
+        "item_PBcXaG": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "custom_icon": "shopify://shop_images/Icone_2.png",
+            "heading": "Lu, analysé et validé par notre comité de lecture",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_gJ9mBU": {
+          "type": "item",
+          "settings": {
+            "icon": "price_tag",
+            "custom_icon": "shopify://shop_images/Icone_3.png",
+            "heading": "Personnalisé à chaque enfant",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_UCbgWQ": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "custom_icon": "shopify://shop_images/Icone_1.png",
+            "heading": "Une fois par mois",
+            "text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_PBcXaG",
+        "item_gJ9mBU",
+        "item_UCbgWQ"
+      ],
+      "disabled": true,
+      "name": "Icones 1",
+      "settings": {
+        "heading": "",
+        "heading_align": "text-start",
+        "icon_size": 104,
+        "title_type_scale": "small",
+        "text_type_scale": "medium",
+        "icon_position": "above",
+        "mobile_stack": true,
+        "section_height": "medium",
+        "color_scheme": "none",
+        "full_width": true,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    },
+    "abonnement_box_section_boxcar_krpAxp": {
+      "type": "abonnement-box-section-boxcar",
+      "disabled": true,
+      "name": "Un abonnement personnalisé",
+      "settings": {}
+    },
+    "custom_text_block_ahXKDp": {
+      "type": "custom-text-block",
+      "disabled": true,
+      "name": "Choisissez la formule ...",
+      "settings": {
+        "title": "Choisissez la formule la plus adaptée pour créer un bon rythme de lecture.",
+        "title_anchor_id": "",
+        "mobile_center": true,
+        "heading_tag": "h2",
+        "heading_style_class": "h4",
+        "text": "<p>La lecture stimule l’imagination, améliore la concentration et renforce les capacités de compréhension et d’expression. Elle contribue au développement de votre enfant et à son plaisir d’apprendre.</p>",
+        "text_align": "center",
+        "p_align": "center",
+        "title_margin_top": "20",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
+    "abonnement_choix_formule_RRU74R": {
+      "type": "abonnement-choix-formule",
+      "disabled": true,
+      "name": "Offres – 2 blocs",
+      "settings": {}
+    },
+    "icons_with_text_iN3Mbb": {
+      "type": "icons-with-text",
+      "blocks": {
+        "item_Bc9RUN": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "custom_icon": "shopify://shop_images/icones_2.png",
+            "heading": "Eveiller la part de beauté de chaque enfant",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_kBtaby": {
+          "type": "item",
+          "settings": {
+            "icon": "price_tag",
+            "custom_icon": "shopify://shop_images/icones_1.png",
+            "heading": "Développer l’imaginaire",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_FMKDBy": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "custom_icon": "shopify://shop_images/icones_4.png",
+            "heading": "Enrichir le vocabulaire et développer le language",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_NH9cXL": {
+          "type": "item",
+          "settings": {
+            "icon": "award",
+            "custom_icon": "shopify://shop_images/icones_3.png",
+            "heading": "Eloigner des écrans",
+            "text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_Bc9RUN",
+        "item_kBtaby",
+        "item_FMKDBy",
+        "item_NH9cXL"
+      ],
+      "disabled": true,
+      "name": "Icones 2",
+      "settings": {
+        "heading": "",
+        "heading_align": "text-start",
+        "icon_size": 104,
+        "title_type_scale": "small",
+        "text_type_scale": "medium",
+        "icon_position": "above",
+        "mobile_stack": true,
+        "section_height": "medium",
+        "color_scheme": "none",
+        "full_width": true,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    },
+    "custom_text_block_PRGX7P": {
+      "type": "custom-text-block",
+      "disabled": true,
+      "name": "Et comment ça marche",
+      "settings": {
+        "title": "",
+        "title_anchor_id": "",
+        "mobile_center": true,
+        "heading_tag": "h2",
+        "heading_style_class": "h4",
+        "text": "<p>ET COMMENT ÇA MARCHE</p>",
+        "text_align": "center",
+        "p_align": "center",
+        "title_margin_top": "20",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
+    "custom_text_block_QrcwWY": {
+      "type": "custom-text-block",
+      "disabled": true,
+      "name": "Tous les mois, une sélection ...",
+      "settings": {
+        "title": "Tous les mois, une sélection personnalisée",
+        "title_anchor_id": "",
+        "mobile_center": true,
+        "heading_tag": "h2",
+        "heading_style_class": "h4",
+        "text": "",
+        "text_align": "center",
+        "p_align": "center",
+        "title_margin_top": "20",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
+    "icons_with_text_Bdp4Rp": {
+      "type": "icons-with-text",
+      "blocks": {
+        "item_cjMfMH": {
+          "type": "item",
+          "settings": {
+            "icon": "award",
+            "custom_icon": "shopify://shop_images/nuage_1.png",
+            "heading": "Vous renseignez le profil de votre enfant dédéhudéhudéhuéd",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_7GEAcp": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "custom_icon": "shopify://shop_images/nuage_2.png",
+            "heading": "Notre comité de lecture prépare sa sélection personnalisée",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_YxQhRt": {
+          "type": "item",
+          "settings": {
+            "icon": "price_tag",
+            "custom_icon": "shopify://shop_images/nuage_3.png",
+            "heading": "En fonction de la formule que vous avez choisi : vous rec",
+            "text": "",
+            "link": ""
+          }
+        },
+        "item_Yq9JkE": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "custom_icon": "shopify://shop_images/nuage_4.png",
+            "heading": "Vous ajustez à tout moment selon l’évolution de votre enfant",
+            "text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_cjMfMH",
+        "item_7GEAcp",
+        "item_YxQhRt",
+        "item_Yq9JkE"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "carousel-slider {background-image: url(\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/Pointilles.png?v=1769199868\"); background-repeat: no-repeat; background-position: center; background-size: auto;}",
+        ".slider {padding-top: 20px;}"
+      ],
+      "name": "Icones 3",
+      "settings": {
+        "heading": "",
+        "heading_align": "text-start",
+        "icon_size": 104,
+        "title_type_scale": "small",
+        "text_type_scale": "medium",
+        "icon_position": "above",
+        "mobile_stack": false,
+        "section_height": "medium",
+        "color_scheme": "none",
+        "full_width": true,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    },
+    "media_with_text_iBQYE8": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_d9mCPt": {
+          "type": "heading",
+          "settings": {
+            "heading": "Aider les famille à transmettre ce qu'il y a de meilleur aux enfants",
+            "heading_size": "h3",
+            "heading_h1": false
+          }
+        },
+        "text_znMr4X": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Dans un monde saturé de contenus, choisir un bon livre est devenu un vrai défi. Verty a créé une solution simple et rassurante :  </p><p>✨ Des livres sélectionnés avec discernement </p><p>✨ Adaptés à chaque enfant,  </p><p>✨ Qui donnent le goût de lire et des repères pour grandir</p><p> Avec l’abonnement, Verty veut aider les familles à mettre en place des rituels de lecture qui font grandir</p>",
+            "enlarge_text": false
+          }
+        },
+        "button_3JVXBq": {
+          "type": "button",
+          "settings": {
+            "button_label": "Abonner un enfant",
+            "button_link": "",
+            "button_style": "btn btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_d9mCPt",
+        "text_znMr4X",
+        "button_3JVXBq"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".media-with-text {background-color: rgba(76, 78, 193, 0.16); background-origin: padding-box;}"
+      ],
+      "name": "Media with text",
+      "settings": {
+        "image": "shopify://shop_images/famille_lecture.png",
+        "video_external": "",
+        "video_description": "",
+        "video_autoplay": false,
+        "layout": "right",
+        "image_fit": "contain",
+        "media_width": 50,
+        "media_scale": 100,
+        "text_align": "text-start",
+        "color_scheme": "none",
+        "only_content_color_scheme": false
+      }
+    },
+    "stats_visual_abonnement_JHqVQU": {
+      "type": "stats-visual-abonnement",
+      "name": "Stats Visual — 2×2",
+      "settings": {
+        "bg_color": "#ffffff",
+        "bg_opacity": 100,
+        "section_pad_v": 40,
+        "section_pad_h": 32,
+        "max_width": 1200,
+        "card_bg": "#ffffff",
+        "card_bg_opacity": 100,
+        "card_border_color": "#e8e8e8",
+        "card_border_width": 0,
+        "card_radius": 0,
+        "card_shadow": "none",
+        "card_pad_v": 48,
+        "card_pad_h": 48,
+        "left_flex": 5,
+        "right_flex": 5,
+        "columns_gap": 48,
+        "rows_gap": 12,
+        "divider_show": false,
+        "divider_color": "#dddddd",
+        "divider_width": 1,
+        "divider_offset_top": 4,
+        "divider_offset_bottom": 4,
+        "left_text": "<p><strong>Parce qu'un enfant passe l'équivalent de 3 années scolaire par an devant les écrans</strong> <em>(Vs. 7 jours pour la lecture)*</em></p>",
+        "left_text_color": "#111111",
+        "left_text_size": 18,
+        "left_text_weight": "400",
+        "left_text_lh": 16,
+        "left_text_align": "center",
+        "left_align": "center",
+        "left_text_valign": "center",
+        "right_image": "shopify://shop_images/picto-page-abo.png",
+        "right_img_max_width": 200,
+        "right_align": "center",
+        "right_img_valign": "flex-start",
+        "left_image": "shopify://shop_images/Group_4904.png",
+        "left_img_max_width": 300,
+        "left_img_valign": "center",
+        "left_footnote": "*Pour un enfant de 4ème. Faites-Les Lire! Michel Desmurget - 2023",
+        "right_text": "<p>Et qu'heureusement vous êtes <strong>2 mères sur 3</strong> à pousser vos enfants à lire…</p>",
+        "right_text_color": "#111111",
+        "right_text_size": 22,
+        "right_text_weight": "400",
+        "right_text_lh": 15,
+        "right_text_align": "center",
+        "right_text_valign": "flex-start",
+        "right_footnote": "",
+        "footnote_color": "#888888",
+        "footnote_size": 12,
+        "mobile_breakpoint": 768,
+        "mobile_gap": 32,
+        "mobile_img_max_width": 280
+      }
+    },
+    "image_block_Tgk3hC": {
+      "type": "image-block",
+      "name": "Image Block",
+      "settings": {
+        "image": "shopify://shop_images/banner-v-v2.png",
+        "bg_color": "#ffffff",
+        "bg_opacity": 100,
+        "section_pad_v": 0,
+        "section_pad_h": 0,
+        "max_width": 1600,
+        "radius": 0,
+        "margin_top": -200,
+        "margin_bottom": 0,
+        "height": 1300,
+        "zoom": 105,
+        "object_fit": "contain",
+        "mobile_breakpoint": 768,
+        "mobile_pad_v": 0,
+        "mobile_pad_h": 0,
+        "mobile_margin_top": -20,
+        "mobile_margin_bottom": 4,
+        "mobile_height": 450,
+        "mobile_radius": 0,
+        "mobile_object_fit": "cover"
+      }
+    },
+    "custom_liquid_qhKHDP": {
+      "type": "custom-liquid",
+      "name": "Custom HTML/Liquid",
+      "settings": {
+        "custom_liquid": "{% comment %}\n  Hero centré avec fond arrondi + image posée à droite\n{% endcomment %}\n\n<section class=\"abo-hero \">\n  <div class=\"abo-hero__bg \">\n    <div class=\"abo-hero__inner \">\n      <h2 class=\"abo-hero__title h4\">Un abonnement personnalisé à chaque enfant!</h2>\n      <p class=\"abo-hero__subtitle\">\n        Dites-nous ce que votre enfant aime, nous adaptons la sélection à son âge, son niveau de lecture et ses centres d’intérêts!\n      </p>\n      <a class=\"abo-hero__btn\" href=\"#\">J'abonne un enfant</a>\n    </div>\n\n    <img\n      class=\"abo-hero__image\"\n      src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/boxcar_all.png?v=1769171577\"\n      alt=\"\"\n      loading=\"lazy\"\n    >\n  </div>\n</section>\n\n<style>\n  .abo-hero{\n    padding: 48px 0px;\n  }\n\n  /* Fond centré, pas full width */\n  .abo-hero__bg{\n    position: relative;\n    max-width:1260px;\n    margin: 0 auto;\n    background:rgba(213, 246, 233, 0.6);\n    border-radius: 24px;\n    padding: 56px 0px;\n    overflow: visible; /* autorise le dépassement de l’image */\n  }\n\n  /* Texte centré */\n  .abo-hero__inner{\n    max-width: 820px;\n    margin: 0 auto;\n    text-align: center;\n    position: relative;\n    z-index: 2;\n  }\n\n  .abo-hero__title{\n    margin: 0 0 12px;\n    line-height: 1.1;\n  }\n\n  .abo-hero__subtitle{\n    margin: 0 0 18px;\n    line-height: 1.5;\n  }\n\n  .abo-hero__btn{\n    display: inline-block;\n    background: #97E8C7;\n    color: #0b0b0b;\n    text-decoration: none;\n    padding: 14px 20px;\n    border-radius: 50px;\n    font-weight: 700;\n    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;\n  }\n\n  .abo-hero__btn:hover{\n  transform: translateY(-2px);\n  filter: brightness(1.03);\n}\n\n.abo-hero__btn:active{\n  transform: translateY(0);\n}\n\n  /* Image posée à droite du fond */\n  .abo-hero__image{\n    position: absolute;\n    right: -60px; /* dépassement */\n    top: 70%;\n    transform: translateY(-50%);\n    width: 420px;\n    height: auto;\n    z-index: 1;\n    pointer-events: none;\n  }\n\n  /* Tablet */\n  @media (max-width: 999px){\n    .abo-hero__image{\n      width: 320px;\n      right: -40px;\n    }\n  }\n\n  /* Mobile */\n  @media (max-width: 749px){\n    .abo-hero__bg{\n      padding: 40px 16px 28px;\n    }\n\n    .abo-hero__title{\n      font-size: 30px;\n    }\n\n    .abo-hero__image{\n      position: static;\n      transform: none;\n      display: block;\n      margin: 24px auto 0;\n      width: min(360px, 86vw);\n      pointer-events: auto;\n    }\n  }\n</style>",
+        "section_height": "default",
+        "full_width": false,
+        "dividers": "none",
+        "prevent_animation": false
+      }
+    },
+    "topic_pills_abonnement_6Ykahy": {
+      "type": "topic-pills-abonnement",
+      "blocks": {
+        "pill_jFPq6h": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "Automne",
+            "pill_url": "shopify://collections/la-beaute-de-la-nature-en-automne"
+          }
+        },
+        "pill_kMKPiB": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La Joie",
+            "pill_url": "shopify://collections/la-joie"
+          }
+        },
+        "pill_9xqwF9": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La gratitude",
+            "pill_url": "shopify://collections/gratitude-notre-selection-de-livres-pour-aider-son-enfant-a-etre-plus-heureux-et-confiant"
+          }
+        },
+        "pill_44yjJm": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La colère",
+            "pill_url": "shopify://collections/la-colere-des-enfants-une-tempete-qui-cache-un-tresor-de-vie"
+          }
+        },
+        "pill_EU4trE": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "Noël",
+            "pill_url": "shopify://collections/meilleurs-livres-pour-vivre-la-magie-de-noel-1"
+          }
+        },
+        "pill_9LKccV": {
+          "type": "pill",
+          "settings": {
+            "pill_label": "La première Guerre Mondiale",
+            "pill_url": "shopify://collections/des-livres-qui-parlent-de-la-premiere-guerre-mondiale"
+          }
+        }
+      },
+      "block_order": [
+        "pill_jFPq6h",
+        "pill_kMKPiB",
+        "pill_9xqwF9",
+        "pill_44yjJm",
+        "pill_EU4trE",
+        "pill_9LKccV"
+      ],
+      "name": "Topic Pills",
+      "settings": {
+        "bg_color": "#ffffff",
+        "bg_opacity": 100,
+        "section_pad_v": 56,
+        "section_pad_h": 32,
+        "max_width": 1100,
+        "heading": "Les sujets préférés de notre communauté",
+        "heading_color": "#111111",
+        "heading_size": 28,
+        "heading_weight": "700",
+        "heading_mb": 16,
+        "subtext": "Vous ne savez pas par quel bout commencer ? Voici les sujets préférés de notre communauté, les derniers articles et conseils de lecture.",
+        "subtext_color": "#444444",
+        "subtext_size": 16,
+        "subtext_lh": 16,
+        "subtext_max_width": 780,
+        "subtext_mb": 40,
+        "pill_bg_color": "#d4f0e8",
+        "pill_bg_opacity": 100,
+        "pill_text_color": "#2a8a6e",
+        "pill_border_color": "#a8dfd0",
+        "pill_border_width": 1,
+        "pill_radius": 12,
+        "pill_font_size": 15,
+        "pill_font_weight": "400",
+        "pill_pad_v": 10,
+        "pill_pad_h": 20,
+        "pill_gap": 12,
+        "pill_hover_bg": "#2a8a6e",
+        "pill_hover_text": "#ffffff",
+        "mobile_breakpoint": 768,
+        "mobile_pad_v": 40,
+        "mobile_pad_h": 20,
+        "mobile_pill_gap": 8,
+        "mobile_pill_size": 13
+      }
+    },
+    "custom_text_block_Ad8p3r": {
+      "type": "custom-text-block",
+      "name": "Nos lecteurs parlent de nous",
+      "settings": {
+        "title": "Nos lecteurs parlent de nous",
+        "title_anchor_id": "",
+        "mobile_center": true,
+        "heading_tag": "h2",
+        "heading_style_class": "h4",
+        "text": "<p>Et on les remercie !</p>",
+        "text_align": "left",
+        "p_align": "left",
+        "title_margin_top": "20",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
+    "avis_abonnement_TnMtk6": {
+      "type": "avis-abonnement",
+      "blocks": {
+        "testimonial_cPHh8f": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<p>“Verty m’a simplifié la vie. Plus besoin de comparer, d’hésiter, de douter. Je reçois des livres que je n’aurais pas su trouver seule.”</p>",
+            "author": "Élodie, maman de 3 enfants",
+            "author_info": "",
+            "author_image": "shopify://shop_images/testimonial2.jpg",
+            "show_star_rating": true,
+            "star_rating": 5
+          }
+        },
+        "testimonial_q48FQj": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<p>Tellement mâlin comme idée! Je me prenais la tête à trouver des livres biens.</p>",
+            "author": "Cléa 32 ans, maman ",
+            "author_info": "",
+            "author_image": "shopify://shop_images/testimonial3.png",
+            "show_star_rating": true,
+            "star_rating": 5
+          }
+        },
+        "testimonial_tPNxPy": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<p>Et surtout ne changez rien, notre monde a besoin de gens comme vous, les enfants ont tout à fait besoin de grandir avec du bon, du vrai, du beau…</p>",
+            "author": "Véronique, 68 ans grand-mère",
+            "author_info": "",
+            "author_image": "shopify://shop_images/testimonial1.png",
+            "show_star_rating": true,
+            "star_rating": 5
+          }
+        },
+        "testimonial_47Rbep": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<p>C’est une tellement belle idée, j’en aurais rêvé et vous l’avez fait !</p>",
+            "author": " Laetitia, 39 ans , maman",
+            "author_info": "",
+            "author_image": "shopify://shop_images/testimonial4.jpg",
+            "show_star_rating": true,
+            "star_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_cPHh8f",
+        "testimonial_q48FQj",
+        "testimonial_tPNxPy",
+        "testimonial_47Rbep"
+      ],
+      "name": "Avis abonnement",
+      "settings": {
+        "heading": "",
+        "show_quotes": false,
+        "color_scheme": "default",
+        "full_width": true
+      }
+    },
+    "featured_blog_p4mwg9": {
+      "type": "featured-blog",
+      "name": "Blog posts",
+      "settings": {
+        "title": "Retrouvez nos articles sur le blog Verty",
+        "heading_align": "text-start",
+        "show_view_all": true,
+        "blog": "blog",
+        "layout": "carousel",
+        "posts_to_show": 8,
+        "show_featured_image": true,
+        "show_tags": false,
+        "show_excerpt": true,
+        "show_author": true,
+        "show_date": true,
+        "show_button": false,
+        "color_scheme": "none",
+        "image_ratio": "1.77",
+        "button_style": "btn btn--primary"
+      }
+    },
+    "boutons_collection_nMUgmq": {
+      "type": "boutons-collection",
+      "name": "Boutons collection",
+      "settings": {
+        "heading": "Redécouvrez nos sélections temporaires et thématiques",
+        "description": "Chaque enfant évolue à son propre rythme...",
+        "background_color": "#f5faf9",
+        "button_color": "#8fcdbf",
+        "margin_top": 20,
+        "margin_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "main",
+    "banniere_abonnement_bMQbe3",
+    "banner_abonnement_v2_WTTGjg",
+    "custom_two_cols_form_abo_v2_46grxq",
+    "custom_liquid_annWXM",
+    "content_media_abonnement_7B4VjG",
+    "custom_text_block_RCAPXX",
+    "icons_with_text_dti4ch",
+    "abonnement_box_section_boxcar_krpAxp",
+    "custom_text_block_ahXKDp",
+    "abonnement_choix_formule_RRU74R",
+    "icons_with_text_iN3Mbb",
+    "custom_text_block_PRGX7P",
+    "custom_text_block_QrcwWY",
+    "icons_with_text_Bdp4Rp",
+    "media_with_text_iBQYE8",
+    "stats_visual_abonnement_JHqVQU",
+    "image_block_Tgk3hC",
+    "custom_liquid_qhKHDP",
+    "topic_pills_abonnement_6Ykahy",
+    "custom_text_block_Ad8p3r",
+    "avis_abonnement_TnMtk6",
+    "featured_blog_p4mwg9",
+    "boutons_collection_nMUgmq"
+  ]
+}
