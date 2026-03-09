@@ -882,18 +882,6 @@
         "image_ratio": "1.77",
         "button_style": "btn btn--primary"
       }
-    },
-    "boutons_collection_nMUgmq": {
-      "type": "boutons-collection",
-      "name": "Boutons collection",
-      "settings": {
-        "heading": "Redécouvrez nos sélections temporaires et thématiques",
-        "description": "Chaque enfant évolue à son propre rythme...",
-        "background_color": "#f5faf9",
-        "button_color": "#8fcdbf",
-        "margin_top": 20,
-        "margin_bottom": 20
-      }
     }
   },
   "order": [
@@ -916,10 +904,9 @@
     "stats_visual_abonnement_JHqVQU",
     "image_block_Tgk3hC",
     "custom_liquid_qhKHDP",
-    "topic_pills_abonnement_6Ykahy",
     "custom_text_block_Ad8p3r",
     "avis_abonnement_TnMtk6",
     "featured_blog_p4mwg9",
-    "boutons_collection_nMUgmq"
+    "topic_pills_abonnement_6Ykahy"
   ]
 }
