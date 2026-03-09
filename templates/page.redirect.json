@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "redirect": {
+      "type": "page-redirect",
+      "settings": {}
+    }
+  },
+  "order": ["redirect"]
+}

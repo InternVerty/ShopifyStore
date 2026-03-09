@@ -1,0 +1,32 @@
+{%- assign og_title       = section.settings.og_title       | default: page.title -%}
+{%- assign og_description = section.settings.og_description | default: page.excerpt_or_content | strip_html | truncate: 200 -%}
+{%- assign og_site_name   = section.settings.og_site_name   | default: shop.name -%}
+{%- assign og_url         = shop.url | append: page.url -%}
+
+<!-- noindex: redirect pages have no SEO value -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Open Graph -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="{{ og_site_name | escape }}">
+<meta property="og:title"       content="{{ og_title | escape }}">
+<meta property="og:description" content="{{ og_description | escape }}">
+<meta property="og:url"         content="{{ og_url }}">
+
+{%- if section.settings.og_image != blank -%}
+  <meta property="og:image"       content="{{ section.settings.og_image | image_url: width: 1200 }}">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"    content="{{ og_title | escape }}">
+{%- endif -%}
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ og_description | escape }}">
+{%- if section.settings.og_image != blank -%}
+  <meta name="twitter:image"     content="{{ section.settings.og_image | image_url: width: 1200 }}">
+{%- endif -%}
+
+<!-- Canonical: points to destination, not this redirect page -->
+<link rel="canonical" href="{{ section.settings.redirect_url }}">

@@ -1,0 +1,96 @@
+{% comment %}
+  Section: Page Redirect with custom OG embed
+  File: sections/page-redirect.liquid
+{% endcomment %}
+
+{%- assign redirect_url = section.settings.redirect_url -%}
+
+<script>
+  // Ne redirige PAS si on est dans l'éditeur Shopify
+  if (!Shopify.designMode) {
+    window.location.replace("{{ section.settings.redirect_url | escape }}");
+  }
+</script>
+
+<noscript>
+  <meta http-equiv="refresh" content="0; url={{ redirect_url | escape }}">
+</noscript>
+
+<!-- Visible only for the fraction of a second before redirect -->
+<div class="redirect-page">
+  <p>Redirection en cours…</p>
+  <a href="{{ redirect_url | escape }}">Cliquez ici si vous n'êtes pas redirigé automatiquement</a>
+</div>
+
+<style>
+  .redirect-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 40vh;
+    font-size: 1rem;
+    color: #666;
+    gap: 12px;
+    text-align: center;
+    padding: 40px 16px;
+  }
+  .redirect-page a {
+    color: #8FCCBF;
+    text-decoration: underline;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Page Redirect",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "━━ REDIRECTION ━━"
+    },
+    {
+      "type": "url",
+      "id": "redirect_url",
+      "label": "URL de destination",
+      "info": "L'utilisateur sera redirigé vers cette URL instantanément."
+    },
+    {
+      "type": "header",
+      "content": "━━ EMBED / OPEN GRAPH ━━",
+      "info": "Ces informations s'affichent lors du partage sur WhatsApp, Facebook, iMessage, etc."
+    },
+    {
+      "type": "text",
+      "id": "og_title",
+      "label": "Titre (og:title)",
+      "default": "Recevez une sélection de livres personnalisée pour votre enfant"
+    },
+    {
+      "type": "textarea",
+      "id": "og_description",
+      "label": "Description (og:description)",
+      "default": "En 2 minutes, recevez chaque mois une sélection de livres adaptée à l'âge et aux centres d'intérêt de votre enfant. 100% gratuit, sans engagement."
+    },
+    {
+      "type": "image_picker",
+      "id": "og_image",
+      "label": "Image de partage (og:image)",
+      "info": "Recommandé : 1200×630px. S'affiche lors du partage sur les réseaux sociaux et messageries."
+    },
+    {
+      "type": "text",
+      "id": "og_site_name",
+      "label": "Nom du site",
+      "default": "Verty"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Redirect",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
