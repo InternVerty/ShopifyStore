@@ -1,0 +1,339 @@
+{% comment %}
+  Section: Two Column — Text + Form Card v2
+  File: sections/two-col-form.liquid
+{% endcomment %}
+
+{%- assign opacity = section.settings.section_bg_opacity | divided_by: 100.0 -%}
+{%- assign bg = section.settings.section_bg | color_modify: 'alpha', opacity -%}
+
+<section class="tcf" style="background-color: {{ bg }}; min-height: {{ section.settings.section_height }}px;">
+  <div class="tcf__inner">
+
+    <!-- ═══════════════ LEFT ═══════════════ -->
+    <div class="tcf__left">
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="tcf__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body_1 != blank -%}
+        <div class="tcf__body">{{ section.settings.body_1 }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.body_2 != blank -%}
+        <div class="tcf__body">{{ section.settings.body_2 }}</div>
+      {%- endif -%}
+
+      {%- assign count = section.settings.checklist_count -%}
+      {%- if count > 0 -%}
+        <ul class="tcf__checklist">
+          {%- for i in (1..5) -%}
+            {%- if i <= count -%}
+              {%- assign key = 'check_' | append: i -%}
+              {%- assign label = section.settings[key] -%}
+              {%- if label != blank -%}
+                <li class="tcf__check-item">
+                  <span class="tcf__check-box" style="background:{{ section.settings.check_color }}; border-radius:{{ section.settings.check_radius }}px;">
+                    <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M1.5 5L5 8.5L11.5 1.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="tcf__check-label">{{ label }}</span>
+                </li>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+    </div>
+
+    <!-- ═══════════════ RIGHT ═══════════════ -->
+    <div class="tcf__right">
+      <div class="tcf__card" style="
+        border: {{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};
+        border-radius: {{ section.settings.card_radius }}px;
+        min-height: {{ section.settings.card_height }}px;
+        background: {{ section.settings.card_bg }};
+        box-shadow: {{ section.settings.card_shadow }};
+      ">
+
+        <!-- Image -->
+        {%- if section.settings.card_image != blank -%}
+          <div class="tcf__card-img-wrap">
+            {{
+              section.settings.card_image
+              | image_url: width: 200
+              | image_tag:
+                loading: 'lazy',
+                class: 'tcf__card-img',
+                widths: '80, 120, 160, 200'
+            }}
+          </div>
+        {%- endif -%}
+
+        <!-- Title -->
+        {%- if section.settings.card_title != blank -%}
+          <p class="tcf__card-title">{{ section.settings.card_title }}</p>
+        {%- endif -%}
+
+
+        <!-- Card body text -->
+        {%- if section.settings.tally_url != blank -%}
+          <iframe data-tally-src="{{ section.settings.tally_url }}" loading="lazy" width="100%" height="614" frameborder="0" marginheight="0" marginwidth="0" title="La Sélection Verty de votre enfant"></iframe>
+          <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        {%- endif -%}
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── Section ── */
+  .tcf {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ section.settings.section_padding_v }}px {{ section.settings.section_padding_h }}px;
+    box-sizing: border-box;
+  }
+
+  .tcf__inner {
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.columns_gap }}px;
+    max-width: {{ section.settings.max_width }}px;
+    width: 100%;
+  }
+
+  /* ── Left ── */
+  .tcf__left {
+    flex: {{ section.settings.left_flex }} 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .tcf__heading {
+    font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.18;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  .tcf__body {
+    font-size: {{ section.settings.body_font_size }}px;
+    line-height: 1.72;
+    color: {{ section.settings.body_color }};
+    text-align: {{ section.settings.body_align }};
+    margin: 0;
+  }
+
+  /* Checklist */
+  .tcf__checklist {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.check_gap }}px;
+  }
+
+  .tcf__check-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .tcf__check-box {
+    flex-shrink: 0;
+    width: {{ section.settings.check_size }}px;
+    height: {{ section.settings.check_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tcf__check-box svg {
+    width: calc({{ section.settings.check_size }}px * 0.46);
+    height: auto;
+  }
+
+  .tcf__check-label {
+    font-size: {{ section.settings.check_font_size }}px;
+    font-weight: {{ section.settings.check_font_weight }};
+    color: {{ section.settings.check_label_color }};
+  }
+
+  /* ── Right / Card ── */
+  .tcf__right {
+    flex: {{ section.settings.right_flex }} 1 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tcf__card {
+    width: 100%;
+    max-width: {{ section.settings.card_max_width }}px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: {{ section.settings.card_padding_v }}px {{ section.settings.card_padding_h }}px {{ section.settings.card_padding_v }}px;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .tcf__card-img-wrap {
+    margin-bottom: 18px;
+  }
+
+  .tcf__card-img {
+    max-width: {{ section.settings.card_img_size }}px;
+    max-height: {{ section.settings.card_img_size }}px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .tcf__card-title {
+    font-size: {{ section.settings.card_title_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.card_title_color }};
+    text-align: center;
+    margin: 0 0 20px;
+  }
+
+  .tcf__card-text {
+    font-size: {{ section.settings.card_text_size }}px;
+    line-height: 1.65;
+    color: {{ section.settings.card_text_color }};
+    text-align: {{ section.settings.card_text_align }};
+    width: 100%;
+  }
+
+  .tcf__card-spacer { flex: 1; }
+
+  .tcf__card-footer {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .tcf__btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-sizing: border-box;
+    transition: opacity .2s, transform .15s;
+  }
+  .tcf__btn:hover { opacity: .85; transform: translateY(-1px); }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .tcf { padding: 48px 20px; }
+    .tcf__inner { flex-direction: column; gap: 40px; }
+    .tcf__right { width: 100%; }
+    .tcf__card { max-width: 100%; min-height: auto !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Two Col — Text + Card",
+  "tag": "section",
+  "settings": [
+
+    { "type": "header", "content": "━━ SECTION ━━" },
+    { "type": "color",  "id": "section_bg",         "label": "Couleur de fond",       "default": "#ffffff" },
+    { "type": "range",  "id": "section_bg_opacity",  "label": "Opacité fond (%)",      "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range",  "id": "section_height",      "label": "Hauteur min (px)",      "min": 400, "max": 1400, "step": 50, "default": 1000 },
+    { "type": "range",  "id": "section_padding_v",   "label": "Padding vertical (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range",  "id": "section_padding_h",   "label": "Padding horizontal (px)","min": 0, "max": 120, "step": 4, "default": 40 },
+    { "type": "range",  "id": "max_width",           "label": "Largeur max (px)",      "min": 800, "max": 1400, "step": 20, "default": 1100 },
+    { "type": "range",  "id": "columns_gap",         "label": "Espace entre colonnes (px)", "min": 16, "max": 120, "step": 4, "default": 60 },
+    { "type": "range",  "id": "left_flex",           "label": "Largeur colonne gauche", "min": 1, "max": 4, "step": 1, "default": 1,
+      "info": "1 = équilibre avec droite. Augmenter pour élargir la gauche." },
+    { "type": "range",  "id": "right_flex",          "label": "Largeur colonne droite", "min": 1, "max": 4, "step": 1, "default": 1 },
+
+    { "type": "header", "content": "━━ TITRE ━━" },
+    { "type": "textarea","id": "heading",            "label": "Titre",                 "default": "Chaque mois, les bons livres.\nSans se tromper." },
+    { "type": "color",  "id": "heading_color",       "label": "Couleur titre",         "default": "#111111" },
+
+    { "type": "header", "content": "━━ PARAGRAPHES ━━" },
+    { "type": "richtext","id": "body_1",             "label": "Paragraphe 1",          "default": "<p>Par email, Verty vous envoie une sélection de <strong>4 livres recommandés</strong> pour votre enfant par notre comité de lecture.</p>" },
+    { "type": "richtext","id": "body_2",             "label": "Paragraphe 2 (optionnel)", "default": "<p>Quelques minutes suffisent pour faire un <strong>choix sûr</strong>, <em>sans douter ni perdre de temps</em>. Une sélection exigeante et rassurante, pour transmettre ce qu'il y a de meilleur, simplement.</p>" },
+    { "type": "color",  "id": "body_color",          "label": "Couleur texte",         "default": "#333333" },
+    { "type": "range",  "id": "body_font_size",      "label": "Taille texte (px)",     "min": 12, "max": 22, "step": 1, "default": 16 },
+    { "type": "select", "id": "body_align",          "label": "Alignement texte",      "default": "justify",
+      "options": [
+        { "value": "left",    "label": "Gauche" },
+        { "value": "center",  "label": "Centre" },
+        { "value": "justify", "label": "Justifié" }
+      ]
+    },
+
+    { "type": "header", "content": "━━ CHECKLIST ━━" },
+    { "type": "range",  "id": "checklist_count",     "label": "Nombre de points (0–5)", "min": 0, "max": 5, "step": 1, "default": 3 },
+    { "type": "text",   "id": "check_1",             "label": "Point 1",               "default": "100% Gratuit" },
+    { "type": "text",   "id": "check_2",             "label": "Point 2",               "default": "Sans engagement" },
+    { "type": "text",   "id": "check_3",             "label": "Point 3",               "default": "2 min" },
+    { "type": "text",   "id": "check_4",             "label": "Point 4",               "default": "-" },
+    { "type": "text",   "id": "check_5",             "label": "Point 5",               "default": "-" },
+    { "type": "color",  "id": "check_color",         "label": "Couleur fond coche",    "default": "#3ecf4a" },
+    { "type": "range",  "id": "check_radius",        "label": "Arrondi coche (px)",    "min": 0, "max": 14, "step": 1, "default": 6 },
+    { "type": "range",  "id": "check_size",          "label": "Taille coche (px)",     "min": 20, "max": 48, "step": 2, "default": 30 },
+    { "type": "color",  "id": "check_label_color",   "label": "Couleur texte",         "default": "#111111" },
+    { "type": "range",  "id": "check_font_size",     "label": "Taille texte (px)",     "min": 12, "max": 24, "step": 1, "default": 17 },
+    { "type": "select", "id": "check_font_weight",   "label": "Graisse texte",         "default": "700",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra-bold" }
+      ]
+    },
+    { "type": "range",  "id": "check_gap",           "label": "Espace entre points (px)", "min": 4, "max": 32, "step": 2, "default": 16 },
+
+    { "type": "header", "content": "━━ CARD — CONTENEUR ━━" },
+    { "type": "color",  "id": "card_bg",             "label": "Fond de la card",       "default": "#ffffff" },
+    { "type": "color",  "id": "card_border_color",   "label": "Couleur contour",       "default": "#d8e8e4" },
+    { "type": "range",  "id": "card_border_width",   "label": "Épaisseur contour (px)", "min": 0, "max": 8, "step": 1, "default": 1 },
+    { "type": "range",  "id": "card_radius",         "label": "Arrondi coins (px)",    "min": 0, "max": 48, "step": 2, "default": 20 },
+    { "type": "text",   "id": "card_shadow",         "label": "Box-shadow CSS",        "default": "0 2px 24px 0 rgba(0,0,0,0.06)",
+      "info": "Ex: 0 4px 32px rgba(0,0,0,0.10) — laisser vide pour aucune ombre." },
+    { "type": "range",  "id": "card_height",         "label": "Hauteur min card (px)", "min": 400, "max": 1100, "step": 50, "default": 850 },
+    { "type": "range",  "id": "card_max_width",      "label": "Largeur max card (px)", "min": 300, "max": 600, "step": 10, "default": 420 },
+    { "type": "range",  "id": "card_padding_v",      "label": "Padding vertical card (px)", "min": 16, "max": 80, "step": 4, "default": 36 },
+    { "type": "range",  "id": "card_padding_h",      "label": "Padding horizontal card (px)", "min": 16, "max": 80, "step": 4, "default": 32 },
+
+    { "type": "header", "content": "━━ CARD — IMAGE ━━" },
+    { "type": "image_picker", "id": "card_image",   "label": "Image (centrée en haut)" },
+    { "type": "range",  "id": "card_img_size",       "label": "Taille max image (px)", "min": 40, "max": 240, "step": 10, "default": 110 },
+
+    { "type": "header", "content": "━━ CARD — TITRE & SÉPARATEUR ━━" },
+    { "type": "text",   "id": "card_title",          "label": "Titre",                 "default": "Formulaire" },
+    { "type": "range",  "id": "card_title_size",     "label": "Taille titre (px)",     "min": 14, "max": 32, "step": 1, "default": 19 },
+    { "type": "color",  "id": "card_title_color",    "label": "Couleur titre",         "default": "#111111" },
+
+    { "type": "header", "content": "━━ CARD — TEXTE ━━" },
+    { "type": "text", "id": "tally_url", "label": "URL du formulaire Tally", "default": "https://tally.so/embed/XXXXXXX","info": "Copie l'URL d'embed depuis Tally → Share → Embed" },
+    { "type": "range", "id": "tally_height", "label": "Hauteur du formulaire (px)","min": 200, "max": 900, "step": 20, "default": 500 },
+    { "type": "range",  "id": "card_text_size",      "label": "Taille texte (px)",     "min": 12, "max": 20, "step": 1, "default": 14 },
+    { "type": "color",  "id": "card_text_color",     "label": "Couleur texte",         "default": "#555555" },
+    { "type": "select", "id": "card_text_align",     "label": "Alignement",            "default": "center",
+      "options": [
+        { "value": "left",   "label": "Gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right",  "label": "Droite" }
+      ]
+    },
+  ],
+  "presets": [
+    { "name": "Two Col — Text + Card", "category": "Content" }
+  ]
+}
+{% endschema %}

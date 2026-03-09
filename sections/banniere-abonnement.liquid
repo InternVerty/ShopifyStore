@@ -1,234 +1,336 @@
 {% comment %}
-  Section: lecture-hero.liquid
+  Section: Split Hero — Left Text / Right Image
+  File: sections/split-hero.liquid
 {% endcomment %}
 
-<section
-  class="lecture-hero"
-  style="background: {{ section.settings.bg_color | color_modify: 'alpha', section.settings.bg_opacity }};">
-  <div class="lecture-hero__inner page-width">
-    <div class="lecture-hero__content">
-      <h1 class="h2 lecture-hero__title">{{ section.settings.title | escape }}</h1>
+{%- assign bg_left_opacity  = section.settings.bg_left_opacity  | divided_by: 100.0 -%}
+{%- assign bg_right_opacity = section.settings.bg_right_opacity | divided_by: 100.0 -%}
+{%- assign bg_left  = section.settings.bg_left  | color_modify: 'alpha', bg_left_opacity -%}
+{%- assign bg_right = section.settings.bg_right | color_modify: 'alpha', bg_right_opacity -%}
 
-        {% if section.settings.subtitle != blank %}
-        <div class="lecture-hero__subtitle rte">
-        {{ section.settings.subtitle }}
-        </div>
-        {% endif %}
+<section class="sh" id="sh-{{ section.id }}" style="min-height: {{ section.settings.section_height }}px;">
+  <div class="sh__grid">
 
+    <!-- ══════════════ LEFT PANEL ══════════════ -->
+    <div class="sh__panel sh__panel--left" style="
+      background-color: {{ bg_left }};
+      padding: {{ section.settings.panel_padding_v }}px {{ section.settings.panel_padding_h }}px;
+      align-items: {{ section.settings.left_align_items }};
+      justify-content: {{ section.settings.left_justify }};
+    ">
+      <div class="sh__left-content" style="
+        max-width: {{ section.settings.left_content_max_width }}px;
+        text-align: {{ section.settings.left_text_align }};
+        gap: {{ section.settings.left_gap }}px;
+      ">
 
-      <div class="lecture-hero__segmented" role="group" aria-label="Choix abonnement">
-  {% if section.settings.primary_label != blank %}
-    <a class="lecture-hero__seg-btn is-active" href="{{ section.settings.primary_link }}">
-      <span class="lecture-hero__seg-dot" aria-hidden="true"></span>
-      <span class="lecture-hero__seg-text">{{ section.settings.primary_label | escape }}</span>
-    </a>
-  {% endif %}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="sh__heading" style="
+            color: {{ section.settings.heading_color }};
+            font-size: {{ section.settings.heading_size }}px;
+            font-weight: {{ section.settings.heading_weight }};
+            line-height: {{ section.settings.heading_lh | divided_by: 10.0 }};
+          ">{{ section.settings.heading }}</h2>
+        {%- endif -%}
 
-  {% if section.settings.secondary_label != blank %}
-    <a class="lecture-hero__seg-btn" href="{{ section.settings.secondary_link }}">
-      <span class="lecture-hero__seg-text">{{ section.settings.secondary_label | escape }}</span>
-    </a>
-  {% endif %}
-</div>
+        {%- if section.settings.body_text != blank -%}
+          <div class="sh__body" style="
+            color: {{ section.settings.body_color }};
+            font-size: {{ section.settings.body_size }}px;
+            line-height: {{ section.settings.body_lh | divided_by: 10.0 }};
+          ">{{ section.settings.body_text }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.btn_label != blank -%}
+          <a
+            href="{{ section.settings.btn_url }}"
+            class="sh__btn"
+            style="
+              background-color: {{ section.settings.btn_bg }};
+              color: {{ section.settings.btn_color }};
+              border: {{ section.settings.btn_border_width }}px solid {{ section.settings.btn_border_color }};
+              border-radius: {{ section.settings.btn_radius }}px;
+              font-size: {{ section.settings.btn_font_size }}px;
+              font-weight: {{ section.settings.btn_weight }};
+              padding: {{ section.settings.btn_pad_v }}px {{ section.settings.btn_pad_h }}px;
+              min-width: {{ section.settings.btn_min_width }}px;
+              align-self: {{ section.settings.btn_align_self }};
+            "
+          >{{ section.settings.btn_label }}</a>
+        {%- endif -%}
+
+      </div>
     </div>
 
-    <div class="lecture-hero__media">
-      {% if section.settings.image != blank %}
-        {{ section.settings.image | image_url: width: 1400 | image_tag:
-          loading: 'lazy',
-          class: 'lecture-hero__image',
-          alt: section.settings.image.alt | default: section.settings.title
+    <!-- ══════════════ RIGHT PANEL ══════════════ -->
+    <div class="sh__panel sh__panel--right" style="
+      background-color: {{ bg_right }};
+      padding: {{ section.settings.img_padding_v }}px {{ section.settings.img_padding_h }}px;
+      align-items: {{ section.settings.img_align }};
+      justify-content: {{ section.settings.img_justify }};
+      overflow: {{ section.settings.img_overflow }};
+    ">
+      {%- if section.settings.hero_image != blank -%}
+        {{
+          section.settings.hero_image
+          | image_url: width: 1300
+          | image_tag:
+            loading: 'eager',
+            class: 'sh__img',
+            widths: '400, 600, 800, 1000, 1200',
+            alt: section.settings.hero_image.alt
         }}
-      {% else %}
-        <div class="lecture-hero__placeholder">
-          Ajoute une image dans les réglages de la section.
+      {%- else -%}
+        <div class="sh__img-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         </div>
-      {% endif %}
+      {%- endif -%}
     </div>
+
   </div>
 </section>
 
 <style>
-  .lecture-hero{
-    padding: 21px 0;
-    overflow: hidden;
-  }
-
-  .lecture-hero__inner{
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: center;
-  }
-
-  .lecture-hero__title{
-    margin: 0 0 14px;
-  }
-
-  .lecture-hero__subtitle{
-    margin: 0 0 20px;
-    font-size: 18px;
-  }
-
-  /* Segmented control (pill) */
-.lecture-hero__segmented{
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  padding: 2px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.50);
-  border: 1px solid rgba(255,255,255,.55);
-  backdrop-filter: blur(2px);
-}
-
-/* each segment */
-.lecture-hero__seg-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  height: 40px;
-  padding: 4px 48px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 1;
-  color: #0b0b0b;
-  background: transparent;
-  border: 1px solid transparent;
-  transition: transform .12s ease, background-color .12s ease, border-color .12s ease, box-shadow .12s ease;
-  white-space: nowrap;
-  
-}
-
-.lecture-hero__seg-btn:active{ transform: translateY(1px); }
-
-/* active segment like the screenshot */
-.lecture-hero__seg-btn.is-active{
-  background: #fff;
-  border-color: rgba(151, 232, 199, 0.5)
-  box-shadow: 0 10px 18px rgba(0,0,0,.06);
-  border-color: rgba(151, 232, 199, 0.5);
-}
-
-/* dot */
-.lecture-hero__seg-dot{
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: #66d1b8;
-  box-shadow: 0 0 0 4px rgba(102,209,184,.22);
-  flex: 0 0 auto;
-}
-
-/* hide dot on non-active by default */
-.lecture-hero__seg-btn:not(.is-active) .lecture-hero__seg-dot{
-  display: none;
-}
-
-
-  .lecture-hero__media{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .lecture-hero__image{
+  #sh-{{ section.id }}.sh {
     width: 100%;
-    height: auto;
-    max-width: 720px;
     display: block;
     box-sizing: border-box;
   }
 
-  .lecture-hero__placeholder{
-    width: 100%;
-    min-height: 240px;
-    border-radius: 18px;
-    border: 1px dashed rgba(0,0,0,.18);
+  #sh-{{ section.id }} .sh__grid {
     display: grid;
-    place-items: center;
-    color: rgba(0,0,0,.6);
-    background: rgba(255,255,255,.25);
-    padding: 24px;
-    text-align: center;
+    grid-template-columns: {{ section.settings.left_width }}fr {{ section.settings.right_width }}fr;
+    min-height: {{ section.settings.section_height }}px;
   }
 
-  @media (max-width: 900px){
-    .lecture-hero{
-      padding: 34px 0;
-    }
-    .lecture-hero__inner{
+  #sh-{{ section.id }} .sh__panel {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  #sh-{{ section.id }} .sh__left-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Heading */
+  #sh-{{ section.id }} .sh__heading {
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+
+  /* Body */
+  #sh-{{ section.id }} .sh__body {
+    margin: 0;
+  }
+
+  /* Button */
+  #sh-{{ section.id }} .sh__btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: opacity .2s ease, transform .15s ease;
+    width: fit-content;
+  }
+  #sh-{{ section.id }} .sh__btn:hover {
+    opacity: .82;
+    transform: translateY(-1px);
+  }
+
+  /* Image */
+  #sh-{{ section.id }} .sh__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #sh-{{ section.id }} .sh__img-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    color: #888;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: {{ section.settings.mobile_breakpoint }}px) {
+    #sh-{{ section.id }} .sh__grid {
       grid-template-columns: 1fr;
+      min-height: auto;
     }
-    .lecture-hero__media{
-      order: -1;
+
+    #sh-{{ section.id }} .sh__panel--left  { order: 1; }
+    #sh-{{ section.id }} .sh__panel--right { order: 2; min-height: {{ section.settings.mobile_img_height }}px; }
+
+    #sh-{{ section.id }} .sh__left-content { max-width: 100% !important; }
+
+    #sh-{{ section.id }} .sh__btn {
+      {%- if section.settings.btn_full_mobile %}
+        width: 100% !important;
+        min-width: 0 !important;
+      {%- endif -%}
+    }
+
+    @media (max-width: ...) {
+      #hb-{{ section.id }} .hb__right {
+        position: relative;
+        top: -60px;           /* remonte l'image de 60px */
+        margin-bottom: -60px; /* compense l'espace laissé en bas */
+      }
+      #hb-{{ section.id }} .hb__card {
+        overflow: visible !important;
+      }
     }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Hero abonnement lecture",
+  "name": "Split Hero Texte + Image",
+  "tag": "section",
   "settings": [
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Couleur de fond",
-      "default": "#DFF3EE"
+
+    { "type": "header", "content": "━━ MISE EN PAGE ━━" },
+    { "type": "range",  "id": "section_height",       "label": "Hauteur (px)",              "min": 200, "max": 1000, "step": 20, "default": 560 },
+    { "type": "range",  "id": "left_width",           "label": "Largeur colonne gauche (fr)","min": 1, "max": 9, "step": 1, "default": 5,
+      "info": "La droite prend le reste. Ex : gauche=5 droite=5 → 50/50. Gauche=6 droite=4 → 60/40." },
+    { "type": "range",  "id": "right_width",          "label": "Largeur colonne droite (fr)","min": 1, "max": 9, "step": 1, "default": 5 },
+
+    { "type": "header", "content": "━━ PANNEAU GAUCHE — FOND ━━" },
+    { "type": "color",  "id": "bg_left",              "label": "Couleur de fond",           "default": "#b2e0d4" },
+    { "type": "range",  "id": "bg_left_opacity",      "label": "Opacité (%)",               "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range",  "id": "panel_padding_v",      "label": "Padding vertical (px)",     "min": 0, "max": 120, "step": 4, "default": 64 },
+    { "type": "range",  "id": "panel_padding_h",      "label": "Padding horizontal (px)",   "min": 0, "max": 120, "step": 4, "default": 64 },
+    { "type": "select", "id": "left_align_items",     "label": "Alignement vertical",       "default": "center",
+      "options": [
+        { "value": "flex-start", "label": "Haut" },
+        { "value": "center",     "label": "Milieu" },
+        { "value": "flex-end",   "label": "Bas" }
+      ]
     },
-    {
-      "type": "range",
-      "id": "bg_opacity",
-      "label": "Opacité du fond",
-      "min": 0,
-      "max": 1,
-      "step": 0.1,
-      "default": 1
+    { "type": "select", "id": "left_justify",         "label": "Alignement horizontal",     "default": "flex-start",
+      "options": [
+        { "value": "flex-start", "label": "Gauche" },
+        { "value": "center",     "label": "Centre" },
+        { "value": "flex-end",   "label": "Droite" }
+      ]
     },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titre",
-      "default": "L’abonnement lecture qui fait vraiment grandir"
+    { "type": "range",  "id": "left_content_max_width","label": "Largeur max du contenu (px)","min": 200, "max": 900, "step": 20, "default": 560 },
+    { "type": "select", "id": "left_text_align",      "label": "Alignement du texte",       "default": "left",
+      "options": [
+        { "value": "left",    "label": "Gauche" },
+        { "value": "center",  "label": "Centre" },
+        { "value": "right",   "label": "Droite" }
+      ]
     },
-    {
-      "type": "richtext",
-      "id": "subtitle",
-      "label": "Sous-titre",
-      "default": "<p>Les rituels qui donnent le goût des livres !</p>"
+    { "type": "range",  "id": "left_gap",             "label": "Espace entre éléments (px)","min": 8, "max": 80, "step": 4, "default": 28 },
+
+    { "type": "header", "content": "━━ TITRE ━━" },
+    { "type": "textarea","id": "heading",             "label": "Titre",                     "default": "1 sélection personnalisée de livres pour votre enfant." },
+    { "type": "color",  "id": "heading_color",        "label": "Couleur",                   "default": "#111111" },
+    { "type": "range",  "id": "heading_size",         "label": "Taille (px)",               "min": 18, "max": 80, "step": 2, "default": 52 },
+    { "type": "select", "id": "heading_weight",       "label": "Graisse",                   "default": "800",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra-bold" },
+        { "value": "900", "label": "Black" }
+      ]
     },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image (illustration à droite)"
+    { "type": "range",  "id": "heading_lh",           "label": "Interligne (×10)",          "min": 10, "max": 20, "step": 1, "default": 12,
+      "info": "Ex: 12 → 1.2 / 16 → 1.6" },
+
+    { "type": "header", "content": "━━ TEXTE ━━" },
+    { "type": "richtext","id": "body_text",           "label": "Contenu (richtext)",        "default": "<p>Ils sont <strong>+20.000 parents</strong> à s'inspirer chaque mois de nos recommandations de lecture.</p>" },
+    { "type": "color",  "id": "body_color",           "label": "Couleur",                   "default": "#333333" },
+    { "type": "range",  "id": "body_size",            "label": "Taille (px)",               "min": 12, "max": 26, "step": 1, "default": 18 },
+    { "type": "range",  "id": "body_lh",              "label": "Interligne (×10)",          "min": 10, "max": 22, "step": 1, "default": 16 },
+
+    { "type": "header", "content": "━━ BOUTON ━━" },
+    { "type": "text",   "id": "btn_label",            "label": "Texte",                     "default": "Je me lance" },
+    { "type": "url",    "id": "btn_url",              "label": "Lien" },
+    { "type": "color",  "id": "btn_bg",               "label": "Fond",                      "default": "#ffffff" },
+    { "type": "color",  "id": "btn_color",            "label": "Couleur texte",             "default": "#111111" },
+    { "type": "color",  "id": "btn_border_color",     "label": "Couleur bordure",           "default": "#6ecfb5" },
+    { "type": "range",  "id": "btn_border_width",     "label": "Épaisseur bordure (px)",    "min": 0, "max": 8, "step": 1, "default": 2 },
+    { "type": "range",  "id": "btn_radius",           "label": "Arrondi (px)",              "min": 0, "max": 60, "step": 2, "default": 50 },
+    { "type": "range",  "id": "btn_font_size",        "label": "Taille texte (px)",         "min": 12, "max": 22, "step": 1, "default": 16 },
+    { "type": "select", "id": "btn_weight",           "label": "Graisse texte",             "default": "600",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ]
     },
-    {
-      "type": "text",
-      "id": "primary_label",
-      "label": "Bouton principal - texte",
-      "default": "J’abonne"
+    { "type": "range",  "id": "btn_pad_v",            "label": "Padding vertical (px)",     "min": 6, "max": 40, "step": 2, "default": 18 },
+    { "type": "range",  "id": "btn_pad_h",            "label": "Padding horizontal (px)",   "min": 12, "max": 120, "step": 4, "default": 56 },
+    { "type": "range",  "id": "btn_min_width",        "label": "Largeur min (px)",          "min": 80, "max": 500, "step": 10, "default": 220 },
+    { "type": "select", "id": "btn_align_self",       "label": "Alignement du bouton",      "default": "flex-start",
+      "options": [
+        { "value": "flex-start", "label": "Gauche" },
+        { "value": "center",     "label": "Centre" },
+        { "value": "flex-end",   "label": "Droite" },
+        { "value": "stretch",    "label": "Pleine largeur" }
+      ]
     },
-    {
-      "type": "url",
-      "id": "primary_link",
-      "label": "Bouton principal - lien"
+    { "type": "checkbox","id": "btn_full_mobile",     "label": "Pleine largeur sur mobile", "default": true },
+
+    { "type": "header", "content": "━━ PANNEAU DROIT — IMAGE ━━" },
+    { "type": "image_picker","id": "hero_image",      "label": "Image" },
+    { "type": "color",  "id": "bg_right",             "label": "Couleur de fond",           "default": "#b2e0d4" },
+    { "type": "range",  "id": "bg_right_opacity",     "label": "Opacité fond (%)",          "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range",  "id": "img_padding_v",        "label": "Padding vertical (px)",     "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "range",  "id": "img_padding_h",        "label": "Padding horizontal (px)",   "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "select", "id": "img_fit",              "label": "Comportement image",        "default": "cover",
+      "options": [
+        { "value": "cover",   "label": "Cover (remplit tout)" },
+        { "value": "contain", "label": "Contain (image entière)" },
+        { "value": "fill",    "label": "Fill (étire)" },
+        { "value": "none",    "label": "Aucun" }
+      ]
     },
-    {
-      "type": "text",
-      "id": "secondary_label",
-      "label": "Bouton secondaire - texte",
-      "default": "J’offre"
+    { "type": "range",  "id": "img_max_width",        "label": "Largeur max image (px)",    "min": 100, "max": 1200, "step": 20, "default": 1200,
+      "info": "Mettre 1200 pour aucune limite." },
+    { "type": "range",  "id": "img_max_height",       "label": "Hauteur max image (px)",    "min": 100, "max": 1200, "step": 20, "default": 1200 },
+    { "type": "select", "id": "img_align",            "label": "Alignement vertical image", "default": "flex-end",
+      "options": [
+        { "value": "flex-start", "label": "Haut" },
+        { "value": "center",     "label": "Milieu" },
+        { "value": "flex-end",   "label": "Bas" }
+      ]
     },
-    {
-      "type": "url",
-      "id": "secondary_link",
-      "label": "Bouton secondaire - lien"
-    }
+    { "type": "select", "id": "img_justify",          "label": "Alignement horizontal image","default": "center",
+      "options": [
+        { "value": "flex-start", "label": "Gauche" },
+        { "value": "center",     "label": "Centre" },
+        { "value": "flex-end",   "label": "Droite" }
+      ]
+    },
+    { "type": "select", "id": "img_overflow",         "label": "Débordement image",         "default": "hidden",
+      "options": [
+        { "value": "hidden",  "label": "Caché (image reste dans le panneau)" },
+        { "value": "visible", "label": "Visible (peut déborder)" }
+      ]
+    },
+    { "type": "range",  "id": "img_offset_x",         "label": "Décalage horizontal (px)",  "min": -200, "max": 200, "step": 4, "default": 0 },
+    { "type": "range",  "id": "img_offset_y",         "label": "Décalage vertical (px)",    "min": -200, "max": 200, "step": 4, "default": 0 },
+
+    { "type": "header", "content": "━━ MOBILE ━━" },
+    { "type": "range",  "id": "mobile_breakpoint",    "label": "Breakpoint mobile (px)",    "min": 480, "max": 1024, "step": 8, "default": 768 },
+    { "type": "range",  "id": "mobile_img_height",    "label": "Hauteur panneau image mobile (px)", "min": 160, "max": 600, "step": 20, "default": 300 },
+
   ],
   "presets": [
-    { "name": "Hero abonnement lecture" }
+    { "name": "Split Hero — Texte + Image", "category": "Hero" }
   ]
 }
 {% endschema %}

@@ -1,0 +1,75 @@
+<!-- sections/boutons-collection.liquid -->
+
+<section 
+  class="boutons-collection-section"
+  style="background-color: {{ section.settings.background_color }}; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
+  <div class="boutons-collection-content">
+
+    <div class="boutons-collection-text">
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.description != blank -%}
+        <p>{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="button-container">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.button_link and block.settings.button_label != blank -%}
+          <a 
+            href="{{ block.settings.button_link }}" 
+            class="button-collection"
+            style="background-color: {{ section.settings.button_color }};"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.button_label }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .boutons-collection-section { width: 100%; box-sizing: border-box; padding: 40px 32px; }
+  .boutons-collection-content { max-width: 1200px; margin: 0 auto; }
+  .boutons-collection-text { margin-bottom: 24px; }
+  .button-container { display: flex; flex-wrap: wrap; gap: 12px; }
+  .button-collection {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff;
+    transition: opacity .2s;
+  }
+  .button-collection:hover { opacity: .85; }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Boutons collection",
+  "settings": [
+    { "type": "text",  "id": "heading",          "label": "Titre",           "default": "Trouvez le livre idéal pour votre enfant" },
+    { "type": "textarea", "id": "description",   "label": "Description",     "default": "Chaque enfant évolue à son propre rythme..." },
+    { "type": "color", "id": "background_color", "label": "Couleur de fond", "default": "#f5faf9" },
+    { "type": "color", "id": "button_color",     "label": "Couleur boutons", "default": "#8fcdbf" },
+    { "type": "range", "id": "margin_top",       "label": "Marge supérieure","min": 0, "max": 100, "step": 5, "unit": "px", "default": 20 },
+    { "type": "range", "id": "margin_bottom",    "label": "Marge inférieure","min": 0, "max": 100, "step": 5, "unit": "px", "default": 20 }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Bouton",
+      "settings": [
+        { "type": "text",       "id": "button_label", "label": "Texte",       "default": "Avant 4 ans" },
+        { "type": "url", "id": "button_link",  "label": "Collection" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Custom Boutons collection", "category": "Custom" }
+  ]
+}
+{% endschema %}

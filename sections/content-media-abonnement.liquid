@@ -1,0 +1,371 @@
+{% comment %}
+  Section: Content + Media collage
+  File: sections/content-media.liquid
+{% endcomment %}
+
+{%- assign bg_opacity = section.settings.bg_opacity | divided_by: 100.0 -%}
+{%- assign bg = section.settings.bg_color | color_modify: 'alpha', bg_opacity -%}
+{%- assign card_opacity = section.settings.card_opacity | divided_by: 100.0 -%}
+{%- assign card-color = section.settings.card_bg | color_modify: 'alpha', card_opacity -%}
+
+<section class="cm" id="cm-{{ section.id }}" style="background-color: {{ bg }};">
+  <div class="cm__inner" style="
+    max-width: {{ section.settings.max_width }}px;
+    border: {{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};
+    border-radius: {{ section.settings.card_radius }}px;
+    padding: {{ section.settings.card_pad_v }}px {{ section.settings.card_pad_h }}px;
+    background-color: {{ card-color }};
+    gap: {{ section.settings.columns_gap }}px;
+  ">
+
+    <!-- ══════════════ LEFT ══════════════ -->
+    <div class="cm__left" style="flex: {{ section.settings.left_flex }} 1 0; gap: {{ section.settings.left_gap }}px;">
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="cm__heading" style="
+          font-size: {{ section.settings.heading_size }}px;
+          font-weight: {{ section.settings.heading_weight }};
+          line-height: {{ section.settings.heading_lh | divided_by: 10.0 }};
+          color: {{ section.settings.heading_color }};
+        ">
+          {{- section.settings.heading -}}
+          {%- if section.settings.heading_highlight != blank -%}
+            <br><span style="color: {{ section.settings.highlight_color }};">{{ section.settings.heading_highlight }}</span>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      <div class="cm__body-stack" style="gap: {{ section.settings.body_gap }}px;">
+        {%- if section.settings.body_1 != blank -%}
+          <div class="cm__body" style="
+            font-size: {{ section.settings.body_size }}px;
+            line-height: {{ section.settings.body_lh | divided_by: 10.0 }};
+            color: {{ section.settings.body_color }};
+          ">{{ section.settings.body_1 }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.body_2 != blank -%}
+          <div class="cm__body" style="
+            font-size: {{ section.settings.body_size }}px;
+            line-height: {{ section.settings.body_lh | divided_by: 10.0 }};
+            color: {{ section.settings.body_color }};
+          ">{{ section.settings.body_2 }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.body_3 != blank -%}
+          <div class="cm__body" style="
+            font-size: {{ section.settings.body_size }}px;
+            line-height: {{ section.settings.body_lh | divided_by: 10.0 }};
+            color: {{ section.settings.body_color }};
+          ">{{ section.settings.body_3 }}</div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.btn_label != blank -%}
+        <a
+          href="{{ section.settings.btn_url }}"
+          class="cm__btn"
+          style="
+            background-color: {{ section.settings.btn_bg }};
+            color: {{ section.settings.btn_color }};
+            border: {{ section.settings.btn_border_width }}px solid {{ section.settings.btn_border_color }};
+            border-radius: {{ section.settings.btn_radius }}px;
+            font-size: {{ section.settings.btn_font_size }}px;
+            font-weight: {{ section.settings.btn_weight }};
+            padding: {{ section.settings.btn_pad_v }}px {{ section.settings.btn_pad_h }}px;
+          "
+        >{{ section.settings.btn_label }}</a>
+      {%- endif -%}
+
+    </div>
+
+    <!-- ══════════════ RIGHT — COLLAGE ══════════════ -->
+    <div class="cm__right" style="flex: {{ section.settings.right_flex }} 1 0;">
+      <div class="cm__collage">
+
+        {%- if section.settings.img_bg != blank -%}
+          <div class="cm__collage-bg">
+            {{
+              section.settings.img_bg
+              | image_url: width: 900
+              | image_tag: loading: 'lazy', class: 'cm__collage-img', alt: section.settings.img_bg.alt, widths: '400,600,900'
+            }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.img_front_left != blank -%}
+          <div class="cm__collage-fl">
+            {{
+              section.settings.img_front_left
+              | image_url: width: 500
+              | image_tag: loading: 'lazy', class: 'cm__collage-img', alt: section.settings.img_front_left.alt, widths: '200,400,500'
+            }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.img_front_right != blank -%}
+          <div class="cm__collage-fr">
+            {{
+              section.settings.img_front_right
+              | image_url: width: 500
+              | image_tag: loading: 'lazy', class: 'cm__collage-img', alt: section.settings.img_front_right.alt, widths: '200,400,500'
+            }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.img_bg == blank and section.settings.img_front_left == blank and section.settings.img_front_right == blank -%}
+          <div class="cm__collage-placeholder">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <p>Ajoutez 1 à 3 images</p>
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #cm-{{ section.id }}.cm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ section.settings.section_pad_v }}px {{ section.settings.section_pad_h }}px;
+    box-sizing: border-box;
+    background-color: {{ bg }};
+  }
+
+  #cm-{{ section.id }} .cm__inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ── LEFT ── */
+  #cm-{{ section.id }} .cm__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #cm-{{ section.id }} .cm__heading {
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+
+  #cm-{{ section.id }} .cm__body-stack {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #cm-{{ section.id }} .cm__body { margin: 0; }
+
+  #cm-{{ section.id }} .cm__btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: opacity .2s ease, transform .15s ease;
+    margin-top: {{ section.settings.btn_mt }}px;
+  }
+  #cm-{{ section.id }} .cm__btn:hover { opacity: .82; transform: translateY(-1px); }
+
+  /* ── RIGHT / COLLAGE ── */
+  #cm-{{ section.id }} .cm__right {
+    position: relative;
+  }
+
+  #cm-{{ section.id }} .cm__collage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ section.settings.collage_ratio }};
+  }
+
+  /* Background image — large, slightly rotated */
+  #cm-{{ section.id }} .cm__collage-bg {
+    position: absolute;
+    top: {{ section.settings.bg_top }}%;
+    right: {{ section.settings.bg_right }}%;
+    width: {{ section.settings.bg_size }}%;
+    transform: rotate({{ section.settings.bg_rotate }}deg);
+    box-shadow: {{ section.settings.img_shadow }};
+    border-radius: {{ section.settings.img_radius }}px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* Front-left image */
+  #cm-{{ section.id }} .cm__collage-fl {
+    position: absolute;
+    bottom: {{ section.settings.fl_bottom }}%;
+    left: {{ section.settings.fl_left }}%;
+    width: {{ section.settings.fl_size }}%;
+    transform: rotate({{ section.settings.fl_rotate }}deg);
+    box-shadow: {{ section.settings.img_shadow }};
+    border-radius: {{ section.settings.img_radius }}px;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  /* Front-right image */
+  #cm-{{ section.id }} .cm__collage-fr {
+    position: absolute;
+    bottom: {{ section.settings.fr_bottom }}%;
+    right: {{ section.settings.fr_right }}%;
+    width: {{ section.settings.fr_size }}%;
+    transform: rotate({{ section.settings.fr_rotate }}deg);
+    box-shadow: {{ section.settings.img_shadow }};
+    border-radius: {{ section.settings.img_radius }}px;
+    overflow: hidden;
+    z-index: 3;
+  }
+
+  #cm-{{ section.id }} .cm__collage-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  #cm-{{ section.id }} .cm__collage-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #aaa;
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: {{ section.settings.mobile_breakpoint }}px) {
+    #cm-{{ section.id }} .cm__inner {
+      flex-direction: column;
+      gap: 40px !important;
+    }
+    #cm-{{ section.id }} .cm__left  { order: 1; }
+    #cm-{{ section.id }} .cm__right { order: 2; width: 100%; }
+    #cm-{{ section.id }} .cm__collage { aspect-ratio: 4/3; }
+    {%- if section.settings.btn_full_mobile -%}
+    #cm-{{ section.id }} .cm__btn { width: 100%; box-sizing: border-box; }
+    {%- endif -%}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Content + Collage Photos",
+  "tag": "section",
+  "settings": [
+
+    { "type": "header", "content": "━━ SECTION ━━" },
+    { "type": "color",  "id": "bg_color",          "label": "Fond section",              "default": "#f0faf7" },
+    { "type": "range",  "id": "bg_opacity",         "label": "Opacité fond (%)",          "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range",  "id": "section_pad_v",      "label": "Padding vertical (px)",     "min": 0, "max": 120, "step": 4, "default": 48 },
+    { "type": "range",  "id": "section_pad_h",      "label": "Padding horizontal (px)",   "min": 0, "max": 120, "step": 4, "default": 32 },
+
+    { "type": "header", "content": "━━ CARTE (contenant) ━━" },
+    { "type": "color",  "id": "card_bg",            "label": "Fond carte",                "default": "#e8f8f3" },
+    { "type": "range",  "id": "card_opacity",         "label": "Opacité fond carte (%)",          "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color",  "id": "card_border_color",  "label": "Couleur contour",           "default": "#c4e8dc" },
+    { "type": "range",  "id": "card_border_width",  "label": "Épaisseur contour (px)",    "min": 0, "max": 8, "step": 1, "default": 1 },
+    { "type": "range",  "id": "card_radius",        "label": "Arrondi coins (px)",        "min": 0, "max": 48, "step": 2, "default": 24 },
+    { "type": "range",  "id": "card_pad_v",         "label": "Padding vertical (px)",     "min": 0, "max": 120, "step": 4, "default": 56 },
+    { "type": "range",  "id": "card_pad_h",         "label": "Padding horizontal (px)",   "min": 0, "max": 120, "step": 4, "default": 64 },
+    { "type": "range",  "id": "max_width",          "label": "Largeur max (px)",          "min": 800, "max": 1600, "step": 20, "default": 1200 },
+    { "type": "range",  "id": "columns_gap",        "label": "Espace entre colonnes (px)","min": 0, "max": 120, "step": 4, "default": 64 },
+    { "type": "range",  "id": "left_flex",          "label": "Ratio colonne gauche",      "min": 1, "max": 9, "step": 1, "default": 5 },
+    { "type": "range",  "id": "right_flex",         "label": "Ratio colonne droite",      "min": 1, "max": 9, "step": 1, "default": 4 },
+
+    { "type": "header", "content": "━━ TITRE ━━" },
+    { "type": "textarea","id": "heading",           "label": "Titre (ligne 1 — noir)",    "default": "Pourquoi est ce qu'on a créé" },
+    { "type": "textarea","id": "heading_highlight", "label": "Titre (ligne 2 — colorée)", "default": "La Sélection personnalisée\nde votre enfant" },
+    { "type": "color",  "id": "heading_color",      "label": "Couleur titre",             "default": "#111111" },
+    { "type": "color",  "id": "highlight_color",    "label": "Couleur surlignage",        "default": "#3ecfb5" },
+    { "type": "range",  "id": "heading_size",       "label": "Taille (px)",               "min": 18, "max": 72, "step": 2, "default": 42 },
+    { "type": "select", "id": "heading_weight",     "label": "Graisse",                   "default": "800",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra-bold" },
+        { "value": "900", "label": "Black" }
+      ]
+    },
+    { "type": "range",  "id": "heading_lh",         "label": "Interligne (×10)",          "min": 10, "max": 20, "step": 1, "default": 13 },
+    { "type": "range",  "id": "left_gap",           "label": "Espace titre → texte (px)", "min": 8, "max": 80, "step": 4, "default": 32 },
+
+    { "type": "header", "content": "━━ PARAGRAPHES (jusqu'à 3) ━━" },
+    { "type": "richtext","id": "body_1",            "label": "Paragraphe 1",              "default": "<p>👉 Parce qu'aujourd'hui, aimer la lecture ne suffit plus pour savoir quoi donner à lire à son enfant. Parce que trop de choix finit par créer du doute. Et <strong>parce qu'aucun parent ne peut tout lire, tout vérifier, tout comparer seul.</strong></p>" },
+    { "type": "richtext","id": "body_2",            "label": "Paragraphe 2",              "default": "<p>Nous avons créé la sélection mensuelle personnalisée pour redonner de la clarté et de la confiance. Chaque mois, notre comité de lecture choisit avec exigence des livres pensés pour votre enfant, selon son âge, son niveau et ce qu'il traverse.</p>" },
+    { "type": "richtext","id": "body_3",            "label": "Paragraphe 3 (optionnel)",  "default": "<p>Un rendez-vous simple, rassurant, pour vous aider à choisir sans vous tromper, et faire de la lecture un geste serein, profondément formateur.</p>" },
+    { "type": "color",  "id": "body_color",         "label": "Couleur texte",             "default": "#333333" },
+    { "type": "range",  "id": "body_size",          "label": "Taille texte (px)",         "min": 12, "max": 22, "step": 1, "default": 16 },
+    { "type": "range",  "id": "body_lh",            "label": "Interligne (×10)",          "min": 12, "max": 22, "step": 1, "default": 17 },
+    { "type": "range",  "id": "body_gap",           "label": "Espace entre paragraphes (px)", "min": 4, "max": 48, "step": 4, "default": 16 },
+
+    { "type": "header", "content": "━━ BOUTON ━━" },
+    { "type": "text",   "id": "btn_label",          "label": "Texte",                     "default": "Je me lance" },
+    { "type": "url",    "id": "btn_url",            "label": "Lien" },
+    { "type": "color",  "id": "btn_bg",             "label": "Fond",                      "default": "#6ecfb5" },
+    { "type": "color",  "id": "btn_color",          "label": "Texte",                     "default": "#ffffff" },
+    { "type": "color",  "id": "btn_border_color",   "label": "Bordure",                   "default": "#6ecfb5" },
+    { "type": "range",  "id": "btn_border_width",   "label": "Épaisseur bordure (px)",    "min": 0, "max": 6, "step": 1, "default": 0 },
+    { "type": "range",  "id": "btn_radius",         "label": "Arrondi (px)",              "min": 0, "max": 60, "step": 2, "default": 10 },
+    { "type": "range",  "id": "btn_font_size",      "label": "Taille texte (px)",         "min": 12, "max": 22, "step": 1, "default": 16 },
+    { "type": "select", "id": "btn_weight",         "label": "Graisse",                   "default": "600",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    { "type": "range",  "id": "btn_pad_v",          "label": "Padding vertical (px)",     "min": 8, "max": 40, "step": 2, "default": 16 },
+    { "type": "range",  "id": "btn_pad_h",          "label": "Padding horizontal (px)",   "min": 12, "max": 100, "step": 4, "default": 32 },
+    { "type": "range",  "id": "btn_mt",             "label": "Marge au-dessus (px)",      "min": 0, "max": 60, "step": 4, "default": 16 },
+    { "type": "checkbox","id": "btn_full_mobile",   "label": "Pleine largeur sur mobile", "default": false },
+
+    { "type": "header", "content": "━━ IMAGES DU COLLAGE ━━",
+      "info": "3 images s'empilent en collage avec rotations. Image arrière-plan = grande, devant-gauche = par-dessus à gauche, devant-droite = par-dessus à droite." },
+    { "type": "image_picker", "id": "img_bg",         "label": "Image arrière-plan (grande)" },
+    { "type": "image_picker", "id": "img_front_left", "label": "Image avant-gauche" },
+    { "type": "image_picker", "id": "img_front_right","label": "Image avant-droite" },
+
+    { "type": "header", "content": "━━ STYLE DES IMAGES ━━" },
+    { "type": "text",   "id": "img_shadow",         "label": "Ombre (CSS box-shadow)",    "default": "0 8px 32px rgba(0,0,0,0.18)" },
+    { "type": "range",  "id": "img_radius",         "label": "Arrondi images (px)",       "min": 0, "max": 24, "step": 2, "default": 6 },
+    { "type": "range",  "id": "collage_ratio",      "label": "Ratio hauteur collage",     "min": 5, "max": 15, "step": 1, "default": 9,
+      "info": "Ratio = 16/X. Ex: 9 → 16/9, 12 → 16/12 (plus carré)" },
+
+    { "type": "header", "content": "Image arrière-plan — Position & rotation" },
+    { "type": "range",  "id": "bg_top",             "label": "Position haut (%)",         "min": 0, "max": 60, "step": 2, "default": 0 },
+    { "type": "range",  "id": "bg_right",           "label": "Position droite (%)",       "min": -10, "max": 40, "step": 2, "default": 0 },
+    { "type": "range",  "id": "bg_size",            "label": "Taille (%)",                "min": 30, "max": 100, "step": 2, "default": 70 },
+    { "type": "range",  "id": "bg_rotate",          "label": "Rotation (deg)",            "min": -20, "max": 20, "step": 1, "default": 3 },
+
+    { "type": "header", "content": "Image avant-gauche — Position & rotation" },
+    { "type": "range",  "id": "fl_bottom",          "label": "Position bas (%)",          "min": -10, "max": 60, "step": 2, "default": 0 },
+    { "type": "range",  "id": "fl_left",            "label": "Position gauche (%)",       "min": -10, "max": 60, "step": 2, "default": 0 },
+    { "type": "range",  "id": "fl_size",            "label": "Taille (%)",                "min": 20, "max": 90, "step": 2, "default": 52 },
+    { "type": "range",  "id": "fl_rotate",          "label": "Rotation (deg)",            "min": -20, "max": 20, "step": 1, "default": -4 },
+
+    { "type": "header", "content": "Image avant-droite — Position & rotation" },
+    { "type": "range",  "id": "fr_bottom",          "label": "Position bas (%)",          "min": -10, "max": 60, "step": 2, "default": 2 },
+    { "type": "range",  "id": "fr_right",           "label": "Position droite (%)",       "min": -10, "max": 60, "step": 2, "default": 0 },
+    { "type": "range",  "id": "fr_size",            "label": "Taille (%)",                "min": 20, "max": 90, "step": 2, "default": 48 },
+    { "type": "range",  "id": "fr_rotate",          "label": "Rotation (deg)",            "min": -20, "max": 20, "step": 1, "default": 5 },
+
+    { "type": "header", "content": "━━ MOBILE ━━" },
+    { "type": "range",  "id": "mobile_breakpoint",  "label": "Breakpoint (px)",           "min": 480, "max": 1024, "step": 8, "default": 768 }
+
+  ],
+  "presets": [
+    { "name": "Content + Collage Photos", "category": "Content" }
+  ]
+}
+{% endschema %}

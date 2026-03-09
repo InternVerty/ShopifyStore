@@ -1,0 +1,325 @@
+{% comment %}
+  Section: Stats Visual — CSS Grid 2x2
+  File: sections/stats-visual.liquid
+{% endcomment %}
+
+{%- assign bg_opacity      = section.settings.bg_opacity      | divided_by: 100.0 -%}
+{%- assign bg              = section.settings.bg_color         | color_modify: 'alpha', bg_opacity -%}
+{%- assign card_bg_opacity = section.settings.card_bg_opacity  | divided_by: 100.0 -%}
+{%- assign card_bg         = section.settings.card_bg          | color_modify: 'alpha', card_bg_opacity -%}
+
+<section class="sv" id="sv-{{ section.id }}" style="
+  background-color: {{ bg }};
+  padding: {{ section.settings.section_pad_v }}px {{ section.settings.section_pad_h }}px;
+">
+  <div class="sv__inner" style="
+    max-width: {{ section.settings.max_width }}px;
+    background-color: {{ card_bg }};
+    border: {{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};
+    border-radius: {{ section.settings.card_radius }}px;
+    box-shadow: {{ section.settings.card_shadow }};
+    padding: {{ section.settings.card_pad_v }}px {{ section.settings.card_pad_h }}px;
+  ">
+
+    <!--
+      CSS Grid 2×2 :
+      [cell-a = texte gauche]  [cell-b = image droite ]
+      [cell-c = image gauche]  [cell-d = texte droite ]
+    -->
+
+    <!-- CELL A — Texte gauche (haut) -->
+    <div class="sv__cell sv__cell--a">
+      {%- if section.settings.left_text != blank -%}
+        <div class="sv__text" style="
+          font-size: {{ section.settings.left_text_size }}px;
+          font-weight: {{ section.settings.left_text_weight }};
+          line-height: {{ section.settings.left_text_lh | divided_by: 10.0 }};
+          color: {{ section.settings.left_text_color }};
+          text-align: {{ section.settings.left_text_align }};
+        ">{{ section.settings.left_text }}</div>
+      {%- endif -%}
+    </div>
+
+    <!-- CELL B — Image droite (haut) -->
+    <div class="sv__cell sv__cell--b">
+      {%- if section.settings.right_image != blank -%}
+        <div class="sv__img-wrap" style="max-width: {{ section.settings.right_img_max_width }}px;">
+          {{
+            section.settings.right_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              class: 'sv__img',
+              widths: '300, 500, 800',
+              alt: section.settings.right_image.alt
+          }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- CELL C — Image gauche (bas) -->
+    <div class="sv__cell sv__cell--c">
+      {%- if section.settings.left_image != blank -%}
+        <div class="sv__img-wrap" style="max-width: {{ section.settings.left_img_max_width }}px;">
+          {{
+            section.settings.left_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              class: 'sv__img',
+              widths: '300, 500, 800',
+              alt: section.settings.left_image.alt
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.left_footnote != blank -%}
+        <p class="sv__footnote" style="
+          color: {{ section.settings.footnote_color }};
+          font-size: {{ section.settings.footnote_size }}px;
+          text-align: {{ section.settings.left_text_align }};
+        ">{{ section.settings.left_footnote }}</p>
+      {%- endif -%}
+    </div>
+
+    <!-- CELL D — Texte droite (bas) -->
+    <div class="sv__cell sv__cell--d">
+      {%- if section.settings.right_text != blank -%}
+        <div class="sv__text" style="
+          font-size: {{ section.settings.right_text_size }}px;
+          font-weight: {{ section.settings.right_text_weight }};
+          line-height: {{ section.settings.right_text_lh | divided_by: 10.0 }};
+          color: {{ section.settings.right_text_color }};
+          text-align: {{ section.settings.right_text_align }};
+        ">{{ section.settings.right_text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.right_footnote != blank -%}
+        <p class="sv__footnote" style="
+          color: {{ section.settings.footnote_color }};
+          font-size: {{ section.settings.footnote_size }}px;
+          text-align: {{ section.settings.right_text_align }};
+        ">{{ section.settings.right_footnote }}</p>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #sv-{{ section.id }}.sv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  #sv-{{ section.id }} .sv__inner {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: {{ section.settings.left_flex }}fr {{ section.settings.right_flex }}fr;
+    grid-template-rows: auto auto;
+    column-gap: {{ section.settings.columns_gap }}px;
+    row-gap: {{ section.settings.rows_gap }}px;
+
+    /* Named grid areas for clarity */
+    grid-template-areas:
+      "cell-a cell-b"
+      "cell-c cell-d";
+  }
+
+  #sv-{{ section.id }} .sv__cell--a { grid-area: cell-a; display: flex; flex-direction: column; justify-content: {{ section.settings.left_text_valign }}; align-items: {{ section.settings.left_align }}; }
+  #sv-{{ section.id }} .sv__cell--b { grid-area: cell-b; display: flex; flex-direction: column; justify-content: {{ section.settings.right_img_valign }};  align-items: {{ section.settings.right_align }}; }
+  #sv-{{ section.id }} .sv__cell--c { grid-area: cell-c; display: flex; flex-direction: column; justify-content: {{ section.settings.left_img_valign }};   align-items: {{ section.settings.left_align }};  gap: 12px; }
+  #sv-{{ section.id }} .sv__cell--d { grid-area: cell-d; display: flex; flex-direction: column; justify-content: {{ section.settings.right_text_valign }}; align-items: {{ section.settings.right_align }}; }
+
+  #sv-{{ section.id }} .sv__img-wrap { width: 100%; }
+  #sv-{{ section.id }} .sv__img      { width: 100%; height: auto; display: block; }
+  #sv-{{ section.id }} .sv__text     { margin: 0; }
+  #sv-{{ section.id }} .sv__footnote { margin: 0; font-style: italic; }
+
+  /* ── Séparateur vertical ── */
+  {%- if section.settings.divider_show -%}
+  #sv-{{ section.id }} .sv__inner {
+    position: relative;
+  }
+  #sv-{{ section.id }} .sv__inner::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: {{ section.settings.divider_offset_top }}%;
+    bottom: {{ section.settings.divider_offset_bottom }}%;
+    width: {{ section.settings.divider_width }}px;
+    background-color: {{ section.settings.divider_color }};
+    transform: translateX(-50%);
+    border-radius: 99px;
+    pointer-events: none;
+  }
+  {%- endif -%}
+
+  /* ── Mobile : empilement en 4 lignes ordonnées ── */
+  @media (max-width: {{ section.settings.mobile_breakpoint }}px) {
+    #sv-{{ section.id }} .sv__inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "cell-a"
+        "cell-b"
+        "cell-c"
+        "cell-d";
+      row-gap: {{ section.settings.mobile_gap }}px;
+    }
+    #sv-{{ section.id }} .sv__inner::before { display: none; }
+    #sv-{{ section.id }} .sv__cell--a,
+    #sv-{{ section.id }} .sv__cell--b,
+    #sv-{{ section.id }} .sv__cell--c,
+    #sv-{{ section.id }} .sv__cell--d { align-items: center; }
+    #sv-{{ section.id }} .sv__img-wrap { max-width: {{ section.settings.mobile_img_max_width }}px !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Stats Visual — 2×2",
+  "tag": "section",
+  "settings": [
+
+    { "type": "header", "content": "━━ SECTION ━━" },
+    { "type": "color",  "id": "bg_color",             "label": "Fond section",              "default": "#ffffff" },
+    { "type": "range",  "id": "bg_opacity",            "label": "Opacité fond (%)",          "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range",  "id": "section_pad_v",         "label": "Padding vertical (px)",     "min": 0, "max": 120, "step": 4, "default": 40 },
+    { "type": "range",  "id": "section_pad_h",         "label": "Padding horizontal (px)",   "min": 0, "max": 120, "step": 4, "default": 32 },
+    { "type": "range",  "id": "max_width",             "label": "Largeur max (px)",          "min": 600, "max": 1600, "step": 20, "default": 1200 },
+
+    { "type": "header", "content": "━━ CARD ━━" },
+    { "type": "color",  "id": "card_bg",               "label": "Fond card",                 "default": "#ffffff" },
+    { "type": "range",  "id": "card_bg_opacity",       "label": "Opacité fond (%)",          "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color",  "id": "card_border_color",     "label": "Couleur contour",           "default": "#e8e8e8" },
+    { "type": "range",  "id": "card_border_width",     "label": "Épaisseur contour (px)",    "min": 0, "max": 8, "step": 1, "default": 0 },
+    { "type": "range",  "id": "card_radius",           "label": "Arrondi (px)",              "min": 0, "max": 60, "step": 2, "default": 0 },
+    { "type": "text",   "id": "card_shadow",           "label": "Ombre (box-shadow CSS)",    "default": "none" },
+    { "type": "range",  "id": "card_pad_v",            "label": "Padding vertical (px)",     "min": 0, "max": 120, "step": 4, "default": 48 },
+    { "type": "range",  "id": "card_pad_h",            "label": "Padding horizontal (px)",   "min": 0, "max": 120, "step": 4, "default": 48 },
+
+    { "type": "header", "content": "━━ GRILLE ━━" },
+    { "type": "range",  "id": "left_flex",             "label": "Ratio colonne gauche",      "min": 1, "max": 9, "step": 1, "default": 5,
+      "info": "Ex: 5/5 → 50/50 · 6/4 → 60/40" },
+    { "type": "range",  "id": "right_flex",            "label": "Ratio colonne droite",      "min": 1, "max": 9, "step": 1, "default": 5 },
+    { "type": "range",  "id": "columns_gap",           "label": "Espace entre colonnes (px)","min": 0, "max": 120, "step": 4, "default": 48 },
+    { "type": "range",  "id": "rows_gap",              "label": "Espace entre lignes (px)",  "min": 0, "max": 120, "step": 4, "default": 40 },
+
+    { "type": "header", "content": "━━ SÉPARATEUR VERTICAL ━━" },
+    { "type": "checkbox","id": "divider_show",         "label": "Afficher",                  "default": false },
+    { "type": "color",  "id": "divider_color",         "label": "Couleur",                   "default": "#dddddd" },
+    { "type": "range",  "id": "divider_width",         "label": "Épaisseur (px)",            "min": 1, "max": 8, "step": 1, "default": 1 },
+    { "type": "range",  "id": "divider_offset_top",    "label": "Décalage haut (%)",         "min": 0, "max": 40, "step": 2, "default": 4 },
+    { "type": "range",  "id": "divider_offset_bottom", "label": "Décalage bas (%)",          "min": 0, "max": 40, "step": 2, "default": 4 },
+
+    { "type": "header", "content": "━━ CELLULE A — Texte gauche haut ━━" },
+    { "type": "richtext","id": "left_text",            "label": "Texte",                     "default": "<p><strong>Parce qu'un enfant passe l'équivalent de 3 années scolaire par an devant les écrans</strong> <em>(Vs. 7 jours pour la lecture)*</em></p>" },
+    { "type": "color",  "id": "left_text_color",       "label": "Couleur",                   "default": "#111111" },
+    { "type": "range",  "id": "left_text_size",        "label": "Taille (px)",               "min": 12, "max": 32, "step": 1, "default": 18 },
+    { "type": "select", "id": "left_text_weight",      "label": "Graisse",                   "default": "400",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    { "type": "range",  "id": "left_text_lh",          "label": "Interligne (×10)",          "min": 10, "max": 22, "step": 1, "default": 16 },
+    { "type": "select", "id": "left_text_align",       "label": "Alignement texte",          "default": "center",
+      "options": [
+        { "value": "left",   "label": "Gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right",  "label": "Droite" }
+      ]
+    },
+    { "type": "select", "id": "left_align",            "label": "Alignement horizontal cellule", "default": "center",
+      "options": [
+        { "value": "flex-start", "label": "Gauche" },
+        { "value": "center",     "label": "Centre" },
+        { "value": "flex-end",   "label": "Droite" }
+      ]
+    },
+    { "type": "select", "id": "left_text_valign",      "label": "Alignement vertical (A)",   "default": "flex-end",
+      "options": [
+        { "value": "flex-start", "label": "Haut" },
+        { "value": "center",     "label": "Milieu" },
+        { "value": "flex-end",   "label": "Bas" }
+      ]
+    },
+
+    { "type": "header", "content": "━━ CELLULE B — Image droite haut ━━" },
+    { "type": "image_picker", "id": "right_image",     "label": "Image" },
+    { "type": "range",  "id": "right_img_max_width",   "label": "Largeur max (px)",          "min": 60, "max": 800, "step": 20, "default": 260 },
+    { "type": "select", "id": "right_align",           "label": "Alignement horizontal cellule", "default": "center",
+      "options": [
+        { "value": "flex-start", "label": "Gauche" },
+        { "value": "center",     "label": "Centre" },
+        { "value": "flex-end",   "label": "Droite" }
+      ]
+    },
+    { "type": "select", "id": "right_img_valign",      "label": "Alignement vertical (B)",   "default": "flex-end",
+      "options": [
+        { "value": "flex-start", "label": "Haut" },
+        { "value": "center",     "label": "Milieu" },
+        { "value": "flex-end",   "label": "Bas" }
+      ]
+    },
+
+    { "type": "header", "content": "━━ CELLULE C — Image gauche bas ━━" },
+    { "type": "image_picker", "id": "left_image",      "label": "Image" },
+    { "type": "range",  "id": "left_img_max_width",    "label": "Largeur max (px)",          "min": 60, "max": 800, "step": 20, "default": 400 },
+    { "type": "select", "id": "left_img_valign",       "label": "Alignement vertical (C)",   "default": "flex-start",
+      "options": [
+        { "value": "flex-start", "label": "Haut" },
+        { "value": "center",     "label": "Milieu" },
+        { "value": "flex-end",   "label": "Bas" }
+      ]
+    },
+    { "type": "text",   "id": "left_footnote",         "label": "Note de bas",               "default": "*Pour un enfant de 4ème. Faites-Les Lire! Michel Desmurget - 2023" },
+
+    { "type": "header", "content": "━━ CELLULE D — Texte droite bas ━━" },
+    { "type": "richtext","id": "right_text",           "label": "Texte",                     "default": "<p>Et qu'heureusement vous êtes <strong>2 mères sur 3</strong> à pousser vos enfants à lire…</p>" },
+    { "type": "color",  "id": "right_text_color",      "label": "Couleur",                   "default": "#111111" },
+    { "type": "range",  "id": "right_text_size",       "label": "Taille (px)",               "min": 12, "max": 32, "step": 1, "default": 22 },
+    { "type": "select", "id": "right_text_weight",     "label": "Graisse",                   "default": "400",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    { "type": "range",  "id": "right_text_lh",         "label": "Interligne (×10)",          "min": 10, "max": 22, "step": 1, "default": 15 },
+    { "type": "select", "id": "right_text_align",      "label": "Alignement texte",          "default": "center",
+      "options": [
+        { "value": "left",   "label": "Gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right",  "label": "Droite" }
+      ]
+    },
+    { "type": "select", "id": "right_text_valign",     "label": "Alignement vertical (D)",   "default": "flex-start",
+      "options": [
+        { "value": "flex-start", "label": "Haut" },
+        { "value": "center",     "label": "Milieu" },
+        { "value": "flex-end",   "label": "Bas" }
+      ]
+    },
+    { "type": "text",   "id": "right_footnote",        "label": "Note de bas",               "default": "-" },
+
+    { "type": "header", "content": "━━ NOTE DE BAS ━━" },
+    { "type": "color",  "id": "footnote_color",        "label": "Couleur",                   "default": "#888888" },
+    { "type": "range",  "id": "footnote_size",         "label": "Taille (px)",               "min": 10, "max": 16, "step": 1, "default": 12 },
+
+    { "type": "header", "content": "━━ MOBILE ━━" },
+    { "type": "range",  "id": "mobile_breakpoint",     "label": "Breakpoint (px)",           "min": 480, "max": 1024, "step": 8, "default": 768 },
+    { "type": "range",  "id": "mobile_gap",            "label": "Espace entre blocs (px)",   "min": 16, "max": 80, "step": 4, "default": 32 },
+    { "type": "range",  "id": "mobile_img_max_width",  "label": "Largeur max images (px)",   "min": 100, "max": 500, "step": 20, "default": 280 }
+
+  ],
+  "presets": [
+    { "name": "Stats Visual — 2×2", "category": "Content" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,457 @@
+{% comment %}
+  Section: Two Column — Text + Form Card
+  File: sections/two-col-form.liquid
+{% endcomment %}
+
+<section class="tcf-section">
+  <div class="tcf-inner">
+    <!-- LEFT COLUMN -->
+    <div class="tcf-left">
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="tcf-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body_text != blank -%}
+        <div class="tcf-body">{{ section.settings.body_text }}</div>
+      {%- endif -%}
+
+      {%- assign checklist_count = section.settings.checklist_count -%}
+      {%- if checklist_count > 0 -%}
+        <ul class="tcf-checklist">
+          {%- for i in (1..5) -%}
+            {%- if i <= checklist_count -%}
+              {%- assign item_key = 'check_item_' | append: i -%}
+              {%- assign item_text = section.settings[item_key] -%}
+              {%- if item_text != blank -%}
+                <!-- Dessin de l'encoche décrit en svg -->
+                <li class="tcf-checklist__item">
+                  <span class="tcf-check-icon" style="background-color: {{ section.settings.check_color }};">
+                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.5 5.5L5.5 9.5L12.5 1.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <span class="tcf-checklist__text">{{ item_text }}</span>
+                </li>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="tcf-right">
+      <div class="tcf-card" style="
+        border: {{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};
+        border-radius: {{ section.settings.card_radius }}px;
+      ">
+
+        {%- if section.settings.card_image != blank -%}
+          <div class="tcf-card__image-wrap">
+            <img
+              src="{{ section.settings.card_image | image_url: width: 300 }}"
+              alt="{{ section.settings.card_image.alt | escape }}"
+              class="tcf-card__image"
+              loading="lazy"
+              width="30"
+              height="30"
+            >
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.card_title != blank -%}
+          <h3 class="tcf-card__title">{{ section.settings.card_title }}</h3>
+        {%- endif -%}
+
+        <div class="tcf-card__divider-wrap">
+          <hr class="tcf-card__divider" style="
+            border-color: {{ section.settings.divider_color }};
+            width: {{ section.settings.divider_width }}%;
+          ">
+        </div>
+
+        {%- if section.settings.card_text != blank -%}
+          <div class="tcf-card__text">{{ section.settings.card_text }}</div>
+        {%- endif -%}
+
+        <div class="tcf-card__footer">
+          {%- if section.settings.card_button_label != blank -%}
+            <a
+              href="{{ section.settings.card_button_url }}"
+              class="tcf-card__btn"
+              style="
+                background-color: {{ section.settings.card_btn_bg }};
+                color: {{ section.settings.card_btn_text_color }};
+                border-radius: {{ section.settings.card_btn_radius }}px;
+              "
+            >
+              {{ section.settings.card_button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .tcf-section {
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    background-color: {{ section.settings.section_bg }};
+  }
+
+  .tcf-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  /* ---- LEFT ---- */
+  .tcf-left {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .tcf-heading {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #111;
+    margin: 0;
+  }
+
+  .tcf-body {
+    family-font: "Satoshi";
+    font-size: 16px;
+    color: #333;
+    text-align: justify;
+  }
+
+  .tcf-body a { color: inherit; }
+
+  .tcf-checklist {
+    list-style: none;
+    margin: 12px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tcf-checklist__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .tcf-check-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tcf-checklist__text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  /* ---- RIGHT ---- */
+  .tcf-right {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tcf-card {
+    width: 100%;
+    max-width: 420px;
+    min-height: 600px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 36px 32px 32px;
+    box-sizing: border-box;
+    gap: 0;
+  }
+
+  .tcf-card__image-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .tcf-card__image {
+    max-width: 120px;
+    max-height: 120px;
+    object-fit: contain;
+  }
+
+  .tcf-card__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 20px 0;
+    text-align: center;
+  }
+
+  .tcf-card__divider-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .tcf-card__divider {
+    border: none;
+    border-top-width: 1.5px;
+    border-top-style: solid;
+    margin: 0;
+  }
+
+  .tcf-card__text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #444;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .tcf-card__footer {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+  }
+
+  .tcf-card__btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+  }
+  .tcf-card__btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media screen and (max-width: 860px) {
+    .tcf-section { min-height: auto; padding: 48px 20px; }
+    .tcf-inner { flex-direction: column; gap: 40px; }
+    .tcf-right { width: 100%; }
+    .tcf-card { max-width: 100%; min-height: auto; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Two Col — Text + Card",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "Bloc gauche — Texte"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Chaque mois, les bons livres. Sans se tromper."
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Paragraphe",
+      "default": "<p>Par email, Verty vous envoie une sélection de <strong>4 livres recommandés</strong> pour votre enfant.</p>"
+    },
+
+    {
+      "type": "header",
+      "content": "Checklist"
+    },
+    {
+      "type": "color",
+      "id": "check_color",
+      "label": "Couleur des coches",
+      "default": "#3ecf4a"
+    },
+    {
+      "type": "range",
+      "id": "checklist_count",
+      "label": "Nombre de points",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "check_item_1",
+      "label": "Point 1",
+      "default": "100% Gratuit"
+    },
+    {
+      "type": "text",
+      "id": "check_item_2",
+      "label": "Point 2",
+      "default": "Sans engagement"
+    },
+    {
+      "type": "text",
+      "id": "check_item_3",
+      "label": "Point 3",
+      "default": "2 min"
+    },
+    {
+      "type": "text",
+      "id": "check_item_4",
+      "label": "Point 4",
+      "default": "-"
+    },
+    {
+      "type": "text",
+      "id": "check_item_5",
+      "label": "Point 5",
+      "default": "-"
+    },
+
+    {
+      "type": "header",
+      "content": "Bloc droit — Card"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Couleur du contour",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Épaisseur du contour (px)",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Arrondi des coins (px)",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image",
+      "label": "Image (centrée en haut)"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Titre de la card",
+      "default": "Formulaire"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Couleur de la barre de séparation",
+      "default": "#dddddd"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Largeur de la barre (%)",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "richtext",
+      "id": "card_text",
+      "label": "Texte paragraphe",
+      "default": "<p>Remplissez le formulaire pour recevoir votre sélection personnalisée.</p>"
+    },
+    {
+      "type": "text",
+      "id": "card_button_label",
+      "label": "Texte du bouton",
+      "default": "Recevoir la sélection personnalisée"
+    },
+    {
+      "type": "url",
+      "id": "card_button_url",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_bg",
+      "label": "Couleur fond bouton",
+      "default": "#6ecfb5"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_text_color",
+      "label": "Couleur texte bouton",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_btn_radius",
+      "label": "Arrondi bouton (px)",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Col — Text + Card - Abonnement",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

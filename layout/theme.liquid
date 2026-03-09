@@ -265,7 +265,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <link rel="stylesheet" href="{{ 'main.css' | asset_url }}">
   <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
-
   {% liquid
     
 
@@ -352,7 +351,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        To have a custom handler you have to create a page in
        Shopify -> Theme -> Pages (be careful of the visibility) -->
 
-  {% unless page.handle == "end-form-page" %}
+  {% unless page.handle == "" %}
     {%- sections 'header-group' -%}
   {% endunless %}
 
