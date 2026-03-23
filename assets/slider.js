@@ -23,9 +23,9 @@ function mulberry32(seed) {
   };
 }
 
-// Seed -> date
+// Seed based on current day (changes every 24h)
 const seed = Math.floor(Date.now());
-const rand = mulberry32(seed)
+const rand = mulberry32(seed);
 
 class CarouselSlider extends HTMLElement {
   constructor() {
@@ -33,14 +33,18 @@ class CarouselSlider extends HTMLElement {
     this.slides = this.querySelectorAll('.slider__item');
     if (this.slides.length < 2) return;
 
-    document.querySelector('[data-randomize]').forEach(el => {
-      const items = [...el.children];
-      for (let i = items.length - 1; i > 0; i--) {
-        const j = Math.floor(rand() * (i + 1));
-        el.appendChild(items[j]);
-        items.splice(j,1);
+    if (this.hasAttribute('data-randomize')) {
+      const grid = this.querySelector('.slider__grid');
+      if (grid) {
+        const items = [...grid.children];
+        for (let i = items.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          grid.appendChild(items[j]);
+          items.splice(j, 1);
+        }
+        this.slides = this.querySelectorAll('.slider__item');
       }
-    });
+    }
 
     window.initLazyScript(this, this.init.bind(this));
   }
