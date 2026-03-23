@@ -12,11 +12,35 @@ function debounce(fn, wait = 300) {
   };
 }
 
+
+// PRNG mulberry32 generates a number between [0,1) like Math.random() 
+function mulberry32(seed) {
+  return function() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+// Seed -> date
+const seed = Math.floor(Date.now() / 86400000);
+const rand = mulberry32(seed)
+
 class CarouselSlider extends HTMLElement {
   constructor() {
     super();
     this.slides = this.querySelectorAll('.slider__item');
     if (this.slides.length < 2) return;
+
+    document.querySelector('[data-randomize]').forEach(el => {
+      const items = [...el.children];
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        el.appendChild(items[j]);
+        items.splice(j,1);
+      }
+    });
 
     window.initLazyScript(this, this.init.bind(this));
   }
