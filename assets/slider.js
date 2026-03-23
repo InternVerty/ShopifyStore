@@ -24,7 +24,7 @@ function mulberry32(seed) {
 }
 
 // Seed -> date
-const seed = Math.floor(Date.now() / 86400000);
+const seed = Math.floor(Date.now());
 const rand = mulberry32(seed)
 
 class CarouselSlider extends HTMLElement {
