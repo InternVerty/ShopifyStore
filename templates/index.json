@@ -88,7 +88,7 @@
         "show_promo_info": false,
         "image_ratio": "fill",
         "dis": "",
-        "content": "<p>Offrir un livre, c’est bien plus qu’un cadeau : c’est offrir une part de beauté, une émotion qui grandit avec l’enfant.</p><p>Notre comité de lecture a réuni pour vous une <strong>sélection des plus beaux livres jeunesse</strong>, choisis pour la qualité de leur langue, la richesse de leur univers, les valeurs lumineuses qu’ils transmettent et la beauté de l'objet qu'ils représentent. </p><p>Des histoires qui éveillent l’esprit, élèvent le cœur et nourrissent l’imaginaire. Parce que <strong>les plus beaux cadeaux sont ceux qui font grandir.</strong></p>",
+        "content": "<p>Chaque mois, le catalogue Verty s’enrichit et se renouvelle pour vous proposer le meilleur de la littérature jeunesse. </p><p>Notre comité de lecture sélectionne avec exigence et finesse des ouvrages variés : <strong>nouveautés inspirantes, classiques incontournables </strong>ou<strong> pépites méconnues </strong>dénichées avec soin. </p><p>Chaque livre est choisi pour éveiller le goût de la lecture, nourrir l’imaginaire des enfants et les faire grandir dans le <strong>beau</strong>, le <strong>bien</strong> et le <strong>vrai.</strong></p>",
         "link_url": "{{ section.settings.collection.url }}",
         "button_label": "Voir toute la collection",
         "color_scheme": "none",
