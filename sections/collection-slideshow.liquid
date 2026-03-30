@@ -90,18 +90,11 @@
       assign grid_classes = grid_mobile_cols | append: grid_desktop_large
     endif
   endif
-
-  if settings.prod_card_image_ratio == 'shortest'
-    assign default_image_ratio = 0
-  elsif settings.prod_card_image_ratio == 'tallest'
-    assign default_image_ratio = 99
-  else
-    assign default_image_ratio = settings.prod_card_image_ratio
-  endif
 -%}
 
 {%- style -%}
-  #{{ section.id }} slide-show {
+  #{{ section.id }} {
+    background: none;
     {%- if section.settings.autoplay -%}
       --duration: {{ section.settings.autoplay_speed }}s;
       --play-state: paused;
@@ -113,9 +106,7 @@
   }
 
   {%- if section.settings.height_mode == 'fixed' -%}
-    @media (max-width: {{ breakpoint_sm_down }}px) {
-      #{{ section.id }} .image-banner { min-height: {{ section.settings.fixed_height_mobile }}px; }
-    }
+    #{{ section.id }} .image-banner { min-height: {{ section.settings.fixed_height_mobile }}px; }
     @media (min-width: {{ breakpoint_sm }}px) {
       #{{ section.id }} .image-banner {
         min-height: calc({{ section.settings.fixed_height_mobile }}px + ({{ section.settings.fixed_height_desktop }} - {{ section.settings.fixed_height_mobile }}) * ((100vw - {{ breakpoint_sm }}px) / {{ breakpoint_xxl | minus: breakpoint_sm }}));
@@ -139,9 +130,8 @@
     -%}
     #{{ section.id }} .image-banner::after,
     #{{ section.id }} .media::after { content: ''; padding-top: {{ img_padding }}; }
-
     {%- if section.blocks.first.settings.image_mobile != blank -%}
-      @media (max-width: {{ breakpoint_sm }}px) {
+      @media (max-width: {{ breakpoint_sm_down }}px) {
         #{{ section.id }} .image-banner::after,
         #{{ section.id }} .media::after { content: ''; padding-top: {{ m_img_padding }}; }
       }
@@ -159,10 +149,10 @@
   {%- endif -%}
 {%- endstyle -%}
 
-<collection-slideshow class="block{% unless color_scheme == 'default' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}" id="{{ section.id }}">
+<collection-slideshow>
 
-  <!-- Hero banner slideshow -->
-  <div class="slideshow-section section {% if section.settings.full_width %}section--full-width{% else %}container{% endif %}">
+  {%- comment -%} Part 1 – Slideshow hero banners {%- endcomment -%}
+  <div class="slideshow-section section {% if section.settings.full_width %}section--full-width{% else %}container{% endif %}{% unless color_scheme == 'default' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}">
     <slide-show class="block relative overflow-hidden"
                 role="region"
                 aria-roledescription="{{ 'sections.slideshow.carousel' | t }}"
@@ -191,47 +181,39 @@
                {%- if request.design_mode %}data-index="{{ forloop.index0 }}"{% endif %}
                {{ block.shopify_attributes }}>
 
-            <div class="image-banner__image media media--has-overlay absolute top-0 left-0 w-full h-full has-motion">
-              {%- if img != blank -%}
-                {%- liquid
-                  if section.settings.full_width
-                    assign sizes = '(max-aspect-ratio: 1/2) 50vh, 100vw'
-                  else
-                    capture sizes
-                      render 'sizes-attribute'
-                    endcapture
-                  endif
-                  if m_img != blank
-                    assign desktop_image_class = 'img-fit hidden sm:block'
-                  else
-                    assign desktop_image_class = 'img-fit'
-                  endif
-                -%}
-                {%- if m_img != blank -%}
-                  {%- render 'image',
-                    image: m_img,
-                    widths: '480, 980, 1200, 1400',
-                    src_width: 980,
-                    src_placeholder: true,
-                    sizes: sizes,
-                    class: 'img-fit sm:hidden',
-                    lazy_load: lazy_load
-                  -%}
-                {%- endif -%}
-                {%- render 'image',
-                  image: img,
-                  widths: '480, 980, 1200, 1400, 1600, 1920, 2560',
-                  src_width: 1400,
-                  src_placeholder: true,
-                  sizes: sizes,
-                  quality: 1,
-                  class: desktop_image_class,
-                  lazy_load: lazy_load
-                -%}
-              {%- else -%}
-                {{ 'lifestyle-2' | placeholder_svg_tag: 'media__placeholder img-fit' }}
+            {%- if block.settings.url != blank -%}
+              <a href="{{ block.settings.url }}" class="image-banner__image media media--has-overlay block absolute top-0 left-0 w-full h-full has-motion">
+            {%- else -%}
+              <div class="image-banner__image media media--has-overlay absolute top-0 left-0 w-full h-full has-motion">
+            {%- endif -%}
+
+            {%- if img != blank -%}
+              {%- liquid
+                if section.settings.full_width
+                  assign sizes = '(max-aspect-ratio: 1/2) 50vh, 100vw'
+                else
+                  capture sizes
+                    render 'sizes-attribute'
+                  endcapture
+                endif
+                assign desktop_image_class = 'img-fit'
+                if m_img != blank
+                  assign desktop_image_class = 'img-fit hidden sm:block'
+                endif
+              -%}
+              {%- if m_img != blank -%}
+                {%- render 'image', image: m_img, widths: '480, 980, 1200, 1400', src_width: 980, src_placeholder: true, sizes: sizes, class: 'img-fit sm:hidden', lazy_load: lazy_load -%}
               {%- endif -%}
-            </div>
+              {%- render 'image', image: img, widths: '480, 980, 1200, 1400, 1600, 1920, 2560, 3200', src_width: 1400, src_placeholder: true, sizes: sizes, quality: 1, class: desktop_image_class, lazy_load: lazy_load -%}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'media__placeholder img-fit' }}
+            {%- endif -%}
+
+            {%- if block.settings.url != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
 
             {%- if block.settings.heading != blank or block.settings.subheading != blank or block.settings.text != blank or block.settings.button_label != blank -%}
               <div class="slideshow__text container flex {{ overlay_position | first }}"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
@@ -240,12 +222,12 @@
                     <p class="text-overlay__block subheading">{{ block.settings.subheading | escape }}</p>
                   {%- endif -%}
                   {%- if block.settings.heading != blank -%}
-                    <h2 class="text-overlay__heading {{ block.settings.heading_size }}">
-                      {% render 'multiline-text' with block.settings.heading %}
-                    </h2>
+                    <{% if block.settings.heading_h1 %}h1{% else %}h2{% endif %} class="text-overlay__heading {{ block.settings.heading_size }}">
+                      {%- render 'multiline-text' with block.settings.heading -%}
+                    </{% if block.settings.heading_h1 %}h1{% else %}h2{% endif %}>
                   {%- endif -%}
                   {%- if block.settings.text != blank -%}
-                    <div class="text-overlay__block rte">{{ block.settings.text }}</div>
+                    <div class="text-overlay__block rte{% if block.settings.enlarge_text %} enlarge-text{% endif %}">{{ block.settings.text }}</div>
                   {%- endif -%}
                   {%- if block.settings.button_label != blank -%}
                     <div class="text-overlay__buttons inline-flex flex-wrap items-start mt-4 {% if block.settings.overlay_text_align == 'text-start' %}justify-start{% elsif block.settings.overlay_text_align == 'text-end' %}justify-end{% else %}justify-center{% endif %}">
@@ -281,7 +263,6 @@
               {%- endfor -%}
             </div>
           {%- endif -%}
-
           {%- if section.settings.nav_style == 'arrows' or section.settings.autoplay -%}
             <div class="slideshow-nav flex items-center">
               {%- if section.settings.nav_style == 'arrows' -%}
@@ -324,93 +305,82 @@
     </slide-show>
   </div>
 
-  <!-- Product panels, one per slide, synced with the slideshow -->
+  {%- comment -%} Part 2 – Featured collection panels (one per slide) {%- endcomment -%}
   {%- for block in section.blocks -%}
-    {%- assign panel_collection = block.settings.collection -%}
-    <div class="collection-slideshow__panel section{% unless forloop.first %} hidden{% endunless %}" data-panel-index="{{ forloop.index0 }}">
+    {%- assign collection = block.settings.collection -%}
 
-      {%- if panel_collection != blank -%}
+    <div class="collection-slideshow__panel{% unless forloop.first %} hidden{% endunless %}" data-panel-index="{{ forloop.index0 }}">
+      {%- if collection != blank -%}
+
         {%- liquid
           if settings.prod_card_image_ratio == 'shortest'
-            assign panel_image_ratio = 0
-            for product in panel_collection.products limit: block.settings.products_to_show
-              if product.featured_media.preview_image.aspect_ratio > panel_image_ratio
-                assign panel_image_ratio = product.featured_media.preview_image.aspect_ratio
+            assign image_ratio = 0
+            for product in collection.products limit: section.settings.products_to_show
+              if product.featured_media.preview_image.aspect_ratio > image_ratio
+                assign image_ratio = product.featured_media.preview_image.aspect_ratio
               endif
             endfor
           elsif settings.prod_card_image_ratio == 'tallest'
-            assign panel_image_ratio = 99
-            for product in panel_collection.products limit: block.settings.products_to_show
-              if product.featured_media.preview_image.aspect_ratio < panel_image_ratio
-                assign panel_image_ratio = product.featured_media.preview_image.aspect_ratio
+            assign image_ratio = 99
+            for product in collection.products limit: section.settings.products_to_show
+              if product.featured_media.preview_image.aspect_ratio < image_ratio
+                assign image_ratio = product.featured_media.preview_image.aspect_ratio
               endif
             endfor
           else
-            assign panel_image_ratio = settings.prod_card_image_ratio
+            assign image_ratio = settings.prod_card_image_ratio
           endif
         -%}
 
-        {%- if section.settings.show_collection_header -%}
-          <div class="container">
-            <div class="section__header items-center flex{% if section.settings.heading_align == 'text-center' %} flex-col text-center{% elsif section.settings.heading_align == 'text-end' %} flex-row-reverse flex-wrap{% else %} flex-row flex-wrap{% endif %} gap-x-theme"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
-              <h2 class="h4 mb-0 flex-auto section__heading {{ section.settings.heading_align }}">{{ panel_collection.title }}</h2>
-              {%- if section.settings.show_view_all -%}
-                <a href="{{ panel_collection.url }}" class="link">{{ 'sections.featured_collection.view_all' | t }}</a>
-              {%- endif -%}
-            </div>
-          </div>
-        {%- endif -%}
-
-        {%- if carousel -%}
-          <carousel-slider class="carousel block" inactive{% if section.settings.layout == 'carousel_on_mobile' %} disable-desktop="true"{% endif %}>
-            <div class="container relative featured-collection-products">
-              <div class="slider" id="products-slider-{{ section.id }}-{{ forloop.index }}">
-        {%- endif -%}
-
-        <div class="container products-grid-container shrink-0">
-          <ul class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }}{% if section.settings.layout == 'carousel_on_mobile' and section.settings.card_size_mobile == 'small' and settings.card_contain %} sm:gap-x-theme sm:gap-y-8{% else %} gap-x-theme gap-y-8{% endif %}{% if section.settings.card_size_mobile == 'small' and settings.card_contain %} small__grid{% endif %}" role="list">
-            {%- for product in panel_collection.products limit: block.settings.products_to_show -%}
-              <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %} data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
-                {% render 'product-card', product: product, collection: panel_collection, image_ratio: panel_image_ratio, show_metafields: true %}
-              </li>
-            {%- else -%}
-              {%- for i in (1..block.settings.products_to_show) -%}
-                <li {% if carousel %}class="slider__item"{% endif %}>
-                  {% render 'product-card', product: "", image_ratio: panel_image_ratio %}
-                </li>
-              {%- endfor -%}
-            {%- endfor -%}
-          </ul>
-        </div>
-
-        {%- if carousel -%}
+        <div class="section">
+          {%- if section.settings.show_view_all -%}
+            <div class="container">
+              <div class="section__header items-center flex{% if section.settings.heading_align == 'text-center' %} flex-col text-center{% elsif section.settings.heading_align == 'text-end' %} flex-row-reverse flex-wrap{% else %} flex-row flex-wrap{% endif %} gap-x-theme"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
+                <h2 class="h4 mb-0 flex-auto section__heading {{ section.settings.heading_align }}">{{ collection.title }}</h2>
+                <a href="{{ collection.url }}" class="link">{{ 'sections.featured_collection.view_all' | t }}</a>
               </div>
-              {%- if settings.slider_show_arrows != 'never' -%}
-                <div class="slider-nav absolute top-middle end {% if settings.slider_show_arrows == 'hover' %}slider-nav--show-on-hover no-hover-hidden {% endif %}hidden md:block no-js-hidden">
-                  <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="products-slider-{{ section.id }}-{{ forloop.index }}">
-                    <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
-                    {% render 'icon-chevron-right' %}
-                  </button>
-                  <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="prev" aria-controls="products-slider-{{ section.id }}-{{ forloop.index }}">
-                    <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
-                    {% render 'icon-chevron-left' %}
-                  </button>
-                </div>
-              {%- endif -%}
             </div>
-          </carousel-slider>
-        {%- endif -%}
+          {%- endif -%}
 
-      {%- else -%}
+          {%- if carousel -%}
+            <carousel-slider class="carousel block" inactive{% if section.settings.layout == 'carousel_on_mobile' %} disable-desktop="true"{% endif %}>
+              <div class="container relative featured-collection-products">
+                <div class="slider" id="slider-{{ section.id }}-{{ forloop.index }}">
+          {%- endif -%}
 
-        <div class="container products-grid-container shrink-0">
-          <ul class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }} gap-x-theme gap-y-8" role="list">
-            {%- for i in (1..block.settings.products_to_show) -%}
-              <li {% if carousel %}class="slider__item"{% endif %}>
-                {% render 'product-card', product: "", image_ratio: default_image_ratio %}
-              </li>
-            {%- endfor -%}
-          </ul>
+          <div class="container products-grid-container shrink-0">
+            <ul class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }}{% if section.settings.layout == 'carousel_on_mobile' and section.settings.card_size_mobile == 'small' and settings.card_contain %} sm:gap-x-theme sm:gap-y-8{% else %} gap-x-theme gap-y-8{% endif %}{% if section.settings.card_size_mobile == 'small' and settings.card_contain %} small__grid{% endif %}" role="list">
+              {%- for product in collection.products limit: section.settings.products_to_show -%}
+                <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %}data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
+                  {% render 'product-card', product: product, collection: collection, image_ratio: image_ratio, show_metafields: true %}
+                </li>
+              {%- else -%}
+                {%- for i in (1..section.settings.products_to_show) -%}
+                  <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %}data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
+                    {% render 'product-card', product: "", image_ratio: image_ratio %}
+                  </li>
+                {%- endfor -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+
+          {%- if carousel -%}
+                </div>
+                {%- if settings.slider_show_arrows != 'never' -%}
+                  <div class="slider-nav absolute top-middle end {% if settings.slider_show_arrows == 'hover' %}slider-nav--show-on-hover no-hover-hidden {% endif %}hidden md:block no-js-hidden">
+                    <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="slider-{{ section.id }}-{{ forloop.index }}">
+                      <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
+                      {% render 'icon-chevron-right' %}
+                    </button>
+                    <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="prev" aria-controls="slider-{{ section.id }}-{{ forloop.index }}">
+                      <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
+                      {% render 'icon-chevron-left' %}
+                    </button>
+                  </div>
+                {%- endif -%}
+              </div>
+            </carousel-slider>
+          {%- endif -%}
         </div>
 
       {%- endif -%}
@@ -425,20 +395,16 @@
       connectedCallback() {
         const slides = this.querySelectorAll('.slideshow__slide');
         const panels = this.querySelectorAll('.collection-slideshow__panel');
-
         if (slides.length <= 1 || panels.length === 0) return;
 
-        const observer = new MutationObserver(() => {
+        const sync = () => {
           slides.forEach((slide, i) => {
-            if (panels[i]) {
-              panels[i].classList.toggle('hidden', !slide.classList.contains('is-active'));
-            }
+            if (panels[i]) panels[i].classList.toggle('hidden', !slide.classList.contains('is-active'));
           });
-        });
+        };
 
-        slides.forEach(slide => {
-          observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
-        });
+        const observer = new MutationObserver(sync);
+        slides.forEach(slide => observer.observe(slide, { attributes: true, attributeFilter: ['class'] }));
       }
     }
     customElements.define('collection-slideshow', CollectionSlideshow);
@@ -451,6 +417,72 @@
   "tag": "section",
   "class": "cc-collection-slideshow",
   "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "text-start", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-end", "label": "Right" }
+      ],
+      "default": "text-start"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show collection title and \"View all\" link",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "carousel_on_mobile", "label": "Carousel on mobile" },
+        { "value": "grid", "label": "Grid" }
+      ],
+      "default": "carousel"
+    },
+    {
+      "type": "select",
+      "id": "card_size_mobile",
+      "label": "Product card size on mobile",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "select",
+      "id": "card_size",
+      "label": "Product card size on large screens",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Maximum products to show",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
     {
       "type": "header",
       "content": "Slideshow"
@@ -469,22 +501,22 @@
     {
       "type": "range",
       "id": "fixed_height_desktop",
-      "min": 300,
-      "max": 800,
+      "min": 400,
+      "max": 1000,
       "step": 10,
       "unit": "px",
-      "label": "Fixed height on large screens",
-      "default": 500
+      "label": "Minimum fixed height on large screens",
+      "default": 600
     },
     {
       "type": "range",
       "id": "fixed_height_mobile",
-      "min": 200,
+      "min": 250,
       "max": 500,
       "step": 10,
       "unit": "px",
-      "label": "Fixed height on mobile",
-      "default": 300
+      "label": "Minimum fixed height on mobile",
+      "default": 350
     },
     {
       "type": "select",
@@ -550,87 +582,26 @@
     },
     {
       "type": "header",
-      "content": "Collection header"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collection_header",
-      "label": "Show collection header",
-      "default": true
-    },
-    {
-      "type": "select",
-      "id": "heading_align",
-      "label": "Heading alignment",
-      "options": [
-        { "value": "text-start", "label": "Left" },
-        { "value": "text-center", "label": "Center" },
-        { "value": "text-end", "label": "Right" }
-      ],
-      "default": "text-start"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_view_all",
-      "label": "Show \"View all\" link",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Products layout"
-    },
-    {
-      "type": "select",
-      "id": "layout",
-      "label": "Layout",
-      "options": [
-        { "value": "carousel", "label": "Carousel" },
-        { "value": "carousel_on_mobile", "label": "Carousel on mobile" },
-        { "value": "grid", "label": "Grid" }
-      ],
-      "default": "carousel"
-    },
-    {
-      "type": "select",
-      "id": "card_size",
-      "label": "Product card size on large screens",
-      "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
-      ],
-      "default": "small"
-    },
-    {
-      "type": "select",
-      "id": "card_size_mobile",
-      "label": "Product card size on mobile",
-      "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" }
-      ],
-      "default": "small"
-    },
-    {
-      "type": "header",
       "content": "Style"
     },
     {
       "type": "select",
       "id": "color_scheme",
       "label": "Color scheme",
+      "info": "Applied to the slideshow banner area.",
       "options": [
+        { "value": "white", "label": "Transparent background" },
         { "value": "default", "label": "Default" },
         { "value": "1", "label": "Scheme 1" },
         { "value": "2", "label": "Scheme 2" },
         { "value": "3", "label": "Scheme 3" }
       ],
-      "default": "default"
+      "default": "white"
     },
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Make banner full width",
+      "label": "Make section background full width",
       "default": true
     },
     {
@@ -647,7 +618,7 @@
       "step": 5,
       "unit": "%",
       "label": "Image tint opacity",
-      "default": 30
+      "default": 40
     },
     {
       "type": "header",
@@ -663,7 +634,7 @@
   "blocks": [
     {
       "type": "slide",
-      "name": "Collection slide",
+      "name": "Slide",
       "limit": 5,
       "settings": [
         {
@@ -672,28 +643,21 @@
           "label": "Collection"
         },
         {
-          "type": "range",
-          "id": "products_to_show",
-          "label": "Maximum products to show",
-          "min": 4,
-          "max": 24,
-          "step": 1,
-          "default": 8
-        },
-        {
-          "type": "header",
-          "content": "Banner image"
-        },
-        {
           "type": "image_picker",
           "id": "image_desktop",
           "label": "Image",
-          "info": "For best results, use a landscape image with a minimum width of 2400px."
+          "info": "For best results, use a landscape image with a minimum width of 3200px."
         },
         {
           "type": "image_picker",
           "id": "image_mobile",
-          "label": "Mobile image (optional)"
+          "label": "Mobile image (optional)",
+          "info": "If not set, the main image will be used."
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Image link (optional)"
         },
         {
           "type": "header",
@@ -730,14 +694,15 @@
         {
           "type": "text",
           "id": "subheading",
-          "label": "Subheading"
+          "label": "Subheading",
+          "default": "Subheading"
         },
         {
           "type": "text",
           "id": "heading",
           "label": "Heading",
           "info": "Enter <br> for a line-break.",
-          "default": "Collection name"
+          "default": "Slideshow"
         },
         {
           "type": "select",
@@ -752,18 +717,32 @@
             { "value": "h1", "label": "Extra large" },
             { "value": "h0", "label": "Extra extra large" }
           ],
-          "default": "h1"
+          "default": "h0"
+        },
+        {
+          "type": "checkbox",
+          "id": "heading_h1",
+          "label": "Set as page heading (uses h1 tag)",
+          "info": "For optimum SEO, a page should only have one h1 and it should be the first heading on the page.",
+          "default": false
         },
         {
           "type": "richtext",
           "id": "text",
-          "label": "Description"
+          "label": "Text",
+          "default": "<p>Share announcements and information with your customers.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "enlarge_text",
+          "label": "Enlarge text",
+          "default": true
         },
         {
           "type": "text",
           "id": "button_label",
           "label": "Button label",
-          "default": "Shop now"
+          "default": "Shop the collection"
         },
         {
           "type": "url",
