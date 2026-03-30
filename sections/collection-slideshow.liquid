@@ -46,24 +46,50 @@
     assign bg_color = false
   endif
 
-  assign card_size = section.settings.card_size
-  assign card_size_mobile = section.settings.card_size_mobile
+  assign carousel_desktop_small = ' md:auto-cols-3 lg:auto-cols-4 xl:auto-cols-5 small-cards-desktop'
+  assign carousel_desktop_medium = ' sm:auto-cols-3 xl:auto-cols-4'
+  assign carousel_desktop_large = ' sm:auto-cols-2 lg:auto-cols-3'
 
-  if card_size_mobile == 'small'
-    assign grid_mobile = 'grid-flow-col auto-cols-2 small-cards-mobile'
+  assign grid_desktop_small = ' md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 small-cards-desktop'
+  assign grid_desktop_medium = ' sm:grid-cols-3 xl:grid-cols-4'
+  assign grid_desktop_large = ' sm:grid-cols-2 lg:grid-cols-3'
+
+  if section.settings.card_size_mobile == 'small'
+    assign carousel_mobile_cols = 'grid-flow-col auto-cols-2 small-cards-mobile'
+    assign grid_mobile_cols = 'grid-cols-2 small-cards-mobile'
   else
-    assign grid_mobile = 'grid-flow-col auto-cols-1'
+    assign carousel_mobile_cols = 'grid-flow-col auto-cols-1'
+    assign grid_mobile_cols = 'grid-cols-1'
   endif
 
-  if card_size == 'small'
-    assign grid_desktop = ' md:auto-cols-3 lg:auto-cols-4 xl:auto-cols-5 small-cards-desktop'
-  elsif card_size == 'medium'
-    assign grid_desktop = ' sm:auto-cols-3 xl:auto-cols-4'
-  else
-    assign grid_desktop = ' sm:auto-cols-2 lg:auto-cols-3'
+  if section.settings.layout == 'carousel'
+    assign carousel = true
+    if section.settings.card_size == 'small'
+      assign grid_classes = carousel_mobile_cols | append: carousel_desktop_small
+    elsif section.settings.card_size == 'medium'
+      assign grid_classes = carousel_mobile_cols | append: carousel_desktop_medium
+    else
+      assign grid_classes = carousel_mobile_cols | append: carousel_desktop_large
+    endif
+  elsif section.settings.layout == 'carousel_on_mobile'
+    assign carousel = true
+    if section.settings.card_size == 'small'
+      assign grid_classes = carousel_mobile_cols | append: grid_desktop_small
+    elsif section.settings.card_size == 'medium'
+      assign grid_classes = carousel_mobile_cols | append: grid_desktop_medium
+    else
+      assign grid_classes = carousel_mobile_cols | append: grid_desktop_large
+    endif
+  elsif section.settings.layout == 'grid'
+    assign carousel = false
+    if section.settings.card_size == 'small'
+      assign grid_classes = grid_mobile_cols | append: grid_desktop_small
+    elsif section.settings.card_size == 'medium'
+      assign grid_classes = grid_mobile_cols | append: grid_desktop_medium
+    else
+      assign grid_classes = grid_mobile_cols | append: grid_desktop_large
+    endif
   endif
-
-  assign grid_classes = grid_mobile | append: grid_desktop
 
   if settings.prod_card_image_ratio == 'shortest'
     assign default_image_ratio = 0
@@ -302,6 +328,7 @@
   {%- for block in section.blocks -%}
     {%- assign panel_collection = block.settings.collection -%}
     <div class="collection-slideshow__panel section{% unless forloop.first %} hidden{% endunless %}" data-panel-index="{{ forloop.index0 }}">
+
       {%- if panel_collection != blank -%}
         {%- liquid
           if settings.prod_card_image_ratio == 'shortest'
@@ -325,54 +352,67 @@
 
         {%- if section.settings.show_collection_header -%}
           <div class="container">
-            <div class="section__header items-center flex flex-row flex-wrap gap-x-theme"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
-              <h3 class="h4 mb-0 flex-auto">{{ panel_collection.title }}</h3>
-              <a href="{{ panel_collection.url }}" class="link">{{ 'sections.featured_collection.view_all' | t }}</a>
+            <div class="section__header items-center flex{% if section.settings.heading_align == 'text-center' %} flex-col text-center{% elsif section.settings.heading_align == 'text-end' %} flex-row-reverse flex-wrap{% else %} flex-row flex-wrap{% endif %} gap-x-theme"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
+              <h2 class="h4 mb-0 flex-auto section__heading {{ section.settings.heading_align }}">{{ panel_collection.title }}</h2>
+              {%- if section.settings.show_view_all -%}
+                <a href="{{ panel_collection.url }}" class="link">{{ 'sections.featured_collection.view_all' | t }}</a>
+              {%- endif -%}
             </div>
           </div>
         {%- endif -%}
 
-        <carousel-slider class="carousel block" inactive>
-          <div class="relative featured-collection-products">
-            <div class="slider" id="products-slider-{{ section.id }}-{{ forloop.index }}">
-              <div class="container products-grid-container">
-                <ul class="slider__grid grid {{ grid_classes }} gap-x-theme gap-y-8" role="list">
-                  {%- for product in panel_collection.products limit: block.settings.products_to_show -%}
-                    <li class="slider__item"{% if settings.animations_enabled != "disabled" %} data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
-                      {% render 'product-card', product: product, collection: panel_collection, image_ratio: panel_image_ratio, show_metafields: true %}
-                    </li>
-                  {%- else -%}
-                    {%- for i in (1..block.settings.products_to_show) -%}
-                      <li class="slider__item">
-                        {% render 'product-card', product: "", image_ratio: panel_image_ratio %}
-                      </li>
-                    {%- endfor -%}
-                  {%- endfor -%}
-                </ul>
-              </div>
-            </div>
-            {%- if settings.slider_show_arrows != 'never' -%}
-              <div class="slider-nav absolute top-middle end {% if settings.slider_show_arrows == 'hover' %}slider-nav--show-on-hover no-hover-hidden {% endif %}hidden md:block no-js-hidden">
-                <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="products-slider-{{ section.id }}-{{ forloop.index }}">
-                  <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
-                  {% render 'icon-chevron-right' %}
-                </button>
-                <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="prev" aria-controls="products-slider-{{ section.id }}-{{ forloop.index }}">
-                  <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
-                  {% render 'icon-chevron-left' %}
-                </button>
-              </div>
-            {%- endif -%}
-          </div>
-        </carousel-slider>
-      {%- else -%}
-        <div class="container">
-          <ul class="grid {{ grid_classes }} gap-x-theme gap-y-8" role="list">
-            {%- for i in (1..block.settings.products_to_show) -%}
-              <li>{% render 'product-card', product: "", image_ratio: default_image_ratio %}</li>
+        {%- if carousel -%}
+          <carousel-slider class="carousel block" inactive{% if section.settings.layout == 'carousel_on_mobile' %} disable-desktop="true"{% endif %}>
+            <div class="container relative featured-collection-products">
+              <div class="slider" id="products-slider-{{ section.id }}-{{ forloop.index }}">
+        {%- endif -%}
+
+        <div class="container products-grid-container shrink-0">
+          <ul class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }}{% if section.settings.layout == 'carousel_on_mobile' and section.settings.card_size_mobile == 'small' and settings.card_contain %} sm:gap-x-theme sm:gap-y-8{% else %} gap-x-theme gap-y-8{% endif %}{% if section.settings.card_size_mobile == 'small' and settings.card_contain %} small__grid{% endif %}" role="list">
+            {%- for product in panel_collection.products limit: block.settings.products_to_show -%}
+              <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %} data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
+                {% render 'product-card', product: product, collection: panel_collection, image_ratio: panel_image_ratio, show_metafields: true %}
+              </li>
+            {%- else -%}
+              {%- for i in (1..block.settings.products_to_show) -%}
+                <li {% if carousel %}class="slider__item"{% endif %}>
+                  {% render 'product-card', product: "", image_ratio: panel_image_ratio %}
+                </li>
+              {%- endfor -%}
             {%- endfor -%}
           </ul>
         </div>
+
+        {%- if carousel -%}
+              </div>
+              {%- if settings.slider_show_arrows != 'never' -%}
+                <div class="slider-nav absolute top-middle end {% if settings.slider_show_arrows == 'hover' %}slider-nav--show-on-hover no-hover-hidden {% endif %}hidden md:block no-js-hidden">
+                  <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="products-slider-{{ section.id }}-{{ forloop.index }}">
+                    <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
+                    {% render 'icon-chevron-right' %}
+                  </button>
+                  <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="prev" aria-controls="products-slider-{{ section.id }}-{{ forloop.index }}">
+                    <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
+                    {% render 'icon-chevron-left' %}
+                  </button>
+                </div>
+              {%- endif -%}
+            </div>
+          </carousel-slider>
+        {%- endif -%}
+
+      {%- else -%}
+
+        <div class="container products-grid-container shrink-0">
+          <ul class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }} gap-x-theme gap-y-8" role="list">
+            {%- for i in (1..block.settings.products_to_show) -%}
+              <li {% if carousel %}class="slider__item"{% endif %}>
+                {% render 'product-card', product: "", image_ratio: default_image_ratio %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
       {%- endif -%}
     </div>
   {%- endfor -%}
@@ -510,13 +550,45 @@
     },
     {
       "type": "header",
-      "content": "Products"
+      "content": "Collection header"
     },
     {
       "type": "checkbox",
       "id": "show_collection_header",
-      "label": "Show collection name and \"View all\" link",
+      "label": "Show collection header",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "text-start", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-end", "label": "Right" }
+      ],
+      "default": "text-start"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show \"View all\" link",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Products layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "carousel_on_mobile", "label": "Carousel on mobile" },
+        { "value": "grid", "label": "Grid" }
+      ],
+      "default": "carousel"
     },
     {
       "type": "select",
@@ -602,9 +674,9 @@
         {
           "type": "range",
           "id": "products_to_show",
-          "label": "Products to show",
+          "label": "Maximum products to show",
           "min": 4,
-          "max": 12,
+          "max": 24,
           "step": 1,
           "default": 8
         },
