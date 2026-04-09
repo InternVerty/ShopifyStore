@@ -884,7 +884,7 @@
           "type": "button",
           "settings": {
             "button_label": "Handicap",
-            "button_link": "parler-du-handicap-a-travers-les-livres"
+            "button_link": "collection-2"
           }
         },
         "button_qMRakp": {
@@ -1035,7 +1035,7 @@
         "heading_align": "text-start",
         "show_view_all": true,
         "use_anchor_for_view_all": false,
-        "collection": "parler-du-handicap-a-travers-les-livres",
+        "collection": "collection-2",
         "layout": "carousel",
         "card_size_mobile": "small",
         "card_size": "small",
