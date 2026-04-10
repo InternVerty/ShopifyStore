@@ -43,7 +43,7 @@
         "columns_f7Q6Ua": {
           "type": "columns",
           "settings": {
-            "title": "Nos sélections",
+            "title": "Catalogue",
             "collection_images": "none",
             "collection_use_product_image": false,
             "show_underline": true,
