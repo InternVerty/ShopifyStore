@@ -614,7 +614,7 @@
         "divider_width": 1,
         "divider_offset_top": 4,
         "divider_offset_bottom": 4,
-        "left_text": "<p><strong>Parce qu'un enfant passe l'équivalent de 3 années scolaire par an devant les écrans</strong> <em>(Vs. 7 jours pour la lecture)*</em></p>",
+        "left_text": "<p>Parce qu'un enfant passe l'équivalent de<strong> 3 années scolaire </strong>par an devant les écrans <em>(Vs. 7 jours pour la lecture)*</em></p>",
         "left_text_color": "#111111",
         "left_text_size": 18,
         "left_text_weight": "400",
