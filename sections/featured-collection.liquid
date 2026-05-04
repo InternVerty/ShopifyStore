@@ -269,7 +269,7 @@
             <div class="container products-grid-container shrink-0">
               <ul class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }}{% if section.settings.layout == 'carousel_on_mobile' and section.settings.card_size_mobile == 'small' and settings.card_contain %} sm:gap-x-theme sm:gap-y-8{% else %} gap-x-theme gap-y-8{% endif %}{% if section.settings.card_size_mobile == 'small' and settings.card_contain %} small__grid{% endif %}" role="list">
                   {%- for product in collection.products limit: section.settings.products_to_show -%}
-                    {%- if section.settings.view_religion == true and product.metafields.custom.livre_religieux == "Oui"  -%}
+                    {%- if section.settings.view_religion == false and product.metafields.custom.livre_religieux.value == "Oui"  -%}
                       {% continue %}
                     {% endif %}
                     <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %}data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
