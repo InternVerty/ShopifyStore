@@ -205,7 +205,7 @@
         "enable_video_looping": false,
         "stacked_scroll": "always",
         "underline_active": true,
-        "media_thumbs": "always",
+        "media_thumbs": "never",
         "thumb_ratio": "1.33",
         "thumb_crop": "none",
         "media_arrows": "always",
