@@ -86,7 +86,7 @@
             assign lazy_load = false
           endif
         -%}
-        <li class="media-viewer__item{% if media.id == featured_media.id or select_first_image %} is-current-variant{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} media-viewer__item--variant{% endif %}{% if section.settings.media_layout == 'stacked' and media.id == featured_media.id %}{% if underline_active and section.settings.enable_media_grouping == false %} is-active{% endif %}{% endif %}{% if media_count == 1 %} media-viewer__item--single{% endif %}" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}">
+        <li class="media-viewer__item{% if media.id == featured_media.id or select_first_image %} is-current-variant{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} media-viewer__item--variant{% endif %}{% if section.settings.media_layout == 'stacked' and media.id == featured_media.id %}{% if underline_active and section.settings.enable_media_grouping == false %} is-active{% endif %}{% endif %}{% if media_count == 1 %} media-viewer__item--single{% endif %}" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}"{% if media.media_type == 'image' %} data-lightbox-src="{{ media | image_url: width: 2000 }}" data-lightbox-alt="{{ media.alt | default: product.title | escape }}"{% endif %}>
           {% render 'product-media',
             media: media,
             media_ratio: media_ratio,
@@ -300,3 +300,24 @@
     {%- endif -%}
   {%- endif -%}
 </media-gallery>
+
+{%- if product.media.size > 1 or product.media.first.media_type == 'image' -%}
+  <photo-lightbox hidden>
+    <div class="photo-lightbox__backdrop js-lightbox-backdrop" aria-hidden="true"></div>
+    <div class="photo-lightbox__window">
+      <button type="button" class="photo-lightbox__close js-close-lightbox" aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon-close' %}
+      </button>
+      <button type="button" class="photo-lightbox__nav photo-lightbox__nav--prev js-lightbox-prev" aria-label="{{ 'products.product.media.previous' | t }}">
+        {% render 'icon-chevron-left' %}
+      </button>
+      <img class="photo-lightbox__img js-lightbox-img" src="" alt="" loading="lazy">
+      <button type="button" class="photo-lightbox__nav photo-lightbox__nav--next js-lightbox-next" aria-label="{{ 'products.product.media.next' | t }}">
+        {% render 'icon-chevron-right' %}
+      </button>
+      <div class="photo-lightbox__counter" aria-live="polite" aria-atomic="true">
+        <span class="js-lightbox-current">1</span> / <span class="js-lightbox-total">{{ product.media | where: 'media_type', 'image' | size }}</span>
+      </div>
+    </div>
+  </photo-lightbox>
+{%- endif -%}

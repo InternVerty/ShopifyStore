@@ -1,0 +1,116 @@
+/* Cursor hint on image items */
+.media-viewer__item[data-media-type="image"] {
+  cursor: zoom-in;
+}
+
+/* Lightbox — hidden by default via [hidden] attribute */
+photo-lightbox:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: photo-lightbox-in 0.2s ease;
+}
+
+@keyframes photo-lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.photo-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.92);
+}
+
+.photo-lightbox__window {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 60px 72px;
+  box-sizing: border-box;
+}
+
+.photo-lightbox__img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity 0.15s;
+}
+
+.photo-lightbox__img.is-loading {
+  opacity: 0.4;
+}
+
+.photo-lightbox__close,
+.photo-lightbox__nav {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  line-height: 0;
+  transition: background-color 0.2s;
+  z-index: 1;
+}
+
+.photo-lightbox__close:hover,
+.photo-lightbox__nav:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.photo-lightbox__close {
+  top: 16px;
+  right: 16px;
+}
+
+.photo-lightbox__close svg,
+.photo-lightbox__nav svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.photo-lightbox__nav--prev {
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.photo-lightbox__nav--next {
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.photo-lightbox__counter {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+@media (max-width: 599px) {
+  .photo-lightbox__window {
+    padding: 56px 48px;
+  }
+
+  .photo-lightbox__nav--prev { left: 8px; }
+  .photo-lightbox__nav--next { right: 8px; }
+}

@@ -16,6 +16,8 @@
 
 {%- if product.media.size > 0 -%}
   <link rel="stylesheet" href="{{ 'media-gallery.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'photo-lightbox.css' | asset_url }}">
+  <script src="{{ 'photo-lightbox.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
 {%- if product.metafields.reviews.rating.value != blank -%}
