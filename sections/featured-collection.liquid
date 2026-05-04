@@ -268,17 +268,20 @@
 
             <div class="container products-grid-container shrink-0">
               <ul class="{% if carousel %}slider__grid {% endif %}grid {{ grid_classes }}{% if section.settings.layout == 'carousel_on_mobile' and section.settings.card_size_mobile == 'small' and settings.card_contain %} sm:gap-x-theme sm:gap-y-8{% else %} gap-x-theme gap-y-8{% endif %}{% if section.settings.card_size_mobile == 'small' and settings.card_contain %} small__grid{% endif %}" role="list">
-                {%- for product in collection.products limit: section.settings.products_to_show -%}
-                  <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %}data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
-                    {% render 'product-card', product: product, collection: collection, image_ratio: image_ratio, show_metafields: true %}
-                  </li>
-                {%- else -%}
-                  {%- for i in (1..section.settings.products_to_show) -%}
+                  {%- for product in collection.products limit: section.settings.products_to_show -%}
+                    {%- if section.settings.view_religion == true and product.metafields.custom.livre_religieux == "Oui"  -%}
+                      {% continue %}
+                    {% endif %}
                     <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %}data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
-                      {% render 'product-card', product: "", image_ratio: image_ratio %}
+                      {% render 'product-card', product: product, collection: collection, image_ratio: image_ratio, show_metafields: true %}
                     </li>
+                  {%- else -%}
+                    {%- for i in (1..section.settings.products_to_show) -%}
+                      <li {% if carousel %}class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %}data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
+                        {% render 'product-card', product: "", image_ratio: image_ratio %}
+                      </li>
+                    {%- endfor -%}
                   {%- endfor -%}
-                {%- endfor -%}
               </ul>
             </div>
 
@@ -354,6 +357,12 @@
       "id": "show_view_all",
       "label": "Show \"View all\" link",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "view_religion",
+      "label": "Afficher les livres religieux",
+      "default": false
     },
     {
       "type": "checkbox",
