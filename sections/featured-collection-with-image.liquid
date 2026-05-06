@@ -1,0 +1,292 @@
+{{ 'featured-collection.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign color_scheme = section.settings.color_scheme
+  assign bg_color = false
+
+  if color_scheme == 'default'
+    assign bg_color = settings.bg_color
+  elsif color_scheme == '1'
+    assign bg_color = settings.color_scheme_1_bg_grad | default: settings.color_scheme_1_bg
+  elsif color_scheme == '2'
+    assign bg_color = settings.color_scheme_2_bg_grad | default: settings.color_scheme_2_bg
+  elsif color_scheme == '3'
+    assign bg_color = settings.color_scheme_3_bg_grad | default: settings.color_scheme_3_bg
+  endif
+
+  if bg_color == settings.bg_color or bg_color == 'rgba(0,0,0,0)'
+    assign bg_color = false
+  endif
+
+  assign main_image_ratio_int = section.settings.main_image_ratio
+  if main_image_ratio_int == 'natural' or main_image_ratio_int == 'fill'
+    assign main_image_ratio_int = section.settings.main_image.aspect_ratio
+  endif
+  assign main_image_fill = false
+  if section.settings.main_image_ratio == 'fill'
+    assign main_image_fill = true
+  endif
+-%}
+
+<div class="section">
+  {%- if section.settings.title != blank or section.settings.show_view_all -%}
+    <div class="container">
+      <div class="section__header items-center flex{% if section.settings.heading_align == 'text-center' %} flex-col text-center{% elsif section.settings.heading_align == 'text-end' %} flex-row-reverse flex-wrap{% else %} flex-row flex-wrap{% endif %} gap-x-theme"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
+        {%- if section.settings.title != blank -%}
+          <h2 class="h4 mb-0 flex-auto section__heading {{ section.settings.heading_align }}">
+            {{- section.settings.title | escape -}}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.show_view_all and section.settings.view_all_url != blank -%}
+          <a href="{{ section.settings.view_all_url }}" class="link">{{ 'sections.featured_collection.view_all' | t }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="featured-collection-container relative w-full mx-auto">
+    <div class="flex flex-col md:flex-row">
+
+      {%- if section.settings.show_promo_info -%}
+        <div class="featured-collection-info mb-6 md:mb-0 flex shrink-0 flex-col"{% if settings.animations_enabled != "disabled" %}data-cc-animate{% endif %}>
+
+          {%- if section.settings.promo_image -%}
+            {%- liquid
+              assign promo_ratio_int = section.settings.promo_image_ratio
+              if promo_ratio_int == 'natural' or promo_ratio_int == 'fill'
+                assign promo_ratio_int = section.settings.promo_image.aspect_ratio
+              endif
+              assign promo_fill = false
+              if section.settings.promo_image_ratio == 'fill'
+                assign promo_fill = true
+              endif
+            -%}
+            <div class="featured-collection-image{% if promo_fill %} h-full{% endif %}">
+              {%- if section.settings.promo_link_url -%}
+                <a href="{{ section.settings.promo_link_url }}" aria-label="{{ section.settings.promo_title | escape }}" class="media block relative w-full{% if promo_fill %} h-full md:pt-0{% endif %}" style="padding-top: {{ 1 | divided_by: promo_ratio_int | times: 100 }}%;">
+              {%- else -%}
+                <div class="media relative w-full{% if promo_fill %} h-full{% endif %}" style="padding-top: {{ 1 | divided_by: promo_ratio_int | times: 100 }}%;">
+              {%- endif -%}
+                {% render 'image',
+                  image: section.settings.promo_image,
+                  widths: '320, 460, 600, 700, 800, 900, 1200',
+                  src_width: 460,
+                  src_placeholder: true,
+                  sizes: false,
+                  class: 'img-fit img-fit--cover' %}
+              {%- if section.settings.promo_link_url -%}
+                </a>
+              {%- else -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.promo_title != blank or section.settings.promo_content != blank or section.settings.button_label != blank -%}
+            <div class="featured-collection-text flex flex-col grow{% if bg_color %} p-6{% else %} mt-6{% endif %}{% unless color_scheme == 'none' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}">
+              {%- unless section.settings.promo_title == blank -%}
+                <h2 class="h4 section__heading">{{ section.settings.promo_title }}</h2>
+              {%- endunless -%}
+
+              <div class="grow">
+                {%- if section.settings.promo_content != blank -%}
+                  <div class="rte">{{ section.settings.promo_content }}</div>
+                {%- endif -%}
+              </div>
+
+              {%- if section.settings.button_label != blank -%}
+                <a class="{{ section.settings.button_style }} block mt-8 w-full" {% if section.settings.promo_link_url != blank %}href="{{ section.settings.promo_link_url }}"{% else %}role="link" aria-disabled="true"{% endif %}>
+                  {{- section.settings.button_label | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.main_image -%}
+        <div class="grow"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
+          {%- if section.settings.main_image_link_url -%}
+            <a href="{{ section.settings.main_image_link_url }}" class="media block relative w-full{% if main_image_fill %} h-full{% endif %}" style="padding-top: {{ 1 | divided_by: main_image_ratio_int | times: 100 }}%;">
+          {%- else -%}
+            <div class="media relative w-full{% if main_image_fill %} h-full{% endif %}" style="padding-top: {{ 1 | divided_by: main_image_ratio_int | times: 100 }}%;">
+          {%- endif -%}
+            {% render 'image',
+              image: section.settings.main_image,
+              widths: '600, 800, 1000, 1200, 1600, 2000',
+              src_width: 1200,
+              src_placeholder: true,
+              sizes: false,
+              class: 'img-fit img-fit--cover' %}
+          {%- if section.settings.main_image_link_url -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="grow container"{% if settings.animations_enabled != "disabled" %} data-cc-animate{% endif %}>
+          <div class="media media--placeholder relative w-full" style="padding-top: 56.25%;">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured collection + image",
+  "tag": "section",
+  "class": "cc-featured-collection",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "text-start", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-end", "label": "Right" }
+      ],
+      "default": "text-start"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show \"View all\" link",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "\"View all\" URL"
+    },
+    {
+      "type": "header",
+      "content": "Main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "main_image_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "natural", "label": "Natural" },
+        { "value": "fill", "label": "Fill" },
+        { "value": "1.77", "label": "Landscape (16:9)" },
+        { "value": "1.33", "label": "Landscape (4:3)" },
+        { "value": "1", "label": "Square" },
+        { "value": "0.75", "label": "Portrait" }
+      ],
+      "default": "natural"
+    },
+    {
+      "type": "url",
+      "id": "main_image_link_url",
+      "label": "Image link URL"
+    },
+    {
+      "type": "header",
+      "content": "Promotion card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_promo_info",
+      "label": "Show promotion card",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Promotion image"
+    },
+    {
+      "type": "select",
+      "id": "promo_image_ratio",
+      "label": "Promotion image aspect ratio",
+      "options": [
+        { "value": "natural", "label": "Natural" },
+        { "value": "fill", "label": "Fill" },
+        { "value": "1.77", "label": "Landscape" },
+        { "value": "1", "label": "Square" },
+        { "value": "0.75", "label": "Portrait" }
+      ],
+      "default": "fill"
+    },
+    {
+      "type": "text",
+      "id": "promo_title",
+      "label": "Promotion title"
+    },
+    {
+      "type": "richtext",
+      "id": "promo_content",
+      "label": "Promotion text"
+    },
+    {
+      "type": "url",
+      "id": "promo_link_url",
+      "label": "Promotion link URL"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Promotion card color scheme",
+      "options": [
+        { "value": "none", "label": "Default" },
+        { "value": "1", "label": "Scheme 1" },
+        { "value": "2", "label": "Scheme 2" },
+        { "value": "3", "label": "Scheme 3" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Promotion card button style",
+      "options": [
+        { "value": "link", "label": "Link" },
+        { "value": "btn btn--primary", "label": "Primary button" },
+        { "value": "btn btn--secondary", "label": "Secondary button" }
+      ],
+      "default": "btn btn--primary"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection + image"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["password"],
+    "groups": ["header", "footer", "aside"]
+  }
+}
+{% endschema %}
