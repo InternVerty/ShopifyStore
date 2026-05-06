@@ -22,7 +22,7 @@ photo-lightbox:not([hidden]) {
 .photo-lightbox__backdrop {
   position: absolute;
   inset: 0;
-  background-color: rgba(124, 124, 124, 0.92);
+  background-color: rgba(149, 147, 147, 0.598);
 }
 
 .photo-lightbox__window {
