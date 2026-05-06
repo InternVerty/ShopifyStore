@@ -158,6 +158,45 @@
         "button_style": "btn btn--primary"
       }
     },
+    "featured_collection_with_image_r7ecUQ": {
+      "type": "featured-collection-with-image",
+      "name": "Featured collection + image",
+      "settings": {
+        "title": "",
+        "heading_align": "text-start",
+        "show_view_all": false,
+        "view_all_url": "",
+        "main_image": "shopify://shop_images/visuel_verty.png",
+        "main_image_ratio": "fill",
+        "main_image_link_url": "",
+        "show_promo_info": true,
+        "promo_image_ratio": "fill",
+        "promo_title": "Religion - Audios",
+        "promo_content": "<p>Parce que l’audio est un pont sonore merveilleux vers la lecture, nous vous recommandons les histoires audio de <strong>Chérubins</strong> : Un catalogue riche avec de très belles créations originales, portées par des <strong>comédiens</strong> <strong>professionnels</strong> avec un <strong>sound design immersif</strong>. Toutes leurs histoires sont sélectionnées avec soin pour transmettre des valeurs humaines fortes <strong>courage</strong>, <strong>charité</strong>, <strong>espérance</strong>, <strong>fidélité</strong>, et pleines de <strong>spiritualité</strong>. Sans violence ni contenu inapproprié. Une <strong>assurance</strong> pour les parents soucieux de ce que leurs enfants écoutent.</p>",
+        "promo_link_url": "",
+        "button_label": "",
+        "color_scheme": "none",
+        "button_style": "btn btn--secondary"
+      }
+    },
+    "custom_text_block_MEeDCW": {
+      "type": "custom-text-block",
+      "name": "Bloc texte avancé",
+      "settings": {
+        "title": "Religion - Audios",
+        "title_anchor_id": "",
+        "mobile_center": false,
+        "heading_tag": "h2",
+        "heading_style_class": "h4",
+        "text": "<p>Parce que l’audio est un pont sonore merveilleux vers la lecture, nous vous recommandons les histoires audio de <strong>Chérubins</strong> : Un catalogue riche avec de très belles créations originales, portées par des <strong>comédiens</strong> <strong>professionnels</strong> avec un <strong>sound design immersif</strong>. Toutes leurs histoires sont sélectionnées avec soin pour transmettre des valeurs humaines fortes <strong>courage</strong>, <strong>charité</strong>, <strong>espérance</strong>, <strong>fidélité</strong>, et pleines de <strong>spiritualité</strong>. Sans violence ni contenu inapproprié. Une <strong>assurance</strong> pour les parents soucieux de ce que leurs enfants écoutent.</p>",
+        "text_align": "left",
+        "p_align": "left",
+        "title_margin_top": "20",
+        "title_margin_bottom": "20",
+        "p_margin_top": "20",
+        "p_margin_bottom": "20"
+      }
+    },
     "image_banner_Bc8UK8": {
       "type": "image-banner",
       "name": "Image banner",
@@ -177,24 +216,6 @@
         "tint_color": "#ffffff",
         "tint_opacity": 0,
         "prevent_animation": true
-      }
-    },
-    "custom_text_block_MEeDCW": {
-      "type": "custom-text-block",
-      "name": "Bloc texte avancé",
-      "settings": {
-        "title": "Religion - Audios",
-        "title_anchor_id": "",
-        "mobile_center": false,
-        "heading_tag": "h2",
-        "heading_style_class": "h4",
-        "text": "<p>Parce que l’audio est un pont sonore merveilleux vers la lecture, nous vous recommandons les histoires audio de <strong>Chérubins</strong> : Un catalogue riche avec de très belles créations originales, portées par des <strong>comédiens</strong> <strong>professionnels</strong> avec un <strong>sound design immersif</strong>. Toutes leurs histoires sont sélectionnées avec soin pour transmettre des valeurs humaines fortes <strong>courage</strong>, <strong>charité</strong>, <strong>espérance</strong>, <strong>fidélité</strong>, et pleines de <strong>spiritualité</strong>. Sans violence ni contenu inapproprié. Une <strong>assurance</strong> pour les parents soucieux de ce que leurs enfants écoutent.</p>",
-        "text_align": "left",
-        "p_align": "left",
-        "title_margin_top": "20",
-        "title_margin_bottom": "20",
-        "p_margin_top": "20",
-        "p_margin_bottom": "20"
       }
     },
     "featured_collection_FtqMqE": {
@@ -513,6 +534,7 @@
     "media_with_text_GxeMBj",
     "custom_text_block_MEgqDi",
     "featured_collection_iBLcLh",
+    "featured_collection_with_image_r7ecUQ",
     "custom_text_block_MEeDCW",
     "image_banner_Bc8UK8",
     "featured_collection_FtqMqE",
