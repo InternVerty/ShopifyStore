@@ -183,6 +183,27 @@
         "button_style": "btn btn--primary"
       }
     },
+    "featured_collection_with_image_breLLW": {
+      "type": "featured-collection-with-image",
+      "name": "Featured collection + image",
+      "settings": {
+        "title": "",
+        "heading_align": "text-start",
+        "show_view_all": false,
+        "view_all_url": "",
+        "main_image": "shopify://shop_images/visuel_verty.png",
+        "main_image_ratio": "natural",
+        "main_image_link_url": "https://get.cherubins.app/e/verty",
+        "show_promo_info": true,
+        "promo_image_ratio": "fill",
+        "promo_title": "Religions - Audios",
+        "promo_content": "<p>Parce que l’audio est un pont sonore merveilleux vers la lecture, nous vous recommandons les histoires audio de Chérubins : Un catalogue riche avec de très belles créations originales, portées par des <strong>comédiens professionnels</strong> avec un <strong>sound design immersif</strong>. Toutes leurs histoires sont sélectionnées avec soin pour transmettre des valeurs humaines fortes — <strong>courage, charité, espérance, fidélité</strong> — et pleines de <strong>spiritualité</strong>. Sans violence ni contenu inapproprié. Une assurance pour les <strong>parents soucieux</strong> de ce que leurs enfants écoutent.</p>",
+        "promo_link_url": "https://get.cherubins.app/e/verty",
+        "button_label": "",
+        "color_scheme": "none",
+        "button_style": "btn btn--primary"
+      }
+    },
     "featured_collection_MDiP8K": {
       "type": "featured-collection",
       "name": "Carrousel 2",
@@ -475,6 +496,7 @@
     "custom_text_block_MEgqDi",
     "featured_collection_iBLcLh",
     "featured_collection_FtqMqE",
+    "featured_collection_with_image_breLLW",
     "featured_collection_MDiP8K",
     "featured_collection_H9Fypz",
     "featured_collection_qVV4pQ",
