@@ -129,7 +129,7 @@
         "section_bg": "#ffffff",
         "section_bg_opacity": 100,
         "section_height": 500,
-        "section_padding_v": 28,
+        "section_padding_v": 32,
         "section_padding_h": 8,
         "max_width": 1260,
         "columns_gap": 60,
@@ -174,17 +174,6 @@
         "card_text_size": 14,
         "card_text_color": "#555555",
         "card_text_align": "center"
-      }
-    },
-    "custom_liquid_annWXM": {
-      "type": "custom-liquid",
-      "name": "Custom HTML/Liquid",
-      "settings": {
-        "custom_liquid": "<div data-tally-src=\"https://tally.so/embed/Npqe1G?\"\n              data-tally-transparent-background=\"1\"\n              data-tally-hide-title=\"1\"\n              style=\"width:100%;\"></div>\n          <script async src=\"https://tally.so/widgets/embed.js\"></script>",
-        "section_height": "default",
-        "full_width": false,
-        "dividers": "none",
-        "prevent_animation": false
       }
     },
     "content_media_abonnement_7B4VjG": {
@@ -889,7 +878,6 @@
     "banniere_abonnement_bMQbe3",
     "banner_abonnement_v2_WTTGjg",
     "custom_two_cols_form_abo_v2_46grxq",
-    "custom_liquid_annWXM",
     "content_media_abonnement_7B4VjG",
     "custom_text_block_RCAPXX",
     "icons_with_text_dti4ch",
