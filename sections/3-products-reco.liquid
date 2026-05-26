@@ -1,0 +1,376 @@
+{%- comment -%}
+  Section : 3 Produits Recommandés
+
+  Affiche 3 produits en grille horizontale avec :
+    - Image du produit à gauche
+    - Titre + auteur + note du comité + avis à droite
+
+  Configuration : renseignez les handles dans les réglages de la section
+  (Personnaliser le thème → réglages de la section).
+  Les handles peuvent aussi être passés en paramètres d'URL via JavaScript
+  (voir le bloc <script> en bas de fichier).
+
+  Usage URL : /pages/ma-page?p1=handle-livre-1&p2=handle-livre-2&p3=handle-livre-3
+{%- endcomment -%}
+
+{{ 'custom-featured-collection.css' | asset_url | stylesheet_tag }}
+
+<style>
+  /* ── Conteneur section ─────────────────────────────────────── */
+  .reco-3p {
+    padding: 40px 0;
+  }
+
+  .reco-3p__heading {
+    font-family: "oldblue", sans-serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 28px;
+  }
+
+  /* ── Grille (3 lignes verticales) ─────────────────────────── */
+  .reco-3p__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* ── Ligne produit ────────────────────────────────────────── */
+  .reco-3p__row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: rgba(143, 205, 191, 0.08);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s ease;
+  }
+
+  .reco-3p__row:hover {
+    background-color: rgba(143, 205, 191, 0.18);
+  }
+
+  /* ── Image ───────────────────────────────────────────────── */
+  .reco-3p__img-wrap {
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  .reco-3p__img-wrap img,
+  .reco-3p__img-wrap svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  /* ── Contenu droit ───────────────────────────────────────── */
+  .reco-3p__content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .reco-3p__title {
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .reco-3p__author {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+  }
+
+  /* ── Note étoiles (réutilise les classes de custom-featured-collection.css) */
+  .reco-3p__note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .reco-3p__note .etoiles-product {
+    flex-shrink: 0;
+  }
+
+  .reco-3p__note .texte-note {
+    margin-top: 0;
+    font-size: 0.8rem;
+  }
+
+  /* ── Avis du comité ──────────────────────────────────────── */
+  .reco-3p__avis {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: #444;
+    margin: 4px 0 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
+  /* ── Responsive mobile ───────────────────────────────────── */
+  @media (max-width: 600px) {
+    .reco-3p__row {
+      grid-template-columns: 80px 1fr;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .reco-3p__img-wrap {
+      width: 80px;
+    }
+
+    .reco-3p__avis {
+      -webkit-line-clamp: 3;
+    }
+  }
+</style>
+
+{%- liquid
+  assign handle_1 = section.settings.handle_1
+  assign handle_2 = section.settings.handle_2
+  assign handle_3 = section.settings.handle_3
+-%}
+
+<div
+  class="container reco-3p"
+  id="reco-3p-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-handle-1="{{ handle_1 }}"
+  data-handle-2="{{ handle_2 }}"
+  data-handle-3="{{ handle_3 }}"
+>
+
+  {%- if section.settings.title != blank -%}
+    <h2 class="reco-3p__heading">{{ section.settings.title | escape }}</h2>
+  {%- endif -%}
+
+  <div class="reco-3p__grid" id="reco-3p-grid-{{ section.id }}">
+
+    {%- for i in (1..3) -%}
+      {%- liquid
+        case i
+          when 1
+            assign handle = handle_1
+          when 2
+            assign handle = handle_2
+          when 3
+            assign handle = handle_3
+        endcase
+
+        if handle != blank
+          assign product = all_products[handle]
+          assign note = product.metafields.custom.note_du_comite | default: 5
+          assign note_int = note | times: 1
+        endif
+      -%}
+
+      {%- if handle != blank and product and product != empty -%}
+
+        <a href="{{ product.url }}" class="reco-3p__row">
+
+          {%- comment -%} ── Image ── {%- endcomment -%}
+          <div class="reco-3p__img-wrap">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 240 }}"
+                alt="{{ product.featured_image.alt | escape | default: product.title | escape }}"
+                width="120"
+                height="{{ 120 | divided_by: product.featured_image.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} ── Contenu ── {%- endcomment -%}
+          <div class="reco-3p__content">
+
+            <p class="reco-3p__title">{{ product.title | escape }}</p>
+
+            {%- if product.metafields.custom.auteur != blank -%}
+              <p class="reco-3p__author">{{ product.metafields.custom.auteur }}</p>
+            {%- endif -%}
+
+            {%- comment -%} ── Note étoiles ── {%- endcomment -%}
+            <div class="reco-3p__note">
+              <div class="etoiles-product">
+                {%- if note_int == 3 -%}
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile empty"></span>
+                  <span class="etoile empty"></span>
+                {%- elsif note_int == 4 -%}
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile empty"></span>
+                {%- else -%}
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                  <span class="etoile full"></span>
+                {%- endif -%}
+              </div>
+              <div class="texte-note">
+                Note du <a
+                  href="https://verty.eu/pages/le-comite-de-lecture-verty"
+                  target="_blank"
+                  rel="noopener"
+                  onclick="event.stopPropagation()"
+                ><strong class="hover-highlight">comité de lecture</strong></a>
+              </div>
+            </div>
+
+            {%- comment -%} ── Avis du comité ── {%- endcomment -%}
+            {%- if product.metafields.custom.avis_comite != blank -%}
+              <div class="reco-3p__avis">
+                {{- product.metafields.custom.avis_comite -}}
+              </div>
+            {%- endif -%}
+
+          </div>
+        </a>
+
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+</div>
+
+{%- comment -%}
+  ── Surcharge via paramètres d'URL ────────────────────────────────────────────
+  Si des paramètres ?p1=…&p2=…&p3=… sont présents dans l'URL, ce script charge
+  les données produit via l'API AJAX Shopify et remplace dynamiquement les lignes.
+
+  ⚠️  L'API /products/{handle}.js ne retourne pas les metafields custom.
+      Pour bénéficier de la note et de l'avis du comité, configurez les handles
+      directement dans les réglages de la section (personnalisation du thème).
+  ─────────────────────────────────────────────────────────────────────────────
+{%- endcomment -%}
+
+<script>
+(function () {
+  var params   = new URLSearchParams(window.location.search);
+  var handles  = [params.get('p1'), params.get('p2'), params.get('p3')];
+  var anyParam = handles.some(function (h) { return h && h.trim() !== ''; });
+
+  if (!anyParam) return;
+
+  var grid      = document.getElementById('reco-3p-grid-{{ section.id }}');
+  var container = document.getElementById('reco-3p-{{ section.id }}');
+  if (!grid) return;
+
+  /* Lecture des handles de fallback (section settings) */
+  var fallbacks = [
+    container.dataset.handle1,
+    container.dataset.handle2,
+    container.dataset.handle3,
+  ];
+
+  /* Fusionne : URL params > section settings */
+  var finalHandles = handles.map(function (h, i) {
+    return (h && h.trim() !== '') ? h.trim() : (fallbacks[i] || '');
+  });
+
+  /* Réinitialise la grille */
+  grid.innerHTML = '';
+
+  finalHandles.forEach(function (handle) {
+    if (!handle) return;
+
+    fetch('/products/' + handle + '.js')
+      .then(function (r) { return r.json(); })
+      .then(function (p) {
+        var img = p.featured_image
+          ? '<img src="' + p.featured_image + '" alt="' + p.title + '" loading="lazy" style="width:100%;height:auto;border-radius:6px;">'
+          : '';
+
+        var row = document.createElement('a');
+        row.href      = '/products/' + p.handle;
+        row.className = 'reco-3p__row';
+        row.innerHTML =
+          '<div class="reco-3p__img-wrap">' + img + '</div>' +
+          '<div class="reco-3p__content">' +
+            '<p class="reco-3p__title">' + p.title + '</p>' +
+            '<p class="reco-3p__author">' + (p.vendor || '') + '</p>' +
+            /* Note : non disponible via AJAX sans metafields — affiche 5 étoiles par défaut */
+            '<div class="reco-3p__note">' +
+              '<div class="etoiles-product">' +
+                '<span class="etoile full"></span>' +
+                '<span class="etoile full"></span>' +
+                '<span class="etoile full"></span>' +
+                '<span class="etoile full"></span>' +
+                '<span class="etoile full"></span>' +
+              '</div>' +
+              '<div class="texte-note">Note du <a href="https://verty.eu/pages/le-comite-de-lecture-verty" target="_blank" rel="noopener" onclick="event.stopPropagation()"><strong class="hover-highlight">comité de lecture</strong></a></div>' +
+            '</div>' +
+          '</div>';
+
+        grid.appendChild(row);
+      })
+      .catch(function (err) {
+        console.warn('[reco-3p] Produit introuvable :', handle, err);
+      });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "3 Produits recommandés",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre de la section",
+      "default": "Notre sélection"
+    },
+    {
+      "type": "header",
+      "content": "Produits à afficher"
+    },
+    {
+      "type": "text",
+      "id": "handle_1",
+      "label": "Handle produit 1",
+      "info": "Ex : mon-super-livre. Trouvable dans l'URL de la page produit."
+    },
+    {
+      "type": "text",
+      "id": "handle_2",
+      "label": "Handle produit 2"
+    },
+    {
+      "type": "text",
+      "id": "handle_3",
+      "label": "Handle produit 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "3 Produits recommandés"
+    }
+  ]
+}
+{% endschema %}
