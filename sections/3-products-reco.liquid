@@ -19,6 +19,21 @@
 {%- endif -%}
 
 <style>
+  /* ════════════════════════════════════════════════════════════
+     ⚙️  RÉGLAGES — modifier ces variables pour redimensionner
+     ════════════════════════════════════════════════════════════ */
+  .reco-3p {
+    --img-col:      200px;   /* largeur de la colonne image          */
+    --price-col:    220px;   /* largeur de la colonne prix/boutons   */
+    --row-gap:       28px;   /* espace horizontal entre les colonnes */
+    --row-padding: 24px 28px;/* padding interne de chaque ligne      */
+    --font-title:   1.2rem;  /* titre du livre                       */
+    --font-body:   0.95rem;  /* auteur + avis                        */
+    --font-small:  0.82rem;  /* label "Note du comité"               */
+    --font-price:   1.2rem;  /* prix affiché                         */
+  }
+  /* ════════════════════════════════════════════════════════════ */
+
   /* ── Section ──────────────────────────────────────────────── */
   .reco-3p {
     padding: 40px 0;
@@ -41,11 +56,11 @@
   /* ── Ligne : 3 colonnes ───────────────────────────────────── */
   .reco-3p__row {
     display: grid;
-    grid-template-columns: 130px 1fr 190px;
+    grid-template-columns: var(--img-col) 1fr var(--price-col);
     grid-template-areas: "img info price";
-    gap: 24px;
+    gap: var(--row-gap);
     align-items: center;
-    padding: 20px 24px;
+    padding: var(--row-padding);
     border-radius: 12px;
     background-color: rgba(143, 205, 191, 0.08);
     transition: background-color 0.2s ease;
@@ -78,13 +93,15 @@
     grid-area: info;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     min-width: 0;
+    border-right: 1px solid rgba(143, 205, 191, 0.35);
+    padding-right: var(--row-gap);
   }
 
   .reco-3p__title {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: var(--font-title);
     line-height: 1.35;
     margin: 0;
     text-decoration: none;
@@ -100,7 +117,7 @@
   }
 
   .reco-3p__author {
-    font-size: 0.85rem;
+    font-size: var(--font-body);
     color: #666;
     margin: 0;
   }
@@ -111,7 +128,6 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin: 2px 0;
   }
 
   .reco-3p__note .etoiles-product {
@@ -120,15 +136,15 @@
 
   .reco-3p__note .texte-note {
     margin-top: 0;
-    font-size: 0.78rem;
+    font-size: var(--font-small);
   }
 
   /* ── Avis du comité ──────────────────────────────────────── */
   .reco-3p__avis {
-    font-size: 0.85rem;
+    font-size: var(--font-body);
     line-height: 1.55;
     color: #444;
-    margin: 2px 0 0;
+    margin: 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
@@ -145,7 +161,7 @@
   }
 
   .reco-3p__price-col .price {
-    font-size: 1.1rem;
+    font-size: var(--font-price);
     text-align: center;
   }
 
@@ -154,30 +170,30 @@
     text-align: center;
   }
 
-  /* ── Séparateur vertical entre infos et prix ──────────────── */
-  .reco-3p__info-col {
-    border-right: 1px solid rgba(143, 205, 191, 0.35);
-    padding-right: 24px;
-  }
-
   /* ── Responsive : tablet ──────────────────────────────────── */
   @media (max-width: 900px) {
-    .reco-3p__row {
-      grid-template-columns: 100px 1fr 160px;
-      gap: 16px;
-      padding: 16px;
+    .reco-3p {
+      --img-col:    140px;
+      --price-col:  170px;
+      --row-gap:     18px;
+      --row-padding: 18px 20px;
+      --font-title: 1.05rem;
     }
   }
 
   /* ── Responsive : mobile ──────────────────────────────────── */
   @media (max-width: 640px) {
+    .reco-3p {
+      --img-col:    90px;
+      --row-gap:    12px;
+      --row-padding: 14px;
+    }
+
     .reco-3p__row {
-      grid-template-columns: 80px 1fr;
+      grid-template-columns: var(--img-col) 1fr;
       grid-template-areas:
         "img info"
         "price price";
-      gap: 12px;
-      padding: 14px;
     }
 
     .reco-3p__info-col {
@@ -193,7 +209,6 @@
     }
 
     .reco-3p__price-col .price {
-      font-size: 1rem;
       flex-shrink: 0;
     }
 
@@ -253,10 +268,10 @@
             <a href="{{ product.url }}" class="reco-3p__img-link" aria-label="{{ product.title | escape }}" tabindex="-1">
               {%- if product.featured_image -%}
                 <img
-                  src="{{ product.featured_image | image_url: width: 260 }}"
+                  src="{{ product.featured_image | image_url: width: 400 }}"
                   alt="{{ product.featured_image.alt | escape | default: product.title | escape }}"
-                  width="130"
-                  height="{{ 130 | divided_by: product.featured_image.aspect_ratio | round }}"
+                  width="200"
+                  height="{{ 200 | divided_by: product.featured_image.aspect_ratio | round }}"
                   loading="lazy"
                 >
               {%- else -%}
