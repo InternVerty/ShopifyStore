@@ -12,7 +12,7 @@
     "main": {
       "type": "main-page",
       "settings": {
-        "show_page_title": true,
+        "show_page_title": false,
         "heading_align": "text-center"
       }
     },
