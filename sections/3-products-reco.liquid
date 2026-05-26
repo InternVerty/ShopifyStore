@@ -30,7 +30,7 @@
     --font-title:   3rem;  /* titre du livre                       */
     --font-body:   1.5rem;  /* auteur + avis                        */
     --font-small:  1rem;  /* label "Note du comité"               */
-    --font-price:   1.2rem;  /* prix affiché                         */
+    --font-price:   3rem;  /* prix affiché                         */
   }
   /* ════════════════════════════════════════════════════════════ */
 
@@ -149,6 +149,29 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
+  }
+
+  .reco-3p__avis.is-expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  .reco-3p__avis-btn {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: var(--font-small);
+    color: #8FCDBF;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .reco-3p__avis-btn:hover {
+    color: #6ab5a5;
   }
 
   /* ── Colonne 3 : Prix + Boutons ───────────────────────────── */
@@ -325,8 +348,13 @@
 
             {%- comment -%} ── Avis du comité ── {%- endcomment -%}
             {%- if product.metafields.custom.avis_comite != blank -%}
-              <div class="reco-3p__avis">
-                {{- product.metafields.custom.avis_comite -}}
+              <div class="reco-3p__avis-wrap">
+                <div class="reco-3p__avis">
+                  {{- product.metafields.custom.avis_comite -}}
+                </div>
+                <button type="button" class="reco-3p__avis-btn" hidden>
+                  Voir plus
+                </button>
               </div>
             {%- endif -%}
 
@@ -394,6 +422,25 @@
 {%- endcomment -%}
 
 <script>
+/* ── Bouton "Voir plus" sur l'avis du comité ─────────────────── */
+(function () {
+  document.querySelectorAll('#reco-3p-grid-{{ section.id }} .reco-3p__avis-wrap').forEach(function (wrap) {
+    var avis = wrap.querySelector('.reco-3p__avis');
+    var btn  = wrap.querySelector('.reco-3p__avis-btn');
+    if (!avis || !btn) return;
+
+    /* Affiche le bouton seulement si le texte déborde */
+    if (avis.scrollHeight > avis.clientHeight + 2) {
+      btn.hidden = false;
+      btn.addEventListener('click', function () {
+        avis.classList.add('is-expanded');
+        btn.hidden = true;
+      });
+    }
+  });
+})();
+
+/* ── Override URL params ─────────────────────────────────────── */
 (function () {
   var params   = new URLSearchParams(window.location.search);
   var handles  = [params.get('p1'), params.get('p2'), params.get('p3')];
