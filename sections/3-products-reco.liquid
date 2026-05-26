@@ -25,12 +25,13 @@
   .reco-3p {
     --img-col:      200px;   /* largeur de la colonne image          */
     --price-col:    220px;   /* largeur de la colonne prix/boutons   */
+    --row-height:   220px;   /* hauteur fixe de chaque ligne         */
     --row-gap:       28px;   /* espace horizontal entre les colonnes */
     --row-padding: 20px 24px;/* padding interne de chaque ligne      */
-    --font-title:   3rem;  /* titre du livre                       */
-    --font-body:   1.5rem;  /* auteur + avis                        */
-    --font-small:  1rem;  /* label "Note du comité"               */
-    --font-price:   3rem;  /* prix affiché                         */
+    --font-title:   3rem;    /* titre du livre                       */
+    --font-body:    1.5rem;  /* auteur + avis                        */
+    --font-small:   1rem;    /* label "Note du comité"               */
+    --font-price:   3rem;    /* prix affiché                         */
   }
   /* ════════════════════════════════════════════════════════════ */
 
@@ -60,7 +61,9 @@
     grid-template-columns: var(--img-col) 1fr var(--price-col);
     grid-template-areas: "img info price";
     gap: var(--row-gap);
-    align-items: center;
+    align-items: center;      /* centre verticalement info et prix    */
+    height: var(--row-height);/* hauteur fixe — l'image s'y adapte   */
+    overflow: hidden;         /* garantit que rien ne déborde         */
     padding: var(--row-padding);
     border-radius: 12px;
     background-color: rgba(143, 205, 191, 0.08);
@@ -74,19 +77,25 @@
   /* ── Colonne 1 : Image ────────────────────────────────────── */
   .reco-3p__img-col {
     grid-area: img;
+    align-self: stretch;      /* s'étire sur toute la hauteur de la ligne */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
   }
 
   .reco-3p__img-link {
     display: block;
+    height: 100%;
+    width: 100%;
   }
 
   .reco-3p__img-link img,
   .reco-3p__img-link svg {
     width: 100%;
-    height: auto;
+    height: 100%;             /* remplit la hauteur du conteneur      */
     display: block;
     border-radius: 8px;
-    object-fit: cover;
+    object-fit: contain;      /* affiche la couverture complète       */
   }
 
   /* ── Colonne 2 : Infos ────────────────────────────────────── */
@@ -199,6 +208,7 @@
     .reco-3p {
       --img-col:    140px;
       --price-col:  170px;
+      --row-height: 200px;
       --row-gap:     18px;
       --row-padding: 18px 20px;
       --font-title: 1.05rem;
@@ -214,10 +224,20 @@
     }
 
     .reco-3p__row {
+      height: auto;           /* hauteur libre sur mobile (price sous le contenu) */
       grid-template-columns: var(--img-col) 1fr;
       grid-template-areas:
         "img info"
         "price price";
+    }
+
+    .reco-3p__img-col {
+      align-self: start;        /* l'image reprend sa hauteur naturelle sur mobile */
+    }
+
+    .reco-3p__img-link img,
+    .reco-3p__img-link svg {
+      height: auto;             /* hauteur auto sur mobile              */
     }
 
     .reco-3p__info-col {
@@ -414,13 +434,6 @@
   </div>
 </div>
 
-{%- comment -%}
-  ── Override URL params (JS) ──────────────────────────────────────────────────
-  ⚠️  /products/{handle}.js ne retourne pas les metafields custom.
-      L'avis et la note du comité ne seront pas disponibles en mode URL params.
-      Pour le rendu complet, utiliser les réglages de section.
-  ─────────────────────────────────────────────────────────────────────────────
-{%- endcomment -%}
 
 <script>
 /* ── Bouton "Voir plus" sur l'avis du comité ─────────────────── */
@@ -464,49 +477,54 @@
 
   grid.innerHTML = '';
 
-  finalHandles.forEach(function (handle) {
-    if (!handle) return;
+  /* Lance les 3 fetches en parallèle — résout dans l'ordre p1, p2, p3 */
+  var requests = finalHandles.map(function (handle) {
+    if (!handle) return Promise.resolve(null);
 
-    /* Section Rendering API → Shopify rend reco-product-row.liquid côté serveur  */
-    /* avec accès complet aux metafields custom (note, avis, auteur…).            */
-    fetch('/products/' + handle + '?sections=reco-product-row')
+    return fetch('/products/' + handle + '?sections=reco-product-row')
       .then(function (r) {
         if (!r.ok) throw new Error(r.status);
         return r.json();
       })
       .then(function (data) {
-        var html = data['reco-product-row'];
-        if (!html) return;
-
-        /* Shopify enveloppe la section dans <div id="shopify-section-reco-product-row"> */
-        var tmpl = document.createElement('template');
-        tmpl.innerHTML = html;
-        var sectionEl = tmpl.content.getElementById('shopify-section-reco-product-row');
-        if (!sectionEl) return;
-
-        /* Injecte le .reco-3p__row dans la grille */
-        while (sectionEl.firstChild) {
-          grid.appendChild(sectionEl.firstChild);
-        }
-
-        /* Init "Voir plus" pour les lignes injectees */
-        grid.querySelectorAll('.reco-3p__avis-wrap:not([data-init])').forEach(function (wrap) {
-          wrap.setAttribute('data-init', '1');
-          var avis = wrap.querySelector('.reco-3p__avis');
-          var btn  = wrap.querySelector('.reco-3p__avis-btn');
-          if (!avis || !btn) return;
-          if (avis.scrollHeight > avis.clientHeight + 2) {
-            btn.hidden = false;
-            btn.addEventListener('click', function () {
-              avis.classList.add('is-expanded');
-              btn.hidden = true;
-            });
-          }
-        });
+        return data['reco-product-row'] || null;
       })
       .catch(function (err) {
         console.warn('[reco-3p] Produit introuvable :', handle, err);
+        return null;   /* un échec n'empêche pas les autres de s'afficher */
       });
+  });
+
+  Promise.all(requests).then(function (results) {
+
+    /* Insertion dans l'ordre garanti (p1 → p2 → p3) */
+    results.forEach(function (html) {
+      if (!html) return;
+
+      var tmpl = document.createElement('template');
+      tmpl.innerHTML = html;
+      var sectionEl = tmpl.content.getElementById('shopify-section-reco-product-row');
+      if (!sectionEl) return;
+
+      while (sectionEl.firstChild) {
+        grid.appendChild(sectionEl.firstChild);
+      }
+    });
+
+    /* Init "Voir plus" une seule fois, après que toutes les lignes sont dans le DOM */
+    grid.querySelectorAll('.reco-3p__avis-wrap:not([data-init])').forEach(function (wrap) {
+      wrap.setAttribute('data-init', '1');
+      var avis = wrap.querySelector('.reco-3p__avis');
+      var btn  = wrap.querySelector('.reco-3p__avis-btn');
+      if (!avis || !btn) return;
+      if (avis.scrollHeight > avis.clientHeight + 2) {
+        btn.hidden = false;
+        btn.addEventListener('click', function () {
+          avis.classList.add('is-expanded');
+          btn.hidden = true;
+        });
+      }
+    });
   });
 })();
 </script>
