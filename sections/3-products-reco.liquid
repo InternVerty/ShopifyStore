@@ -467,44 +467,42 @@
   finalHandles.forEach(function (handle) {
     if (!handle) return;
 
-    fetch('/products/' + handle + '.js')
-      .then(function (r) { return r.json(); })
-      .then(function (p) {
-        var price = p.price_min ? (p.price_min / 100).toFixed(2).replace('.', ',') + ' €' : '';
-        var img   = p.featured_image
-          ? '<img src="' + p.featured_image + '" alt="' + p.title + '" loading="lazy">'
-          : '';
-        var atcBtn = p.variants && p.variants.length === 1
-          ? '<button class="btn btn--primary w-full" onclick="window.location=\'/products/' + p.handle + '\'">' +
-              (p.variants[0].available ? 'Ajouter au panier' : 'Indisponible') +
-            '</button>'
-          : '<a href="/products/' + p.handle + '" class="btn btn--primary w-full">Choisir les options</a>';
+    /* Section Rendering API → Shopify rend reco-product-row.liquid côté serveur  */
+    /* avec accès complet aux metafields custom (note, avis, auteur…).            */
+    fetch('/products/' + handle + '?sections=reco-product-row')
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        var html = data['reco-product-row'];
+        if (!html) return;
 
-        var row = document.createElement('div');
-        row.className = 'reco-3p__row';
-        row.innerHTML =
-          '<div class="reco-3p__img-col">' +
-            '<a href="/products/' + p.handle + '" class="reco-3p__img-link">' + img + '</a>' +
-          '</div>' +
-          '<div class="reco-3p__info-col">' +
-            '<a href="/products/' + p.handle + '" class="reco-3p__title">' + p.title + '</a>' +
-            '<p class="reco-3p__author">' + (p.vendor || '') + '</p>' +
-            '<div class="reco-3p__note">' +
-              '<div class="etoiles-product">' +
-                '<span class="etoile full"></span><span class="etoile full"></span>' +
-                '<span class="etoile full"></span><span class="etoile full"></span>' +
-                '<span class="etoile full"></span>' +
-              '</div>' +
-              '<div class="texte-note">Note du <a href="https://verty.eu/pages/le-comite-de-lecture-verty" target="_blank" rel="noopener"><strong class="hover-highlight">comité de lecture</strong></a></div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="reco-3p__price-col">' +
-            '<div class="price"><strong class="price__current">' + price + '</strong></div>' +
-            atcBtn +
-            '<a href="/products/' + p.handle + '" class="btn btn--secondary">Voir le produit</a>' +
-          '</div>';
+        /* Shopify enveloppe la section dans <div id="shopify-section-reco-product-row"> */
+        var tmpl = document.createElement('template');
+        tmpl.innerHTML = html;
+        var sectionEl = tmpl.content.getElementById('shopify-section-reco-product-row');
+        if (!sectionEl) return;
 
-        grid.appendChild(row);
+        /* Injecte le .reco-3p__row dans la grille */
+        while (sectionEl.firstChild) {
+          grid.appendChild(sectionEl.firstChild);
+        }
+
+        /* Init "Voir plus" pour les lignes injectees */
+        grid.querySelectorAll('.reco-3p__avis-wrap:not([data-init])').forEach(function (wrap) {
+          wrap.setAttribute('data-init', '1');
+          var avis = wrap.querySelector('.reco-3p__avis');
+          var btn  = wrap.querySelector('.reco-3p__avis-btn');
+          if (!avis || !btn) return;
+          if (avis.scrollHeight > avis.clientHeight + 2) {
+            btn.hidden = false;
+            btn.addEventListener('click', function () {
+              avis.classList.add('is-expanded');
+              btn.hidden = true;
+            });
+          }
+        });
       })
       .catch(function (err) {
         console.warn('[reco-3p] Produit introuvable :', handle, err);
