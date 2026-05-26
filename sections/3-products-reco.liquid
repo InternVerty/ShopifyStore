@@ -1,75 +1,81 @@
 {%- comment -%}
   Section : 3 Produits Recommandés
 
-  Affiche 3 produits en grille horizontale avec :
-    - Image du produit à gauche
-    - Titre + auteur + note du comité + avis à droite
+  Layout par ligne :
+    [Image] | [Titre + Auteur + Note + Avis du comité] | [Prix + ATC + Achat rapide]
 
   Configuration : renseignez les handles dans les réglages de la section
   (Personnaliser le thème → réglages de la section).
-  Les handles peuvent aussi être passés en paramètres d'URL via JavaScript
-  (voir le bloc <script> en bas de fichier).
 
-  Usage URL : /pages/ma-page?p1=handle-livre-1&p2=handle-livre-2&p3=handle-livre-3
+  Usage URL override (JS) : ?p1=handle-1&p2=handle-2&p3=handle-3
 {%- endcomment -%}
 
 {{ 'custom-featured-collection.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if settings.enable_quick_add -%}
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 
 <style>
-  /* ── Conteneur section ─────────────────────────────────────── */
+  /* ── Section ──────────────────────────────────────────────── */
   .reco-3p {
     padding: 40px 0;
   }
 
   .reco-3p__heading {
     font-family: "oldblue", sans-serif;
-    font-size: 1.75rem;
+    font-size: 3rem;
     font-weight: 400;
     margin-bottom: 28px;
   }
 
-  /* ── Grille (3 lignes verticales) ─────────────────────────── */
+  /* ── Liste des 3 lignes ───────────────────────────────────── */
   .reco-3p__grid {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
 
-  /* ── Ligne produit ────────────────────────────────────────── */
+  /* ── Ligne : 3 colonnes ───────────────────────────────────── */
   .reco-3p__row {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 20px;
+    grid-template-columns: 130px 1fr 190px;
+    grid-template-areas: "img info price";
+    gap: 24px;
+    align-items: center;
+    padding: 20px 24px;
     border-radius: 12px;
     background-color: rgba(143, 205, 191, 0.08);
-    text-decoration: none;
-    color: inherit;
     transition: background-color 0.2s ease;
   }
 
   .reco-3p__row:hover {
-    background-color: rgba(143, 205, 191, 0.18);
+    background-color: rgba(143, 205, 191, 0.16);
   }
 
-  /* ── Image ───────────────────────────────────────────────── */
-  .reco-3p__img-wrap {
-    width: 120px;
-    flex-shrink: 0;
+  /* ── Colonne 1 : Image ────────────────────────────────────── */
+  .reco-3p__img-col {
+    grid-area: img;
   }
 
-  .reco-3p__img-wrap img,
-  .reco-3p__img-wrap svg {
+  .reco-3p__img-link {
+    display: block;
+  }
+
+  .reco-3p__img-link img,
+  .reco-3p__img-link svg {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 6px;
+    border-radius: 8px;
     object-fit: cover;
   }
 
-  /* ── Contenu droit ───────────────────────────────────────── */
-  .reco-3p__content {
+  /* ── Colonne 2 : Infos ────────────────────────────────────── */
+  .reco-3p__info-col {
+    grid-area: info;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -80,11 +86,17 @@
     font-weight: 700;
     font-size: 1rem;
     line-height: 1.35;
+    margin: 0;
+    text-decoration: none;
+    color: inherit;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
-    margin: 0;
+  }
+
+  .reco-3p__title:hover {
+    text-decoration: underline;
   }
 
   .reco-3p__author {
@@ -93,12 +105,13 @@
     margin: 0;
   }
 
-  /* ── Note étoiles (réutilise les classes de custom-featured-collection.css) */
+  /* ── Note étoiles ─────────────────────────────────────────── */
   .reco-3p__note {
     display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    margin: 2px 0;
   }
 
   .reco-3p__note .etoiles-product {
@@ -107,35 +120,85 @@
 
   .reco-3p__note .texte-note {
     margin-top: 0;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
   /* ── Avis du comité ──────────────────────────────────────── */
   .reco-3p__avis {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     line-height: 1.55;
     color: #444;
-    margin: 4px 0 0;
+    margin: 2px 0 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     overflow: hidden;
   }
 
-  /* ── Responsive mobile ───────────────────────────────────── */
-  @media (max-width: 600px) {
+  /* ── Colonne 3 : Prix + Boutons ───────────────────────────── */
+  .reco-3p__price-col {
+    grid-area: price;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .reco-3p__price-col .price {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .reco-3p__price-col .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ── Séparateur vertical entre infos et prix ──────────────── */
+  .reco-3p__info-col {
+    border-right: 1px solid rgba(143, 205, 191, 0.35);
+    padding-right: 24px;
+  }
+
+  /* ── Responsive : tablet ──────────────────────────────────── */
+  @media (max-width: 900px) {
+    .reco-3p__row {
+      grid-template-columns: 100px 1fr 160px;
+      gap: 16px;
+      padding: 16px;
+    }
+  }
+
+  /* ── Responsive : mobile ──────────────────────────────────── */
+  @media (max-width: 640px) {
     .reco-3p__row {
       grid-template-columns: 80px 1fr;
+      grid-template-areas:
+        "img info"
+        "price price";
       gap: 12px;
       padding: 14px;
     }
 
-    .reco-3p__img-wrap {
-      width: 80px;
+    .reco-3p__info-col {
+      border-right: none;
+      padding-right: 0;
     }
 
-    .reco-3p__avis {
-      -webkit-line-clamp: 3;
+    .reco-3p__price-col {
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .reco-3p__price-col .price {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .reco-3p__price-col .btn {
+      flex: 1;
     }
   }
 </style>
@@ -174,34 +237,40 @@
 
         if handle != blank
           assign product = all_products[handle]
-          assign note = product.metafields.custom.note_du_comite | default: 5
-          assign note_int = note | times: 1
+          assign note        = product.metafields.custom.note_du_comite | default: 5
+          assign note_int    = note | times: 1
+          assign current_variant = product.selected_or_first_available_variant
+          assign product_form_id = 'reco-atc-' | append: section.id | append: '-' | append: product.id
         endif
       -%}
 
       {%- if handle != blank and product and product != empty -%}
 
-        <a href="{{ product.url }}" class="reco-3p__row">
+        <div class="reco-3p__row">
 
-          {%- comment -%} ── Image ── {%- endcomment -%}
-          <div class="reco-3p__img-wrap">
-            {%- if product.featured_image -%}
-              <img
-                src="{{ product.featured_image | image_url: width: 240 }}"
-                alt="{{ product.featured_image.alt | escape | default: product.title | escape }}"
-                width="120"
-                height="{{ 120 | divided_by: product.featured_image.aspect_ratio | round }}"
-                loading="lazy"
-              >
-            {%- else -%}
-              {{ 'image' | placeholder_svg_tag }}
-            {%- endif -%}
+          {%- comment -%} ── Col 1 : Image ── {%- endcomment -%}
+          <div class="reco-3p__img-col">
+            <a href="{{ product.url }}" class="reco-3p__img-link" aria-label="{{ product.title | escape }}" tabindex="-1">
+              {%- if product.featured_image -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 260 }}"
+                  alt="{{ product.featured_image.alt | escape | default: product.title | escape }}"
+                  width="130"
+                  height="{{ 130 | divided_by: product.featured_image.aspect_ratio | round }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag }}
+              {%- endif -%}
+            </a>
           </div>
 
-          {%- comment -%} ── Contenu ── {%- endcomment -%}
-          <div class="reco-3p__content">
+          {%- comment -%} ── Col 2 : Infos ── {%- endcomment -%}
+          <div class="reco-3p__info-col">
 
-            <p class="reco-3p__title">{{ product.title | escape }}</p>
+            <a href="{{ product.url }}" class="reco-3p__title">
+              {{- product.title | escape -}}
+            </a>
 
             {%- if product.metafields.custom.auteur != blank -%}
               <p class="reco-3p__author">{{ product.metafields.custom.auteur }}</p>
@@ -235,7 +304,6 @@
                   href="https://verty.eu/pages/le-comite-de-lecture-verty"
                   target="_blank"
                   rel="noopener"
-                  onclick="event.stopPropagation()"
                 ><strong class="hover-highlight">comité de lecture</strong></a>
               </div>
             </div>
@@ -248,7 +316,53 @@
             {%- endif -%}
 
           </div>
-        </a>
+
+          {%- comment -%} ── Col 3 : Prix + ATC ── {%- endcomment -%}
+          <div class="reco-3p__price-col">
+
+            {%- render 'price', product: product -%}
+
+            {%- if product.has_only_default_variant -%}
+              {%- comment -%} Variante unique → ATC direct {%- endcomment -%}
+              <product-form>
+                <div class="alert mb-8 bg-error-bg text-error-text js-form-error text-start" role="alert" hidden></div>
+                {%- form 'product', product, class: 'js-product-form', id: product_form_id, novalidate: 'novalidate' -%}
+                  <input type="hidden" name="id" value="{{ current_variant.id }}" disabled>
+                  <button
+                    class="btn btn--primary w-full"
+                    name="add"
+                    aria-haspopup="dialog"
+                    data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape }}"
+                    {%- if current_variant.available == false %} disabled{%- endif %}
+                  >
+                    <span class="quick-add-btn-text">
+                      {{- 'products.product.add_to_cart' | t -}}
+                    </span>
+                  </button>
+                {%- endform -%}
+              </product-form>
+            {%- else -%}
+              {%- comment -%} Plusieurs variantes → ouvre le drawer quick-add {%- endcomment -%}
+              <button
+                type="button"
+                class="btn btn--primary w-full js-quick-add"
+                aria-haspopup="dialog"
+                data-product-url="{{ product.url }}"
+                data-product-default-variant="{{ product.has_only_default_variant }}"
+              >
+                <span class="quick-add-btn-text block pointer-events-none">
+                  {{- 'products.product.choose_options' | t -}}
+                </span>
+              </button>
+            {%- endif -%}
+
+            <a href="{{ product.url }}" class="btn btn--secondary">
+              {{- 'products.product.view_details' | t -}}
+            </a>
+
+          </div>
+
+        </div>
 
       {%- endif -%}
     {%- endfor -%}
@@ -257,13 +371,10 @@
 </div>
 
 {%- comment -%}
-  ── Surcharge via paramètres d'URL ────────────────────────────────────────────
-  Si des paramètres ?p1=…&p2=…&p3=… sont présents dans l'URL, ce script charge
-  les données produit via l'API AJAX Shopify et remplace dynamiquement les lignes.
-
-  ⚠️  L'API /products/{handle}.js ne retourne pas les metafields custom.
-      Pour bénéficier de la note et de l'avis du comité, configurez les handles
-      directement dans les réglages de la section (personnalisation du thème).
+  ── Override URL params (JS) ──────────────────────────────────────────────────
+  ⚠️  /products/{handle}.js ne retourne pas les metafields custom.
+      L'avis et la note du comité ne seront pas disponibles en mode URL params.
+      Pour le rendu complet, utiliser les réglages de section.
   ─────────────────────────────────────────────────────────────────────────────
 {%- endcomment -%}
 
@@ -272,26 +383,22 @@
   var params   = new URLSearchParams(window.location.search);
   var handles  = [params.get('p1'), params.get('p2'), params.get('p3')];
   var anyParam = handles.some(function (h) { return h && h.trim() !== ''; });
-
   if (!anyParam) return;
 
   var grid      = document.getElementById('reco-3p-grid-{{ section.id }}');
   var container = document.getElementById('reco-3p-{{ section.id }}');
   if (!grid) return;
 
-  /* Lecture des handles de fallback (section settings) */
   var fallbacks = [
     container.dataset.handle1,
     container.dataset.handle2,
     container.dataset.handle3,
   ];
 
-  /* Fusionne : URL params > section settings */
   var finalHandles = handles.map(function (h, i) {
     return (h && h.trim() !== '') ? h.trim() : (fallbacks[i] || '');
   });
 
-  /* Réinitialise la grille */
   grid.innerHTML = '';
 
   finalHandles.forEach(function (handle) {
@@ -300,29 +407,38 @@
     fetch('/products/' + handle + '.js')
       .then(function (r) { return r.json(); })
       .then(function (p) {
-        var img = p.featured_image
-          ? '<img src="' + p.featured_image + '" alt="' + p.title + '" loading="lazy" style="width:100%;height:auto;border-radius:6px;">'
+        var price = p.price_min ? (p.price_min / 100).toFixed(2).replace('.', ',') + ' €' : '';
+        var img   = p.featured_image
+          ? '<img src="' + p.featured_image + '" alt="' + p.title + '" loading="lazy">'
           : '';
+        var atcBtn = p.variants && p.variants.length === 1
+          ? '<button class="btn btn--primary w-full" onclick="window.location=\'/products/' + p.handle + '\'">' +
+              (p.variants[0].available ? 'Ajouter au panier' : 'Indisponible') +
+            '</button>'
+          : '<a href="/products/' + p.handle + '" class="btn btn--primary w-full">Choisir les options</a>';
 
-        var row = document.createElement('a');
-        row.href      = '/products/' + p.handle;
+        var row = document.createElement('div');
         row.className = 'reco-3p__row';
         row.innerHTML =
-          '<div class="reco-3p__img-wrap">' + img + '</div>' +
-          '<div class="reco-3p__content">' +
-            '<p class="reco-3p__title">' + p.title + '</p>' +
+          '<div class="reco-3p__img-col">' +
+            '<a href="/products/' + p.handle + '" class="reco-3p__img-link">' + img + '</a>' +
+          '</div>' +
+          '<div class="reco-3p__info-col">' +
+            '<a href="/products/' + p.handle + '" class="reco-3p__title">' + p.title + '</a>' +
             '<p class="reco-3p__author">' + (p.vendor || '') + '</p>' +
-            /* Note : non disponible via AJAX sans metafields — affiche 5 étoiles par défaut */
             '<div class="reco-3p__note">' +
               '<div class="etoiles-product">' +
-                '<span class="etoile full"></span>' +
-                '<span class="etoile full"></span>' +
-                '<span class="etoile full"></span>' +
-                '<span class="etoile full"></span>' +
+                '<span class="etoile full"></span><span class="etoile full"></span>' +
+                '<span class="etoile full"></span><span class="etoile full"></span>' +
                 '<span class="etoile full"></span>' +
               '</div>' +
-              '<div class="texte-note">Note du <a href="https://verty.eu/pages/le-comite-de-lecture-verty" target="_blank" rel="noopener" onclick="event.stopPropagation()"><strong class="hover-highlight">comité de lecture</strong></a></div>' +
+              '<div class="texte-note">Note du <a href="https://verty.eu/pages/le-comite-de-lecture-verty" target="_blank" rel="noopener"><strong class="hover-highlight">comité de lecture</strong></a></div>' +
             '</div>' +
+          '</div>' +
+          '<div class="reco-3p__price-col">' +
+            '<div class="price"><strong class="price__current">' + price + '</strong></div>' +
+            atcBtn +
+            '<a href="/products/' + p.handle + '" class="btn btn--secondary">Voir le produit</a>' +
           '</div>';
 
         grid.appendChild(row);
