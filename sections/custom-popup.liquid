@@ -1,0 +1,310 @@
+{%- comment -%}
+  Custom Popup — sections/custom-popup.liquid
+  Éditable depuis le customiseur Shopify.
+  À inclure UNE FOIS dans layout/theme.liquid juste avant </body> :
+    {% section 'custom-popup' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign title        = section.settings.title
+  assign text         = section.settings.text
+  assign btn_label    = section.settings.button_label
+  assign heading_font = section.settings.heading_font
+  assign body_font    = section.settings.body_font
+-%}
+
+{%- if title != blank or text != blank or btn_label != blank -%}
+
+  {{- heading_font | font_face -}}
+  {{- body_font    | font_face -}}
+
+  {%- style -%}
+    #cp-{{ section.id }} .custom-popup__modal {
+      background-color: {{ section.settings.bg_color }};
+      border-radius: {{ section.settings.modal_radius }}px;
+    }
+    #cp-{{ section.id }} .custom-popup__title {
+      color:       {{ section.settings.text_color }};
+      font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      font-weight: {{ heading_font.weight }};
+      font-style:  {{ heading_font.style }};
+      font-size:   {{ section.settings.heading_size }};
+    }
+    #cp-{{ section.id }} .custom-popup__text {
+      color:       {{ section.settings.text_color }};
+      font-family: {{ body_font.family }}, {{ body_font.fallback_families }};
+      font-weight: {{ body_font.weight }};
+      font-style:  {{ body_font.style }};
+      font-size:   {{ section.settings.text_size }};
+    }
+    #cp-{{ section.id }} .custom-popup__close {
+      color: {{ section.settings.close_color }};
+    }
+    #cp-{{ section.id }} .custom-popup__btn {
+      background-color: {{ section.settings.btn_bg_color }};
+      color:            {{ section.settings.btn_text_color }};
+      border-radius:    {{ section.settings.btn_radius }}px;
+    }
+  {%- endstyle -%}
+
+  <custom-popup
+    id="cp-{{ section.id }}"
+    class="custom-popup {{ section.settings.position }}"
+    data-trigger="{{ section.settings.trigger }}"
+    data-delay="{{ section.settings.delay }}"
+    data-dismiss-days="{{ section.settings.dismiss_days }}"
+    data-show-on-mobile="{{ section.settings.show_on_mobile }}">
+
+    <div class="custom-popup__overlay js-popup-overlay" aria-hidden="true"></div>
+
+    <div class="custom-popup__modal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="cp-title-{{ section.id }}"
+         tabindex="-1">
+
+      <button type="button" class="custom-popup__close js-popup-close" aria-label="{{ 'accessibility.close' | t }}">
+        &times;
+      </button>
+
+      {%- if section.settings.image != blank -%}
+        <div class="custom-popup__image">
+          {{- section.settings.image | image_url: width: 1080 | image_tag:
+              loading: 'lazy',
+              alt: section.settings.image.alt | escape
+          -}}
+        </div>
+      {%- endif -%}
+
+      <div class="custom-popup__content">
+
+        {%- if title != blank -%}
+          <h2 class="custom-popup__title" id="cp-title-{{ section.id }}">
+            {{- title | escape -}}
+          </h2>
+        {%- endif -%}
+
+        {%- if text != blank -%}
+          <div class="custom-popup__text">
+            {{- text -}}
+          </div>
+        {%- endif -%}
+
+        {%- if btn_label != blank -%}
+          <a class="custom-popup__btn"
+             href="{{ section.settings.button_url | default: '#' }}"
+             {%- if section.settings.button_url != blank %} aria-label="{{ btn_label | escape }}"{% endif %}>
+            {{- btn_label | escape -}}
+          </a>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </custom-popup>
+
+  {{ 'custom-popup.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'custom-popup.js' | asset_url }}" defer="defer"></script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Popup custom",
+  "tag": "section",
+  "class": "cc-custom-popup",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Déclencheur"
+    },
+    {
+      "type": "select",
+      "id": "trigger",
+      "label": "Type de déclencheur",
+      "options": [
+        { "value": "delay", "label": "Délai automatique" },
+        { "value": "exit",  "label": "Exit intent (survol de la barre de navigation)" }
+      ],
+      "default": "delay",
+      "info": "\"Exit intent\" ne fonctionne pas sur mobile."
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Délai avant affichage",
+      "info": "Uniquement pour le déclencheur \"Délai\".",
+      "default": 3,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "s"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "dismiss_days",
+      "label": "Jours avant réaffichage",
+      "info": "Nombre de jours avant de montrer à nouveau le popup après fermeture. 0 = afficher une seule fois.",
+      "default": 7,
+      "min": 0,
+      "max": 30,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Bienvenue !"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Police du titre",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Taille du titre",
+      "options": [
+        { "value": "1.125rem", "label": "Petit"      },
+        { "value": "1.5rem",   "label": "Moyen"      },
+        { "value": "2rem",     "label": "Grand"       },
+        { "value": "2.75rem",  "label": "Très grand"  }
+      ],
+      "default": "1.5rem"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte",
+      "default": "<p>Découvrez notre collection.</p>"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Police du texte",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Taille du texte",
+      "options": [
+        { "value": "0.875rem", "label": "Petit"  },
+        { "value": "1rem",     "label": "Normal" },
+        { "value": "1.125rem", "label": "Grand"  }
+      ],
+      "default": "1rem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (optionnel)"
+    },
+    {
+      "type": "header",
+      "content": "Bouton"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texte du bouton",
+      "default": "Découvrir"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Arrondi du bouton",
+      "default": 4,
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position du popup",
+      "options": [
+        { "value": "custom-popup--center",        "label": "Centre"      },
+        { "value": "custom-popup--bottom-center", "label": "Bas centre"  },
+        { "value": "custom-popup--bottom-left",   "label": "Bas gauche"  },
+        { "value": "custom-popup--bottom-right",  "label": "Bas droite"  },
+        { "value": "custom-popup--top-center",    "label": "Haut centre" }
+      ],
+      "default": "custom-popup--center"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond du popup",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Couleur du bouton",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Couleur du texte du bouton",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "close_color",
+      "label": "Couleur de la croix de fermeture",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "modal_radius",
+      "label": "Arrondi des coins du popup",
+      "default": 8,
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popup custom"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

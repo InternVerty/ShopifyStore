@@ -1,0 +1,131 @@
+/* ============================================================
+   Custom Popup — custom-popup.css
+   ============================================================ */
+
+/* Conteneur principal */
+.custom-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  padding: 16px;
+}
+
+.custom-popup.is-visible {
+  display: flex;
+}
+
+/* Positions */
+.custom-popup--center        { align-items: center;     justify-content: center;      }
+.custom-popup--bottom-center { align-items: flex-end;   justify-content: center;      }
+.custom-popup--bottom-left   { align-items: flex-end;   justify-content: flex-start;  }
+.custom-popup--bottom-right  { align-items: flex-end;   justify-content: flex-end;    }
+.custom-popup--top-center    { align-items: flex-start; justify-content: center;      }
+
+/* Overlay semi-transparent */
+.custom-popup__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+
+/* Fenêtre modale */
+.custom-popup__modal {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: cp-in 0.28s ease;
+}
+
+@keyframes cp-in {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+/* Bouton de fermeture */
+.custom-popup__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  transition: opacity 0.18s;
+  z-index: 2;
+  padding: 0;
+}
+
+.custom-popup__close:hover {
+  opacity: 0.55;
+}
+
+/* Image */
+.custom-popup__image {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-popup__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+}
+
+/* Contenu */
+.custom-popup__content {
+  padding: 36px 32px 32px;
+}
+
+.custom-popup__title {
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+
+.custom-popup__text {
+  margin: 0 0 24px;
+  line-height: 1.6;
+}
+
+.custom-popup__text p {
+  margin: 0;
+}
+
+/* Bouton CTA */
+.custom-popup__btn {
+  display: inline-block;
+  padding: 13px 28px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: opacity 0.18s;
+  line-height: 1;
+}
+
+.custom-popup__btn:hover {
+  opacity: 0.82;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .custom-popup__content {
+    padding: 28px 20px 24px;
+  }
+}
