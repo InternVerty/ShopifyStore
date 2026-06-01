@@ -11,6 +11,14 @@
   assign btn_label    = section.settings.button_label
   assign heading_font = section.settings.heading_font
   assign body_font    = section.settings.body_font
+
+  assign bg          = section.settings.bg_color
+  assign bg_opacity  = section.settings.bg_opacity | divided_by: 100.0
+
+  assign btn_bg         = section.settings.btn_bg_color
+  assign btn_bg_opacity = section.settings.btn_bg_opacity | divided_by: 100.0
+
+  assign custom_font = section.settings.font_family_custom
 -%}
 
 {%- if title != blank or text != blank or btn_label != blank -%}
@@ -19,32 +27,58 @@
   {{- body_font    | font_face -}}
 
   {%- style -%}
+
+    /* ── Modal ── */
     #cp-{{ section.id }} .custom-popup__modal {
-      background-color: {{ section.settings.bg_color }};
-      border-radius: {{ section.settings.modal_radius }}px;
+      background-color: rgba({{ bg.red }}, {{ bg.green }}, {{ bg.blue }}, {{ bg_opacity }});
+      border-radius:    {{ section.settings.modal_radius }}px;
+      border:           {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+      max-width:        {{ section.settings.popup_max_width }}px;
     }
+
+    /* ── Image du haut ── */
+    #cp-{{ section.id }} .custom-popup__image img {
+      border-radius: {{ section.settings.image_top_radius }}px;
+      max-height:    {{ section.settings.image_top_height }}px;
+    }
+
+    /* ── Titre ── */
     #cp-{{ section.id }} .custom-popup__title {
-      color:       {{ section.settings.text_color }};
-      font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      color:       {{ section.settings.title_color }};
+      font-family: {% if custom_font != blank %}{{ custom_font }}{% else %}{{ heading_font.family }}, {{ heading_font.fallback_families }}{% endif %};
       font-weight: {{ heading_font.weight }};
       font-style:  {{ heading_font.style }};
       font-size:   {{ section.settings.heading_size }};
     }
+
+    /* ── Texte ── */
     #cp-{{ section.id }} .custom-popup__text {
       color:       {{ section.settings.text_color }};
-      font-family: {{ body_font.family }}, {{ body_font.fallback_families }};
+      font-family: {% if custom_font != blank %}{{ custom_font }}{% else %}{{ body_font.family }}, {{ body_font.fallback_families }}{% endif %};
       font-weight: {{ body_font.weight }};
       font-style:  {{ body_font.style }};
       font-size:   {{ section.settings.text_size }};
     }
+
+    /* ── Bouton ── */
+    #cp-{{ section.id }} .custom-popup__btn {
+      background-color: rgba({{ btn_bg.red }}, {{ btn_bg.green }}, {{ btn_bg.blue }}, {{ btn_bg_opacity }});
+      color:            {{ section.settings.btn_text_color }};
+      border-radius:    {{ section.settings.btn_radius }}px;
+      width:            {{ section.settings.btn_width }};
+    }
+
+    /* ── Image du bas ── */
+    #cp-{{ section.id }} .custom-popup__image-bottom img {
+      border-radius: {{ section.settings.image_bottom_radius }}px;
+      max-height:    {{ section.settings.image_bottom_height }}px;
+    }
+
+    /* ── Croix de fermeture ── */
     #cp-{{ section.id }} .custom-popup__close {
       color: {{ section.settings.close_color }};
     }
-    #cp-{{ section.id }} .custom-popup__btn {
-      background-color: {{ section.settings.btn_bg_color }};
-      color:            {{ section.settings.btn_text_color }};
-      border-radius:    {{ section.settings.btn_radius }}px;
-    }
+
   {%- endstyle -%}
 
   <custom-popup
@@ -91,11 +125,13 @@
         {%- endif -%}
 
         {%- if btn_label != blank -%}
-          <a class="custom-popup__btn"
-             href="{{ section.settings.button_url | default: '#' }}"
-             {%- if section.settings.button_url != blank %} aria-label="{{ btn_label | escape }}"{% endif %}>
-            {{- btn_label | escape -}}
-          </a>
+          <div class="custom-popup__btn-wrap">
+            <a class="custom-popup__btn"
+               href="{{ section.settings.button_url | default: '#' }}"
+               {%- if section.settings.button_url != blank %} aria-label="{{ btn_label | escape }}"{% endif %}>
+              {{- btn_label | escape -}}
+            </a>
+          </div>
         {%- endif -%}
 
         {%- if section.settings.bottom_text != blank -%}
@@ -106,12 +142,13 @@
 
       {%- if section.settings.image_bottom != blank -%}
         <div class="custom-popup__image-bottom">
-          {{- section.settings.image_bottom | image_url: width: 600 | image_tag:
+          {{- section.settings.image_bottom | image_url: width: 800 | image_tag:
               loading: 'lazy',
               alt: section.settings.image_bottom.alt | escape
           -}}
         </div>
       {%- endif -%}
+
     </div>
   </custom-popup>
 
@@ -126,9 +163,10 @@
   "tag": "section",
   "class": "cc-custom-popup",
   "settings": [
+
     {
       "type": "header",
-      "content": "Déclencheur"
+      "content": "⚙️ Déclencheur"
     },
     {
       "type": "select",
@@ -136,7 +174,7 @@
       "label": "Type de déclencheur",
       "options": [
         { "value": "delay", "label": "Délai automatique" },
-        { "value": "exit",  "label": "Exit intent (survol de la barre de navigation)" }
+        { "value": "exit",  "label": "Exit intent" }
       ],
       "default": "delay",
       "info": "\"Exit intent\" ne fonctionne pas sur mobile."
@@ -152,9 +190,10 @@
       "step": 1,
       "unit": "s"
     },
+
     {
       "type": "header",
-      "content": "Visibilité"
+      "content": "👁️ Visibilité"
     },
     {
       "type": "checkbox",
@@ -166,82 +205,138 @@
       "type": "range",
       "id": "dismiss_days",
       "label": "Jours avant réaffichage",
-      "info": "Nombre de jours avant de montrer à nouveau le popup après fermeture. 0 = afficher une seule fois.",
+      "info": "0 = afficher une seule fois.",
       "default": 7,
       "min": 0,
       "max": 30,
       "step": 1
     },
     {
+      "type": "select",
+      "id": "position",
+      "label": "Position sur la page",
+      "options": [
+        { "value": "custom-popup--center",        "label": "Centre"      },
+        { "value": "custom-popup--bottom-center", "label": "Bas centre"  },
+        { "value": "custom-popup--bottom-left",   "label": "Bas gauche"  },
+        { "value": "custom-popup--bottom-right",  "label": "Bas droite"  },
+        { "value": "custom-popup--top-center",    "label": "Haut centre" }
+      ],
+      "default": "custom-popup--bottom-left"
+    },
+    {
+      "type": "range",
+      "id": "popup_max_width",
+      "label": "Largeur max du popup",
+      "default": 400,
+      "min": 240,
+      "max": 600,
+      "step": 10,
+      "unit": "px"
+    },
+
+    {
       "type": "header",
-      "content": "Contenu"
+      "content": "🖼️ Image du haut"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (logo, illustration…)"
+    },
+    {
+      "type": "range",
+      "id": "image_top_height",
+      "label": "Hauteur max",
+      "default": 120,
+      "min": 40,
+      "max": 300,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_top_radius",
+      "label": "Arrondi des coins",
+      "default": 0,
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "✏️ Titre"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Titre",
+      "label": "Texte du titre",
       "default": "Bienvenue !"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Couleur",
+      "default": "#111111"
     },
     {
       "type": "font_picker",
       "id": "heading_font",
-      "label": "Police du titre",
+      "label": "Police",
       "default": "helvetica_n4"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Taille du titre",
+      "label": "Taille",
       "options": [
-        { "value": "1.125rem", "label": "Petit"      },
-        { "value": "1.5rem",   "label": "Moyen"      },
-        { "value": "2rem",     "label": "Grand"       },
-        { "value": "2.75rem",  "label": "Très grand"  }
+        { "value": "1rem",    "label": "Petit"      },
+        { "value": "1.25rem", "label": "Moyen"      },
+        { "value": "1.75rem", "label": "Grand"      },
+        { "value": "2.25rem", "label": "Très grand" }
       ],
-      "default": "1.5rem"
+      "default": "1.75rem"
+    },
+
+    {
+      "type": "header",
+      "content": "📝 Texte / Description"
     },
     {
       "type": "richtext",
       "id": "text",
-      "label": "Texte",
+      "label": "Contenu",
       "default": "<p>Découvrez notre collection.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur",
+      "default": "#333333"
     },
     {
       "type": "font_picker",
       "id": "body_font",
-      "label": "Police du texte",
+      "label": "Police",
       "default": "helvetica_n4"
     },
     {
       "type": "select",
       "id": "text_size",
-      "label": "Taille du texte",
+      "label": "Taille",
       "options": [
-        { "value": "0.875rem", "label": "Petit"  },
-        { "value": "1rem",     "label": "Normal" },
-        { "value": "1.125rem", "label": "Grand"  }
+        { "value": "0.8rem",   "label": "Petit"  },
+        { "value": "0.95rem",  "label": "Normal" },
+        { "value": "1.1rem",   "label": "Grand"  }
       ],
-      "default": "1rem"
+      "default": "0.95rem"
     },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image du haut (optionnel)"
-    },
-    {
-      "type": "text",
-      "id": "bottom_text",
-      "label": "Texte sous le bouton (optionnel)",
-      "info": "Petit texte affiché entre le bouton et l'image du bas. Ex : \"... sur un plateau\""
-    },
-    {
-      "type": "image_picker",
-      "id": "image_bottom",
-      "label": "Image du bas (optionnel)"
-    },
+
     {
       "type": "header",
-      "content": "Bouton"
+      "content": "🔘 Bouton"
     },
     {
       "type": "text",
@@ -252,58 +347,137 @@
     {
       "type": "url",
       "id": "button_url",
-      "label": "Lien du bouton"
+      "label": "Lien"
+    },
+    {
+      "type": "select",
+      "id": "btn_width",
+      "label": "Largeur du bouton",
+      "options": [
+        { "value": "auto",  "label": "Ajusté au texte" },
+        { "value": "100%",  "label": "Pleine largeur"  }
+      ],
+      "default": "100%"
     },
     {
       "type": "range",
       "id": "btn_radius",
-      "label": "Arrondi du bouton",
-      "default": 4,
+      "label": "Arrondi des coins",
+      "default": 50,
       "min": 0,
-      "max": 40,
+      "max": 50,
       "step": 2,
       "unit": "px"
     },
     {
-      "type": "header",
-      "content": "Style"
-    },
-    {
-      "type": "select",
-      "id": "position",
-      "label": "Position du popup",
-      "options": [
-        { "value": "custom-popup--center",        "label": "Centre"      },
-        { "value": "custom-popup--bottom-center", "label": "Bas centre"  },
-        { "value": "custom-popup--bottom-left",   "label": "Bas gauche"  },
-        { "value": "custom-popup--bottom-right",  "label": "Bas droite"  },
-        { "value": "custom-popup--top-center",    "label": "Haut centre" }
-      ],
-      "default": "custom-popup--center"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Couleur de fond du popup",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Couleur du texte",
-      "default": "#111111"
-    },
-    {
       "type": "color",
       "id": "btn_bg_color",
-      "label": "Couleur du bouton",
+      "label": "Couleur du fond",
       "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "btn_bg_opacity",
+      "label": "Opacité du fond",
+      "default": 100,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
     },
     {
       "type": "color",
       "id": "btn_text_color",
-      "label": "Couleur du texte du bouton",
+      "label": "Couleur du texte",
       "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "🖼️ Image du bas"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bottom",
+      "label": "Image (illustration…)"
+    },
+    {
+      "type": "range",
+      "id": "image_bottom_height",
+      "label": "Hauteur max",
+      "default": 180,
+      "min": 40,
+      "max": 400,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_bottom_radius",
+      "label": "Arrondi des coins",
+      "default": 0,
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Texte sous le bouton (optionnel)",
+      "info": "Petit texte affiché entre le bouton et l'image du bas."
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Fond du popup"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur (hex)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "bg_opacity",
+      "label": "Opacité",
+      "default": 100,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%"
+    },
+
+    {
+      "type": "header",
+      "content": "🔲 Bordure du popup"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Couleur (hex)",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Épaisseur",
+      "default": 0,
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "modal_radius",
+      "label": "Arrondi des coins du popup",
+      "default": 12,
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px"
     },
     {
       "type": "color",
@@ -311,16 +485,18 @@
       "label": "Couleur de la croix de fermeture",
       "default": "#111111"
     },
+
     {
-      "type": "range",
-      "id": "modal_radius",
-      "label": "Arrondi des coins du popup",
-      "default": 8,
-      "min": 0,
-      "max": 24,
-      "step": 2,
-      "unit": "px"
+      "type": "header",
+      "content": "🔤 Police personnalisée (avancé)"
+    },
+    {
+      "type": "text",
+      "id": "font_family_custom",
+      "label": "Font-family CSS",
+      "info": "Remplace les polices choisies ci-dessus si renseigné. Ex : oldblue-normal-400, sans-serif"
     }
+
   ],
   "presets": [
     {

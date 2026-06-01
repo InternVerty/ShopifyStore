@@ -27,15 +27,14 @@
   display: none;
 }
 
-/* Fenêtre modale */
+/* Fenêtre modale (max-width défini via le schéma Shopify) */
 .custom-popup__modal {
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 540px;
+  width: 90%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   animation: cp-in 0.28s ease;
 }
 
@@ -104,6 +103,10 @@
 }
 
 /* Bouton CTA */
+.custom-popup__btn-wrap {
+  text-align: center;
+}
+
 .custom-popup__btn {
   display: inline-block;
   padding: 13px 28px;
@@ -114,6 +117,8 @@
   letter-spacing: 0.02em;
   transition: opacity 0.18s;
   line-height: 1;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .custom-popup__btn:hover {
