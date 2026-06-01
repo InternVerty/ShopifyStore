@@ -98,7 +98,20 @@
           </a>
         {%- endif -%}
 
+        {%- if section.settings.bottom_text != blank -%}
+          <p class="custom-popup__bottom-text">{{ section.settings.bottom_text | escape }}</p>
+        {%- endif -%}
+
       </div>
+
+      {%- if section.settings.image_bottom != blank -%}
+        <div class="custom-popup__image-bottom">
+          {{- section.settings.image_bottom | image_url: width: 600 | image_tag:
+              loading: 'lazy',
+              alt: section.settings.image_bottom.alt | escape
+          -}}
+        </div>
+      {%- endif -%}
     </div>
   </custom-popup>
 
@@ -213,7 +226,18 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image (optionnel)"
+      "label": "Image du haut (optionnel)"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Texte sous le bouton (optionnel)",
+      "info": "Petit texte affiché entre le bouton et l'image du bas. Ex : \"... sur un plateau\""
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bottom",
+      "label": "Image du bas (optionnel)"
     },
     {
       "type": "header",
