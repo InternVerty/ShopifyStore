@@ -109,7 +109,7 @@
 
 .custom-popup__btn {
   display: inline-block;
-  padding: 13px 28px;
+  padding: 13px 28px; /* valeur par défaut — écrasée par le schéma Shopify */
   text-decoration: none;
   cursor: pointer;
   border: none;

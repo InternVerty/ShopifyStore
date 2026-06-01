@@ -66,6 +66,7 @@
       color:            {{ section.settings.btn_text_color }};
       border-radius:    {{ section.settings.btn_radius }}px;
       width:            {{ section.settings.btn_width }};
+      padding:          {{ section.settings.btn_padding_v }}px {{ section.settings.btn_padding_h }}px;
     }
 
     /* ── Image du bas ── */
@@ -366,6 +367,28 @@
       "default": 50,
       "min": 0,
       "max": 50,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "btn_padding_v",
+      "label": "Hauteur (padding vertical)",
+      "info": "Espace en haut et en bas du texte du bouton.",
+      "default": 13,
+      "min": 6,
+      "max": 30,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "btn_padding_h",
+      "label": "Largeur (padding horizontal)",
+      "info": "Espace à gauche et à droite du texte du bouton.",
+      "default": 28,
+      "min": 10,
+      "max": 60,
       "step": 2,
       "unit": "px"
     },
