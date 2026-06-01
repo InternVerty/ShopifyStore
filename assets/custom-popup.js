@@ -41,13 +41,11 @@ class CustomPopup extends HTMLElement {
 
   open() {
     this.classList.add('is-visible');
-    document.body.style.overflow = 'hidden';
     this.modal?.focus();
   }
 
   close() {
     this.classList.remove('is-visible');
-    document.body.style.overflow = '';
     // dismissDays = 0 → afficher une seule fois (cookie 10 ans)
     const days = this.dismissDays === 0 ? 3650 : this.dismissDays;
     this.setCookie(this.cookieKey, '1', days);

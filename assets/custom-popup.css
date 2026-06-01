@@ -22,12 +22,9 @@
 .custom-popup--bottom-right  { align-items: flex-end;   justify-content: flex-end;    }
 .custom-popup--top-center    { align-items: flex-start; justify-content: center;      }
 
-/* Overlay semi-transparent */
+/* Overlay — transparent, ne bloque pas la vue */
 .custom-popup__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  cursor: pointer;
+  display: none;
 }
 
 /* Fenêtre modale */
