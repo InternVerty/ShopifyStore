@@ -68,19 +68,21 @@
   opacity: 0.55;
 }
 
-/* Image */
+/* Image du haut — centrée, taille naturelle */
 .custom-popup__image {
   width: 100%;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   line-height: 0;
 }
 
 .custom-popup__image img {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
-  max-height: 280px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Contenu */
