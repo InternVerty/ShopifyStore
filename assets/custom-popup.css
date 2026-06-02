@@ -75,6 +75,7 @@
   justify-content: center;
   align-items: center;
   line-height: 0;
+  margin-top: 16px; 
 }
 
 .custom-popup__image img {
@@ -93,11 +94,13 @@
 .custom-popup__title {
   margin: 0 0 12px;
   line-height: 1.2;
+  text-align: center;
 }
 
 .custom-popup__text {
   margin: 0 0 24px;
   line-height: 1.6;
+  text-align: center;
 }
 
 .custom-popup__text p {
