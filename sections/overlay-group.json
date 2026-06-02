@@ -101,7 +101,7 @@
     "custom_popup_9xHUp3": {
       "type": "custom-popup",
       "custom_css": [
-        "h2 {}"
+        "h2 {font-family: oldblue, sans-serif;}"
       ],
       "name": "Popup custom",
       "settings": {
@@ -141,7 +141,7 @@
         "border_width": 2,
         "modal_radius": 8,
         "close_color": "#111111",
-        "font_family_custom": "oldblue-normal-400, sans-serif"
+        "font_family_custom": "oldblue, sans-serif;"
       }
     }
   },
