@@ -115,9 +115,8 @@
         "image_top_height": 40,
         "image_top_radius": 0,
         "title": "La Sélection Verty",
-        "title_color": "#111111",
-        "heading_font": "sans_serif_n4",
-        "heading_size": "32px",
+        "title_color": "#97e8c7",
+        "heading_size": "28px",
         "text": "<p>Découvrez notre collection.</p>",
         "text_color": "#111111",
         "body_font": "sans_serif_n4",
@@ -140,8 +139,7 @@
         "border_color": "#97e8c7",
         "border_width": 2,
         "modal_radius": 8,
-        "close_color": "#111111",
-        "font_family_custom": ""
+        "close_color": "#111111"
       }
     }
   },
