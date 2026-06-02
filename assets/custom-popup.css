@@ -75,12 +75,13 @@
   justify-content: center;
   align-items: center;
   line-height: 0;
-  margin-top: 16px; 
+  margin-top: 35px;
+  margin-bottom: 25px; 
 }
 
 .custom-popup__image img {
   display: block;
-  width: auto;
+  width: 160px;
   max-width: 100%;
   height: auto;
   object-fit: contain;
