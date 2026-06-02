@@ -141,7 +141,7 @@
         "border_width": 2,
         "modal_radius": 8,
         "close_color": "#111111",
-        "font_family_custom": "oldblue, sans-serif;"
+        "font_family_custom": ""
       }
     }
   },
