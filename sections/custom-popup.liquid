@@ -45,7 +45,7 @@
     /* ── Titre ── */
     #cp-{{ section.id }} .custom-popup__title {
       color:       {{ section.settings.title_color }};
-      font-family: {% if custom_font != blank %}{{ custom_font }}{% else %}{{ heading_font.family }}, {{ heading_font.fallback_families }}{% endif %};
+      font-family: oldblue, sans-serif;
       font-weight: {{ heading_font.weight }};
       font-style:  {{ heading_font.style }};
       font-size:   {{ section.settings.heading_size }};
@@ -54,9 +54,8 @@
     /* ── Texte ── */
     #cp-{{ section.id }} .custom-popup__text {
       color:       {{ section.settings.text_color }};
-      font-family: {% if custom_font != blank %}{{ custom_font }}{% else %}{{ body_font.family }}, {{ body_font.fallback_families }}{% endif %};
+      font-family: dm-sans;
       font-weight: {{ body_font.weight }};
-      font-style:  {{ body_font.style }};
       font-size:   {{ section.settings.text_size }};
     }
 
@@ -283,12 +282,6 @@
       "default": "#111111"
     },
     {
-      "type": "font_picker",
-      "id": "heading_font",
-      "label": "Police",
-      "default": "helvetica_n4"
-    },
-    {
       "type": "select",
       "id": "heading_size",
       "label": "Taille",
@@ -507,17 +500,6 @@
       "id": "close_color",
       "label": "Couleur de la croix de fermeture",
       "default": "#111111"
-    },
-
-    {
-      "type": "header",
-      "content": "🔤 Police personnalisée (avancé)"
-    },
-    {
-      "type": "text",
-      "id": "font_family_custom",
-      "label": "Font-family CSS",
-      "info": "Remplace les polices choisies ci-dessus si renseigné. Ex : oldblue-normal-400, sans-serif"
     }
 
   ],
