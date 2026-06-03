@@ -301,3 +301,31 @@ if (!customElements.get('cart-drawer')) {
 
   customElements.define('cart-drawer', CartDrawer);
 }
+
+document.addEventListener('click', async (evt) => {
+  if (!evt.target.closest('[name="checkout"]')) return;
+
+  try {
+    const response = await fetch('/cart.js');
+    const cart = await response.json();
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ ecommerce: null });
+    window.dataLayer.push({
+      event: 'begin_checkout',
+      ecommerce: {
+        currency: window.Shopify?.currency?.active || 'EUR',
+        value: cart.total_price / 100,
+        items: cart.items.map((item) => ({
+          item_id: String(item.variant_id),
+          item_name: item.product_title,
+          item_variant: item.variant_title !== 'Default Title' ? item.variant_title : undefined,
+          price: item.price / 100,
+          quantity: item.quantity
+        }))
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
