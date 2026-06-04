@@ -1,0 +1,193 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'custom-comite-carousel.css' | asset_url | stylesheet_tag }}
+
+{%- assign section_id = section.id -%}
+{%- assign slides_desktop = section.settings.slides_per_view_desktop -%}
+{%- assign slides_tablet = section.settings.slides_per_view_tablet -%}
+
+<div class="comite-carousel-section" id="{{ section_id }}">
+  <div class="container">
+
+    {%- if section.settings.heading != blank -%}
+      <div class="section__header">
+        <h2 class="h3">{{ section.settings.heading | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="swiper comite-swiper" id="comite-swiper-{{ section_id }}">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="comite-card">
+
+              <div class="comite-card__image-wrapper">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 400
+                    | image_tag: loading: 'lazy', alt: block.settings.name | escape
+                  }}
+                {%- else -%}
+                  <div class="comite-card__image-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                  </div>
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.name != blank -%}
+                <p class="comite-card__name">{{ block.settings.name | escape }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.description != blank -%}
+                <p class="comite-card__description">{{ block.settings.description | escape }}</p>
+              {%- endif -%}
+
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="comite-nav">
+      <button class="comite-nav__btn comite-prev-{{ section_id }}" aria-label="{{ 'accessibility.previous_slide' | t }}" disabled>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <span class="comite-nav__counter" id="comite-counter-{{ section_id }}">1 / {{ section.blocks.size }}</span>
+      <button class="comite-nav__btn comite-next-{{ section_id }}" aria-label="{{ 'accessibility.next_slide' | t }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var slidesDesktop = {{ slides_desktop }};
+    var slidesTablet = {{ slides_tablet }};
+    var totalBlocks = {{ section.blocks.size }};
+    var sectionId = '{{ section_id }}';
+
+    var swiper = new Swiper('#comite-swiper-' + sectionId, {
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      spaceBetween: 16,
+      navigation: {
+        nextEl: '.comite-next-' + sectionId,
+        prevEl: '.comite-prev-' + sectionId,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: slidesTablet,
+          slidesPerGroup: slidesTablet,
+          spaceBetween: 20,
+        },
+        990: {
+          slidesPerView: slidesDesktop,
+          slidesPerGroup: slidesDesktop,
+          spaceBetween: 24,
+        },
+      },
+      on: {
+        init: function (s) {
+          updateCounter(s);
+        },
+        slideChange: function (s) {
+          updateCounter(s);
+        },
+      },
+    });
+
+    function updateCounter(s) {
+      var perGroup = s.params.slidesPerGroup || 1;
+      var current = Math.floor(s.activeIndex / perGroup) + 1;
+      var total = Math.ceil(totalBlocks / perGroup);
+      var counter = document.getElementById('comite-counter-' + sectionId);
+      if (counter) counter.textContent = current + ' / ' + total;
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Comité carousel",
+  "tag": "section",
+  "class": "cc-comite-carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre de la section",
+      "default": "Notre comité"
+    },
+    {
+      "type": "header",
+      "content": "Affichage"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_desktop",
+      "label": "Cartes visibles — desktop",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_tablet",
+      "label": "Cartes visibles — tablette",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Membre du comité",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Prénom",
+          "default": "Prénom"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Courte description du membre."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comité carousel",
+      "blocks": [
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  }
+}
+{% endschema %}
