@@ -19,145 +19,148 @@
   assign btn_bg_opacity = section.settings.btn_bg_opacity | divided_by: 100.0
 
   assign custom_font = section.settings.font_family_custom
+
+  assign excluded = section.settings.to_exclude | split: ", "
 -%}
 
-{% if  %}
-{%- if title != blank or text != blank or btn_label != blank -%}
 
-  {{- heading_font | font_face -}}
-  {{- body_font    | font_face -}}
+{% unless excluded contains handle %} 
+  {%- if title != blank or text != blank or btn_label != blank -%}
 
-  {%- style -%}
+    {{- heading_font | font_face -}}
+    {{- body_font    | font_face -}}
 
-    /* ── Modal ── */
-    #cp-{{ section.id }} .custom-popup__modal {
-      background-color: rgba({{ bg.red }}, {{ bg.green }}, {{ bg.blue }}, {{ bg_opacity }});
-      border-radius:    {{ section.settings.modal_radius }}px;
-      border:           {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
-      max-width:        {{ section.settings.popup_max_width }}px;
-    }
+    {%- style -%}
 
-    /* ── Image du haut ── */
-    #cp-{{ section.id }} .custom-popup__image img {
-      border-radius: {{ section.settings.image_top_radius }}px;
-      max-height:    {{ section.settings.image_top_height }}px;
-    }
+      /* ── Modal ── */
+      #cp-{{ section.id }} .custom-popup__modal {
+        background-color: rgba({{ bg.red }}, {{ bg.green }}, {{ bg.blue }}, {{ bg_opacity }});
+        border-radius:    {{ section.settings.modal_radius }}px;
+        border:           {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+        max-width:        {{ section.settings.popup_max_width }}px;
+      }
 
-    /* ── Titre ── */
-    #cp-{{ section.id }} .custom-popup__title {
-      color:       {{ section.settings.title_color }};
-      font-family: oldblue, sans-serif;
-      font-weight: 300;
-      font-style:  {{ heading_font.style }};
-      font-size:   {{ section.settings.heading_size }};
-    }
+      /* ── Image du haut ── */
+      #cp-{{ section.id }} .custom-popup__image img {
+        border-radius: {{ section.settings.image_top_radius }}px;
+        max-height:    {{ section.settings.image_top_height }}px;
+      }
 
-    /* ── Texte ── */
-    #cp-{{ section.id }} .custom-popup__text {
-      color:       {{ section.settings.text_color }};
-      font-family: Satoshi;
-      font-weight: {{ body_font.weight }};
-      font-size:   {{ section.settings.text_size }};
-    }
+      /* ── Titre ── */
+      #cp-{{ section.id }} .custom-popup__title {
+        color:       {{ section.settings.title_color }};
+        font-family: oldblue, sans-serif;
+        font-weight: 300;
+        font-style:  {{ heading_font.style }};
+        font-size:   {{ section.settings.heading_size }};
+      }
 
-    /* ── Bouton ── */
-    #cp-{{ section.id }} .custom-popup__btn {
-      background-color: rgba({{ btn_bg.red }}, {{ btn_bg.green }}, {{ btn_bg.blue }}, {{ btn_bg_opacity }});
-      color:            {{ section.settings.btn_text_color }};
-      border-radius:    {{ section.settings.btn_radius }}px;
-      width:            {{ section.settings.btn_width }};
-      padding:          {{ section.settings.btn_padding_v }}px {{ section.settings.btn_padding_h }}px;
-    }
+      /* ── Texte ── */
+      #cp-{{ section.id }} .custom-popup__text {
+        color:       {{ section.settings.text_color }};
+        font-family: Satoshi;
+        font-weight: {{ body_font.weight }};
+        font-size:   {{ section.settings.text_size }};
+      }
 
-    /* ── Image du bas ── */
-    #cp-{{ section.id }} .custom-popup__image-bottom img {
-      border-radius: {{ section.settings.image_bottom_radius }}px;
-      max-height:    {{ section.settings.image_bottom_height }}px;
-    }
+      /* ── Bouton ── */
+      #cp-{{ section.id }} .custom-popup__btn {
+        background-color: rgba({{ btn_bg.red }}, {{ btn_bg.green }}, {{ btn_bg.blue }}, {{ btn_bg_opacity }});
+        color:            {{ section.settings.btn_text_color }};
+        border-radius:    {{ section.settings.btn_radius }}px;
+        width:            {{ section.settings.btn_width }};
+        padding:          {{ section.settings.btn_padding_v }}px {{ section.settings.btn_padding_h }}px;
+      }
 
-    /* ── Croix de fermeture ── */
-    #cp-{{ section.id }} .custom-popup__close {
-      color: {{ section.settings.close_color }};
-    }
+      /* ── Image du bas ── */
+      #cp-{{ section.id }} .custom-popup__image-bottom img {
+        border-radius: {{ section.settings.image_bottom_radius }}px;
+        max-height:    {{ section.settings.image_bottom_height }}px;
+      }
 
-  {%- endstyle -%}
+      /* ── Croix de fermeture ── */
+      #cp-{{ section.id }} .custom-popup__close {
+        color: {{ section.settings.close_color }};
+      }
 
-  <custom-popup
-    id="cp-{{ section.id }}"
-    class="custom-popup {{ section.settings.position }}"
-    data-trigger="{{ section.settings.trigger }}"
-    data-delay="{{ section.settings.delay }}"
-    data-dismiss-days="{{ section.settings.dismiss_days }}"
-    data-show-on-mobile="{{ section.settings.show_on_mobile }}">
+    {%- endstyle -%}
 
-    <div class="custom-popup__overlay js-popup-overlay" aria-hidden="true"></div>
+    <custom-popup
+      id="cp-{{ section.id }}"
+      class="custom-popup {{ section.settings.position }}"
+      data-trigger="{{ section.settings.trigger }}"
+      data-delay="{{ section.settings.delay }}"
+      data-dismiss-days="{{ section.settings.dismiss_days }}"
+      data-show-on-mobile="{{ section.settings.show_on_mobile }}">
 
-    <div class="custom-popup__modal"
-         role="dialog"
-         aria-modal="true"
-         aria-labelledby="cp-title-{{ section.id }}"
-         tabindex="-1">
+      <div class="custom-popup__overlay js-popup-overlay" aria-hidden="true"></div>
 
-      <button type="button" class="custom-popup__close js-popup-close" aria-label="{{ 'accessibility.close' | t }}">
-        &times;
-      </button>
+      <div class="custom-popup__modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cp-title-{{ section.id }}"
+          tabindex="-1">
 
-      {%- if section.settings.image != blank -%}
-        <div class="custom-popup__image">
-          {{- section.settings.image | image_url: width: 1080 | image_tag:
-              loading: 'lazy',
-              alt: section.settings.image.alt | escape
-          -}}
+        <button type="button" class="custom-popup__close js-popup-close" aria-label="{{ 'accessibility.close' | t }}">
+          &times;
+        </button>
+
+        {%- if section.settings.image != blank -%}
+          <div class="custom-popup__image">
+            {{- section.settings.image | image_url: width: 1080 | image_tag:
+                loading: 'lazy',
+                alt: section.settings.image.alt | escape
+            -}}
+          </div>
+        {%- endif -%}
+
+        <div class="custom-popup__content">
+
+          {%- if title != blank -%}
+            <h2 class="custom-popup__title" id="cp-title-{{ section.id }}">
+              {{- title | escape -}}
+            </h2>
+          {%- endif -%}
+
+          {%- if text != blank -%}
+            <div class="custom-popup__text">
+              {{- text -}}
+            </div>
+          {%- endif -%}
+
+          {%- if btn_label != blank -%}
+            <div class="custom-popup__btn-wrap">
+              <a class="custom-popup__btn"
+                href="{{ section.settings.button_url | default: '#' }}"
+                {%- if section.settings.button_url != blank %} aria-label="{{ btn_label | escape }}"{% endif %}>
+                {{- btn_label | escape -}}
+              </a>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.bottom_text != blank -%}
+            <p class="custom-popup__bottom-text">{{ section.settings.bottom_text | escape }}</p>
+          {%- endif -%}
+
         </div>
-      {%- endif -%}
 
-      <div class="custom-popup__content">
-
-        {%- if title != blank -%}
-          <h2 class="custom-popup__title" id="cp-title-{{ section.id }}">
-            {{- title | escape -}}
-          </h2>
-        {%- endif -%}
-
-        {%- if text != blank -%}
-          <div class="custom-popup__text">
-            {{- text -}}
+        {%- if section.settings.image_bottom != blank -%}
+          <div class="custom-popup__image-bottom">
+            {{- section.settings.image_bottom | image_url: width: 800 | image_tag:
+                loading: 'lazy',
+                alt: section.settings.image_bottom.alt | escape
+            -}}
           </div>
-        {%- endif -%}
-
-        {%- if btn_label != blank -%}
-          <div class="custom-popup__btn-wrap">
-            <a class="custom-popup__btn"
-               href="{{ section.settings.button_url | default: '#' }}"
-               {%- if section.settings.button_url != blank %} aria-label="{{ btn_label | escape }}"{% endif %}>
-              {{- btn_label | escape -}}
-            </a>
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.bottom_text != blank -%}
-          <p class="custom-popup__bottom-text">{{ section.settings.bottom_text | escape }}</p>
         {%- endif -%}
 
       </div>
+    </custom-popup>
 
-      {%- if section.settings.image_bottom != blank -%}
-        <div class="custom-popup__image-bottom">
-          {{- section.settings.image_bottom | image_url: width: 800 | image_tag:
-              loading: 'lazy',
-              alt: section.settings.image_bottom.alt | escape
-          -}}
-        </div>
-      {%- endif -%}
+    {{ 'custom-popup.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'custom-popup.js' | asset_url }}" defer="defer"></script>
 
-    </div>
-  </custom-popup>
-
-  {{ 'custom-popup.css' | asset_url | stylesheet_tag }}
-  <script src="{{ 'custom-popup.js' | asset_url }}" defer="defer"></script>
-
-{%- endif -%}
-
+  {%- endif -%}
+{% endunless %}
 {% schema %}
 {
   "name": "Popup custom",
