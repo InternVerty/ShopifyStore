@@ -165,7 +165,6 @@
   .custom-popup {
     align-items: flex-end !important;
     justify-content: center !important;
-    padding: 0;
   }
 
   .custom-popup__modal {
