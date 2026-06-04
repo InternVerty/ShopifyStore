@@ -160,3 +160,9 @@
     padding: 28px 20px 24px;
   }
 }
+
+@media (max-width: 769px) {
+  .custom-popup {
+    width: 100%;
+  }
+}
