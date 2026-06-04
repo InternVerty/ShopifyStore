@@ -363,6 +363,38 @@
             "description": "Courte description du membre."
           }
         },
+        "member_eyi8XG": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
+            "name": "Claire",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_eyK4fK": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
+            "name": "Claire",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_DReTNr": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
+            "name": "Claire",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_wnJ9jm": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
+            "name": "Claire",
+            "description": "Courte description du membre."
+          }
+        },
         "member_7dXxN8": {
           "type": "member",
           "settings": {
@@ -383,15 +415,27 @@
             "name": "Prénom",
             "description": "Courte description du membre."
           }
+        },
+        "member_RP6YCA": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom",
+            "description": "Courte description du membre."
+          }
         }
       },
       "block_order": [
         "member_eNRCpb",
         "member_Q648fr",
         "member_nAHAnz",
+        "member_eyi8XG",
+        "member_eyK4fK",
+        "member_DReTNr",
+        "member_wnJ9jm",
         "member_7dXxN8",
         "member_MUXTaV",
-        "member_dfbRAy"
+        "member_dfbRAy",
+        "member_RP6YCA"
       ],
       "name": "Comité carousel",
       "settings": {
