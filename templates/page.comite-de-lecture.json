@@ -342,85 +342,97 @@
         "member_eNRCpb": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Les-Quatre-Aventuriers-Tome-8.jpg",
-            "name": "Robin",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Anne-Laure.png",
+            "name": "Anne-Laure",
+            "description": "Fondatrice de l'Académie d'Erudio, Anne-Laure a une passion: transmettre le goût de la lecture aux enfants."
           }
         },
         "member_Q648fr": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Les-Quatre-Aventuriers-Tome-9.jpg",
-            "name": "Fleur",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Camille.png",
+            "name": "Camille",
+            "description": "Juriste engagée, Camille met sa passion pour la lecture au service du comité, avec un enthousiasme précieux."
           }
         },
         "member_nAHAnz": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
-            "name": "Claire",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Evelyne.png",
+            "name": "Evelyne",
+            "description": "Evelyne porte le projet Verty depuis ses débuts et nous apporte un regard critique aiguis."
           }
         },
         "member_eyi8XG": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
-            "name": "Claire",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Isabelle.png",
+            "name": "Isabelle",
+            "description": "Isabelle explore avec gourmandise l'univers des albums, pour éveiller à la beauté des livres."
           }
         },
         "member_eyK4fK": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
-            "name": "Claire",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Amandine.png",
+            "name": "Amandine",
+            "description": "Amandine porte un regard pointu et bienveillant sur les ouvrages qu'elle lit et aime partager ses coups de coeurs."
           }
         },
         "member_DReTNr": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
-            "name": "Claire",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Amicie.png",
+            "name": "Amicie",
+            "description": "Amicie s'attache à transmettre le beau et le vrai à travers son travail dans l'éducation."
           }
         },
         "member_wnJ9jm": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
-            "name": "Claire",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Marie.png",
+            "name": "Marie",
+            "description": "Marie dévore les livres et partage ses chroniques littéraires sur @bibliotheque.de.famille"
           }
         },
         "member_7dXxN8": {
           "type": "member",
           "settings": {
-            "name": "Prénom",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Charlotte.png",
+            "name": "Charlotte",
+            "description": "Charlotte est avide lectrice et administratrice du Club des Incorrigibles Petits Lecteurs sur Facebook."
           }
         },
         "member_MUXTaV": {
           "type": "member",
           "settings": {
-            "name": "Prénom",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Claire.png",
+            "name": "Claire",
+            "description": "Directrice Marketing, Claire est convaincue qu'il faut choisir avec soin les livres proposés aux enfants."
           }
         },
         "member_dfbRAy": {
           "type": "member",
           "settings": {
-            "name": "Prénom",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Marie-Clemence.png",
+            "name": "Marie-Clémence",
+            "description": "Directrice stratégique, Marie-Clémence s'investit avec coeur et engagement dans l'aventure."
           }
         },
         "member_RP6YCA": {
           "type": "member",
           "settings": {
-            "name": "Prénom",
-            "description": "Courte description du membre."
+            "image": "shopify://shop_images/Anne-Marie.png",
+            "name": "Anne-Marie",
+            "description": "Bibliothécaire hors pair, l'expertise d'Anne-Marie est un vrai atout pour notre communauté."
+          }
+        },
+        "member_WC9Ptc": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Marguerite.png",
+            "name": "Marguerite",
+            "description": "Lectrice passionnée et professeur d'histoire Marguerite nous partage son amour des livres."
           }
         }
       },
@@ -435,7 +447,8 @@
         "member_7dXxN8",
         "member_MUXTaV",
         "member_dfbRAy",
-        "member_RP6YCA"
+        "member_RP6YCA",
+        "member_WC9Ptc"
       ],
       "name": "Comité carousel",
       "settings": {
