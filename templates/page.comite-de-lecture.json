@@ -439,7 +439,7 @@
       ],
       "name": "Comité carousel",
       "settings": {
-        "heading": "Notre comité",
+        "heading": "",
         "slides_per_view_desktop": 6,
         "slides_per_view_tablet": 3
       }
