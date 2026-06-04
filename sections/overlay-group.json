@@ -100,7 +100,6 @@
     },
     "custom_popup_9xHUp3": {
       "type": "custom-popup",
-      "disabled": true,
       "custom_css": [
         "h2 {font-family: oldblue, sans-serif;}"
       ],
@@ -140,7 +139,8 @@
         "border_color": "#97e8c7",
         "border_width": 2,
         "modal_radius": 8,
-        "close_color": "#111111"
+        "close_color": "#111111",
+        "to_exclude": "la-selection-vert"
       }
     }
   },
