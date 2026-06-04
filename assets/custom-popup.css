@@ -161,9 +161,16 @@
   }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .custom-popup {
-    max-height: 40%;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0;
+  }
+
+  .custom-popup__modal {
     width: 100%;
+    max-width: 100% !important;
+    max-height: 85vh;
   }
 }
