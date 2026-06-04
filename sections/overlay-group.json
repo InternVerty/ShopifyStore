@@ -140,7 +140,7 @@
         "border_width": 2,
         "modal_radius": 8,
         "close_color": "#111111",
-        "to_exclude": "la-selection-vert"
+        "to_exclude": "la-selection-verty, le-comite-de-lecture-verty"
       }
     }
   },
