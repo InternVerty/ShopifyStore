@@ -25,6 +25,9 @@
   gap: 10px;
   width: 100%;
   max-width: 210px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+  border-radius: 12px;
+  padding-bottom: 12px;
 }
 
 .comite-card__image-wrapper {
