@@ -336,71 +336,68 @@
         "prevent_animation": true
       }
     },
-    "slideshow_WKHAWR": {
-      "type": "slideshow",
+    "custom_comite_carousel_ak4Wta": {
+      "type": "custom-comite-carousel",
       "blocks": {
-        "slide_GUNANK": {
-          "type": "slide",
-          "disabled": true,
+        "member_eNRCpb": {
+          "type": "member",
           "settings": {
-            "image_desktop": "shopify://shop_images/CDL_illustration_3.png",
-            "url": "",
-            "overlay_position": "justify-center items-center",
-            "overlay_text_align": "text-center",
-            "mob_center_text": false,
-            "subheading": "",
-            "heading": "",
-            "heading_size": "h0",
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_1_label": "",
-            "button_1_link": "",
-            "button_1_style": "btn btn--primary",
-            "button_2_label": "",
-            "button_2_link": "",
-            "button_2_style": "btn btn--primary",
-            "transparent_content_color": "#ffffff",
-            "countdown_show": false,
-            "countdown_end_date": "",
-            "countdown_end_time": "",
-            "countdown_end_text": "",
-            "enlarge_end_text": false,
-            "countdown_hide_on_end": false,
-            "use_custom_colors": false,
-            "count_color": "#ffffff",
-            "bg_color": "#ffffff",
-            "bg_grad": ""
+            "image": "shopify://shop_images/Les-Quatre-Aventuriers-Tome-8.jpg",
+            "name": "Robin",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_Q648fr": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Les-Quatre-Aventuriers-Tome-9.jpg",
+            "name": "Fleur",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_nAHAnz": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Le-tresor-du-chateau-irlandais.jpg",
+            "name": "Claire",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_7dXxN8": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_MUXTaV": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom",
+            "description": "Courte description du membre."
+          }
+        },
+        "member_dfbRAy": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom",
+            "description": "Courte description du membre."
           }
         }
       },
       "block_order": [
-        "slide_GUNANK"
+        "member_eNRCpb",
+        "member_Q648fr",
+        "member_nAHAnz",
+        "member_7dXxN8",
+        "member_MUXTaV",
+        "member_dfbRAy"
       ],
-      "custom_css": [
-        "slide-show {padding-bottom: 50px; margin-top: -50px;}",
-        ".slideshow__slide img {object-fit: contain !important; /* ou 'cover' selon ton besoin */}",
-        ".slideshow-nav {transform: translateY(30px); color: black;}"
-      ],
-      "name": "Carrousel d'images",
+      "name": "Comité carousel",
       "settings": {
-        "height_mode": "auto",
-        "fixed_height_desktop": 400,
-        "fixed_height_mobile": 500,
-        "mobile_stacked": false,
-        "nav_style": "arrows",
-        "pagination_color": "#ffffff",
-        "nav_position": "justify-center",
-        "transition": "fade",
-        "autoplay": false,
-        "slider_pause": false,
-        "autoplay_speed": 5,
-        "color_scheme": "white",
-        "full_width": false,
-        "tint_color": "rgba(0,0,0,0)",
-        "tint_opacity": 0,
-        "accessibility_info": "",
-        "prevent_animation": true
+        "heading": "Notre comité",
+        "slides_per_view_desktop": 6,
+        "slides_per_view_tablet": 3
       }
     },
     "custom_text_block_QRFWwC": {
@@ -680,7 +677,7 @@
     "custom_text_block_3Etnaa",
     "custom_text_block_Xi4Dnz",
     "slideshow_7Xqgwn",
-    "slideshow_WKHAWR",
+    "custom_comite_carousel_ak4Wta",
     "custom_text_block_QRFWwC",
     "custom_text_block_8jYQAn",
     "contact_form_HdGizK",
