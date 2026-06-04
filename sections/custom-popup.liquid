@@ -21,6 +21,7 @@
   assign custom_font = section.settings.font_family_custom
 -%}
 
+{% if  %}
 {%- if title != blank or text != blank or btn_label != blank -%}
 
   {{- heading_font | font_face -}}
@@ -500,6 +501,16 @@
       "id": "close_color",
       "label": "Couleur de la croix de fermeture",
       "default": "#111111"
+    },
+
+    {
+      "type": "header",
+      "content": "Paramètre d'affichage"
+    },
+    {
+      "type": "text",
+      "id": "to_exclude",
+      "label": "Handle des pages sur lesquels le popup ne s'affiche pas"
     }
 
   ],
