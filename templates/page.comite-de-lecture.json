@@ -434,6 +434,54 @@
             "name": "Marguerite",
             "description": "Lectrice passionnée et professeur d'histoire Marguerite nous partage son amour des livres."
           }
+        },
+        "member_FUeXmr": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Louise.png",
+            "name": "Louise",
+            "description": "Sur @petitesphrasesaleurdire, Louise partage des mots bienveillants pour aider les enfants à grandir en confiance."
+          }
+        },
+        "member_LHzQqm": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Ariane.png",
+            "name": "Ariane",
+            "description": "Ariane, responsable des affaires sociales, aime fouiner dans les rayons jeunesse des librairies depuis toujours."
+          }
+        },
+        "member_NBxnbr": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Eleonore.png",
+            "name": "Eleonore",
+            "description": "Eleonore, professeure de français, a à coeur de transmettre le goût de la lecture au collégiens."
+          }
+        },
+        "member_x4DhTU": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Sybille.png",
+            "name": "Sybille",
+            "description": "Institutrice en CP, Sybille a à coeur de transmettre le goût de la lecture aux enfatns dès le plus jeune âge."
+          }
+        },
+        "member_tjkQV3": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Anne.png",
+            "name": "Anne",
+            "description": "Institutrice à la retraite, Anne sème chaque jour l'amour des livres à ses petits-enfants."
+          }
+        },
+        "member_6gbpkN": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Nolwenn.png",
+            "name": "Nolwenn",
+            "description": "Enseignante en culture générale, Nolwenn partage ses chroniques littéraires sur @4petitslecteurs"
+          }
         }
       },
       "block_order": [
@@ -448,7 +496,13 @@
         "member_MUXTaV",
         "member_dfbRAy",
         "member_RP6YCA",
-        "member_WC9Ptc"
+        "member_WC9Ptc",
+        "member_FUeXmr",
+        "member_LHzQqm",
+        "member_NBxnbr",
+        "member_x4DhTU",
+        "member_tjkQV3",
+        "member_6gbpkN"
       ],
       "name": "Comité carousel",
       "settings": {
