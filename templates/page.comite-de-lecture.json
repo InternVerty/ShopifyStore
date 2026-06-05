@@ -310,6 +310,7 @@
         "slide_YDmyg7",
         "slide_teGMDd"
       ],
+      "disabled": true,
       "custom_css": [
         "slide-show {padding-bottom: 50px; margin-top: -50px;}",
         ".slideshow__slide img {object-fit: contain !important; /* ou 'cover' selon ton besoin */}",
