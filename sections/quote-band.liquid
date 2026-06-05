@@ -1,0 +1,116 @@
+<style>
+  .qb-band-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Ubuntu', system-ui, sans-serif;
+  }
+
+  .qb-band-{{ section.id }} .qb-classic {
+    border-left: 4px solid {{ section.settings.accent_color }};
+    padding: 4px 0 4px 32px;
+    margin: 16px 40px;
+    max-width: 600px;
+  }
+
+  .qb-band-{{ section.id }} .qb-text {
+    font-size: 26px;
+    line-height: 38px;
+    color: #182233;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .qb-band-{{ section.id }} .qb-cite {
+    display: block;
+    font-size: 16px;
+    line-height: 24px;
+    color: #6B7280;
+    margin-top: 22px;
+    letter-spacing: -0.01em;
+  }
+
+  .qb-band-{{ section.id }} .qb-name {
+    font-weight: 700;
+    color: #182233;
+  }
+</style>
+
+<section class="qb-band-{{ section.id }}">
+  <figure class="qb qb-classic">
+    <p class="qb-text">{{ section.settings.quote }}</p>
+    <figcaption class="qb-cite">
+      <span class="qb-name">{{ section.settings.author }}</span>
+      {%- if section.settings.attribution != blank -%}
+        , {{ section.settings.attribution }}
+      {%- endif -%}
+    </figcaption>
+  </figure>
+</section>
+
+{% schema %}
+{
+  "name": "Quote Band",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away."
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Author",
+      "default": "Antoine de Saint-Exupéry"
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "Attribution",
+      "info": "Optional — e.g. book title, role, or company",
+      "default": "Terre des Hommes"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#8FCDBF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quote Band"
+    }
+  ]
+}
+{% endschema %}
