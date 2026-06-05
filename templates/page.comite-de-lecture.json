@@ -482,6 +482,54 @@
             "name": "Nolwenn",
             "description": "Enseignante en culture générale, Nolwenn partage ses chroniques littéraires sur @4petitslecteurs"
           }
+        },
+        "member_temmyX": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/SansPhoto.png",
+            "name": "Béatrix",
+            "description": "Ancienne libraire et passionnée de littérature jeunesse, Béatrix apporte son expertise au comité."
+          }
+        },
+        "member_cBLwni": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/SansPhoto.png",
+            "name": "Bérangère",
+            "description": "Médecin généraliste, Bérangère est convaincue que l'éveil à la lecture dès le plus jeune âge est essentiel au développement de l'enfant."
+          }
+        },
+        "member_7A7yzn": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/SansPhoto.png",
+            "name": "Coralile",
+            "description": "Coralie anime des lectures à voix haute et fait découvrir des albums aux petits comme aux grands en médiathèque"
+          }
+        },
+        "member_9Ygebh": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/SansPhoto.png",
+            "name": "Marine",
+            "description": "Fondatrice de la Manufacture du Miel, Marine est convaincue que la belle littérature aide les enfants à élever leur âme."
+          }
+        },
+        "member_LxU76y": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/SansPhoto.png",
+            "name": "Domitille",
+            "description": "Domitille, ancienne institutrice, met son expérience et sa passion pour la litterature jeunesse au service du comité."
+          }
+        },
+        "member_MHqbMP": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/vous.png",
+            "name": "Vous ?",
+            "description": "Vous êtes passionné de littérature jeunesse et souhaitez faire partie de l'aventure ? Ecrivez-nous !"
+          }
         }
       },
       "block_order": [
@@ -502,7 +550,13 @@
         "member_NBxnbr",
         "member_x4DhTU",
         "member_tjkQV3",
-        "member_6gbpkN"
+        "member_6gbpkN",
+        "member_temmyX",
+        "member_cBLwni",
+        "member_7A7yzn",
+        "member_9Ygebh",
+        "member_LxU76y",
+        "member_MHqbMP"
       ],
       "name": "Comité carousel",
       "settings": {
