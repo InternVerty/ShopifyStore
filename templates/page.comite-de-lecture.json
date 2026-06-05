@@ -96,6 +96,19 @@
         "p_margin_bottom": "20"
       }
     },
+    "quote_band_HHxpkJ": {
+      "type": "quote-band",
+      "name": "Quote Band",
+      "settings": {
+        "quote": "Tout livre qui aide un enfant à prendre l'habitude de lire, à faire de la lecture l'un de ses besoins profonds et continus, est bon pour lui.",
+        "author": "Françoise Dolto",
+        "attribution": "",
+        "background_color": "#ffffff",
+        "accent_color": "#8FCDBF",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "testimonials_FVR39B": {
       "type": "testimonials",
       "blocks": {
@@ -839,6 +852,7 @@
     "main",
     "c16b20e3-3d90-4f09-85ff-0df1870358a1",
     "custom_text_block_ax9PUW",
+    "quote_band_HHxpkJ",
     "testimonials_FVR39B",
     "custom_text_block_3Etnaa",
     "custom_text_block_Xi4Dnz",
