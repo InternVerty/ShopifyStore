@@ -165,7 +165,7 @@
 
         {%- if section.settings.show_view_all -%}
           <a href="{% if section.settings.use_anchor_for_view_all %}#ancre-tout-voir{% else %}{{ collection.url }}{% endif %}" 
-          class="link vbtn-ghost">
+          class="link vbtn vbtn-ghost">
           {{ 'sections.featured_collection.view_all' | t }}
           </a>
         {%- endif -%}
