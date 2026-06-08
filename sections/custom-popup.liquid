@@ -65,6 +65,7 @@
 
       /* ── Bouton ── */
       #cp-{{ section.id }} .custom-popup__btn {
+        background-color: rgba({{ btn_bg.red }}, {{ btn_bg.green }}, {{ btn_bg.blue }}, {{ btn_bg_opacity }});
         color:            {{ section.settings.btn_text_color }};
         border-radius:    {{ section.settings.btn_radius }}px;
         width:            {{ section.settings.btn_width }};
@@ -388,22 +389,6 @@
       "max": 60,
       "step": 2,
       "unit": "px"
-    },
-    {
-      "type": "color",
-      "id": "btn_bg_color",
-      "label": "Couleur du fond",
-      "default": "#111111"
-    },
-    {
-      "type": "range",
-      "id": "btn_bg_opacity",
-      "label": "Opacité du fond",
-      "default": 100,
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%"
     },
     {
       "type": "color",
