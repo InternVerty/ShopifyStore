@@ -734,7 +734,7 @@
           "settings": {
             "button_label": "En savoir plus",
             "button_link": "shopify://pages/a-propos",
-            "button_style": "btn btn--primary"
+            "button_style": "btn btn--secondary"
           }
         }
       },
