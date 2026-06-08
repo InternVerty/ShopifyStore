@@ -10,7 +10,8 @@
   {{ 'text-overlay.css' | asset_url | stylesheet_tag }}
   {{ 'quick-nav.css' | asset_url | stylesheet_tag }}
   {{ 'quick-nav-large.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
+  {{ 'buttons.css' | asset_url | stylesheet_tag }}
+{%- endif -%} 
 
 <script src="{{ 'quick-nav.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'custom-select.js' | asset_url }}" defer="defer"></script>
