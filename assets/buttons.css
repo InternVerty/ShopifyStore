@@ -1,0 +1,99 @@
+/* ============================================================
+   Verty — Button system
+   Derived from the topic-chip style: pale mint fill, fine green
+   border, dark-green label, soft pill radius. One family, with
+   variants / sizes / states so the whole site can be uniform.
+   ============================================================ */
+
+:root {
+  /* greens tuned to the chip in the reference */
+  --btn-green-ink:    #1C7A52;   /* label / dark green        */
+  --btn-green-ink-2:  #15633F;   /* hover label               */
+  --btn-fill:         #DCF5EB;   /* pale mint fill            */
+  --btn-fill-hover:   #C8EFDD;   /* hover fill                */
+  --btn-fill-active:  #B6E8D0;   /* pressed fill              */
+  --btn-border:       #A6E3C8;   /* fine green border         */
+  --btn-border-hover: #7FD6B2;
+  --btn-solid:        #97E8C7;   /* solid (Vert) primary      */
+  --btn-solid-hover:  #84E0BB;
+  --btn-solid-active: #6FD7AD;
+  --btn-focus-ring:   rgba(143,205,191,.55);
+}
+
+/* ---- base -------------------------------------------------- */
+.vbtn {
+  font-family: var(--verty-font, 'Ubuntu', sans-serif);
+  letter-spacing: var(--verty-track, -0.01em);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 9px;
+  padding: 15px 26px;
+  border-radius: 16px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .16s ease, border-color .16s ease,
+              color .16s ease, box-shadow .16s ease, transform .06s ease;
+}
+.vbtn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--btn-focus-ring); }
+.vbtn:active { transform: translateY(1px); }
+.vbtn .vbtn-ico { width: 18px; height: 18px; display: block; flex: 0 0 auto; }
+
+/* ---- variant: SECONDARY (the reference chip — default tag) - */
+.vbtn-secondary {
+  background: var(--btn-fill);
+  border-color: var(--btn-border);
+  color: var(--btn-green-ink);
+}
+.vbtn-secondary:hover { background: var(--btn-fill-hover); border-color: var(--btn-border-hover); color: var(--btn-green-ink-2); }
+.vbtn-secondary:active { background: var(--btn-fill-active); }
+
+/* ---- variant: PRIMARY (solid mint, for the main CTA) ------- */
+.vbtn-primary {
+  background: var(--btn-solid);
+  border-color: var(--btn-solid);
+  color: #0E3A28;
+}
+.vbtn-primary:hover { background: var(--btn-solid-hover); border-color: var(--btn-solid-hover); box-shadow: 0 8px 20px rgba(111,215,173,.45); }
+.vbtn-primary:active { background: var(--btn-solid-active); border-color: var(--btn-solid-active); box-shadow: none; }
+
+/* ---- variant: GHOST (no fill, quiet link-button) ---------- */
+.vbtn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--btn-green-ink);
+}
+.vbtn-ghost:hover { background: var(--btn-fill); color: var(--btn-green-ink-2); }
+.vbtn-ghost:active { background: var(--btn-fill-hover); }
+
+/* ---- variant: OUTLINE (border only) ----------------------- */
+.vbtn-outline {
+  background: transparent;
+  border-color: var(--btn-border);
+  color: var(--btn-green-ink);
+}
+.vbtn-outline:hover { background: var(--btn-fill); border-color: var(--btn-border-hover); color: var(--btn-green-ink-2); }
+.vbtn-outline:active { background: var(--btn-fill-hover); }
+
+/* ---- sizes ------------------------------------------------- */
+.vbtn-sm { font-size: 15px; padding: 10px 18px; border-radius: 13px; gap: 7px; }
+.vbtn-sm .vbtn-ico { width: 16px; height: 16px; }
+.vbtn-lg { font-size: 19px; padding: 18px 32px; border-radius: 18px; gap: 11px; }
+.vbtn-lg .vbtn-ico { width: 20px; height: 20px; }
+
+/* ---- shapes ------------------------------------------------ */
+.vbtn-pill { border-radius: 999px; }
+.vbtn-block { display: flex; width: 100%; }
+.vbtn-icononly { padding: 14px; border-radius: 14px; }
+.vbtn-icononly.vbtn-sm { padding: 10px; }
+.vbtn-icononly.vbtn-lg { padding: 17px; }
+
+/* ---- disabled --------------------------------------------- */
+.vbtn:disabled, .vbtn[aria-disabled="true"] {
+  cursor: not-allowed; opacity: 1; transform: none; box-shadow: none;
+  background: #EEF2F0; border-color: #E0E7E3; color: #9FB1A8;
+}
