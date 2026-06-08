@@ -65,7 +65,6 @@
 
       /* ── Bouton ── */
       #cp-{{ section.id }} .custom-popup__btn {
-        background-color: rgba({{ btn_bg.red }}, {{ btn_bg.green }}, {{ btn_bg.blue }}, {{ btn_bg_opacity }});
         color:            {{ section.settings.btn_text_color }};
         border-radius:    {{ section.settings.btn_radius }}px;
         width:            {{ section.settings.btn_width }};
@@ -130,7 +129,7 @@
 
           {%- if btn_label != blank -%}
             <div class="custom-popup__btn-wrap">
-              <a class="vbtn vbtn-primary"
+              <a class="vbtn vbtn-primary custom-popup__btn"
                 href="{{ section.settings.button_url | default: '#' }}"
                 {%- if section.settings.button_url != blank %} aria-label="{{ btn_label | escape }}"{% endif %}>
                 {{- btn_label | escape -}}
