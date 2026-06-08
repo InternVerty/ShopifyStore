@@ -35,6 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   {%- render 'doc-head-core' -%}
   {%- render 'doc-head-social' -%}
 
+  <link rel="preload" href="{{ 'buttons.css' | asset_url }}" as="style">
   <link rel="preload" href="{{ 'main.css' | asset_url }}" as="style">
 
   {%- style %}
@@ -263,6 +264,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   {% endstyle -%}
 
+  <link rel="stylesheet" href="{{ 'buttons.css' | asset_url }}">
   <link rel="stylesheet" href="{{ 'main.css' | asset_url }}">
   <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
   {% liquid
