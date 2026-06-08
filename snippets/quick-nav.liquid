@@ -45,7 +45,7 @@
 
 {%- if menu != blank -%}
   <quick-nav class="quick-nav no-js-hidden p-8{% if color_scheme == 'default' %} panel{% else %} color-scheme color-scheme--{{ color_scheme }}{% endif %}"{% if show_price == true %} data-show-price="true"{% endif %}{% if animate %} data-cc-animate{% endif %}>
-    {% if title %}<p class="quick-nav__heading h5 text-center mb-6">{{ title }}</p>{% endif %}
+    {% if title %}<p class="vbtn vbtn-secondary quick-nav__heading h5 text-center mb-6">{{ title }}</p>{% endif %}
     {%- liquid
       render 'quick-nav-select', component_id: component_id, menu: menu, use_product_image: use_product_image, level: 1, display: menu_1_display, boxed: menu_1_boxed, default_text: menu_1_text, image_ratio: image_ratio, image_fit: image_fit
       render 'quick-nav-select', component_id: component_id, menu: menu, use_product_image: use_product_image, level: 2, display: menu_2_display, boxed: menu_2_boxed, default_text: menu_2_text, image_ratio: image_ratio, image_fit: image_fit
