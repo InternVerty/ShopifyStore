@@ -38,7 +38,7 @@
           data-url="{{ link.url }}"
           {% if is_collection %}data-is-collection="true"{% endif %}
           {% if display == "image" %} aria-label="{{ link.title | escape }}"{% endif %}>
-        <span class="btn btn-secondary quick-nav__option-content flex items-center pointer-events-none{% if display == "image" %} justify-center{% endif %}">
+        <span class="quick-nav__option-content flex items-center pointer-events-none{% if display == "image" %} justify-center{% endif %}">
           {%- if display contains "image" -%}
             {%- liquid
               if use_product_image and is_collection
