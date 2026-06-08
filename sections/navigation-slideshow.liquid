@@ -237,7 +237,7 @@
     {%- if section.blocks.size > 1 -%}
       <div class="slideshow-ctrl container absolute flex justify-center w-full pointer-events-none no-js-hidden">
         {%- if section.settings.nav_style == 'slideshow_nav_dots' or section.settings.nav_style == 'slideshow_nav_lines' -%}
-          <div class="slideshow-pagination flex items-center">
+          <div class="slideshow-pagination flex items-center vbtn vbtn-secondary">
             {%- for block in section.blocks -%}
               <button class="page-btn" data-index="{{ forloop.index0 }}" aria-controls="slideshow-{{ section.id }}"{% if forloop.first %} aria-current="true"{% endif %}>
                 <span class="visually-hidden">{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}</span>
