@@ -100,6 +100,7 @@
     },
     "custom_popup_9xHUp3": {
       "type": "custom-popup",
+      "disabled": true,
       "custom_css": [
         "h2 {font-family: oldblue, sans-serif;}"
       ],
@@ -124,11 +125,8 @@
         "button_label": "Je découvre",
         "button_url": "shopify://pages/la-selection-verty",
         "btn_width": "100%",
-        "btn_radius": 50,
         "btn_padding_v": 13,
         "btn_padding_h": 28,
-        "btn_bg_color": "#97e8c7",
-        "btn_bg_opacity": 100,
         "btn_text_color": "#2a2b2a",
         "image_bottom": "shopify://shop_images/hero-banner-abonnement.png",
         "image_bottom_height": 130,
