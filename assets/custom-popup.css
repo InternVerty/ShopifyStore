@@ -111,13 +111,18 @@
 .custom-popup__btn-wrap {
   text-align: center;
 }
-
+/*
 .custom-popup__btn {
   display: inline-block;
+  padding: 13px 28px; /* valeur par défaut — écrasée par le schéma Shopify 
+  text-decoration: none;
   cursor: pointer;
   border: none;
   font-weight: 600;
   letter-spacing: 0.02em;
+  transition: opacity 0.18s;
+  line-height: 1;
+  box-sizing: border-box;
   text-align: center;
 }
 
