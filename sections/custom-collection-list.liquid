@@ -2,6 +2,7 @@
   <link rel="stylesheet" href="{{ 'featured-collection.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- else -%}
   {{ 'featured-collection.css' | asset_url | stylesheet_tag }}
+  {{ 'buttons.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 
 {%- if settings.enable_quick_add -%}
