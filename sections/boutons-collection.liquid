@@ -22,12 +22,6 @@
   "default": "#f5faf9"
     },
     {
-  "type": "color",
-  "id": "button_color",
-  "label": "Couleur des boutons",
-  "default": "#8fcdbf"
-    },
-    {
   "type": "range",
   "id": "margin_top",
   "label": "Marge supérieure",
@@ -89,7 +83,7 @@
         {% if block.settings.button_link %}
           <a 
             href="{{ block.settings.button_link.url }}" 
-            class="vbtn bvtn-secondary"
+            class="vbtn vbtn-secondary"
           >
             {{ block.settings.button_label }}
           </a>
