@@ -117,7 +117,7 @@
         "link_url": "{{ section.settings.collection.url }}",
         "button_label": "Voir toute la collection",
         "color_scheme": "none",
-        "button_style": "btn btn--primary"
+        "button_style": "btn btn--secondary"
       }
     },
     "custom_collection_chosen_qDQBjg": {
