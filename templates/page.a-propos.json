@@ -524,7 +524,7 @@
       ],
       "name": "Partenaire des libraires",
       "settings": {
-        "image": "shopify://shop_images/image_librairie.jpg",
+        "image": "shopify://shop_images/verty-visite-laprocure.jpg",
         "video_external": "",
         "video_description": "",
         "video_autoplay": false,
@@ -834,7 +834,6 @@
         "heading": "Trouvez le livre idéal pour votre enfant à partir de son âge",
         "description": "",
         "background_color": "#f5faf9",
-        "button_color": "#8fcdbf",
         "margin_top": 0,
         "margin_bottom": 40
       }
