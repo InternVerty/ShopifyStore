@@ -104,7 +104,7 @@
         "author": "Françoise Dolto",
         "attribution": "",
         "background_color": "#ffffff",
-        "accent_color": "#8FCDBF",
+        "accent_color": "#8fcdbf",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -837,12 +837,12 @@
         "button_dcH7Mz",
         "button_DKtjXW"
       ],
+      "disabled": true,
       "name": "Exploration par age",
       "settings": {
         "heading": "Trouvez le livre idéal pour votre enfant selon son âge",
         "description": "",
         "background_color": "#f5faf9",
-        "button_color": "#8fcdbf",
         "margin_top": 50,
         "margin_bottom": 0
       }
