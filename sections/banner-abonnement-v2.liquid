@@ -46,14 +46,9 @@
       {%- endif -%}
 
       {%- if section.settings.btn_label != blank -%}
-        <a href="{{ section.settings.btn_url }}" class="hb__btn" style="
-          background-color: {{ section.settings.btn_bg }};
-          color: {{ section.settings.btn_color }};
-          border: {{ section.settings.btn_border_width }}px solid {{ section.settings.btn_border_color }};
-          border-radius: {{ section.settings.btn_radius }}px;
+        <a href="{{ section.settings.btn_url }}" class="hb__btn vbtn vbtn-secondary" style="
           font-size: {{ section.settings.btn_font_size }}px;
           font-weight: {{ section.settings.btn_weight }};
-          padding: {{ section.settings.btn_pad_v }}px {{ section.settings.btn_pad_h }}px;
           min-width: {{ section.settings.btn_min_width }}px;
         ">{{ section.settings.btn_label }}</a>
       {%- endif -%}
