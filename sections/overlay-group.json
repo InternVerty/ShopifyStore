@@ -100,6 +100,7 @@
     },
     "custom_popup_9xHUp3": {
       "type": "custom-popup",
+      "disabled": true,
       "custom_css": [
         "h2 {font-family: oldblue, sans-serif;}"
       ],
