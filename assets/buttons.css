@@ -82,7 +82,7 @@
 
 /* ---- sizes ------------------------------------------------- */
 .vbtn-sm { font-size: 15px; padding: clamp(8px, 1.5vw, 10px) clamp(14px, 2.5vw, 18px); border-radius: 13px; gap: 7px; }
-.vbtn-sm .vbtn-ico { width: 16px; height: 16px; }
+.vbtn-sm .vbtn-ico { width: 12px; height: 12px; }
 .vbtn-lg { font-size: 19px; padding: clamp(14px, 2.5vw, 18px) clamp(22px, 4vw, 32px); border-radius: 18px; gap: 11px; }
 .vbtn-lg .vbtn-ico { width: 20px; height: 20px; }
 
