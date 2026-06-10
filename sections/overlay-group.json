@@ -100,7 +100,6 @@
     },
     "custom_popup_9xHUp3": {
       "type": "custom-popup",
-      "disabled": true,
       "custom_css": [
         "h2 {font-family: oldblue, sans-serif;}"
       ],
@@ -115,7 +114,7 @@
         "image": "shopify://shop_images/Logo-Verty.svg",
         "image_top_height": 40,
         "image_top_radius": 0,
-        "title": "Découvrez la Sélection personnalisée",
+        "title": "Découvrez la Sélection Personnalisée",
         "title_color": "#6ecfb5",
         "heading_size": "28px",
         "text": "<p>Chaque mois,<br/>des <strong>livres qui nourrissent </strong>votre enfant, des ouvrages sélectionnés selon son âge, ses goûts, son niveau.</p>",
