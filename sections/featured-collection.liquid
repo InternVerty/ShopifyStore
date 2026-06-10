@@ -292,7 +292,7 @@
 
             {%- if settings.slider_show_arrows != 'never' -%}
               <div class="slider-nav absolute top-middle end {% if settings.slider_show_arrows == 'hover' %}slider-nav--show-on-hover no-hover-hidden {% endif %}hidden md:block no-js-hidden">
-                <button type="button" class="slider-nav__btn tap-target btn {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="slider-{{ section.id }}">
+                <button type="button" class="slider-nav__btn tap-target vbtn vbtn-secondary vbtn-icononly {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="slider-{{ section.id }}">
                   <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
                   {% render 'icon-chevron-right' %}
                 </button>
