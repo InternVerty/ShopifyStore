@@ -165,7 +165,7 @@
 
         {%- if section.settings.show_view_all -%}
           <a href="{% if section.settings.use_anchor_for_view_all %}#ancre-tout-voir{% else %}{{ collection.url }}{% endif %}" 
-          class="link vbtn vbtn-ghost vbtn-pill">
+          class="link vbtn vbtn-ghost ">
           {{ 'sections.featured_collection.view_all' | t }}
           </a>
         {%- endif -%}
@@ -292,11 +292,11 @@
 
             {%- if settings.slider_show_arrows != 'never' -%}
               <div class="slider-nav absolute top-middle end {% if settings.slider_show_arrows == 'hover' %}slider-nav--show-on-hover no-hover-hidden {% endif %}hidden md:block no-js-hidden">
-                <button type="button" class="slider-nav__btn tap-target btn vbtn-secondary {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="slider-{{ section.id }}">
+                <button type="button" class="slider-nav__btn tap-target btn vbtn-secondary vbtn-pill {{ settings.slider_button_style }} has-ltr-icon" name="next" aria-controls="slider-{{ section.id }}">
                   <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
                   {% render 'icon-chevron-right' %}
                 </button>
-                <button type="button" class="slider-nav__btn tap-target btn vbtn-secondary {{ settings.slider_button_style }} has-ltr-icon" name="prev" aria-controls="slider-{{ section.id }}">
+                <button type="button" class="slider-nav__btn tap-target btn vbtn-secondary vbtn-pill {{ settings.slider_button_style }} has-ltr-icon" name="prev" aria-controls="slider-{{ section.id }}">
                   <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
                   {% render 'icon-chevron-left' %}
                 </button>
