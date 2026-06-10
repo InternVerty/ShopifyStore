@@ -97,3 +97,13 @@
   cursor: not-allowed; opacity: 1; transform: none; box-shadow: none;
   background: #EEF2F0; border-color: #E0E7E3; color: #9FB1A8;
 }
+
+/* ---- mobile ----------------------------------------------- */
+@media (max-width: 640px) {
+  .vbtn    { padding: 11px 18px; border-radius: 13px; font-size: 15px; }
+  .vbtn-lg { padding: 14px 24px; border-radius: 15px; font-size: 17px; }
+  .vbtn-sm { padding: 8px  14px; border-radius: 11px; font-size: 14px; }
+  .vbtn-icononly       { padding: 11px; }
+  .vbtn-icononly.vbtn-lg { padding: 14px; }
+  .vbtn-icononly.vbtn-sm { padding: 8px;  }
+}
