@@ -26,7 +26,7 @@
         "image_ratio": "shortest",
         "show_tags": false,
         "show_excerpt": true,
-        "show_author": true,
+        "show_author": false,
         "show_date": true,
         "show_button": false,
         "button_style": "btn btn--secondary",
