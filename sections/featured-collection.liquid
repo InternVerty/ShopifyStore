@@ -246,7 +246,7 @@
 
 
         {%- if section.settings.button_label != blank -%}
-          <a class="{{ section.settings.button_style }} block mt-8 w-full" {% if section.settings.link_url != blank %}href="{{ section.settings.link_url }}"{% else %}role="link"aria-disabled="true"{% endif %}>
+          <a class="{{ section.settings.button_style }} vbtn-pill block mt-8 w-full" {% if section.settings.link_url != blank %}href="{{ section.settings.link_url }}"{% else %}role="link"aria-disabled="true"{% endif %}>
             {{- section.settings.button_label | escape -}}
           </a>
         {%- endif -%}
