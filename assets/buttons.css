@@ -24,7 +24,7 @@
 .vbtn {
   font-family: var(--verty-font, 'Ubuntu', sans-serif);
   letter-spacing: var(--verty-track, -0.01em);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 17px;
   font-family: Satoshi; 
   line-height: 1;
