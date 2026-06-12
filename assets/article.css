@@ -33,6 +33,8 @@
 }
 .article-content blockquote {
   padding-top: calc(4 * var(--space-unit));
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
   font-size: 2rem;
   font-style: italic;
   line-height: 2.4rem;
