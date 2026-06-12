@@ -16,7 +16,7 @@
     position: relative;
     overflow: hidden;
     border-left: 4px solid {{ section.settings.accent_color }};
-    background: {{ section.settings.accent_color }}1A;
+    background: {{ section.settings.accent_color }}26;
     border-radius: 0 15px 15px 0;
     padding: 30px 64px 30px 32px;
     max-width: 620px;
@@ -25,15 +25,16 @@
 
   .qb-band-{{ section.id }} .qb-mark {
     position: absolute;
-    top: 4px;
-    right: 24px;
+    top: -4px;
+    right: 20px;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 120px;
-    line-height: 120px;
+    font-size: 144px;
+    line-height: 1;
     color: {{ section.settings.accent_color }};
-    opacity: 0.35;
+    opacity: 0.40;
     pointer-events: none;
     user-select: none;
+    letter-spacing: -0.05em;
   }
 
   .qb-band-{{ section.id }} .qb-text {
@@ -50,7 +51,7 @@
   .qb-band-{{ section.id }} .qb-text em {
     font-style: normal;
     font-weight: 500;
-    box-shadow: {{ section.settings.accent_color }}1A 0px -12.5px 0px 0px inset;
+    box-shadow: {{ section.settings.accent_color }}33 0px -12.5px 0px 0px inset;
   }
 
   .qb-band-{{ section.id }} .qb-cite {
@@ -86,7 +87,7 @@
 
 <section class="qb-band-{{ section.id }}">
   <figure class="qb qb-quiet">
-    <span class="qb-mark" aria-hidden="true">"</span>
+    <span class="qb-mark" aria-hidden="true">&#x201C;</span>
     <p class="qb-text">{{ quote_html }}</p>
     <figcaption class="qb-cite">
       <span class="qb-name">{{ section.settings.author }}</span>
