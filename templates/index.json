@@ -105,7 +105,7 @@
         "show_view_all": false,
         "view_religion": false,
         "use_anchor_for_view_all": false,
-        "collection": "recommandation-accueil",
+        "collection": "premieres-lectures",
         "layout": "carousel",
         "card_size_mobile": "small",
         "card_size": "small",
@@ -113,7 +113,7 @@
         "show_promo_info": true,
         "image_ratio": "fill",
         "dis": "",
-        "content": "<p>Il y a mille façons de voir le monde s'éveiller : le premier bourgeon, un rayon de soleil plus chaud, le chant d'un oiseau ou le parfum des fleurs qui pointent le bout de leur nez… À travers cette sélection printanière, notre comité de lecture vous propose des histoires qui célèbrent le renouveau et la curiosité.</p><p>Ces récits sont comme de petites graines de savoir et d'émerveillement qui poussent doucement dans l'esprit des enfants, leur apprenant à observer la beauté des commencements. Des ouvrages qui rappellent que chaque découverte est une promesse, et que grandir est la plus belle des aventures.</p>",
+        "content": "<p>Les premières lectures sont une étape clé dans le développement de l’enfant, où il découvre le plaisir de lire en toute autonomie. Grâce à des textes adaptés et des illustrations engageantes, les enfants gagnent en confiance et développent leur goût pour les livres. </p><p>Cette sélection propose des ouvrages soigneusement choisis pour éveiller la curiosité, encourager la compréhension et faire de la lecture un véritable moment de plaisir.</p>",
         "link_url": "{{ section.settings.collection.url }}",
         "button_label": "Voir toute la collection",
         "color_scheme": "none",
@@ -531,7 +531,6 @@
         "heading": "Trouvez le livre idéal selon l'âge de votre enfant",
         "description": "Chaque enfant évolue à son propre rythme, et choisir un livre adapté à son âge est essentiel pour stimuler son imagination, enrichir son vocabulaire et nourrir son amour de la lecture. C’est pourquoi nous avons classé nos collections en différentes tranches d’âge, pour vous aider à trouver les ouvrages les plus adaptés aux besoins et aux envies de votre enfant, qu'il soit en pleine découverte des images, en apprentissage de la lecture ou déjà passionné par les romans",
         "background_color": "#f5faf9",
-        "button_color": "#8fcdbf",
         "margin_top": 0,
         "margin_bottom": 0
       }
@@ -943,7 +942,6 @@
         "heading": "Redécouvrez nos sélections temporaires et thématiques",
         "description": "Au fil des saisons et au gré du calendrier, notre sélection jeunesse se pare de couleurs changeantes et d’horizons multiples. Chaque période de l’année devient l’occasion d’explorer un thème nouveau, qu’il s’agisse de la magie de l’hiver, du renouveau printanier, des épopées chevaleresques ou des voyages à travers l'histoire. Ces sélections temporaires, soigneusement composées, invitent les jeunes lecteurs à découvrir des mondes riches et variés, à travers des ouvrages choisis pour leur poésie, leur profondeur ou leur espièglerie. Qu’ils soient rêveurs ou curieux, les enfants y trouveront de quoi nourrir leur imagination et élargir leur regard sur le monde, au rythme des fêtes, des saisons et des grandes questions de leur âge.",
         "background_color": "#fef5f6",
-        "button_color": "#ee748b",
         "margin_top": 50,
         "margin_bottom": 0
       }
