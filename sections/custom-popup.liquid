@@ -128,7 +128,7 @@
 
           {%- if btn_label != blank -%}
             <div class="custom-popup__btn-wrap">
-              <a class="vbtn vbtn-primary vbtn-pill custom-popup__btn"
+              <a class="vbtn vbtn-primary custom-popup__btn"
                 href="{{ section.settings.button_url | default: '#' }}"
                 {%- if section.settings.button_url != blank %} aria-label="{{ btn_label | escape }}"{% endif %}>
                 {{- btn_label | escape -}}
