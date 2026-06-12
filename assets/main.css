@@ -1480,7 +1480,7 @@ button {
 
 /* ── .btn → mapped to vbtn system (see assets/buttons.css) ── */
 .btn {
-  font-family: var(--verty-font, 'Ubuntu', sans-serif);
+  font-family: var(--verty-font, 'DM Sans', sans-serif);
   letter-spacing: var(--verty-track, -0.01em);
   font-weight: 600;
   font-size: 17px;

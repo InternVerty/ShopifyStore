@@ -18,15 +18,15 @@
   --btn-solid-hover:  #84E0BB;
   --btn-solid-active: #6FD7AD;
   --btn-focus-ring:   rgba(143,205,191,.55);
+  --verty-font:       'DM Sans', sans-serif;
 }
 
 /* ---- base -------------------------------------------------- */
 .vbtn {
-  font-family: var(--verty-font, 'Ubuntu', sans-serif);
+  font-family: var(--verty-font, 'DM Sans', sans-serif);
   letter-spacing: var(--verty-track, -0.01em);
   font-weight: 600;
   font-size: 17px;
-  font-family: Satoshi; 
   line-height: 1;
   display: inline-flex; align-items: center; justify-content: center;
   gap: 9px;
