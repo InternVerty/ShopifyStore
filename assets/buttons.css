@@ -7,13 +7,13 @@
 
 :root {
   /* greens tuned to the chip in the reference */
-  --btn-green-ink:    #182233;            /* label / navy (verty-secondary)  */
-  --btn-green-ink-2:  #0e1825;            /* hover label / darker navy       */
-  --btn-fill:         rgba(143,205,191,.12); /* pale mint wash (verty-primary) */
-  --btn-fill-hover:   rgba(143,205,191,.22); /* hover fill                     */
-  --btn-fill-active:  rgba(143,205,191,.32); /* pressed fill                   */
-  --btn-border:       #8FCDBF;            /* verty-primary                   */
-  --btn-border-hover: #6CBFB0;            /* verty-primary darker             */
+  --btn-green-ink:    #1C7A52;   /* label / dark green        */
+  --btn-green-ink-2:  #15633F;   /* hover label               */
+  --btn-fill:         #DCF5EB;   /* pale mint fill            */
+  --btn-fill-hover:   #C8EFDD;   /* hover fill                */
+  --btn-fill-active:  #B6E8D0;   /* pressed fill              */
+  --btn-border:       #8FCDBF;   /* verty-primary             */
+  --btn-border-hover: #6CBFB0;   /* verty-primary darker      */
   --btn-solid:        #97E8C7;   /* solid (Vert) primary      */
   --btn-solid-hover:  #84E0BB;
   --btn-solid-active: #6FD7AD;
