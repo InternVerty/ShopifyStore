@@ -177,7 +177,7 @@
 {%- if counter > 0 -%}
   <custom-select data-level="{{ level }}"{% if boxed %} class="custom-select--boxed"{% endif %}>
     <div class="custom-select{% if display == "text" %} custom-select--text{% elsif display contains "image" %} custom-select--image{% endif %} custom-select--label-inside relative w-full mb-4 no-js-hidden">
-      <button class="vbtn vbtn-outline custom-select__btn quick-nav__btn input items-center" type="button" aria-expanded="false" aria-haspopup="listbox"
+      <button class="vbtn vbtn-outline custom-select__btn quick-nav__btn items-center" type="button" aria-expanded="false" aria-haspopup="listbox"
         {% unless level == 1 %}disabled="disabled"{% endunless %}>
         <span class="flex flex-wrap" data-default-text="{{ default_text | escape }}">{{ default_text }}</span>
         <svg width="20" height="20" viewBox="0 0 24 24" class="icon" role="presentation" focusable="false" aria-hidden="true">
