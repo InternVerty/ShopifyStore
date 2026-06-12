@@ -180,7 +180,7 @@
       <button class="vbtn vbtn-outline custom-select__btn quick-nav__btn input items-center" type="button" aria-expanded="false" aria-haspopup="listbox"
         {% unless level == 1 %}disabled="disabled"{% endunless %}>
         <span class="flex flex-wrap" data-default-text="{{ default_text | escape }}">{{ default_text }}</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" class="icon" role="presentation" focusable="false" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" class="icon vbtn vbtn-outline" role="presentation" focusable="false" aria-hidden="true">
           <path d="M20 8.5 12.5 16 5 8.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
         </svg>
       </button>
@@ -190,7 +190,7 @@
 
         <li class="quick-nav__default-option custom-select__option flex items-center js-option" id="{{ id }}-opt-default" role="option"
             data-value="" aria-selected="true" tabindex="-1">
-          <span class="flex flex-wrap pointer-events-none vbtn vbtn-outline"></span>
+          <span class="flex flex-wrap pointer-events-none "></span>
         </li>
 
         {{ options }}
