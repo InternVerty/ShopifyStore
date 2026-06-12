@@ -535,6 +535,20 @@
         "margin_bottom": 0
       }
     },
+    "quote_band_Awe4Yq": {
+      "type": "quote-band",
+      "name": "Quote Band",
+      "settings": {
+        "quote": "Des livres beaux, simples et vrais, qui nourrissent l'esprit et cultivent l'imaginaire des enfants",
+        "highlighted_phrase": "",
+        "author": "",
+        "attribution": "",
+        "background_color": "#ffffff",
+        "accent_color": "#8FCDBF",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "custom_text_block_VgrjPd": {
       "type": "custom-text-block",
       "disabled": true,
@@ -1263,6 +1277,7 @@
     "custom_collection_list_DyzFfG",
     "custom_collection_list_mExcG9",
     "boutons_collection_B4JieG",
+    "quote_band_Awe4Yq",
     "custom_text_block_VgrjPd",
     "media_with_text_8pht4Q",
     "testimonials_k7EmXd",
