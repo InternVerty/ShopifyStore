@@ -1,3 +1,7 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
   .qb-band-{{ section.id }} {
     background-color: {{ section.settings.background_color }};
@@ -6,46 +10,88 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Satoshi, sans-serif;
   }
 
-  .qb-band-{{ section.id }} .qb-classic {
+  .qb-band-{{ section.id }} .qb-quiet {
+    position: relative;
+    overflow: hidden;
     border-left: 4px solid {{ section.settings.accent_color }};
-    padding: 4px 0 4px 32px;
+    background: {{ section.settings.accent_color }}1A;
+    border-radius: 0 15px 15px 0;
+    padding: 30px 64px 30px 32px;
+    max-width: 620px;
     margin: 16px 40px;
-    max-width: 600px;
+  }
+
+  .qb-band-{{ section.id }} .qb-mark {
+    position: absolute;
+    top: 4px;
+    right: 24px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 120px;
+    line-height: 120px;
+    color: {{ section.settings.accent_color }};
+    opacity: 0.35;
+    pointer-events: none;
+    user-select: none;
   }
 
   .qb-band-{{ section.id }} .qb-text {
-    font-size: 26px;
-    line-height: 38px;
+    font-family: 'Ubuntu', system-ui, sans-serif;
+    font-size: 25px;
+    line-height: 37px;
     color: #182233;
-    margin: 0;
     letter-spacing: -0.01em;
+    text-wrap: pretty;
+    margin: 0;
+    position: relative;
+  }
+
+  .qb-band-{{ section.id }} .qb-text em {
+    font-style: normal;
+    font-weight: 500;
+    box-shadow: {{ section.settings.accent_color }}1A 0px -12.5px 0px 0px inset;
   }
 
   .qb-band-{{ section.id }} .qb-cite {
     display: block;
+    margin-top: 20px;
+    font-family: 'Ubuntu', system-ui, sans-serif;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 22px;
     color: #6B7280;
-    margin-top: 22px;
-    letter-spacing: -0.01em;
   }
 
   .qb-band-{{ section.id }} .qb-name {
     font-weight: 700;
     color: #182233;
   }
+
+  .qb-band-{{ section.id }} .qb-role {
+    color: #6B7280;
+    font-weight: 400;
+  }
 </style>
 
+{%- liquid
+  if section.settings.highlighted_phrase != blank
+    assign em_open = '<em>'
+    assign em_close = '</em>'
+    assign em_wrapped = em_open | append: section.settings.highlighted_phrase | append: em_close
+    assign quote_html = section.settings.quote | replace: section.settings.highlighted_phrase, em_wrapped
+  else
+    assign quote_html = section.settings.quote
+  endif
+-%}
+
 <section class="qb-band-{{ section.id }}">
-  <figure class="qb qb-classic">
-    <p class="qb-text">{{ section.settings.quote }}</p>
+  <figure class="qb qb-quiet">
+    <span class="qb-mark" aria-hidden="true">"</span>
+    <p class="qb-text">{{ quote_html }}</p>
     <figcaption class="qb-cite">
       <span class="qb-name">{{ section.settings.author }}</span>
       {%- if section.settings.attribution != blank -%}
-        , {{ section.settings.attribution }}
+        <span class="qb-role">, {{ section.settings.attribution }}</span>
       {%- endif -%}
     </figcaption>
   </figure>
@@ -60,6 +106,12 @@
       "id": "quote",
       "label": "Quote",
       "default": "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away."
+    },
+    {
+      "type": "text",
+      "id": "highlighted_phrase",
+      "label": "Highlighted phrase",
+      "info": "Optional — paste the exact phrase to highlight with a teal underline effect"
     },
     {
       "type": "text",
