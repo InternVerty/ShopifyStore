@@ -34,6 +34,37 @@
 {%- endif -%}
 
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{% comment %}
+Le script suivant sert a gérer les informations pour le tracking qui sont ensuite envoyées dans GA4
+{% endcomment %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const recoActive = sessionStorage.getItem('reco_active');
+  const recoTimestamp = sessionStorage.getItem('reco_timestamp');
+  const isExpired = recoTimestamp && (Date.now() - parseInt(recoTimestamp)) > 30 * 60 * 1000;
+  
+  if (recoActive && !isExpired && window.gtag) {
+    gtag('event', 'view_item_recommandation', {
+      'id_recommandation': recoActive,
+      'item_id': {{ product.id | json }},
+      'item_name': {{ product.title | json }}
+    });
+  }
+
+  // Écoute le bouton add to cart
+  document.querySelectorAll('[name="submit"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (recoActive && !isExpired && window.gtag) {
+        gtag('event', 'add_to_cart_recommandation', {
+          'id_recommandation': recoActive,
+          'item_id': {{ product.id | json }}
+        });
+      }
+    });
+  });
+});
+</script>
+
 
 {%- liquid
   # constants
