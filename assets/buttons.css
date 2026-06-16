@@ -62,6 +62,9 @@
   border-width: 2px;
   border-color: #6ECFB5;
   color: #0E3A28;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
 }
 .vbtn-primary:hover { background: var(--btn-solid-hover); border-color: var(--btn-solid-hover); box-shadow: 0 8px 20px rgba(111,215,173,.45); }
 .vbtn-primary:active { background: var(--btn-solid-active); border-color: var(--btn-solid-active); box-shadow: none; }

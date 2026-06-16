@@ -1516,6 +1516,9 @@ button {
   border-width: 2px;
   border-color: #6ECFB5;
   color: #0E3A28;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
 }
 .btn--primary:hover,
 .shopify-challenge__button:hover,
