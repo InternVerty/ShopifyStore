@@ -49,6 +49,9 @@
   background: var(--btn-fill);
   border-color: var(--btn-border);
   color: var(--btn-green-ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
 }
 .vbtn-secondary:hover { background: var(--btn-fill-hover); border-color: var(--btn-border-hover); color: var(--btn-green-ink-2); }
 .vbtn-secondary:active { background: var(--btn-fill-active); }
