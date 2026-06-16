@@ -209,42 +209,6 @@
         "padding_bottom": 48
       }
     },
-    "testimonials_FVR39B": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonial_NVd7jW": {
-          "type": "testimonial",
-          "settings": {
-            "testimonial": "<p>« <em>Apprendre à lire, c'est allumer un feu; chaque syllabe épelée est une étincelle.</em> »</p><p><strong>Victor Hugo</strong></p>",
-            "author": "",
-            "author_info": "",
-            "show_star_rating": false,
-            "star_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_NVd7jW"
-      ],
-      "custom_css": [
-        ".testimonials .testimonials__slide--no-padding {background-color: #8fcdbf; color: black; padding: 20px;}"
-      ],
-      "name": "Citation Jules Renard",
-      "settings": {
-        "heading": "",
-        "show_quotes": true,
-        "testimonial_size": "h6",
-        "text_position": "justify-center",
-        "text_align": "text-center justify-center",
-        "nav_style": "slideshow_nav_lines",
-        "transition": "slide-fade",
-        "autoplay": false,
-        "slider_pause": false,
-        "autoplay_speed": 5,
-        "color_scheme": "default",
-        "full_width": true
-      }
-    },
     "media_with_text_Ct7xL6": {
       "type": "media-with-text",
       "blocks": {
@@ -281,6 +245,20 @@
         "text_align": "text-start",
         "color_scheme": "none",
         "only_content_color_scheme": false
+      }
+    },
+    "quote_band_8PGrw3": {
+      "type": "quote-band",
+      "name": "Quote Band",
+      "settings": {
+        "quote": "Les arbres aux racines profondes sont ceux qui montent haut.",
+        "highlighted_phrase": "",
+        "author": "Frédéric Mistral",
+        "attribution": "",
+        "background_color": "#ffffff",
+        "accent_color": "#8FCDBF",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
     "testimonials_NCLFe8": {
@@ -910,8 +888,8 @@
     "media_with_text_8D73NF",
     "custom_text_block_ax9PUW",
     "quote_band_p8WXYQ",
-    "testimonials_FVR39B",
     "media_with_text_Ct7xL6",
+    "quote_band_8PGrw3",
     "testimonials_NCLFe8",
     "custom_text_block_ATtTHT",
     "5de6b885-00e5-4ba4-b3e0-c5e98bcba692",
