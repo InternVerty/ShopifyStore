@@ -195,6 +195,20 @@
         "p_margin_bottom": "20"
       }
     },
+    "quote_band_p8WXYQ": {
+      "type": "quote-band",
+      "name": "Quote Band",
+      "settings": {
+        "quote": "Apprendre à lire, c'est allumer un feu; chaque syllabe épelée est une étincelle. ",
+        "highlighted_phrase": "",
+        "author": "Victor Hugo",
+        "attribution": "",
+        "background_color": "#ffffff",
+        "accent_color": "#8FCDBF",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "testimonials_FVR39B": {
       "type": "testimonials",
       "blocks": {
@@ -895,6 +909,7 @@
     "testimonials_YrkexD",
     "media_with_text_8D73NF",
     "custom_text_block_ax9PUW",
+    "quote_band_p8WXYQ",
     "testimonials_FVR39B",
     "media_with_text_Ct7xL6",
     "testimonials_NCLFe8",
