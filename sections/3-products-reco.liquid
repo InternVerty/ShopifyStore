@@ -278,7 +278,7 @@
 >
 
   {%- if section.settings.title != blank -%}
-    <h2 class="reco-3p__heading">{{ section.settings.title | escape }}</h2>
+    <h2 class="reco-3p__heading" id="reco-3p-heading-{{ section.id }}">{{ section.settings.title | escape }}</h2>
   {%- endif -%}
 
   <div class="reco-3p__grid" id="reco-3p-grid-{{ section.id }}">
@@ -436,6 +436,31 @@
 
 
 <script>
+/* ── Personnalisation du titre via ?utm_content=prenom_IDReco ─── */
+(function () {
+  var heading = document.getElementById('reco-3p-heading-{{ section.id }}');
+  if (!heading) return;
+
+  var placeholder = '{prenom}';
+  if (heading.textContent.indexOf(placeholder) === -1) return;
+
+  var params     = new URLSearchParams(window.location.search);
+  var utmContent = params.get('utm_content') || '';
+  var prenom     = utmContent.split('_')[0].trim();
+
+  if (prenom) {
+    /* Première lettre en majuscule, reste en minuscule */
+    prenom = prenom.charAt(0).toUpperCase() + prenom.slice(1).toLowerCase();
+    heading.textContent = heading.textContent.replace(placeholder, prenom);
+  } else {
+    /* Pas de prénom détecté : retire le placeholder proprement */
+    heading.textContent = heading.textContent
+      .replace(placeholder, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  }
+})();
+
 /* ── Bouton "Voir plus" sur l'avis du comité ─────────────────── */
 (function () {
   document.querySelectorAll('#reco-3p-grid-{{ section.id }} .reco-3p__avis-wrap').forEach(function (wrap) {
@@ -539,7 +564,8 @@
       "type": "text",
       "id": "title",
       "label": "Titre de la section",
-      "default": "Notre sélection"
+      "default": "Notre sélection pour {prenom}",
+      "info": "Utilisez {prenom} dans le titre : il sera remplacé par la valeur lue dans ?utm_content=prenom_IDReco de l'URL. Si absent, le mot est retiré automatiquement."
     },
     {
       "type": "header",
