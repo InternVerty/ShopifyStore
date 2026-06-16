@@ -56,7 +56,8 @@
 /* ---- variant: PRIMARY (solid mint, for the main CTA) ------- */
 .vbtn-primary {
   background: var(--btn-solid);
-  border-color: var(--btn-solid);
+  border-width: 2px;
+  border-color: #6ECFB5;
   color: #0E3A28;
 }
 .vbtn-primary:hover { background: var(--btn-solid-hover); border-color: var(--btn-solid-hover); box-shadow: 0 8px 20px rgba(111,215,173,.45); }

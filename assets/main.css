@@ -1513,7 +1513,8 @@ button {
 .shopify-payment-button .shopify-payment-button__button--unbranded,
 .shopify-challenge__button {
   background: var(--btn-solid);
-  border-color: var(--btn-solid);
+  border-width: 2px;
+  border-color: #6ECFB5;
   color: #0E3A28;
 }
 .btn--primary:hover,
