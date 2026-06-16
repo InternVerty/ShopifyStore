@@ -261,42 +261,6 @@
         "padding_bottom": 48
       }
     },
-    "testimonials_NCLFe8": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonial_CJYdyY": {
-          "type": "testimonial",
-          "settings": {
-            "testimonial": "<p>Les arbres aux racines profondes sont ceux qui montent haut.<br/></p><p><strong>Frédéric Mistral</strong></p>",
-            "author": "",
-            "author_info": "",
-            "show_star_rating": false,
-            "star_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_CJYdyY"
-      ],
-      "custom_css": [
-        ".testimonials .testimonials__slide--no-padding {background-color: #8fcdbf; color: black; padding: 20px;}"
-      ],
-      "name": "Citation Frédéric Mistral",
-      "settings": {
-        "heading": "",
-        "show_quotes": true,
-        "testimonial_size": "h6",
-        "text_position": "justify-center",
-        "text_align": "text-center justify-center",
-        "nav_style": "slideshow_nav_lines",
-        "transition": "slide-fade",
-        "autoplay": false,
-        "slider_pause": false,
-        "autoplay_speed": 5,
-        "color_scheme": "default",
-        "full_width": true
-      }
-    },
     "custom_text_block_ATtTHT": {
       "type": "custom-text-block",
       "custom_css": [
@@ -359,40 +323,18 @@
         "only_content_color_scheme": false
       }
     },
-    "testimonials_QCe6CA": {
-      "type": "testimonials",
-      "blocks": {
-        "testimonial_kL4tMB": {
-          "type": "testimonial",
-          "settings": {
-            "testimonial": "<p>L’esprit qui ne lit pas maigrit comme le corps qui ne mange pas</p><p><strong>Victor Hugo</strong></p>",
-            "author": "",
-            "author_info": "",
-            "show_star_rating": false,
-            "star_rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_kL4tMB"
-      ],
-      "custom_css": [
-        ".testimonials .testimonials__slide--no-padding {background-color: #8fcdbf; color: black; padding: 20px;}"
-      ],
-      "name": "Citation Victor Hugo",
+    "quote_band_EmahUd": {
+      "type": "quote-band",
+      "name": "Quote Band",
       "settings": {
-        "heading": "",
-        "show_quotes": true,
-        "testimonial_size": "h6",
-        "text_position": "justify-center",
-        "text_align": "text-center justify-center",
-        "nav_style": "slideshow_nav_lines",
-        "transition": "slide-fade",
-        "autoplay": false,
-        "slider_pause": false,
-        "autoplay_speed": 5,
-        "color_scheme": "default",
-        "full_width": true
+        "quote": "L’esprit qui ne lit pas maigrit comme le corps qui ne mange pas",
+        "highlighted_phrase": "",
+        "author": "Victor Hugo",
+        "attribution": "",
+        "background_color": "#ffffff",
+        "accent_color": "#8FCDBF",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
     "media_with_text_jmf3y9": {
@@ -890,10 +832,9 @@
     "quote_band_p8WXYQ",
     "media_with_text_Ct7xL6",
     "quote_band_8PGrw3",
-    "testimonials_NCLFe8",
     "custom_text_block_ATtTHT",
     "5de6b885-00e5-4ba4-b3e0-c5e98bcba692",
-    "testimonials_QCe6CA",
+    "quote_band_EmahUd",
     "media_with_text_jmf3y9",
     "custom_media_with_text_GdY6ET",
     "media_with_text_aAMgYd",
