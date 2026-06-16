@@ -627,7 +627,7 @@
         "heading": "Vous souhaitez rejoindre notre mission ? Contactez nous !",
         "heading_align": "text-center",
         "image_position": "top",
-        "color_scheme": "1",
+        "color_scheme": "none",
         "full_width": true,
         "button_style": "btn btn--primary"
       }
