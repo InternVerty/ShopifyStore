@@ -77,22 +77,24 @@
   /* ── Colonne 1 : Image ────────────────────────────────────── */
   .reco-3p__img-col {
     grid-area: img;
-    align-self: stretch;      /* s'étire sur toute la hauteur de la ligne */
+    /* align-self: center (hérité de .reco-3p__row) — même logique que les autres colonnes */
     display: flex;
     align-items: center;
+    justify-content: center;
+    max-height: 100%;
     overflow: hidden;
   }
 
   .reco-3p__img-link {
     display: block;
-    height: 100%;
     width: 100%;
   }
 
   .reco-3p__img-link img,
   .reco-3p__img-link svg {
     width: 100%;
-    height: 100%;             /* remplit la hauteur du conteneur      */
+    height: auto;
+    max-height: var(--row-height);
     display: block;
     border-radius: 8px;
     object-fit: contain;      /* affiche la couverture complète       */
@@ -229,15 +231,6 @@
       grid-template-areas:
         "img info"
         "price price";
-    }
-
-    .reco-3p__img-col {
-      align-self: start;        /* l'image reprend sa hauteur naturelle sur mobile */
-    }
-
-    .reco-3p__img-link img,
-    .reco-3p__img-link svg {
-      height: auto;             /* hauteur auto sur mobile              */
     }
 
     .reco-3p__info-col {
