@@ -49,13 +49,13 @@
     </div>
 
     <div class="comite-nav">
-      <button class="vbtn vbtn-secondary comite-prev-{{ section_id }}" aria-label="{{ 'accessibility.previous_slide' | t }}" disabled>
+      <button class="vbtn vbtn-secondary slider-nav__btn comite-prev-{{ section_id }}" aria-label="{{ 'accessibility.previous_slide' | t }}" disabled>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M15 18l-6-6 6-6"/>
         </svg>
       </button>
       <span class="comite-nav__counter" id="comite-counter-{{ section_id }}">1 / {{ section.blocks.size }}</span>
-      <button class="vbtn vbtn-secondary comite-next-{{ section_id }}" aria-label="{{ 'accessibility.next_slide' | t }}">
+      <button class="vbtn vbtn-secondary slider-nav__btn comite-next-{{ section_id }}" aria-label="{{ 'accessibility.next_slide' | t }}">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M9 18l6-6-6-6"/>
         </svg>
