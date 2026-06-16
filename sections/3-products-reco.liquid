@@ -61,9 +61,8 @@
     grid-template-columns: var(--img-col) 1fr var(--price-col);
     grid-template-areas: "img info price";
     gap: var(--row-gap);
-    align-items: center;      /* centre verticalement info et prix    */
-    height: var(--row-height);/* hauteur fixe — l'image s'y adapte   */
-    overflow: hidden;         /* garantit que rien ne déborde         */
+    align-items: center;      /* centre verticalement les 3 colonnes  */
+    min-height: var(--row-height); /* hauteur mini — grandit si le texte a besoin de place */
     padding: var(--row-padding);
     border-radius: 12px;
     background-color: rgba(143, 205, 191, 0.08);
@@ -226,7 +225,6 @@
     }
 
     .reco-3p__row {
-      height: auto;           /* hauteur libre sur mobile (price sous le contenu) */
       grid-template-columns: var(--img-col) 1fr;
       grid-template-areas:
         "img info"
