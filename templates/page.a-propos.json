@@ -199,12 +199,12 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "Apprendre à lire, c'est allumer un feu; chaque syllabe épelée est une étincelle. ",
+        "quote": "<p>Apprendre à lire, c'est allumer un feu; chaque syllabe épelée est une étincelle. </p>",
         "highlighted_phrase": "",
         "author": "Victor Hugo",
         "attribution": "",
         "background_color": "#ffffff",
-        "accent_color": "#8FCDBF",
+        "accent_color": "#8fcdbf",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -251,12 +251,12 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "Les arbres aux racines profondes sont ceux qui montent haut.",
+        "quote": "<p>Les arbres aux racines profondes sont ceux qui montent haut.</p>",
         "highlighted_phrase": "",
         "author": "Frédéric Mistral",
         "attribution": "",
         "background_color": "#ffffff",
-        "accent_color": "#8FCDBF",
+        "accent_color": "#8fcdbf",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -327,12 +327,12 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "L’esprit qui ne lit pas maigrit comme le corps qui ne mange pas",
+        "quote": "<p>L’esprit qui ne lit pas maigrit comme le corps qui ne mange pas</p>",
         "highlighted_phrase": "",
         "author": "Victor Hugo",
         "attribution": "",
         "background_color": "#ffffff",
-        "accent_color": "#8FCDBF",
+        "accent_color": "#8fcdbf",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -475,12 +475,12 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "Parce que chaque enfant mérite de belles histoires pour s'élever page après page",
+        "quote": "<p>Parce que chaque enfant mérite de belles histoires pour s'élever page après page</p>",
         "highlighted_phrase": "",
         "author": "",
         "attribution": "",
         "background_color": "#ffffff",
-        "accent_color": "#8FCDBF",
+        "accent_color": "#8fcdbf",
         "padding_top": 48,
         "padding_bottom": 48
       }
