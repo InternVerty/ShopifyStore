@@ -38,14 +38,17 @@
   }
 
   .qb-band-{{ section.id }} .qb-text {
-    font-family: 'Ubuntu', system-ui, sans-serif;
+    position: relative;
+  }
+
+  .qb-band-{{ section.id }} .qb-text p {
+    font-family: 'DM Sans', sans-serif;
     font-size: 25px;
     line-height: 37px;
     color: #182233;
     letter-spacing: -0.01em;
     text-wrap: pretty;
     margin: 0;
-    position: relative;
   }
 
   .qb-band-{{ section.id }} .qb-text em {
@@ -88,7 +91,7 @@
 <section class="qb-band-{{ section.id }}">
   <figure class="qb qb-quiet">
     <span class="qb-mark" aria-hidden="true">&#x201C;</span>
-    <p class="qb-text">{{ quote_html }}</p>
+    <div class="qb-text">{{ quote_html }}</div>
     <figcaption class="qb-cite">
       <span class="qb-name">{{ section.settings.author }}</span>
       {%- if section.settings.attribution != blank -%}
