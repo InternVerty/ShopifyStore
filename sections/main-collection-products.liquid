@@ -172,8 +172,6 @@
                 {%- if is_last_position -%}
                   {%- unless rendered_product_ids contains product.id -%}
                     {%- assign rendered_product_ids = rendered_product_ids | append: product.id | append: "," -%}
-                    {% assign new = collection.metafields.custom.collection_tags_for_products %}
-                    test-{{ new }}
                     <li class="js-pagination-result">{% render 'product-card', product: product, collection: collection, image_ratio: image_ratio, show_compare: settings.enable_compare %}</li>
                   {%- endunless -%}
                 {%- endif -%}
@@ -215,8 +213,7 @@
 
               {%- unless is_last_position and rendered_product_ids contains product.id -%}
                 {%- assign rendered_product_ids = rendered_product_ids | append: product.id | append: "," -%}
-                {% assign new = collection.metafields.custom.collection_tags_for_products %}
-                <li class="js-pagination-result" {% if product.tags contains new %}{% else %}{% endif %}>{% render 'product-card', product: product, collection: collection, image_ratio: image_ratio, show_compare: settings.enable_compare %}</li>
+                <li class="js-pagination-result">{% render 'product-card', product: product, collection: collection, image_ratio: image_ratio, show_compare: settings.enable_compare %}</li>
               {%- endunless -%}
             {%- endfor -%}
 
