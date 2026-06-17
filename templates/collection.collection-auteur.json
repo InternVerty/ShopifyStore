@@ -76,12 +76,12 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "C'est à force de répandre le bon grain qu'une semance finit par tomber dans un sillon fertile.",
+        "quote": "<p>{{ collection.metafields.custom.citation_page_auteur | metafield_tag }}</p>",
         "highlighted_phrase": "",
-        "author": "Jules Verne",
+        "author": "{{ collection.title }}",
         "attribution": "",
         "background_color": "#ffffff",
-        "accent_color": "#8FCDBF",
+        "accent_color": "#8fcdbf",
         "padding_top": 48,
         "padding_bottom": 48
       }
