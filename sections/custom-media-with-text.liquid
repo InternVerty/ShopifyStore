@@ -75,6 +75,65 @@
 	transform: rotateY(180deg);
 }
 
+.custom-media-{{ section.id }} .qb-quiet {
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid;
+  border-radius: 0 15px 15px 0;
+  padding: 30px 64px 30px 32px;
+}
+
+.custom-media-{{ section.id }} .qb-mark {
+  position: absolute;
+  top: -4px;
+  right: 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 144px;
+  line-height: 1;
+  opacity: 0.40;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+
+.custom-media-{{ section.id }} .qb-text {
+  position: relative;
+}
+
+.custom-media-{{ section.id }} .qb-text p {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 25px;
+  line-height: 37px;
+  color: #182233;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.custom-media-{{ section.id }} .qb-text em {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.custom-media-{{ section.id }} .qb-cite {
+  display: block;
+  margin-top: 20px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  color: #6B7280;
+}
+
+.custom-media-{{ section.id }} .qb-name {
+  font-weight: 700;
+  color: #182233;
+}
+
+.custom-media-{{ section.id }} .qb-role {
+  color: #6B7280;
+  font-weight: 400;
+}
+
 {% endstyle %}
 
 
@@ -233,6 +292,36 @@
                     {%- endif -%}
                   </div>
                 {%- endif -%}
+
+              {%- when 'quote' -%}
+                {%- if block.settings.quote != blank -%}
+                  <style>
+                    .qb-quiet-{{ block.id }} { border-left-color: {{ block.settings.accent_color }}; background-color: {{ block.settings.accent_color }}26; }
+                    .qb-quiet-{{ block.id }} .qb-mark { color: {{ block.settings.accent_color }}; }
+                    .qb-quiet-{{ block.id }} .qb-text em { box-shadow: {{ block.settings.accent_color }}33 0px -12.5px 0px 0px inset; }
+                  </style>
+                  {%- liquid
+                    if block.settings.highlighted_phrase != blank
+                      assign em_open = '<em>'
+                      assign em_close = '</em>'
+                      assign em_wrapped = em_open | append: block.settings.highlighted_phrase | append: em_close
+                      assign quote_html = block.settings.quote | replace: block.settings.highlighted_phrase, em_wrapped
+                    else
+                      assign quote_html = block.settings.quote
+                    endif
+                  -%}
+                  <figure class="section__block qb-quiet qb-quiet-{{ block.id }}" {{ block.shopify_attributes }}>
+                    <span class="qb-mark" aria-hidden="true">&#x201C;</span>
+                    <div class="qb-text">{{ quote_html }}</div>
+                    <figcaption class="qb-cite">
+                      <span class="qb-name">{{ block.settings.author }}</span>
+                      {%- if block.settings.attribution != blank -%}
+                        <span class="qb-role">, {{ block.settings.attribution }}</span>
+                      {%- endif -%}
+                    </figcaption>
+                  </figure>
+                {%- endif -%}
+
             {%- endcase -%}
           {%- endfor -%}
         </div>
@@ -500,6 +589,44 @@
       ]
     },
     {
+      "type": "quote",
+      "name": "Quote",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "<p>Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.</p>"
+        },
+        {
+          "type": "text",
+          "id": "highlighted_phrase",
+          "label": "Highlighted phrase",
+          "info": "Optional — colle la phrase exacte à surligner"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Auteur",
+          "default": "Antoine de Saint-Exupéry"
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "Attribution",
+          "info": "Optionnel — ex. titre du livre, rôle, entreprise",
+          "default": "Terre des Hommes"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Couleur d'accent",
+          "default": "#8FCDBF"
+        }
+      ]
+    },
+    {
       "type": "button",
       "name": "Button",
       "limit": 1,
@@ -543,13 +670,7 @@
       "name": "Custom Media with text",
       "blocks": [
         {
-          "type": "heading"
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "button"
+          "type": "quote"
         }
       ]
     }
