@@ -539,7 +539,7 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "Des livres beaux, simples et vrais, qui nourrissent l'esprit et cultivent l'imaginaire des enfants",
+        "quote": "<p>Des livres beaux, simples et vrais, qui nourrissent l'esprit et cultivent l'imaginaire des enfants</p>",
         "highlighted_phrase": "",
         "author": "",
         "attribution": "",
@@ -741,7 +741,7 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "Des grands-parents et parents, institutrice, psychologue et orthophoniste",
+        "quote": "<p>Des grands-parents et parents, institutrice, psychologue et orthophoniste</p>",
         "highlighted_phrase": "",
         "author": "",
         "attribution": "",
