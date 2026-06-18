@@ -92,7 +92,7 @@
         "custom_liquid_hF7pg4": {
           "type": "custom-liquid",
           "settings": {
-            "custom_liquid": "<link rel=\"stylesheet\" href=\"{{ 'custom-featured-collection.css' | asset_url }}\" media=\"print\" onload=\"this.media='all'\"> \n\n<div class=\"more\">\n\n        <div class=\"featured-collection-text{% unless section.settings.image.aspect_ratio == \"fill\" %} flex flex-col grow{% endunless %}{% if bg_color %} p-6{% else %} mt-6{% endif %}{% unless color_scheme == 'none' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}\">\n          \n\n        {% if product.metafields.custom.avis_comite != blank %}\n          <div class=\"more\">\n            <input class=\"more__toggle\" type=\"checkbox\" id=\"more-{{ section.id }}\" style=\"position:absolute;left:-9999px;\">\n            <div class=\"more__text rte\">\n              {{ product.metafields.custom.avis_comite }}\n            </div>\n            <label class=\"more__btn\" for=\"more-{{ section.id }}\">Voir plus</label>\n          </div>\n        {% endif %}\n\n\n        {%- if section.settings.button_label != blank -%}\n          <a class=\"{{ section.settings.button_style }} block mt-8 w-full\" {% if section.settings.link_url != blank %}href=\"{{ section.settings.link_url }}\"{% else %}role=\"link\"aria-disabled=\"true\"{% endif %}>\n            {{- section.settings.button_label | escape -}}\n          </a>\n        {%- endif -%}\n\n      </div>\n    </div>",
+            "custom_liquid": "<link rel=\"stylesheet\" href=\"{{ 'custom-featured-collection.css' | asset_url }}\" media=\"print\" onload=\"this.media='all'\"> \n\n<div class=\"more\">\n\n        <div class=\"featured-collection-text{% unless section.settings.image.aspect_ratio == \"fill\" %} flex flex-col grow{% endunless %}{% if bg_color %} p-6{% else %} mt-6{% endif %}{% unless color_scheme == 'none' %} color-scheme color-scheme--{{ color_scheme }}{% endunless %}\">\n          \n\n        {% if product.metafields.custom.avis_comite != blank %}\n          <div class=\"more\">\n            <input class=\"more__toggle\" type=\"checkbox\" id=\"more-{{ section.id }}\" style=\"position:absolute;left:-9999px;\">\n            <div class=\"more__text rte\">\n              {{ product.metafields.custom.avis_comite | newline_to_br }}\n            </div>\n            <label class=\"more__btn\" for=\"more-{{ section.id }}\">Voir plus</label>\n          </div>\n        {% endif %}\n\n\n        {%- if section.settings.button_label != blank -%}\n          <a class=\"{{ section.settings.button_style }} block mt-8 w-full\" {% if section.settings.link_url != blank %}href=\"{{ section.settings.link_url }}\"{% else %}role=\"link\"aria-disabled=\"true\"{% endif %}>\n            {{- section.settings.button_label | escape -}}\n          </a>\n        {%- endif -%}\n\n      </div>\n    </div>",
             "column_position": "center"
           }
         },
@@ -142,6 +142,7 @@
           "settings": {
             "show_qty_selector": false,
             "enable_dynamic_checkout": true,
+            "display_shopify_payment": true,
             "show_pickup_availability": true,
             "show_gift_card_recipient": false
           }
