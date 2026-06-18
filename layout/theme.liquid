@@ -31,6 +31,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5CJ2SRNX');</script>
 <!-- End Google Tag Manager -->
+
+
   <meta name="google-site-verification" content="_xBC3vuTtvtWlvi6sz7IYBVCEl8xMYjWAuLt069sT8M" />
   {%- render 'doc-head-core' -%}
   {%- render 'doc-head-social' -%}
@@ -337,6 +339,37 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1219856003299695&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+
+<!-- Script to add url params in the webhooks -->
+ <script>
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const utmTerm = params.get('utm_term');
+  const utmContent = params.get('utm_content');
+  const utmCampaign = params.get('utm_campaign');
+
+  // On n'agit que si au moins un UTM est présent dans l'URL
+  if (!utmTerm && !utmContent) {
+    return;
+  }
+
+  // On écrit dans les attributs du panier Shopify (existant ou futur)
+  fetch('/cart/update.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      attributes: {
+        utm_term: utmTerm || '',
+        utm_content: utmContent || '',
+        utm_campaign: utmCampaign || ''
+      }
+    })
+  }).catch(function(err) {
+    console.warn('Erreur écriture attributs panier', err);
+  });
+})();
+</script>
+<!-- END END END  -->
 
 </head>
 
