@@ -368,7 +368,7 @@ src="https://www.facebook.com/tr?id=1219856003299695&ev=PageView&noscript=1"
           groupe_ab: utmTerm.replace('groupe_', ''),
           id_recommandation: utmContent,
           timestamp: Date.now(),
-          url: window.location.search
+          url: window.location.search || ''
         }),
         keepalive: true
       });
