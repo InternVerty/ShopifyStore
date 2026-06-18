@@ -352,7 +352,7 @@ src="https://www.facebook.com/tr?id=1219856003299695&ev=PageView&noscript=1"
   if (!utmTerm && !utmContent) {
     return;
   }
-  
+
   // Forcer la création/récupération du panier pour obtenir son token
   fetch('/cart.js')
     .then(r => r.json())
@@ -367,7 +367,8 @@ src="https://www.facebook.com/tr?id=1219856003299695&ev=PageView&noscript=1"
           cart_token: cartToken,
           groupe_ab: utmTerm.replace('groupe_', ''),
           id_recommandation: utmContent,
-          timestamp: Date.now()
+          timestamp: Date.now(),
+          url: window.location.search
         }),
         keepalive: true
       });
