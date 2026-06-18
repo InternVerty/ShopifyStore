@@ -352,22 +352,29 @@ src="https://www.facebook.com/tr?id=1219856003299695&ev=PageView&noscript=1"
   if (!utmTerm && !utmContent) {
     return;
   }
-
-  // On écrit dans les attributs du panier Shopify (existant ou futur)
-  fetch('/cart/update.js', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      attributes: {
-        utm_term: utmTerm || '',
-        utm_content: utmContent || '',
-        utm_campaign: utmCampaign || '',
-        click_url : window.location.search || ''
-      }
+  
+  // Forcer la création/récupération du panier pour obtenir son token
+  fetch('/cart.js')
+    .then(r => r.json())
+    .then(function(cart) {
+      const cartToken = cart.token;
+      
+      // Envoyer ce token + l'attribution à TON backend (n8n), pas à Shopify
+      fetch('https://verty-n8n-6903d52ce24c.herokuapp.com/webhook/8472f781-8bf9-4eee-ac2a-1390a7d27f71', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cart_token: cartToken,
+          groupe_ab: utmTerm.replace('groupe_', ''),
+          id_recommandation: utmContent,
+          timestamp: Date.now()
+        }),
+        keepalive: true
+      });
     })
-  }).catch(function(err) {
-    console.warn('Erreur écriture attributs panier', err);
-  });
+    .catch(function(err) {
+      console.warn('Erreur récupération cart token', err);
+    });
 })();
 </script>
 <!-- END END END  -->
