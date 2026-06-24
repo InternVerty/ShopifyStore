@@ -6,6 +6,8 @@
 
 {%- assign mc_children = customer.metafields.verty.children.value -%}
 
+{% render 'account-child-modal' %}
+
 <section class="mc-section" id="enfants">
   <div class="mc-section__header">
     <h2 class="mc-section__title">Mes enfants</h2>
@@ -27,7 +29,7 @@
           <p class="mc-child__name">Emma</p>
           <p class="mc-child__age">7 ans</p>
         </div>
-        <a href="#" class="mc-child__btn">Gérer</a>
+        <button type="button" class="mc-child__btn" onclick="mcOpenChildModal({})">Gérer</button>
       </div>
 
       <div class="mc-child">
@@ -36,7 +38,7 @@
           <p class="mc-child__name">Lucas</p>
           <p class="mc-child__age">10 ans</p>
         </div>
-        <a href="#" class="mc-child__btn">Gérer</a>
+        <button type="button" class="mc-child__btn" onclick="mcOpenChildModal({})">Gérer</button>
       </div>
 
     {%- endif -%}

@@ -1,0 +1,469 @@
+{%- comment -%}
+  Modal de gestion d'un profil enfant.
+  Déclenché par les boutons "Gérer" des cartes enfants.
+  Sauvegarde via POST sur /apps/verty-sync/children (endpoint Go à brancher).
+{%- endcomment -%}
+
+<div id="mc-child-modal" class="mc-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="mc-modal-title">
+  <div class="mc-modal__backdrop"></div>
+  <div class="mc-modal__dialog">
+
+    <div class="mc-modal__header">
+      <h3 class="mc-modal__title" id="mc-modal-title">
+        Profil de <span id="mc-modal-childname">l'enfant</span>
+      </h3>
+      <button class="mc-modal__close" aria-label="Fermer">&times;</button>
+    </div>
+
+    <div class="mc-modal__body">
+      <form id="mc-child-form" novalidate>
+        <input type="hidden" id="mc-field-index">
+
+        <div class="mc-form-row">
+          <div class="mc-form-group">
+            <label class="mc-label" for="mc-field-prenom">Prénom</label>
+            <input type="text" id="mc-field-prenom" class="mc-input" placeholder="Prénom de l'enfant" autocomplete="off">
+          </div>
+          <div class="mc-form-group">
+            <label class="mc-label" for="mc-field-naissance">Date de naissance</label>
+            <input type="date" id="mc-field-naissance" class="mc-input">
+          </div>
+        </div>
+
+        <div class="mc-form-group">
+          <label class="mc-label">Classe</label>
+          <div class="mc-chips mc-chips--single" id="mc-field-classe"></div>
+        </div>
+
+        <div class="mc-form-group">
+          <label class="mc-label">Niveau de lecture</label>
+          <div class="mc-segment" id="mc-field-niveau"></div>
+        </div>
+
+        <div class="mc-form-group">
+          <label class="mc-label">
+            Thèmes préférés
+            <span class="mc-label-hint">Plusieurs choix possibles</span>
+          </label>
+          <div class="mc-chips mc-chips--multi" id="mc-field-themes"></div>
+        </div>
+
+        <div class="mc-form-group">
+          <label class="mc-label" for="mc-field-remarque">Remarque</label>
+          <textarea id="mc-field-remarque" class="mc-textarea" rows="3" placeholder="Informations utiles pour la sélection…"></textarea>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="mc-modal__footer">
+      <button type="button" class="mc-modal__cancel">Annuler</button>
+      <button type="button" class="mc-modal__save" id="mc-modal-save-btn">Enregistrer</button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* ---- Modal overlay ---- */
+  .mc-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .mc-modal.is-open { display: flex; }
+
+  .mc-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+  }
+
+  /* ---- Dialog ---- */
+  .mc-modal__dialog {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    animation: mc-modal-in 0.2s ease;
+  }
+  @keyframes mc-modal-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
+  }
+
+  /* ---- Header ---- */
+  .mc-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px 0;
+    flex-shrink: 0;
+  }
+  .mc-modal__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1a1a1a;
+  }
+  .mc-modal__close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f2f2f2;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .mc-modal__close:hover { background: #e5e5e5; }
+
+  /* ---- Body ---- */
+  .mc-modal__body {
+    overflow-y: auto;
+    padding: 20px 24px;
+    flex: 1;
+  }
+
+  /* ---- Form ---- */
+  .mc-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .mc-form-group {
+    margin-bottom: 20px;
+  }
+  .mc-form-group:last-child { margin-bottom: 0; }
+
+  .mc-label {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  .mc-label-hint {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #aaa;
+    margin-left: 6px;
+  }
+
+  .mc-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-family: inherit;
+    color: #1a1a1a;
+    background: #fafafa;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+  }
+  .mc-input:focus {
+    outline: none;
+    border-color: #2a6a3a;
+    background: #fff;
+  }
+
+  .mc-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-family: inherit;
+    color: #1a1a1a;
+    background: #fafafa;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+  }
+  .mc-textarea:focus {
+    outline: none;
+    border-color: #2a6a3a;
+    background: #fff;
+  }
+
+  /* ---- Chips (multi & single select) ---- */
+  .mc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .mc-chip {
+    padding: 6px 14px;
+    border-radius: 99px;
+    border: 1.5px solid #e0e0e0;
+    background: #f5f5f5;
+    font-size: 1.25rem;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+    white-space: nowrap;
+  }
+  .mc-chip:hover {
+    border-color: #aacfbb;
+    background: #f0f8f3;
+  }
+  .mc-chip.is-selected {
+    background: #dff0e8;
+    border-color: #2a6a3a;
+    color: #1a5c3a;
+    font-weight: 600;
+  }
+
+  /* ---- Segment (lecture niveau) ---- */
+  .mc-segment {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .mc-segment-btn {
+    padding: 11px 16px;
+    border-radius: 10px;
+    border: 1.5px solid #e0e0e0;
+    background: #f5f5f5;
+    font-size: 1.3rem;
+    color: #555;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+    font-family: inherit;
+  }
+  .mc-segment-btn:hover {
+    border-color: #aacfbb;
+    background: #f0f8f3;
+  }
+  .mc-segment-btn.is-selected {
+    background: #dff0e8;
+    border-color: #2a6a3a;
+    color: #1a5c3a;
+    font-weight: 600;
+  }
+
+  /* ---- Footer ---- */
+  .mc-modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px 22px;
+    border-top: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+  .mc-modal__cancel {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1.5px solid #e0e0e0;
+    background: transparent;
+    font-size: 1.35rem;
+    color: #666;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .mc-modal__cancel:hover { background: #f5f5f5; }
+
+  .mc-modal__save {
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    background: #1a5c3a;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .mc-modal__save:hover { background: #154d30; }
+  .mc-modal__save:disabled { background: #aaa; cursor: not-allowed; }
+
+  @media screen and (max-width: 580px) {
+    .mc-form-row { grid-template-columns: 1fr; }
+    .mc-modal__dialog { border-radius: 16px 16px 0 0; align-self: flex-end; max-height: 92vh; }
+    .mc-modal { align-items: flex-end; padding: 0; }
+  }
+</style>
+
+<script>
+(function () {
+
+  const THEMES = [
+    'Humour','Aventures','Histoire','Animaux','Emotions','Documentaire',
+    'Spiritualité','Amitié','Famille','Nature','Arts','Contes et légendes',
+    'Sport','Voyages','Policiers','Fantastique','BD','Mythologie',
+    'Biographies','Mystère','Classiques','Science fiction','Intrigue'
+  ];
+
+  const CLASSES = [
+    'Crèche','Petite section','Moyenne section','Grande section',
+    'CP','CE1','CE2','CM1','CM2',
+    '6ème','5ème','4ème','3ème',
+    '2nde','1ère','Terminale'
+  ];
+
+  const NIVEAUX = [
+    'Au-dessus du niveau de sa classe',
+    'Conforme au niveau de sa classe',
+    'En-dessous du niveau de sa classe'
+  ];
+
+  const modal     = document.getElementById('mc-child-modal');
+  const backdrop  = modal.querySelector('.mc-modal__backdrop');
+  const closeBtn  = modal.querySelector('.mc-modal__close');
+  const cancelBtn = modal.querySelector('.mc-modal__cancel');
+  const saveBtn   = document.getElementById('mc-modal-save-btn');
+
+  /* ---- Build static chip/segment lists ---- */
+  function buildChips(containerId, items, mode) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = items.map(item => `
+      <button type="button" class="mc-chip" data-value="${item}">${item}</button>
+    `).join('');
+
+    container.addEventListener('click', function (e) {
+      const chip = e.target.closest('.mc-chip');
+      if (!chip) return;
+      if (mode === 'single') {
+        container.querySelectorAll('.mc-chip').forEach(c => c.classList.remove('is-selected'));
+        chip.classList.add('is-selected');
+      } else {
+        chip.classList.toggle('is-selected');
+      }
+    });
+  }
+
+  function buildSegment(containerId, items) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = items.map(item => `
+      <button type="button" class="mc-segment-btn" data-value="${item}">${item}</button>
+    `).join('');
+
+    container.addEventListener('click', function (e) {
+      const btn = e.target.closest('.mc-segment-btn');
+      if (!btn) return;
+      container.querySelectorAll('.mc-segment-btn').forEach(b => b.classList.remove('is-selected'));
+      btn.classList.add('is-selected');
+    });
+  }
+
+  buildChips('mc-field-classe',  CLASSES, 'single');
+  buildSegment('mc-field-niveau', NIVEAUX);
+  buildChips('mc-field-themes',  THEMES,  'multi');
+
+  /* ---- Helpers ---- */
+  function getSelected(containerId) {
+    return Array.from(
+      document.querySelectorAll(`#${containerId} .is-selected`)
+    ).map(el => el.dataset.value);
+  }
+
+  function setSelected(containerId, values, mode) {
+    const list = Array.isArray(values) ? values : (values ? [values] : []);
+    document.querySelectorAll(`#${containerId} [data-value]`).forEach(el => {
+      el.classList.toggle('is-selected', list.includes(el.dataset.value));
+    });
+  }
+
+  /* ---- Open / Close ---- */
+  function open(childData) {
+    const data = childData || {};
+
+    document.getElementById('mc-field-index').value       = data.index ?? '';
+    document.getElementById('mc-modal-childname').textContent = data.prenom || 'l\'enfant';
+    document.getElementById('mc-field-prenom').value      = data.prenom    || '';
+    document.getElementById('mc-field-naissance').value   = data.naissance || '';
+    document.getElementById('mc-field-remarque').value    = data.remarque  || '';
+
+    setSelected('mc-field-classe',  data.classe  || '', 'single');
+    setSelected('mc-field-niveau',  data.niveau  || '', 'single');
+    setSelected('mc-field-themes',  data.themes  || [], 'multi');
+
+    modal.setAttribute('aria-hidden', 'false');
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('mc-field-prenom').focus();
+  }
+
+  function close() {
+    modal.setAttribute('aria-hidden', 'true');
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  backdrop.addEventListener('click', close);
+  closeBtn.addEventListener('click', close);
+  cancelBtn.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  /* ---- Save ---- */
+  saveBtn.addEventListener('click', async function () {
+    const payload = {
+      index:     document.getElementById('mc-field-index').value,
+      prenom:    document.getElementById('mc-field-prenom').value.trim(),
+      naissance: document.getElementById('mc-field-naissance').value,
+      classe:    (getSelected('mc-field-classe')[0]  || ''),
+      niveau:    (getSelected('mc-field-niveau')[0]  || ''),
+      themes:    getSelected('mc-field-themes'),
+      remarque:  document.getElementById('mc-field-remarque').value.trim()
+    };
+
+    if (!payload.prenom) {
+      document.getElementById('mc-field-prenom').focus();
+      return;
+    }
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Enregistrement…';
+
+    try {
+      /* TODO: remplacer par l'URL de ton endpoint Go */
+      const res = await fetch('/apps/verty-sync/children', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_id: '{{ customer.id }}',
+          child: payload
+        })
+      });
+
+      if (res.ok) {
+        close();
+        window.location.reload();
+      } else {
+        throw new Error('Erreur serveur');
+      }
+    } catch (err) {
+      console.error('Sauvegarde échouée :', err);
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Enregistrer';
+    }
+  });
+
+  /* ---- Expose pour les boutons "Gérer" ---- */
+  window.mcOpenChildModal = open;
+
+})();
+</script>

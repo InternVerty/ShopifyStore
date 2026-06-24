@@ -24,5 +24,9 @@
     <p class="mc-child__age">{{ mc_child.age }} ans</p>
   </div>
 
-  <a href="{{ mc_child.url | default: '#' }}" class="mc-child__btn">Gérer</a>
+  <button
+    type="button"
+    class="mc-child__btn"
+    onclick="mcOpenChildModal({{ mc_child | json }})"
+  >Gérer</button>
 </div>
