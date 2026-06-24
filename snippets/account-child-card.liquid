@@ -1,0 +1,28 @@
+{%- comment -%}
+  Carte enfant individuelle.
+
+  Variables attendues (passées via render) :
+    mc_child.name              — prénom de l'enfant
+    mc_child.age               — âge
+    mc_child.initial           — initiale pour l'avatar
+    mc_child.avatar_color      — couleur de fond de l'avatar
+    mc_child.avatar_text_color — couleur du texte de l'avatar
+    mc_child.url               — URL de la page de gestion de l'enfant
+{%- endcomment -%}
+
+<div class="mc-child">
+  <div
+    class="mc-child__avatar"
+    style="background-color: {{ mc_child.avatar_color | default: '#c8eddb' }}; color: {{ mc_child.avatar_text_color | default: '#1a5c3a' }};"
+    aria-hidden="true"
+  >
+    {{ mc_child.initial }}
+  </div>
+
+  <div class="mc-child__info">
+    <p class="mc-child__name">{{ mc_child.name }}</p>
+    <p class="mc-child__age">{{ mc_child.age }} ans</p>
+  </div>
+
+  <a href="{{ mc_child.url | default: '#' }}" class="mc-child__btn">Gérer</a>
+</div>

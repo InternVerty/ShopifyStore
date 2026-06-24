@@ -1,0 +1,33 @@
+{%- comment -%}
+  Section "Mes favoris"
+
+  Source de données :
+    customer.metafields.verty.favorites.value  →  liste JSON d'objets contenu
+    Format attendu par item :
+      { "title": "", "tag": "", "tag_color": "#hex", "thumb_color": "#hex", "duration": 8, "url": "/..." }
+
+  Les données PLACEHOLDER ci-dessous sont supprimées dès que le métachamp est actif.
+{%- endcomment -%}
+
+{%- assign mc_favorites = customer.metafields.verty.favorites.value -%}
+
+{%- unless mc_favorites -%}
+  {%- assign mc_favorites = '[
+    {"title":"Les mots qui consolent","tag":"Le deuil","tag_color":"#4a7c5e","thumb_color":"#aec6e8","duration":8,"url":"#"},
+    {"title":"Écrire la joie","tag":"La Joie","tag_color":"#9a7d10","thumb_color":"#f5d87a","duration":5,"url":"#"},
+    {"title":"Colère, mon amie","tag":"La colère","tag_color":"#a04060","thumb_color":"#f5b8c8","duration":12,"url":"#"}
+  ]' | parse_json -%}
+{%- endunless -%}
+
+{%- if mc_favorites != blank -%}
+  <section class="mc-section" id="favoris">
+    <div class="mc-section__header">
+      <h2 class="mc-section__title">Mes favoris</h2>
+      <a href="/pages/mes-favoris" class="mc-section__link">Tout voir ›</a>
+    </div>
+
+    {%- for mc_item in mc_favorites limit: 3 -%}
+      {% render 'account-content-row', mc_item: mc_item %}
+    {%- endfor -%}
+  </section>
+{%- endif -%}

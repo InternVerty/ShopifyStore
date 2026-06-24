@@ -1,79 +1,463 @@
-<div class="account-nav">
-  <div class="container flex justify-center column account-buttons">
-    <a class="btn btn--secondary" href="{{ routes.account_addresses_url }}">
-      {{ 'customer.addresses.title' | t }}
-    </a>
-    <a class="btn btn--secondary" href="{{ routes.account_logout_url }}"{% if settings.preload_links %} data-no-instant{% endif %}>
-      {{- 'customer.account.log_out' | t -}}
-    </a>
-  </div>
-</div>
+<style>
+  /* ===================================================
+     MON COMPTE — styles scoped à la page /account
+     =================================================== */
 
-<div class="section customer">
-  <div class="container">
-    <div class="account-width mx-auto">
-      <h1 class="text-center">{{ 'customer.account.title' | t }}</h1>
+  .mc-page {
+    background-color: #f3f4f2;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
 
-      <div class="mt-8 text-center">
-        <h2 class="h3">{{ 'customer.orders.title' | t }}</h2>
+  /* --- Header --- */
+  .mc-header {
+    padding: 32px 0 24px;
+  }
 
-        {%- paginate customer.orders by 20 -%}
-          {%- if customer.orders.size > 0 -%}
-            <table class="orders w-full mb-8">
-              <caption class="visually-hidden">{{ 'customer.orders.title' | t }}</caption>
-              <thead>
-              <tr>
-                <th>{{ 'customer.orders.order_number' | t }}</th>
-                <th>{{ 'customer.orders.date' | t }}</th>
-                <th>{{ 'customer.orders.payment_status' | t }}</th>
-                <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
-                <th class="text-end">{{ 'customer.orders.total' | t }}</th>
-              </tr>
-              </thead>
-              <tbody>
-              {%- for order in customer.orders -%}
-                <tr>
-                  <td class="orders__number" data-label="{{ 'customer.orders.order_number' | t }}">
-                    <a class="link" href="{{ order.customer_url }}">{{ order.name }}</a>
-                  </td>
-                  <td class="orders__date" data-label="{{ 'customer.orders.date' | t }}">
-                    {{- order.created_at | time_tag: format: 'date' -}}
-                  </td>
-                  <td class="orders__pay" data-label="{{ 'customer.orders.payment_status' | t }}">
-                    {{- order.financial_status_label -}}
-                  </td>
-                  <td class="orders__fulfil" data-label="{{ 'customer.orders.fulfillment_status' | t }}">
-                    {{- order.fulfillment_status_label -}}
-                  </td>
-                  <td class="orders__total text-end" data-label="{{ 'customer.orders.total' | t }}">
-                    {{- order.total_price | money_with_currency -}}
-                  </td>
-                  <td class="orders__link">
-                    <a class="btn btn--secondary w-full" href="{{ order.customer_url }}">{{ 'customer.orders.view_order' | t }}</a>
-                  </td>
-                </tr>
-              {%- endfor -%}
-              </tbody>
-            </table>
-          {%- else -%}
-            <p class="mb-8">{{ 'customer.orders.none' | t }}</p>
-          {%- endif -%}
+  .mc-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
 
-          {%- if paginate.pages > 1 -%}
-            {% render 'pagination', paginate: paginate %}
-          {%- endif -%}
-        {%- endpaginate -%}
-      </div>
+  .mc-header__greeting {
+    font-size: 3.6rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1a1a1a;
+    line-height: 1.1;
+  }
 
-      <div class="mt-16 text-center">
-        <h2 class="h3">{{ 'customer.account.details' | t }}</h2>
-        <div class="address-box mt-6 mx-auto">
-          {{ customer.default_address | format_address }}
-          <a class="link" href="{{ routes.account_addresses_url }}">
-            {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
-          </a>
-        </div>
-      </div>
+  .mc-abo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1.5px solid #2D6A4F;
+    border-radius: 99px;
+    padding: 5px 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2D6A4F;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+  }
+
+  .mc-abo-badge__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #2D6A4F;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* --- Layout 2 colonnes --- */
+  .mc-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 244px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* --- SIDEBAR --- */
+  .mc-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 24px;
+  }
+
+  .mc-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .mc-profile__name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #1a1a1a;
+  }
+
+  .mc-profile__bio {
+    font-size: 1.35rem;
+    color: #777;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .mc-sub-card {
+    background: #1C2B3A;
+    border-radius: 16px;
+    padding: 22px 20px;
+    color: #ffffff;
+  }
+
+  .mc-sub-card__label {
+    font-size: 1.0rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #6b8fa0;
+    margin: 0 0 6px;
+  }
+
+  .mc-sub-card__name {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+    color: #ffffff;
+  }
+
+  .mc-sub-card__dates {
+    font-size: 1.25rem;
+    color: #7a9fb5;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .mc-sub-card__link {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  .mc-sub-card__link:hover {
+    opacity: 0.8;
+  }
+
+  /* Nav sidebar */
+  .mc-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mc-nav__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #555;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .mc-nav__item--active {
+    background: #dff0e8;
+    color: #1a5c3a;
+    font-weight: 600;
+  }
+
+  .mc-nav__item:hover:not(.mc-nav__item--active) {
+    background: #ebebeb;
+  }
+
+  .mc-nav__icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.65;
+    flex-shrink: 0;
+  }
+
+  /* --- MAIN --- */
+  .mc-main {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .mc-section {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .mc-section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .mc-section__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    margin: 0;
+  }
+
+  .mc-section__link {
+    font-size: 1.3rem;
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    transition: color 0.15s;
+  }
+
+  .mc-section__link:hover {
+    color: #1a5c3a;
+  }
+
+  /* --- CONTENT ROW (favoris / historique) --- */
+  .mc-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.15s;
+  }
+
+  .mc-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .mc-row:first-child {
+    padding-top: 0;
+  }
+
+  .mc-row:hover {
+    opacity: 0.75;
+  }
+
+  .mc-row__thumb {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .mc-row__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mc-row__title {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mc-row__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mc-badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 2px 11px;
+    border-radius: 99px;
+    border: 1.5px solid currentColor;
+    line-height: 1.6;
+  }
+
+  .mc-row__duration {
+    font-size: 1.2rem;
+    color: #aaa;
+  }
+
+  .mc-row__chevron {
+    color: #ccc;
+    flex-shrink: 0;
+  }
+
+  /* --- CHILDREN --- */
+  .mc-children {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .mc-child {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1.5px solid #ebebeb;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .mc-child__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .mc-child__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mc-child__name {
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin: 0 0 2px;
+    color: #1a1a1a;
+  }
+
+  .mc-child__age {
+    font-size: 1.25rem;
+    color: #aaa;
+    margin: 0;
+  }
+
+  .mc-child__btn {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a5c3a;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .mc-child__btn:hover {
+    text-decoration: underline;
+  }
+
+  /* --- SETTINGS --- */
+  .mc-setting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.4rem;
+  }
+
+  .mc-setting:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .mc-setting:first-child {
+    padding-top: 0;
+  }
+
+  .mc-setting__label {
+    color: #444;
+    font-weight: 500;
+  }
+
+  .mc-setting__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mc-setting__value {
+    color: #aaa;
+  }
+
+  .mc-setting__edit {
+    font-weight: 600;
+    color: #1a5c3a;
+    text-decoration: none;
+    font-size: 1.35rem;
+  }
+
+  .mc-setting__edit:hover {
+    text-decoration: underline;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media screen and (max-width: 860px) {
+    .mc-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .mc-sidebar {
+      position: static;
+    }
+
+    .mc-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .mc-nav__item {
+      padding: 8px 14px;
+    }
+  }
+
+  @media screen and (max-width: 580px) {
+    .mc-header__greeting {
+      font-size: 2.8rem;
+    }
+
+    .mc-children {
+      grid-template-columns: 1fr;
+    }
+
+    .mc-section {
+      padding: 18px 16px;
+    }
+  }
+</style>
+
+<div class="mc-page">
+
+  {%- comment -%} ——— HEADER ——— {%- endcomment -%}
+  <div class="mc-header">
+    <div class="mc-header__inner">
+      <h1 class="mc-header__greeting">Bonjour, {{ customer.first_name }}.</h1>
+      {%- comment -%} TODO: brancher sur customer.metafields.verty.subscription_type.value {%- endcomment -%}
+      {%- assign mc_sub_type = customer.metafields.verty.subscription_type.value | default: 'Abonnement Sélection' -%}
+      <span class="mc-abo-badge">
+        <span class="mc-abo-badge__dot"></span>
+        {{ mc_sub_type }}
+      </span>
     </div>
   </div>
+
+  {%- comment -%} ——— LAYOUT 2 COLS ——— {%- endcomment -%}
+  <div class="mc-layout">
+    {% render 'account-sidebar' %}
+    <main class="mc-main">
+      {% render 'account-favoris' %}
+      {% render 'account-historique' %}
+      {% render 'account-enfants' %}
+      {% render 'account-parametres' %}
+    </main>
+  </div>
+
 </div>

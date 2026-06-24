@@ -1,0 +1,31 @@
+{%- comment -%}
+  Section "Mon historique"
+
+  Source de données :
+    customer.metafields.verty.history.value  →  liste JSON d'objets contenu
+    Même format que les favoris.
+
+  Les données PLACEHOLDER ci-dessous sont supprimées dès que le métachamp est actif.
+{%- endcomment -%}
+
+{%- assign mc_history = customer.metafields.verty.history.value -%}
+
+{%- unless mc_history -%}
+  {%- assign mc_history = '[
+    {"title":"Le silence de novembre","tag":"Automne","tag_color":"#a06830","thumb_color":"#d4a96a","duration":7,"url":"#"},
+    {"title":"Apprendre à dire merci","tag":"La gratitude","tag_color":"#2a7a6a","thumb_color":"#8fd5c8","duration":6,"url":"#"}
+  ]' | parse_json -%}
+{%- endunless -%}
+
+{%- if mc_history != blank -%}
+  <section class="mc-section" id="historique">
+    <div class="mc-section__header">
+      <h2 class="mc-section__title">Mon historique</h2>
+      <a href="/pages/mon-historique" class="mc-section__link">Tout voir ›</a>
+    </div>
+
+    {%- for mc_item in mc_history limit: 3 -%}
+      {% render 'account-content-row', mc_item: mc_item %}
+    {%- endfor -%}
+  </section>
+{%- endif -%}

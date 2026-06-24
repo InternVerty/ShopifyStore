@@ -1,0 +1,37 @@
+{%- comment -%}
+  Ligne de contenu partagée entre "Mes favoris" et "Mon historique".
+
+  Variables attendues (passées via render) :
+    mc_item.title       — titre du contenu
+    mc_item.tag         — libellé de la catégorie
+    mc_item.tag_color   — couleur hex de la catégorie  (ex: "#5A8A6F")
+    mc_item.thumb_color — couleur hex du thumbnail      (ex: "#B8CCE4")
+    mc_item.duration    — durée en minutes
+    mc_item.url         — URL de la page du contenu
+{%- endcomment -%}
+
+<a href="{{ mc_item.url | default: '#' }}" class="mc-row">
+
+  <div class="mc-row__thumb" style="background-color: {{ mc_item.thumb_color | default: '#d0d0d0' }};"></div>
+
+  <div class="mc-row__info">
+    <p class="mc-row__title">{{ mc_item.title }}</p>
+    <div class="mc-row__meta">
+      {%- if mc_item.tag != blank -%}
+        <span class="mc-badge" style="color: {{ mc_item.tag_color | default: '#2D6A4F' }}; border-color: {{ mc_item.tag_color | default: '#2D6A4F' }};">
+          {{ mc_item.tag }}
+        </span>
+      {%- endif -%}
+      {%- if mc_item.duration != blank -%}
+        <span class="mc-row__duration">{{ mc_item.duration }} min</span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <span class="mc-row__chevron" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </span>
+
+</a>
