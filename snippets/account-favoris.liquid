@@ -1,10 +1,8 @@
 {%- comment -%}
   Section "Mes favoris"
-  Source : customer.metafields.verty.favorites.value (liste JSON)
-  Tant que le métachamp n'est pas actif, les placeholders HTML s'affichent.
+  Source : localStorage wishlisthero_.wl-itms (Wishlist Hero)
+  Fallback API : wishlist-hero.revampco.com si localStorage vide
 {%- endcomment -%}
-
-{%- assign mc_favorites = customer.metafields.verty.favorites.value -%}
 
 <section class="mc-section" id="favoris">
   <div class="mc-section__header">
@@ -12,49 +10,115 @@
     <a href="/pages/mes-favoris" class="mc-section__link">Tout voir ›</a>
   </div>
 
-  {%- if mc_favorites -%}
-    {%- for mc_item in mc_favorites limit: 3 -%}
-      {% render 'account-content-row', mc_item: mc_item %}
-    {%- endfor -%}
-
-  {%- else -%}
-    {%- comment -%} PLACEHOLDER — supprimer quand verty.favorites est actif {%- endcomment -%}
-
-    <a href="/products/la-cabane-magique-vol-1-la-vallee-des-dinosaures" class="mc-row">
-      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/376369_1_351509f6-8bac-43c0-b412-1195588fadd3.webp?v=1752583083'); background-size: cover; background-position: center;"></div>
-      <div class="mc-row__info">
-        <p class="mc-row__title">La Cabane magique — La vallée des dinosaures</p>
-        <div class="mc-row__meta">
-          <span class="mc-badge" style="color: #1a6aaa; border-color: #1a6aaa;">Aventures</span>
-          <span class="mc-row__duration">De 6 à 8 ans</span>
-        </div>
-      </div>
-      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
-    </a>
-
-    <a href="/products/les-chiens-pirates-pili-pili" class="mc-row">
-      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/1640661_1.webp?v=1750430128'); background-size: cover; background-position: center;"></div>
-      <div class="mc-row__info">
-        <p class="mc-row__title">Les chiens pirates : Pili Pili !</p>
-        <div class="mc-row__meta">
-          <span class="mc-badge" style="color: #3a7a3a; border-color: #3a7a3a;">Animaux</span>
-          <span class="mc-row__duration">De 4 à 6 ans</span>
-        </div>
-      </div>
-      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
-    </a>
-
-    <a href="/products/les-souris-du-louvre-vol-1-milo-et-le-monde-cache" class="mc-row">
-      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/503733_1.webp?v=1766068356'); background-size: cover; background-position: center;"></div>
-      <div class="mc-row__info">
-        <p class="mc-row__title">Les souris du Louvre — Milo et le monde caché</p>
-        <div class="mc-row__meta">
-          <span class="mc-badge" style="color: #6a4aaa; border-color: #6a4aaa;">BD &amp; Art</span>
-          <span class="mc-row__duration">De 8 à 10 ans</span>
-        </div>
-      </div>
-      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
-    </a>
-
-  {%- endif -%}
+  <div id="mc-favoris-list">
+    <div class="mc-favoris-loading">
+      <span class="mc-favoris-loading__dot"></span>
+      <span class="mc-favoris-loading__dot"></span>
+      <span class="mc-favoris-loading__dot"></span>
+    </div>
+  </div>
 </section>
+
+<style>
+  .mc-favoris-loading {
+    display: flex;
+    gap: 6px;
+    padding: 20px 0;
+    justify-content: center;
+  }
+  .mc-favoris-loading__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d0d0d0;
+    animation: mc-pulse 1.2s ease-in-out infinite;
+  }
+  .mc-favoris-loading__dot:nth-child(2) { animation-delay: 0.2s; }
+  .mc-favoris-loading__dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes mc-pulse {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40%           { opacity: 1;   transform: scale(1); }
+  }
+  .mc-favoris-empty {
+    padding: 16px 0;
+    color: #aaa;
+    font-size: 1.35rem;
+  }
+</style>
+
+<script>
+(function () {
+  const LIMIT = 3;
+  const container = document.getElementById('mc-favoris-list');
+
+  function buildRow(item) {
+    return `
+      <a href="${item.ProductLink}" class="mc-row">
+        <div class="mc-row__thumb" style="
+          background-image: url('${item.ProductImage}');
+          background-size: cover;
+          background-position: center;
+        "></div>
+        <div class="mc-row__info">
+          <p class="mc-row__title">${item.ProductName}</p>
+          <div class="mc-row__meta">
+            <span class="mc-row__duration">${item.DisplayCurrency ? item.DisplayPrice + ' ' + item.DisplayCurrency : ''}</span>
+          </div>
+        </div>
+        <span class="mc-row__chevron" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </span>
+      </a>`;
+  }
+
+  function render(items) {
+    if (!items || items.length === 0) {
+      container.innerHTML = '<p class="mc-favoris-empty">Aucun favori pour le moment.</p>';
+      return;
+    }
+    container.innerHTML = items.slice(0, LIMIT).map(buildRow).join('');
+  }
+
+  function loadFromApi() {
+    const hash = localStorage.getItem('wishlisthero_.wl-h');
+    const customerId = '{{ customer.id }}';
+    if (!hash || !customerId) {
+      container.innerHTML = '<p class="mc-favoris-empty">Aucun favori pour le moment.</p>';
+      return;
+    }
+    fetch(`https://wishlist-hero.revampco.com/storefront/api/store/verty-verty.myshopify.com/wishlist?h=${hash}&c=${customerId}`)
+      .then(r => r.json())
+      .then(data => render(data.wishlist?.Items || []))
+      .catch(() => render([]));
+  }
+
+  function tryLocalStorage() {
+    const raw = localStorage.getItem('wishlisthero_.wl-itms');
+    if (raw) {
+      try {
+        const items = JSON.parse(raw);
+        if (Array.isArray(items) && items.length > 0) {
+          render(items);
+          return true;
+        }
+      } catch (e) {}
+    }
+    return false;
+  }
+
+  // Tentative immédiate depuis le localStorage
+  if (!tryLocalStorage()) {
+    // Si vide, on attend que Wishlist Hero ait chargé ses données (max 3s)
+    let attempts = 0;
+    const poll = setInterval(function () {
+      attempts++;
+      if (tryLocalStorage() || attempts >= 15) {
+        clearInterval(poll);
+        if (attempts >= 15) loadFromApi(); // fallback API si localStorage reste vide
+      }
+    }, 200);
+  }
+})();
+</script>
