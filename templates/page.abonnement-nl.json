@@ -592,7 +592,7 @@
         "card_border_width": 0,
         "card_radius": 0,
         "card_shadow": "none",
-        "card_pad_v": 48,
+        "card_pad_v": 0,
         "card_pad_h": 48,
         "left_flex": 5,
         "right_flex": 5,
