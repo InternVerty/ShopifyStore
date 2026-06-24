@@ -1,33 +1,60 @@
 {%- comment -%}
   Section "Mes favoris"
-
-  Source de données :
-    customer.metafields.verty.favorites.value  →  liste JSON d'objets contenu
-    Format attendu par item :
-      { "title": "", "tag": "", "tag_color": "#hex", "thumb_color": "#hex", "duration": 8, "url": "/..." }
-
-  Les données PLACEHOLDER ci-dessous sont supprimées dès que le métachamp est actif.
+  Source : customer.metafields.verty.favorites.value (liste JSON)
+  Tant que le métachamp n'est pas actif, les placeholders HTML s'affichent.
 {%- endcomment -%}
 
 {%- assign mc_favorites = customer.metafields.verty.favorites.value -%}
 
-{%- unless mc_favorites -%}
-  {%- assign mc_favorites = '[
-    {"title":"La Cabane magique — La vallée des dinosaures","tag":"Aventures","tag_color":"#1a6aaa","thumb_color":"#ddeeff","thumb_image":"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/376369_1_351509f6-8bac-43c0-b412-1195588fadd3.webp?v=1752583083","age":"De 6 à 8 ans","url":"/products/la-cabane-magique-vol-1-la-vallee-des-dinosaures"},
-    {"title":"Les chiens pirates : Pili Pili !","tag":"Animaux","tag_color":"#3a7a3a","thumb_color":"#ddf0dd","thumb_image":"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/1640661_1.webp?v=1750430128","age":"De 4 à 6 ans","url":"/products/les-chiens-pirates-pili-pili"},
-    {"title":"Les souris du Louvre — Milo et le monde caché","tag":"BD & Art","tag_color":"#6a4aaa","thumb_color":"#eedefc","thumb_image":"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/503733_1.webp?v=1766068356","age":"De 8 à 10 ans","url":"/products/les-souris-du-louvre-vol-1-milo-et-le-monde-cache"}
-  ]' | parse_json -%}
-{%- endunless -%}
+<section class="mc-section" id="favoris">
+  <div class="mc-section__header">
+    <h2 class="mc-section__title">Mes favoris</h2>
+    <a href="/pages/mes-favoris" class="mc-section__link">Tout voir ›</a>
+  </div>
 
-{%- if mc_favorites != blank -%}
-  <section class="mc-section" id="favoris">
-    <div class="mc-section__header">
-      <h2 class="mc-section__title">Mes favoris</h2>
-      <a href="/pages/mes-favoris" class="mc-section__link">Tout voir ›</a>
-    </div>
-
+  {%- if mc_favorites -%}
     {%- for mc_item in mc_favorites limit: 3 -%}
       {% render 'account-content-row', mc_item: mc_item %}
     {%- endfor -%}
-  </section>
-{%- endif -%}
+
+  {%- else -%}
+    {%- comment -%} PLACEHOLDER — supprimer quand verty.favorites est actif {%- endcomment -%}
+
+    <a href="/products/la-cabane-magique-vol-1-la-vallee-des-dinosaures" class="mc-row">
+      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/376369_1_351509f6-8bac-43c0-b412-1195588fadd3.webp?v=1752583083'); background-size: cover; background-position: center;"></div>
+      <div class="mc-row__info">
+        <p class="mc-row__title">La Cabane magique — La vallée des dinosaures</p>
+        <div class="mc-row__meta">
+          <span class="mc-badge" style="color: #1a6aaa; border-color: #1a6aaa;">Aventures</span>
+          <span class="mc-row__duration">De 6 à 8 ans</span>
+        </div>
+      </div>
+      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
+    </a>
+
+    <a href="/products/les-chiens-pirates-pili-pili" class="mc-row">
+      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/1640661_1.webp?v=1750430128'); background-size: cover; background-position: center;"></div>
+      <div class="mc-row__info">
+        <p class="mc-row__title">Les chiens pirates : Pili Pili !</p>
+        <div class="mc-row__meta">
+          <span class="mc-badge" style="color: #3a7a3a; border-color: #3a7a3a;">Animaux</span>
+          <span class="mc-row__duration">De 4 à 6 ans</span>
+        </div>
+      </div>
+      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
+    </a>
+
+    <a href="/products/les-souris-du-louvre-vol-1-milo-et-le-monde-cache" class="mc-row">
+      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/503733_1.webp?v=1766068356'); background-size: cover; background-position: center;"></div>
+      <div class="mc-row__info">
+        <p class="mc-row__title">Les souris du Louvre — Milo et le monde caché</p>
+        <div class="mc-row__meta">
+          <span class="mc-badge" style="color: #6a4aaa; border-color: #6a4aaa;">BD &amp; Art</span>
+          <span class="mc-row__duration">De 8 à 10 ans</span>
+        </div>
+      </div>
+      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
+    </a>
+
+  {%- endif -%}
+</section>

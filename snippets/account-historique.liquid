@@ -1,31 +1,48 @@
 {%- comment -%}
   Section "Mon historique"
-
-  Source de données :
-    customer.metafields.verty.history.value  →  liste JSON d'objets contenu
-    Même format que les favoris.
-
-  Les données PLACEHOLDER ci-dessous sont supprimées dès que le métachamp est actif.
+  Source : customer.metafields.verty.history.value (liste JSON)
+  Tant que le métachamp n'est pas actif, les placeholders HTML s'affichent.
 {%- endcomment -%}
 
 {%- assign mc_history = customer.metafields.verty.history.value -%}
 
-{%- unless mc_history -%}
-  {%- assign mc_history = '[
-    {"title":"Tobie Lolness — La vie suspendue","tag":"Aventures","tag_color":"#1a6aaa","thumb_color":"#ddeeff","thumb_image":"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/77763_1_01800c8b-e72c-4a2b-9953-e391a2641a13.webp?v=1752585516","age":"De 10 à 12 ans","url":"/products/tobie-lolness-vol-1-la-vie-suspendue"},
-    {"title":"Le tour du monde en 80 jours","tag":"Aventures","tag_color":"#1a6aaa","thumb_color":"#ddeeff","thumb_image":"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/305609.webp?v=1726749406","age":"De 8 à 10 ans","url":"/products/le-tour-du-monde-en-80-jours"}
-  ]' | parse_json -%}
-{%- endunless -%}
+<section class="mc-section" id="historique">
+  <div class="mc-section__header">
+    <h2 class="mc-section__title">Mon historique</h2>
+    <a href="/pages/mon-historique" class="mc-section__link">Tout voir ›</a>
+  </div>
 
-{%- if mc_history != blank -%}
-  <section class="mc-section" id="historique">
-    <div class="mc-section__header">
-      <h2 class="mc-section__title">Mon historique</h2>
-      <a href="/pages/mon-historique" class="mc-section__link">Tout voir ›</a>
-    </div>
-
+  {%- if mc_history -%}
     {%- for mc_item in mc_history limit: 3 -%}
       {% render 'account-content-row', mc_item: mc_item %}
     {%- endfor -%}
-  </section>
-{%- endif -%}
+
+  {%- else -%}
+    {%- comment -%} PLACEHOLDER — supprimer quand verty.history est actif {%- endcomment -%}
+
+    <a href="/products/tobie-lolness-vol-1-la-vie-suspendue" class="mc-row">
+      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/77763_1_01800c8b-e72c-4a2b-9953-e391a2641a13.webp?v=1752585516'); background-size: cover; background-position: center;"></div>
+      <div class="mc-row__info">
+        <p class="mc-row__title">Tobie Lolness — La vie suspendue</p>
+        <div class="mc-row__meta">
+          <span class="mc-badge" style="color: #1a6aaa; border-color: #1a6aaa;">Aventures</span>
+          <span class="mc-row__duration">De 10 à 12 ans</span>
+        </div>
+      </div>
+      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
+    </a>
+
+    <a href="/products/le-tour-du-monde-en-80-jours" class="mc-row">
+      <div class="mc-row__thumb" style="background-image: url('https://cdn.shopify.com/s/files/1/0844/5447/4021/files/305609.webp?v=1726749406'); background-size: cover; background-position: center;"></div>
+      <div class="mc-row__info">
+        <p class="mc-row__title">Le tour du monde en 80 jours</p>
+        <div class="mc-row__meta">
+          <span class="mc-badge" style="color: #aa6a1a; border-color: #aa6a1a;">Classique</span>
+          <span class="mc-row__duration">De 8 à 10 ans</span>
+        </div>
+      </div>
+      <span class="mc-row__chevron" aria-hidden="true">{% render 'icon-chevron-right' %}</span>
+    </a>
+
+  {%- endif -%}
+</section>

@@ -1,33 +1,45 @@
 {%- comment -%}
   Section "Mes enfants"
-
-  Source de données :
-    customer.metafields.verty.children.value  →  liste JSON d'objets enfant
-    Format attendu par item :
-      { "name": "", "age": 8, "initial": "L", "avatar_color": "#hex", "avatar_text_color": "#hex", "url": "/..." }
-
-  Les données PLACEHOLDER ci-dessous sont supprimées dès que le métachamp est actif.
+  Source : customer.metafields.verty.children.value (liste JSON)
+  Tant que le métachamp n'est pas actif, les placeholders HTML s'affichent.
 {%- endcomment -%}
 
 {%- assign mc_children = customer.metafields.verty.children.value -%}
 
-{%- unless mc_children -%}
-  {%- assign mc_children = '[
-    {"name":"Emma","age":7,"initial":"E","avatar_color":"#c8eddb","avatar_text_color":"#1a5c3a","url":"#"},
-    {"name":"Lucas","age":10,"initial":"L","avatar_color":"#c4d4f0","avatar_text_color":"#1a3a6a","url":"#"}
-  ]' | parse_json -%}
-{%- endunless -%}
+<section class="mc-section" id="enfants">
+  <div class="mc-section__header">
+    <h2 class="mc-section__title">Mes enfants</h2>
+  </div>
 
-{%- if mc_children != blank -%}
-  <section class="mc-section" id="enfants">
-    <div class="mc-section__header">
-      <h2 class="mc-section__title">Mes enfants</h2>
-    </div>
+  <div class="mc-children">
 
-    <div class="mc-children">
+    {%- if mc_children -%}
       {%- for mc_child in mc_children -%}
         {% render 'account-child-card', mc_child: mc_child %}
       {%- endfor -%}
-    </div>
-  </section>
-{%- endif -%}
+
+    {%- else -%}
+      {%- comment -%} PLACEHOLDER — supprimer quand verty.children est actif {%- endcomment -%}
+
+      <div class="mc-child">
+        <div class="mc-child__avatar" style="background-color: #c8eddb; color: #1a5c3a;" aria-hidden="true">E</div>
+        <div class="mc-child__info">
+          <p class="mc-child__name">Emma</p>
+          <p class="mc-child__age">7 ans</p>
+        </div>
+        <a href="#" class="mc-child__btn">Gérer</a>
+      </div>
+
+      <div class="mc-child">
+        <div class="mc-child__avatar" style="background-color: #c4d4f0; color: #1a3a6a;" aria-hidden="true">L</div>
+        <div class="mc-child__info">
+          <p class="mc-child__name">Lucas</p>
+          <p class="mc-child__age">10 ans</p>
+        </div>
+        <a href="#" class="mc-child__btn">Gérer</a>
+      </div>
+
+    {%- endif -%}
+
+  </div>
+</section>
