@@ -13,7 +13,7 @@
       "type": "main-article",
       "settings": {
         "show_tags": true,
-        "show_author": true,
+        "show_author": false,
         "show_date": true,
         "featured_image_width": "page",
         "heading_align": "text-center",
