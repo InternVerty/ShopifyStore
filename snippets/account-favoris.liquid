@@ -1,8 +1,8 @@
 {%- comment -%}
   Section "Mes favoris"
-  Source : localStorage wishlisthero_.wl-itms (Wishlist Hero)
-  Enrichissement : /products/HANDLE.js pour le type et les tags (âge)
-  Fallback API : wishlist-hero.revampco.com si localStorage vide
+  Source items  : localStorage wishlisthero_.wl-itms
+  Enrichissement: /products/HANDLE?view=mc-data (genre, âge, centres d'intérêts)
+  Fallback API  : wishlist-hero.revampco.com si localStorage vide
 {%- endcomment -%}
 
 <section class="mc-section" id="favoris">
@@ -51,12 +51,26 @@
     gap: 6px;
     flex-shrink: 0;
     margin-left: auto;
+    padding-left: 12px;
   }
   .mc-row__price {
     font-size: 1.4rem;
     font-weight: 700;
     color: #1a1a1a;
     white-space: nowrap;
+  }
+  .mc-row__interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 5px;
+  }
+  .mc-interest-tag {
+    font-size: 1.05rem;
+    color: #777;
+    background: #f2f2f2;
+    padding: 1px 8px;
+    border-radius: 99px;
   }
 </style>
 
@@ -66,68 +80,68 @@
   const container = document.getElementById('mc-favoris-list');
 
   const GENRE_COLORS = {
-    'Roman':          '#4a4a8a',
-    'Album':          '#1a8a8a',
-    'BD':             '#6a4aaa',
-    'Aventures':      '#1a6aaa',
-    'Animaux':        '#3a7a3a',
-    'Histoire':       '#8a4a1a',
-    'Documentaire':   '#6a6a1a',
-    'Fantastique':    '#8a1a6a',
-    'Mythologie':     '#aa6a1a',
-    'Humour':         '#2a8a2a',
-    'Classique':      '#5a5a5a',
-    'Poésie':         '#8a5a1a',
+    'Roman':        '#4a4a8a',
+    'Album':        '#1a8a8a',
+    'BD':           '#6a4aaa',
+    'Aventures':    '#1a6aaa',
+    'Animaux':      '#3a7a3a',
+    'Histoire':     '#8a4a1a',
+    'Documentaire': '#6a6a1a',
+    'Fantastique':  '#8a1a6a',
+    'Mythologie':   '#aa6a1a',
+    'Humour':       '#2a8a2a',
+    'Classique':    '#5a5a5a',
+    'Poésie':       '#8a5a1a',
   };
 
-  function getAgeFromTags(tags) {
-    if (!Array.isArray(tags)) return null;
-    return tags.find(t => /^De \d+ à \d+ ans/i.test(t) || t === 'Tout-petits') || null;
+  function toArray(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string') return val.split(',').map(s => s.trim()).filter(Boolean);
+    return [];
   }
 
   function formatPrice(price, currency) {
     if (!price) return null;
     try {
       return new Intl.NumberFormat('fr-FR', {
-        style: 'currency',
-        currency: currency || 'EUR',
-        minimumFractionDigits: 2
+        style: 'currency', currency: currency || 'EUR', minimumFractionDigits: 2
       }).format(price);
-    } catch (e) {
-      return price + ' €';
-    }
+    } catch (e) { return price + ' €'; }
   }
 
   function buildRow(item) {
-    const genre     = item._type || '';
+    const genre      = item._genre || '';
     const genreColor = GENRE_COLORS[genre] || '#888';
-    const age       = item._age || '';
-    const price     = formatPrice(item.DisplayPrice, item.DisplayCurrency);
+    const age        = item._age || '';
+    const interests  = item._interests || [];
+    const price      = formatPrice(item.DisplayPrice, item.DisplayCurrency);
 
     const badgeHtml = genre
-      ? `<span class="mc-badge" style="color:${genreColor}; border-color:${genreColor};">${genre}</span>`
+      ? `<span class="mc-badge" style="color:${genreColor};border-color:${genreColor};">${genre}</span>`
       : '';
+
     const ageHtml = age
-      ? `<span class="mc-row__duration">${age}</span>`
+      ? `<span class="mc-row__duration">${toArray(age)[0] || age}</span>`
       : '';
+
+    const interestsHtml = interests.length
+      ? `<div class="mc-row__interests">${interests.map(i => `<span class="mc-interest-tag">${i}</span>`).join('')}</div>`
+      : '';
+
     const priceHtml = price
-      ? `<span class="mc-row__price">${price}</span>`
-      : '';
+      ? `<span class="mc-row__price">${price}</span>` : '';
 
     return `
       <a href="${item.ProductLink}" class="mc-row">
         <div class="mc-row__thumb" style="
-          background-image: url('${item.ProductImage}');
-          background-size: cover;
-          background-position: center;
-          background-color: #e8e8e8;
+          background-image:url('${item.ProductImage}');
+          background-size:cover;background-position:center;background-color:#e8e8e8;
         "></div>
         <div class="mc-row__info">
           <p class="mc-row__title">${item.ProductName}</p>
-          <div class="mc-row__meta">
-            ${badgeHtml}
-            ${ageHtml}
-          </div>
+          <div class="mc-row__meta">${badgeHtml}${ageHtml}</div>
+          ${interestsHtml}
         </div>
         <div class="mc-row__right">
           ${priceHtml}
@@ -149,16 +163,16 @@
   }
 
   async function enrich(items) {
-    const slice = items.slice(0, LIMIT);
     return Promise.all(
-      slice.map(item =>
-        fetch('/products/' + item.ProductHandle + '.js')
+      items.slice(0, LIMIT).map(item =>
+        fetch('/products/' + item.ProductHandle + '?view=mc-data')
           .then(r => r.json())
-          .then(product => Object.assign({}, item, {
-            _type: product.type || '',
-            _age:  getAgeFromTags(product.tags)
+          .then(data => Object.assign({}, item, {
+            _genre:     data.genre || '',
+            _age:       data.age   || '',
+            _interests: toArray(data.interests)
           }))
-          .catch(() => Object.assign({}, item, { _type: '', _age: '' }))
+          .catch(() => Object.assign({}, item, { _genre: '', _age: '', _interests: [] }))
       )
     );
   }
@@ -171,11 +185,8 @@
       const data = await fetch(
         'https://wishlist-hero.revampco.com/storefront/api/store/verty-verty.myshopify.com/wishlist?h=' + hash + '&c=' + customerId
       ).then(r => r.json());
-      const items = data.wishlist?.Items || [];
-      render(await enrich(items));
-    } catch (e) {
-      render([]);
-    }
+      render(await enrich(data.wishlist?.Items || []));
+    } catch (e) { render([]); }
   }
 
   async function tryLocalStorage() {
@@ -193,10 +204,8 @@
 
   async function init() {
     if (await tryLocalStorage()) return;
-
-    // Attend que Wishlist Hero charge (max 3s)
     let attempts = 0;
-    const poll = setInterval(async function () {
+    const poll = setInterval(async () => {
       attempts++;
       if (await tryLocalStorage()) {
         clearInterval(poll);

@@ -1,0 +1,5 @@
+{% layout none %}
+{%- assign mc_genre     = product.metafields.custom.genres_litteraires.value -%}
+{%- assign mc_age       = product.metafields.custom.age.value -%}
+{%- assign mc_interests = product.metafields.custom.centres_d_interets.value -%}
+{"genre":{{ mc_genre | json }},"age":{{ mc_age | json }},"interests":{{ mc_interests | json }}}
