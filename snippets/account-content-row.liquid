@@ -5,14 +5,22 @@
     mc_item.title       — titre du contenu
     mc_item.tag         — libellé de la catégorie
     mc_item.tag_color   — couleur hex de la catégorie  (ex: "#5A8A6F")
-    mc_item.thumb_color — couleur hex du thumbnail      (ex: "#B8CCE4")
-    mc_item.duration    — durée en minutes
-    mc_item.url         — URL de la page du contenu
+    mc_item.thumb_image — URL de la couverture          (prioritaire sur thumb_color)
+    mc_item.thumb_color — couleur hex de fallback       (ex: "#B8CCE4")
+    mc_item.age         — tranche d'âge
+    mc_item.url         — URL de la page produit
 {%- endcomment -%}
 
 <a href="{{ mc_item.url | default: '#' }}" class="mc-row">
 
-  <div class="mc-row__thumb" style="background-color: {{ mc_item.thumb_color | default: '#d0d0d0' }};"></div>
+  <div class="mc-row__thumb" style="
+    background-color: {{ mc_item.thumb_color | default: '#e0e0e0' }};
+    {%- if mc_item.thumb_image != blank -%}
+      background-image: url('{{ mc_item.thumb_image }}');
+      background-size: cover;
+      background-position: center;
+    {%- endif -%}
+  "></div>
 
   <div class="mc-row__info">
     <p class="mc-row__title">{{ mc_item.title }}</p>
@@ -22,8 +30,8 @@
           {{ mc_item.tag }}
         </span>
       {%- endif -%}
-      {%- if mc_item.duration != blank -%}
-        <span class="mc-row__duration">{{ mc_item.duration }} min</span>
+      {%- if mc_item.age != blank -%}
+        <span class="mc-row__duration">{{ mc_item.age }}</span>
       {%- endif -%}
     </div>
   </div>
