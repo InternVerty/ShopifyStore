@@ -1,6 +1,7 @@
 {%- comment -%}
   Section "Mes favoris"
   Source : localStorage wishlisthero_.wl-itms (Wishlist Hero)
+  Enrichissement : /products/HANDLE.js pour le type et les tags (âge)
   Fallback API : wishlist-hero.revampco.com si localStorage vide
 {%- endcomment -%}
 
@@ -9,7 +10,6 @@
     <h2 class="mc-section__title">Mes favoris</h2>
     <a href="/pages/mes-favoris" class="mc-section__link">Tout voir ›</a>
   </div>
-
   <div id="mc-favoris-list">
     <div class="mc-favoris-loading">
       <span class="mc-favoris-loading__dot"></span>
@@ -37,12 +37,26 @@
   .mc-favoris-loading__dot:nth-child(3) { animation-delay: 0.4s; }
   @keyframes mc-pulse {
     0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
-    40%           { opacity: 1;   transform: scale(1); }
+    40%            { opacity: 1;   transform: scale(1); }
   }
   .mc-favoris-empty {
     padding: 16px 0;
     color: #aaa;
     font-size: 1.35rem;
+  }
+  .mc-row__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  .mc-row__price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    white-space: nowrap;
   }
 </style>
 
@@ -51,25 +65,78 @@
   const LIMIT = 3;
   const container = document.getElementById('mc-favoris-list');
 
+  const GENRE_COLORS = {
+    'Roman':          '#4a4a8a',
+    'Album':          '#1a8a8a',
+    'BD':             '#6a4aaa',
+    'Aventures':      '#1a6aaa',
+    'Animaux':        '#3a7a3a',
+    'Histoire':       '#8a4a1a',
+    'Documentaire':   '#6a6a1a',
+    'Fantastique':    '#8a1a6a',
+    'Mythologie':     '#aa6a1a',
+    'Humour':         '#2a8a2a',
+    'Classique':      '#5a5a5a',
+    'Poésie':         '#8a5a1a',
+  };
+
+  function getAgeFromTags(tags) {
+    if (!Array.isArray(tags)) return null;
+    return tags.find(t => /^De \d+ à \d+ ans/i.test(t) || t === 'Tout-petits') || null;
+  }
+
+  function formatPrice(price, currency) {
+    if (!price) return null;
+    try {
+      return new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: currency || 'EUR',
+        minimumFractionDigits: 2
+      }).format(price);
+    } catch (e) {
+      return price + ' €';
+    }
+  }
+
   function buildRow(item) {
+    const genre     = item._type || '';
+    const genreColor = GENRE_COLORS[genre] || '#888';
+    const age       = item._age || '';
+    const price     = formatPrice(item.DisplayPrice, item.DisplayCurrency);
+
+    const badgeHtml = genre
+      ? `<span class="mc-badge" style="color:${genreColor}; border-color:${genreColor};">${genre}</span>`
+      : '';
+    const ageHtml = age
+      ? `<span class="mc-row__duration">${age}</span>`
+      : '';
+    const priceHtml = price
+      ? `<span class="mc-row__price">${price}</span>`
+      : '';
+
     return `
       <a href="${item.ProductLink}" class="mc-row">
         <div class="mc-row__thumb" style="
           background-image: url('${item.ProductImage}');
           background-size: cover;
           background-position: center;
+          background-color: #e8e8e8;
         "></div>
         <div class="mc-row__info">
           <p class="mc-row__title">${item.ProductName}</p>
           <div class="mc-row__meta">
-            <span class="mc-row__duration">${item.DisplayCurrency ? item.DisplayPrice + ' ' + item.DisplayCurrency : ''}</span>
+            ${badgeHtml}
+            ${ageHtml}
           </div>
         </div>
-        <span class="mc-row__chevron" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </span>
+        <div class="mc-row__right">
+          ${priceHtml}
+          <span class="mc-row__chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </span>
+        </div>
       </a>`;
   }
 
@@ -78,47 +145,68 @@
       container.innerHTML = '<p class="mc-favoris-empty">Aucun favori pour le moment.</p>';
       return;
     }
-    container.innerHTML = items.slice(0, LIMIT).map(buildRow).join('');
+    container.innerHTML = items.map(buildRow).join('');
   }
 
-  function loadFromApi() {
+  async function enrich(items) {
+    const slice = items.slice(0, LIMIT);
+    return Promise.all(
+      slice.map(item =>
+        fetch('/products/' + item.ProductHandle + '.js')
+          .then(r => r.json())
+          .then(product => Object.assign({}, item, {
+            _type: product.type || '',
+            _age:  getAgeFromTags(product.tags)
+          }))
+          .catch(() => Object.assign({}, item, { _type: '', _age: '' }))
+      )
+    );
+  }
+
+  async function loadFromApi() {
     const hash = localStorage.getItem('wishlisthero_.wl-h');
     const customerId = '{{ customer.id }}';
-    if (!hash || !customerId) {
-      container.innerHTML = '<p class="mc-favoris-empty">Aucun favori pour le moment.</p>';
-      return;
+    if (!hash || !customerId) { render([]); return; }
+    try {
+      const data = await fetch(
+        'https://wishlist-hero.revampco.com/storefront/api/store/verty-verty.myshopify.com/wishlist?h=' + hash + '&c=' + customerId
+      ).then(r => r.json());
+      const items = data.wishlist?.Items || [];
+      render(await enrich(items));
+    } catch (e) {
+      render([]);
     }
-    fetch(`https://wishlist-hero.revampco.com/storefront/api/store/verty-verty.myshopify.com/wishlist?h=${hash}&c=${customerId}`)
-      .then(r => r.json())
-      .then(data => render(data.wishlist?.Items || []))
-      .catch(() => render([]));
   }
 
-  function tryLocalStorage() {
+  async function tryLocalStorage() {
     const raw = localStorage.getItem('wishlisthero_.wl-itms');
-    if (raw) {
-      try {
-        const items = JSON.parse(raw);
-        if (Array.isArray(items) && items.length > 0) {
-          render(items);
-          return true;
-        }
-      } catch (e) {}
-    }
+    if (!raw) return false;
+    try {
+      const items = JSON.parse(raw);
+      if (Array.isArray(items) && items.length > 0) {
+        render(await enrich(items));
+        return true;
+      }
+    } catch (e) {}
     return false;
   }
 
-  // Tentative immédiate depuis le localStorage
-  if (!tryLocalStorage()) {
-    // Si vide, on attend que Wishlist Hero ait chargé ses données (max 3s)
+  async function init() {
+    if (await tryLocalStorage()) return;
+
+    // Attend que Wishlist Hero charge (max 3s)
     let attempts = 0;
-    const poll = setInterval(function () {
+    const poll = setInterval(async function () {
       attempts++;
-      if (tryLocalStorage() || attempts >= 15) {
+      if (await tryLocalStorage()) {
         clearInterval(poll);
-        if (attempts >= 15) loadFromApi(); // fallback API si localStorage reste vide
+      } else if (attempts >= 15) {
+        clearInterval(poll);
+        loadFromApi();
       }
     }, 200);
   }
+
+  init();
 })();
 </script>
