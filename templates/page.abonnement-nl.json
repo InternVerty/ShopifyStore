@@ -130,7 +130,7 @@
         "section_bg_opacity": 100,
         "section_height": 500,
         "section_padding_v": 32,
-        "section_padding_h": 8,
+        "section_padding_h": 32,
         "max_width": 1260,
         "columns_gap": 60,
         "left_flex": 1,
