@@ -54,7 +54,7 @@
     {%- if show_price == true -%}
       <div class="quick-nav__price js-quick-nav-price"></div>
     {%- endif -%}
-    <a href="#" class="vbtn vbtn-secondary w-full js-submit quick-nav__submit"{% if color_scheme == 'default' %} style="--btn-bg-color: var(--btn-bg-color-og); --btn-text-color: var(--btn-text-color-og)"{% endif %} aria-disabled="true">
+    <a href="#" class="vbtn vbtn-primary w-full js-submit quick-nav__submit"{% if color_scheme == 'default' %} style="--btn-bg-color: var(--btn-bg-color-og); --btn-text-color: var(--btn-text-color-og)"{% endif %} aria-disabled="true">
       {{ 'general.quick_navigation_panel.button_label' | t }}
     </a>
   </quick-nav>
