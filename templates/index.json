@@ -535,20 +535,6 @@
         "margin_bottom": 0
       }
     },
-    "quote_band_Awe4Yq": {
-      "type": "quote-band",
-      "name": "Quote Band",
-      "settings": {
-        "quote": "<p>Des livres beaux, simples et vrais, qui nourrissent l'esprit et cultivent l'imaginaire des enfants</p>",
-        "highlighted_phrase": "",
-        "author": "Claire BLF",
-        "attribution": "",
-        "background_color": "#ffffff",
-        "accent_color": "#8fcdbf",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "custom_text_block_VgrjPd": {
       "type": "custom-text-block",
       "disabled": true,
@@ -735,6 +721,20 @@
         "text_align": "text-start",
         "color_scheme": "none",
         "only_content_color_scheme": false
+      }
+    },
+    "quote_band_Awe4Yq": {
+      "type": "quote-band",
+      "name": "Quote Band",
+      "settings": {
+        "quote": "<p>Des livres beaux, simples et vrais, qui nourrissent l'esprit et cultivent l'imaginaire des enfants</p>",
+        "highlighted_phrase": "",
+        "author": "",
+        "attribution": "",
+        "background_color": "#ffffff",
+        "accent_color": "#8fcdbf",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "quote_band_nTmGLH": {
@@ -1220,12 +1220,12 @@
     "custom_collection_list_DyzFfG",
     "custom_collection_list_mExcG9",
     "boutons_collection_B4JieG",
-    "quote_band_Awe4Yq",
     "custom_text_block_VgrjPd",
     "media_with_text_8pht4Q",
     "testimonials_k7EmXd",
     "custom_media_with_text_kwqXxT",
     "e7a74f68-db1b-427c-aa28-4acb82159883",
+    "quote_band_Awe4Yq",
     "quote_band_nTmGLH",
     "boutons_collection_FWzjhE",
     "media-grid",
