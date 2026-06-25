@@ -739,6 +739,7 @@
     },
     "quote_band_nTmGLH": {
       "type": "quote-band",
+      "disabled": true,
       "name": "Quote Band",
       "settings": {
         "quote": "<p>Des grands-parents et parents, institutrice, psychologue et orthophoniste</p>",
