@@ -649,7 +649,7 @@
         "margin_bottom": 0,
         "height": 1300,
         "zoom": 105,
-        "object_fit": "contain",
+        "object_fit": "fill",
         "mobile_image": "shopify://shop_images/SelectionImage.png",
         "mobile_breakpoint": 768,
         "mobile_pad_v": 0,
@@ -658,7 +658,7 @@
         "mobile_margin_bottom": 4,
         "mobile_height": 450,
         "mobile_radius": 0,
-        "mobile_object_fit": "cover"
+        "mobile_object_fit": "contain"
       }
     },
     "custom_liquid_qhKHDP": {
