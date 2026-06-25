@@ -638,7 +638,7 @@
       "type": "image-block",
       "name": "Image Block",
       "settings": {
-        "image": "shopify://shop_images/Adobe_Express_-_file.png",
+        "image": "shopify://shop_images/banniere-abonnement.png",
         "bg_color": "#ffffff",
         "bg_opacity": 100,
         "section_pad_v": 0,
@@ -647,7 +647,7 @@
         "radius": 0,
         "margin_top": 0,
         "margin_bottom": 0,
-        "height": 1300,
+        "height": 660,
         "zoom": 105,
         "object_fit": "contain",
         "mobile_image": "shopify://shop_images/SelectionImage.png",
