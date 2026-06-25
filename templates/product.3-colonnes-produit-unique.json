@@ -328,13 +328,27 @@
         "mobile_center": true,
         "heading_tag": "p",
         "heading_style_class": "h3",
-        "text": "<p>Chez Verty, nous croyons que chaque histoire est une graine semée dans le cœur de l’enfant. Une graine qui peut éveiller, émerveiller, structurer l’adulte en devenir. Dans un monde saturé d’écrans, nous revendiquons le pouvoir irremplaçable du livre pour nourrir l’intelligence, l’imaginaire et l’âme. Nous sommes convaincus qu’il faut donner à nos enfants le goût de la lecture : pour forger leur jugement, éveiller leur sens moral, leur transmettre des repères solides et nourrir leur idéal.</p><p><em>“Un enfant qui lit sera un adulte qui pense.” — Flore Vasseur</em></p><p>Notre <strong>sélection</strong> repose sur une <strong>matrice vertueuse</strong> : richesse du langage, ancrage dans des valeurs humaines, exigence esthétique et optimisme. Nous ne vendons pas des livres : nous proposons <strong>des compagnons pour faire grandir vos enfants</strong>. Parce que “la beauté sauvera le monde” comme le rappell Dostoïevski, nous voulons que chaque lecture soit féconde de beau, de simple et de vrai.</p><p><em>“Quand vous faites la lecture à un enfant, quand vous mettez un livre dans ses mains, vous lui offrez l’infinie variété de la vie, vous êtes un éveilleur.” — Paula Fox</em></p><p>📖 Verty, c’est plus qu’une librairie : c’est un projet de transmission. Une communauté vertueuse de parents.</p>",
+        "text": "<p>Verty est pensé pour les parents qui se préoccupent de la qualité des livres qui passent entre les mains de leurs enfants. Tous méritent le plus beau, et les livres possèdent une influence considérable sur la construction de l’enfant, en plus de recéler la capacité de les éveiller et les émerveiller.</p><p>C’est pourquoi nous croyons en une librairie sélective, qui ne vous propose que le meilleur sur la base d’une<a href=\"/pages/a-propos\" title=\"À propos\"><strong> matrice vertueuse </strong></a>aux critères clairs. Pour apparaître sur le site de Verty, chaque livre est sélectionné par le <a href=\"/pages/le-comite-de-lecture-verty\" title=\"Le comité de lecture Verty\"><strong>comité de lecture</strong></a> pour sa qualité linguistique, sa qualité esthétique, son ancrage dans des valeurs humaines et l’optimisme qu’il transmet.</p><p>Rejoindre la communauté Verty, c’est offrir à ses enfants un cadre porteur, mais aussi être accompagné par des conseils pour choisir des ouvrages, transmettre le goût de la lecture et comprendre ses enfants grâce aux publications régulières.</p>",
         "text_align": "center",
         "p_align": "left",
         "title_margin_top": "-40",
         "title_margin_bottom": "20",
         "p_margin_top": "20",
         "p_margin_bottom": "20"
+      }
+    },
+    "quote_band_KMJCJH": {
+      "type": "quote-band",
+      "name": "Quote Band",
+      "settings": {
+        "quote": "<p><em>Un enfant qui lit sera un adulte qui pense.</em></p>",
+        "highlighted_phrase": "",
+        "author": "Flore Vasseur",
+        "attribution": "",
+        "background_color": "#ffffff",
+        "accent_color": "#8FCDBF",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
     "recommendations": {
@@ -507,6 +521,7 @@
     "custom_text_block_TNhNgh",
     "custom_liquid_7yzqMf",
     "custom_text_block_yBidCt",
+    "quote_band_KMJCJH",
     "recommendations",
     "media_grid_GEaxK8",
     "icons_with_text_knj46U"
