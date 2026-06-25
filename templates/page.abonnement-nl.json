@@ -540,7 +540,7 @@
         "text_znMr4X": {
           "type": "text",
           "settings": {
-            "text": "<p>Dans un monde saturé de contenus, choisir un bon livre est devenu un vrai défi. Verty a créé une solution simple et rassurante :  </p><p>✨ Des livres sélectionnés avec discernement </p><p>✨ Adaptés à chaque enfant,  </p><p>✨ Qui donnent le goût de lire et des repères pour grandir</p><p> Avec l’abonnement, Verty veut aider les familles à mettre en place des rituels de lecture qui font grandir</p>",
+            "text": "<p>Dans un monde saturé de contenus, choisir un bon livre est devenu un vrai défi.Verty a créé une solution simple et rassurante : </p><p>✨ Des livres sélectionnés avec discernement</p><p>✨ Adaptés à chaque enfant, </p><p>✨ Qui donnent le goût de lire et des repères pour grandir</p><p>Avec l’abonnement, Verty veut aider les familles à mettre en place des rituels de lecture qui font grandir</p>",
             "enlarge_text": false
           }
         },
@@ -696,7 +696,7 @@
         "testimonial_cPHh8f": {
           "type": "testimonial",
           "settings": {
-            "testimonial": "<p>“Verty m’a simplifié la vie. Plus besoin de comparer, d’hésiter, de douter. Je reçois des livres que je n’aurais pas su trouver seule.”</p>",
+            "testimonial": "<p>“Verty m’a simplifié la vie.Plus besoin de comparer, d’hésiter, de douter.Je reçois des livres que je n’aurais pas su trouver seule.”</p>",
             "author": "Élodie, maman de 3 enfants",
             "author_info": "",
             "author_image": "shopify://shop_images/testimonial2.jpg",
