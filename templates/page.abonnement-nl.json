@@ -841,7 +841,7 @@
         "bg_opacity": 100,
         "section_pad_v": 56,
         "section_pad_h": 32,
-        "max_width": 1100,
+        "max_width": 1280,
         "heading": "Les sujets préférés de notre communauté",
         "heading_color": "#111111",
         "heading_size": 28,
