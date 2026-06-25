@@ -727,7 +727,7 @@
       "type": "quote-band",
       "name": "Quote Band",
       "settings": {
-        "quote": "<p>Des livres beaux, simples et vrais, qui nourrissent l'esprit et cultivent l'imaginaire des enfants</p>",
+        "quote": "<p>Des livres beaux, simples et vrais, qui nourrissent l'esprit et cultivent l'imaginaire des enfants.</p>",
         "highlighted_phrase": "",
         "author": "",
         "attribution": "",
