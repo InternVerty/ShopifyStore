@@ -649,7 +649,7 @@
         "margin_bottom": 0,
         "height": 1300,
         "zoom": 105,
-        "object_fit": "fill",
+        "object_fit": "contain",
         "mobile_image": "shopify://shop_images/SelectionImage.png",
         "mobile_breakpoint": 768,
         "mobile_pad_v": 0,
