@@ -645,7 +645,7 @@
         "section_pad_h": 0,
         "max_width": 1260,
         "radius": 0,
-        "margin_top": -200,
+        "margin_top": 0,
         "margin_bottom": 0,
         "height": 1300,
         "zoom": 105,
