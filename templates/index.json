@@ -746,7 +746,7 @@
         "highlighted_phrase": "",
         "author": "",
         "attribution": "",
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "accent_color": "#8fcdbf",
         "padding_top": 0,
         "padding_bottom": 0
@@ -898,7 +898,7 @@
       "settings": {
         "heading": "Redécouvrez nos sélections temporaires et thématiques",
         "description": "Au fil des saisons et au gré du calendrier, notre sélection jeunesse se pare de couleurs changeantes et d’horizons multiples. Chaque période de l’année devient l’occasion d’explorer un thème nouveau, qu’il s’agisse de la magie de l’hiver, du renouveau printanier, des épopées chevaleresques ou des voyages à travers l'histoire. Ces sélections temporaires, soigneusement composées, invitent les jeunes lecteurs à découvrir des mondes riches et variés, à travers des ouvrages choisis pour leur poésie, leur profondeur ou leur espièglerie. Qu’ils soient rêveurs ou curieux, les enfants y trouveront de quoi nourrir leur imagination et élargir leur regard sur le monde, au rythme des fêtes, des saisons et des grandes questions de leur âge.",
-        "background_color": "#fef5f6",
+        "background_color": "#F5FAF9",
         "margin_top": 50,
         "margin_bottom": 0
       }
