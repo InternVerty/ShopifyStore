@@ -1,46 +1,35 @@
 {%- comment -%}
   Section "Mes enfants"
-  Source : customer.metafields.verty.children.value (liste JSON)
-  Tant que le métachamp n'est pas actif, les placeholders HTML s'affichent.
+  Source : customer.metafields.custom.dataenfant.value
 {%- endcomment -%}
 
-{%- assign mc_children = customer.metafields.verty.children.value -%}
+{%- assign mc_children = customer.metafields.custom.dataenfant.value -%}
+{%- assign mc_avatar_bgs   = '#c8eddb,#c4d4f0,#f0e4c8,#e8c8f0' | split: ',' -%}
+{%- assign mc_avatar_texts = '#1a5c3a,#1a3a6a,#6a4a1a,#5a1a6a' | split: ',' -%}
 
 {% render 'account-child-modal' %}
 
 <section class="mc-section" id="enfants">
   <div class="mc-section__header">
     <h2 class="mc-section__title">Mes enfants</h2>
+    <button type="button" class="mc-section__add" onclick="mcOpenChildModal({})">+ Ajouter</button>
   </div>
 
   <div class="mc-children">
 
-    {%- if mc_children -%}
+    {%- if mc_children and mc_children.size > 0 -%}
       {%- for mc_child in mc_children -%}
-        {% render 'account-child-card', mc_child: mc_child %}
+        {%- assign mc_ci = forloop.index0 | modulo: 4 -%}
+        {% render 'account-child-card',
+          mc_child: mc_child,
+          mc_index: forloop.index0,
+          mc_avatar_color: mc_avatar_bgs[mc_ci],
+          mc_avatar_text_color: mc_avatar_texts[mc_ci]
+        %}
       {%- endfor -%}
 
     {%- else -%}
-      {%- comment -%} PLACEHOLDER — supprimer quand verty.children est actif {%- endcomment -%}
-
-      <div class="mc-child">
-        <div class="mc-child__avatar" style="background-color: #c8eddb; color: #1a5c3a;" aria-hidden="true">E</div>
-        <div class="mc-child__info">
-          <p class="mc-child__name">Emma</p>
-          <p class="mc-child__age">7 ans</p>
-        </div>
-        <button type="button" class="mc-child__btn" onclick="mcOpenChildModal({})">Gérer</button>
-      </div>
-
-      <div class="mc-child">
-        <div class="mc-child__avatar" style="background-color: #c4d4f0; color: #1a3a6a;" aria-hidden="true">L</div>
-        <div class="mc-child__info">
-          <p class="mc-child__name">Lucas</p>
-          <p class="mc-child__age">10 ans</p>
-        </div>
-        <button type="button" class="mc-child__btn" onclick="mcOpenChildModal({})">Gérer</button>
-      </div>
-
+      <p class="mc-children__empty">Aucun enfant enregistré pour le moment.</p>
     {%- endif -%}
 
   </div>

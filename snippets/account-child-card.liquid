@@ -1,32 +1,36 @@
 {%- comment -%}
   Carte enfant individuelle.
-
-  Variables attendues (passées via render) :
-    mc_child.name              — prénom de l'enfant
-    mc_child.age               — âge
-    mc_child.initial           — initiale pour l'avatar
-    mc_child.avatar_color      — couleur de fond de l'avatar
-    mc_child.avatar_text_color — couleur du texte de l'avatar
-    mc_child.url               — URL de la page de gestion de l'enfant
+  Variables :
+    mc_child            — objet depuis custom.dataenfant (prenom, naissance, classe, niveau, themes, remarque)
+    mc_index            — index dans le tableau
+    mc_avatar_color     — couleur de fond de l'avatar
+    mc_avatar_text_color — couleur du texte de l'avatar
 {%- endcomment -%}
+
+{%- assign mc_initial   = mc_child.prenom | slice: 0 | upcase -%}
+{%- assign mc_birth_ts  = mc_child.naissance | date: '%s' | plus: 0 -%}
+{%- assign mc_now_ts    = 'now' | date: '%s' | plus: 0 -%}
+{%- assign mc_age       = mc_now_ts | minus: mc_birth_ts | divided_by: 31557600 -%}
 
 <div class="mc-child">
   <div
     class="mc-child__avatar"
-    style="background-color: {{ mc_child.avatar_color | default: '#c8eddb' }}; color: {{ mc_child.avatar_text_color | default: '#1a5c3a' }};"
+    style="background-color: {{ mc_avatar_color | default: '#c8eddb' }}; color: {{ mc_avatar_text_color | default: '#1a5c3a' }};"
     aria-hidden="true"
   >
-    {{ mc_child.initial }}
+    {{ mc_initial }}
   </div>
 
   <div class="mc-child__info">
-    <p class="mc-child__name">{{ mc_child.name }}</p>
-    <p class="mc-child__age">{{ mc_child.age }} ans</p>
+    <p class="mc-child__name">{{ mc_child.prenom }}</p>
+    <p class="mc-child__age">{{ mc_age }} ans · {{ mc_child.classe }}</p>
   </div>
 
   <button
     type="button"
     class="mc-child__btn"
-    onclick="mcOpenChildModal({{ mc_child | json }})"
+    data-child='{{ mc_child | json }}'
+    data-index="{{ mc_index }}"
+    onclick="var d=JSON.parse(this.dataset.child);d.index=+this.dataset.index;mcOpenChildModal(d);"
   >Gérer</button>
 </div>

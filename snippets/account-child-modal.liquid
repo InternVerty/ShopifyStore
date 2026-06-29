@@ -439,13 +439,14 @@
     saveBtn.textContent = 'Enregistrement…';
 
     try {
-      /* TODO: remplacer par l'URL de ton endpoint Go */
       const res = await fetch('/apps/verty-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customer_id: '{{ customer.id }}',
-          child: payload
+          customer_mail: '{{ customer.email }}'
+          child: payload,
+          action: "edit-child"
         })
       });
 
