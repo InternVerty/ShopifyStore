@@ -444,7 +444,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customer_id: '{{ customer.id }}',
-          customer_mail: '{{ customer.email }}'
+          customer_mail: '{{ customer.email }}',
           child: payload,
           action: "edit-child"
         })
