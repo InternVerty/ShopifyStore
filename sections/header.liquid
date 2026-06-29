@@ -130,12 +130,12 @@
       {%- endif -%}
       {%- if shop.customer_accounts_enabled -%}
         {%- if customer -%}
-          <a class="header__icon text-current" href="https://verty.eu/pages/mon-compte">
-            {% render 'icon-customer' %}
+          <a class="header__icon text-current" href="{{ routes.account_url  }}">
+            {% render 'icon-customer' %}  
             <span class="visually-hidden">{{ 'sections.header.account' | t }}</span>
           </a>
         {%- else -%}
-          <a class="header__icon text-current" href="https://verty.eu/pages/mon-compte">
+          <a class="header__icon text-current" href="{{ routes.account_login_url }}">
             {% render 'icon-customer' %}
             <span class="visually-hidden">{{ 'sections.header.log_in' | t }}</span>
           </a>
