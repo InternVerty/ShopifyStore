@@ -47,11 +47,16 @@
     white-space: nowrap;
   }
 
+  .mc-abo-badge--bookclub {
+    border-color: #ADBEEA;
+    color: #ADBEEA;
+  }
+
   .mc-abo-badge__dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background-color: #2D6A4F;
+    background-color: currentColor;
     display: inline-block;
     flex-shrink: 0;
   }
@@ -440,12 +445,18 @@
   <div class="mc-header">
     <div class="mc-header__inner">
       <h1 class="mc-header__greeting">Bonjour, {{ customer.first_name }}.</h1>
-      {%- comment -%} TODO: brancher sur customer.metafields.verty.subscription_type.value {%- endcomment -%}
-      {%- assign mc_sub_type = customer.metafields.verty.subscription_type.value | default: 'Abonnement Sélection' -%}
-      <span class="mc-abo-badge">
-        <span class="mc-abo-badge__dot"></span>
-        {{ mc_sub_type }}
-      </span>
+      {%- if customer.metafields.custom.subSelection.value == true -%}
+        <span class="mc-abo-badge">
+          <span class="mc-abo-badge__dot"></span>
+          Abonnement Sélection
+        </span>
+      {%- endif -%}
+      {%- if customer.metafields.custom.subBookclub.value == true -%}
+        <span class="mc-abo-badge mc-abo-badge--bookclub">
+          <span class="mc-abo-badge__dot"></span>
+          Abonnement Bookclub
+        </span>
+      {%- endif -%}
     </div>
   </div>
 
