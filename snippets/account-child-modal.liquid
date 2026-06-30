@@ -408,6 +408,8 @@
     document.getElementById('mc-field-naissance').value   = data.naissance || '';
     document.getElementById('mc-field-remarque').value    = data.remarque  || '';
 
+    const isNew = !data.id;
+    document.getElementById('mc-field-genre').closest('.mc-form-group').style.display = isNew ? '' : 'none';
     setSelected('mc-field-genre',   data.genre   || '', 'single');
     setSelected('mc-field-classe',  data.classe  || '', 'single');
     setSelected('mc-field-niveau',  data.niveau  || '', 'single');
