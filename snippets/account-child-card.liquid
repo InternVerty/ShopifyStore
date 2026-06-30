@@ -7,10 +7,12 @@
     mc_avatar_text_color — couleur du texte de l'avatar
 {%- endcomment -%}
 
-{%- assign mc_initial   = mc_child.prenom | slice: 0 | upcase -%}
-{%- assign mc_birth_ts  = mc_child.naissance | date: '%s' | plus: 0 -%}
-{%- assign mc_now_ts    = 'now' | date: '%s' | plus: 0 -%}
-{%- assign mc_age       = mc_now_ts | minus: mc_birth_ts | divided_by: 31557600 -%}
+{%- assign mc_initial = mc_child.prenom | slice: 0 | upcase -%}
+{%- if mc_child.naissance != blank -%}
+  {%- assign mc_birth_ts = mc_child.naissance | date: '%s' | plus: 0 -%}
+  {%- assign mc_now_ts   = 'now' | date: '%s' | plus: 0 -%}
+  {%- assign mc_age      = mc_now_ts | minus: mc_birth_ts | divided_by: 31557600 -%}
+{%- endif -%}
 
 <div class="mc-child">
   <div
@@ -23,7 +25,11 @@
 
   <div class="mc-child__info">
     <p class="mc-child__name">{{ mc_child.prenom }}</p>
-    <p class="mc-child__age">{{ mc_age }} ans · {{ mc_child.classe }}</p>
+    <p class="mc-child__age">
+      {%- if mc_child.naissance != blank -%}{{ mc_age }} ans{%- endif -%}
+      {%- if mc_child.naissance != blank and mc_child.classe != blank -%} · {%- endif -%}
+      {{ mc_child.classe }}
+    </p>
   </div>
 
   <button

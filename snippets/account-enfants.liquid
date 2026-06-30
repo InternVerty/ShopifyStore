@@ -17,7 +17,8 @@
 
   <div class="mc-children">
 
-    {%- if mc_children and mc_children.size > 0 -%}
+    {%- assign mc_first = mc_children | first -%}
+    {%- if mc_children != blank and mc_first != blank -%}
       {%- for mc_child in mc_children -%}
         {%- assign mc_ci = forloop.index0 | modulo: 4 -%}
         {% render 'account-child-card',
