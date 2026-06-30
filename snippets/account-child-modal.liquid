@@ -19,6 +19,7 @@
       <form id="mc-child-form" novalidate>
         <input type="hidden" id="mc-field-index">
         <input type="hidden" id="mc-field-id">
+        <input type="hidden" id="mc-field-email" value="{{ customer.email }}">
 
         <div class="mc-form-row">
           <div class="mc-form-group">
@@ -29,6 +30,11 @@
             <label class="mc-label" for="mc-field-naissance">Date de naissance</label>
             <input type="date" id="mc-field-naissance" class="mc-input">
           </div>
+        </div>
+
+        <div class="mc-form-group">
+          <label class="mc-label">Genre</label>
+          <div class="mc-chips mc-chips--single" id="mc-field-genre"></div>
         </div>
 
         <div class="mc-form-group">
@@ -318,6 +324,8 @@
     'Biographies','Mystère','Classiques','Science fiction','Intrigue'
   ];
 
+  const GENRES = ['Garçon', 'Fille'];
+
   const CLASSES = [
     'Crèche','Petite section','Moyenne section','Grande section',
     'CP','CE1','CE2','CM1','CM2',
@@ -370,6 +378,7 @@
     });
   }
 
+  buildChips('mc-field-genre',   GENRES,  'single');
   buildChips('mc-field-classe',  CLASSES, 'single');
   buildSegment('mc-field-niveau', NIVEAUX);
   buildChips('mc-field-themes',  THEMES,  'multi');
@@ -399,6 +408,7 @@
     document.getElementById('mc-field-naissance').value   = data.naissance || '';
     document.getElementById('mc-field-remarque').value    = data.remarque  || '';
 
+    setSelected('mc-field-genre',   data.genre   || '', 'single');
     setSelected('mc-field-classe',  data.classe  || '', 'single');
     setSelected('mc-field-niveau',  data.niveau  || '', 'single');
     setSelected('mc-field-themes',  data.themes  || [], 'multi');
@@ -425,8 +435,10 @@
     const payload = {
       index:     document.getElementById('mc-field-index').value,
       id:        document.getElementById('mc-field-id').value,
+      email:     document.getElementById('mc-field-email').value,
       prenom:    document.getElementById('mc-field-prenom').value.trim(),
       naissance: document.getElementById('mc-field-naissance').value,
+      genre:     (getSelected('mc-field-genre')[0]   || ''),
       classe:    (getSelected('mc-field-classe')[0]  || ''),
       niveau:    (getSelected('mc-field-niveau')[0]  || ''),
       themes:    getSelected('mc-field-themes'),
