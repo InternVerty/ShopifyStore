@@ -68,6 +68,7 @@
     </div>
 
     <div class="mc-modal__footer">
+      <button type="button" class="mc-modal__delete" id="mc-modal-delete-btn">Supprimer</button>
       <button type="button" class="mc-modal__cancel">Annuler</button>
       <button type="button" class="mc-modal__save" id="mc-modal-save-btn">Enregistrer</button>
     </div>
@@ -297,6 +298,21 @@
     border-top: 1px solid #f0f0f0;
     flex-shrink: 0;
   }
+  .mc-modal__delete {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1.5px solid #f5c6c6;
+    background: transparent;
+    font-size: 1.35rem;
+    color: #c0392b;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    margin-right: auto;
+  }
+  .mc-modal__delete:hover { background: #fdf0f0; }
+  .mc-modal__delete:disabled { opacity: 0.5; cursor: not-allowed; }
+
   .mc-modal__cancel {
     padding: 10px 20px;
     border-radius: 10px;
@@ -428,6 +444,7 @@
 
     const isNew = !data.id;
     document.getElementById('mc-field-genre').closest('.mc-form-group').style.display = isNew ? '' : 'none';
+    document.getElementById('mc-modal-delete-btn').style.display = isNew ? 'none' : '';
     setSelected('mc-field-genre',   data.genre   || '', 'single');
     setSelected('mc-field-classe',  data.classe  || '', 'single');
     setSelected('mc-field-niveau',  data.niveau  || '', 'single');
@@ -499,6 +516,42 @@
       console.error('Sauvegarde échouée :', err);
       saveBtn.disabled = false;
       saveBtn.textContent = 'Enregistrer';
+    }
+  });
+
+  /* ---- Delete ---- */
+  document.getElementById('mc-modal-delete-btn').addEventListener('click', async function () {
+    const id    = document.getElementById('mc-field-id').value;
+    const index = document.getElementById('mc-field-index').value;
+    if (!id) return;
+
+    if (!confirm('Supprimer ce profil enfant ?')) return;
+
+    this.disabled = true;
+    this.textContent = 'Suppression…';
+
+    try {
+      const res = await fetch('/apps/verty-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_id: '{{ customer.id }}',
+          customer_mail: '{{ customer.email }}',
+          child: { id, index },
+          action: 'delete-child'
+        })
+      });
+
+      if (res.ok) {
+        close();
+        window.location.reload();
+      } else {
+        throw new Error('Erreur serveur');
+      }
+    } catch (err) {
+      console.error('Suppression échouée :', err);
+      this.disabled = false;
+      this.textContent = 'Supprimer';
     }
   });
 
