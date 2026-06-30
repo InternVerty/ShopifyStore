@@ -445,13 +445,13 @@
   <div class="mc-header">
     <div class="mc-header__inner">
       <h1 class="mc-header__greeting">Bonjour, {{ customer.first_name }}.</h1>
-      {%- if customer.metafields.custom.subSelection.value == true -%}
+      {%- if customer.metafields.custom.subselection.value == true -%}
         <span class="mc-abo-badge">
           <span class="mc-abo-badge__dot"></span>
           Abonnement Sélection
         </span>
       {%- endif -%}
-      {%- if customer.metafields.custom.subBookclub.value == true -%}
+      {%- if customer.metafields.custom.subsookclub.value == true -%}
         <span class="mc-abo-badge mc-abo-badge--bookclub">
           <span class="mc-abo-badge__dot"></span>
           Abonnement Bookclub
