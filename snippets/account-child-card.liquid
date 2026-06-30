@@ -29,7 +29,7 @@
   <button
     type="button"
     class="mc-child__btn"
-    data-child='{{ mc_child | json }}'
+    data-child='{{ mc_child | json | escape }}'
     data-index="{{ mc_index }}"
     onclick="var d=JSON.parse(this.dataset.child);d.index=+this.dataset.index;mcOpenChildModal(d);"
   >Gérer</button>
