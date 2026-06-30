@@ -17,16 +17,18 @@
 
   <div class="mc-children">
 
-    {%- assign mc_first = mc_children | first -%}
-    {%- if mc_children != blank and mc_first != blank -%}
+    {%- assign mc_prenoms = mc_children | map: 'prenom' | join: '' -%}
+    {%- if mc_children != blank and mc_prenoms != blank -%}
       {%- for mc_child in mc_children -%}
-        {%- assign mc_ci = forloop.index0 | modulo: 4 -%}
-        {% render 'account-child-card',
-          mc_child: mc_child,
-          mc_index: forloop.index0,
-          mc_avatar_color: mc_avatar_bgs[mc_ci],
-          mc_avatar_text_color: mc_avatar_texts[mc_ci]
-        %}
+        {%- if mc_child.prenom != blank -%}
+          {%- assign mc_ci = forloop.index0 | modulo: 4 -%}
+          {% render 'account-child-card',
+            mc_child: mc_child,
+            mc_index: forloop.index0,
+            mc_avatar_color: mc_avatar_bgs[mc_ci],
+            mc_avatar_text_color: mc_avatar_texts[mc_ci]
+          %}
+        {%- endif -%}
       {%- endfor -%}
 
     {%- else -%}
