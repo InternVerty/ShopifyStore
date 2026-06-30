@@ -76,6 +76,22 @@
   </div>
 </div>
 
+<div id="mc-confirm-modal" class="mc-modal" aria-hidden="true" role="dialog" aria-modal="true" style="z-index: 9100;">
+  <div class="mc-modal__backdrop"></div>
+  <div class="mc-modal__dialog" style="max-width: 380px;">
+    <div class="mc-modal__header">
+      <h3 class="mc-modal__title" style="font-size: 1.5rem;">Supprimer ce profil ?</h3>
+    </div>
+    <div class="mc-modal__body" style="padding-top: 12px;">
+      <p style="font-size: 1.35rem; color: #555; margin: 0;">Cette action est irréversible. Le profil de l'enfant sera définitivement supprimé.</p>
+    </div>
+    <div class="mc-modal__footer">
+      <button type="button" class="mc-modal__cancel" id="mc-confirm-cancel-btn">Annuler</button>
+      <button type="button" class="mc-modal__delete" id="mc-confirm-delete-btn" style="margin-right: 0;">Supprimer</button>
+    </div>
+  </div>
+</div>
+
 <style>
   /* ---- Modal overlay ---- */
   .mc-modal {
@@ -379,6 +395,22 @@
   const cancelBtn = modal.querySelector('.mc-modal__cancel');
   const saveBtn   = document.getElementById('mc-modal-save-btn');
 
+  const confirmModal      = document.getElementById('mc-confirm-modal');
+  const confirmDeleteBtn  = document.getElementById('mc-confirm-delete-btn');
+  const confirmCancelBtn  = document.getElementById('mc-confirm-cancel-btn');
+
+  function openConfirm() {
+    confirmModal.setAttribute('aria-hidden', 'false');
+    confirmModal.classList.add('is-open');
+  }
+  function closeConfirm() {
+    confirmModal.setAttribute('aria-hidden', 'true');
+    confirmModal.classList.remove('is-open');
+  }
+
+  confirmModal.querySelector('.mc-modal__backdrop').addEventListener('click', closeConfirm);
+  confirmCancelBtn.addEventListener('click', closeConfirm);
+
   /* ---- Build static chip/segment lists ---- */
   function buildChips(containerId, items, mode) {
     const container = document.getElementById(containerId);
@@ -520,15 +552,18 @@
   });
 
   /* ---- Delete ---- */
-  document.getElementById('mc-modal-delete-btn').addEventListener('click', async function () {
+  document.getElementById('mc-modal-delete-btn').addEventListener('click', function () {
+    const id = document.getElementById('mc-field-id').value;
+    if (!id) return;
+    openConfirm();
+  });
+
+  confirmDeleteBtn.addEventListener('click', async function () {
     const id    = document.getElementById('mc-field-id').value;
     const index = document.getElementById('mc-field-index').value;
-    if (!id) return;
 
-    if (!confirm('Supprimer ce profil enfant ?')) return;
-
-    this.disabled = true;
-    this.textContent = 'Suppression…';
+    confirmDeleteBtn.disabled = true;
+    confirmDeleteBtn.textContent = 'Suppression…';
 
     try {
       const res = await fetch('/apps/verty-sync', {
@@ -543,6 +578,7 @@
       });
 
       if (res.ok) {
+        closeConfirm();
         close();
         window.location.reload();
       } else {
@@ -550,8 +586,8 @@
       }
     } catch (err) {
       console.error('Suppression échouée :', err);
-      this.disabled = false;
-      this.textContent = 'Supprimer';
+      confirmDeleteBtn.disabled = false;
+      confirmDeleteBtn.textContent = 'Supprimer';
     }
   });
 
