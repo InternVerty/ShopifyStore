@@ -18,6 +18,7 @@
     <div class="mc-modal__body">
       <form id="mc-child-form" novalidate>
         <input type="hidden" id="mc-field-index">
+        <input type="hidden" id="mc-field-id">
 
         <div class="mc-form-row">
           <div class="mc-form-group">
@@ -392,6 +393,7 @@
     const data = childData || {};
 
     document.getElementById('mc-field-index').value       = data.index ?? '';
+    document.getElementById('mc-field-id').value          = data.id    || '';
     document.getElementById('mc-modal-childname').textContent = data.prenom || 'l\'enfant';
     document.getElementById('mc-field-prenom').value      = data.prenom    || '';
     document.getElementById('mc-field-naissance').value   = data.naissance || '';
@@ -422,6 +424,7 @@
   saveBtn.addEventListener('click', async function () {
     const payload = {
       index:     document.getElementById('mc-field-index').value,
+      id:        document.getElementById('mc-field-id').value,
       prenom:    document.getElementById('mc-field-prenom').value.trim(),
       naissance: document.getElementById('mc-field-naissance').value,
       classe:    (getSelected('mc-field-classe')[0]  || ''),
