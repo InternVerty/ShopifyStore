@@ -462,6 +462,10 @@
         body: JSON.stringify({
           customer_id: '{{ customer.id }}',
           customer_mail: '{{ customer.email }}',
+          ...(!payload.id && {
+            customer_first_name: '{{ customer.first_name }}',
+            customer_last_name: '{{ customer.last_name }}'
+          }),
           child: payload,
           action: payload.id ? "edit-child" : "add-child"
         })
