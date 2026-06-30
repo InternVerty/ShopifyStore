@@ -449,7 +449,7 @@
           customer_id: '{{ customer.id }}',
           customer_mail: '{{ customer.email }}',
           child: payload,
-          action: "edit-child"
+          action: payload.id ? "edit-child" : "add-child"
         })
       });
 
