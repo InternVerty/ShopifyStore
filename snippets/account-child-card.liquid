@@ -30,6 +30,16 @@
       {%- if mc_child.naissance != blank and mc_child.classe != blank -%} · {%- endif -%}
       {{ mc_child.classe }}
     </p>
+    {%- if mc_child.niveau != blank -%}
+      <p class="mc-child__niveau">{{ mc_child.niveau }}</p>
+    {%- endif -%}
+    {%- if mc_child.themes != blank and mc_child.themes.size > 0 -%}
+      <div class="mc-child__themes">
+        {%- for mc_theme in mc_child.themes -%}
+          <span class="mc-child__theme-chip">{{ mc_theme }}</span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 
   <button

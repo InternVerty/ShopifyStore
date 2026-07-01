@@ -309,7 +309,7 @@
 
   .mc-child {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     border: 1.5px solid #ebebeb;
     border-radius: 12px;
@@ -326,6 +326,7 @@
     font-size: 1em;
     font-weight: 700;
     flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .mc-child__info {
@@ -346,12 +347,38 @@
     margin: 0;
   }
 
+  .mc-child__niveau {
+    font-size: 0.75em;
+    font-weight: 500;
+    color: #1a5c3a;
+    margin: 4px 0 0;
+  }
+
+  .mc-child__themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 7px;
+  }
+
+  .mc-child__theme-chip {
+    font-size: 0.7em;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 99px;
+    background: #f0f0f0;
+    color: #666;
+  }
+
   .mc-child__btn {
     font-size: 0.85em;
     font-weight: 600;
     color: #1a5c3a;
     text-decoration: none;
     white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 2px;
+    flex-shrink: 0;
   }
 
   .mc-child__btn:hover {
