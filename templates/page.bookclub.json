@@ -11,10 +11,100 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "show_page_title": true,
+        "heading_align": "text-center"
+      }
+    },
+    "bookclub_hero": {
+      "type": "bookclub-hero",
+      "name": "Book Club, hero",
+      "settings": {
+        "badge_label": "Nouveau service Verty",
+        "heading": "Une bibliothèque tournante qui devient un club.",
+        "subheading": "<p>Des livres choisis par notre comité qui circulent entre amis. Un parent qu'on déleste de la charge mentale, des enfants qui lisent parce que leurs copains lisent.</p>",
+        "cta_primary_label": "Créer mon Book Club",
+        "cta_secondary_label": "Comment ça marche"
+      },
+      "blocks": {
+        "essential_1": { "type": "essential", "settings": { "icon": "chat_bubble", "label": "6 à 8 enfants par club" } },
+        "essential_2": { "type": "essential", "settings": { "icon": "star", "label": "Sélection du comité de lecture" } },
+        "essential_3": { "type": "essential", "settings": { "icon": "calendar", "label": "7 séances, de septembre à mai" } }
+      },
+      "block_order": ["essential_1", "essential_2", "essential_3"]
+    },
+    "bookclub_kit": {
+      "type": "bookclub-kit",
+      "name": "Book Club, kit",
+      "settings": {
+        "kicker": "Le kit de démarrage",
+        "heading": "Tout pour lancer le club, dans une seule boîte",
+        "intro": "<p>Huit éléments pensés pour l'enfant comme pour le parent organisateur. Reçus à l'inscription, ils suffisent à animer toute l'année.</p>",
+        "product_handle": "bookclub-abonnement-1-an",
+        "fallback_price": 39,
+        "cta_label": "S'inscrire",
+        "bonus_text": "<p><strong>Bonus organisateur,</strong> créer un club ouvre droit à <strong>5 % de remise</strong> sur votre prochaine commande Verty.</p>"
+      },
+      "blocks": {
+        "kit_1": { "type": "kit_item", "settings": { "icon": "gift", "title": "Sélection de livres", "text": "La sélection de l'année, choisie par le comité de lecture. Plus 2 livres offerts par enfant, à choisir en fin d'année." } },
+        "kit_2": { "type": "kit_item", "settings": { "icon": "feather", "title": "Carnet du lecteur", "text": "Un carnet par enfant : compléter son profil, dessiner le héros, marquer son passage préféré." } },
+        "kit_3": { "type": "kit_item", "settings": { "icon": "heart", "title": "Marque-page", "text": "Un marque-page à personnaliser, propre à chaque enfant." } },
+        "kit_4": { "type": "kit_item", "settings": { "icon": "box", "title": "Tote bag", "text": "Un tote bag par enfant pour transporter livre et carnet d'une séance à l'autre." } },
+        "kit_5": { "type": "kit_item", "settings": { "icon": "calendar", "title": "Guide de séances", "text": "Le guide du parent : organisation, animation, questions de discussion prêtes à l'emploi." } },
+        "kit_6": { "type": "kit_item", "settings": { "icon": "truck", "title": "Fiche de rotation", "text": "La fiche qui suit la circulation des livres entre membres tout au long de l'année." } },
+        "kit_7": { "type": "kit_item", "settings": { "icon": "star", "title": "Fiches livres", "text": "Le pitch de chaque livre envoyé, pour aider le parent à animer la toute première séance." } },
+        "kit_8": { "type": "kit_item", "settings": { "icon": "chat_bubble", "title": "Service client dédié", "text": "Un accès au support Verty pour le parent organisateur : questions, accompagnement, ajustements." } }
+      },
+      "block_order": ["kit_1", "kit_2", "kit_3", "kit_4", "kit_5", "kit_6", "kit_7", "kit_8"]
+    },
+    "bookclub_comment": {
+      "type": "bookclub-comment",
+      "name": "Book Club, comment ça marche",
+      "settings": {
+        "kicker": "Comment ça marche",
+        "heading": "Lancer le club en quatre temps"
+      },
+      "blocks": {
+        "step_1": { "type": "step", "settings": { "icon": "chat_bubble", "title": "Créez votre club", "text": "Donnez-lui un nom et invitez 6 à 8 familles avec un simple lien." } },
+        "step_2": { "type": "step", "settings": { "icon": "feather", "title": "Chaque enfant, son profil", "text": "Un court questionnaire affine la sélection du comité de lecture." } },
+        "step_3": { "type": "step", "settings": { "icon": "truck", "title": "Les livres circulent", "text": "La rotation démarre : chacun passe ses lectures au suivant." } },
+        "step_4": { "type": "step", "settings": { "icon": "calendar", "title": "On se retrouve chaque mois", "text": "Sept séances de septembre à mai, diplôme Verty à la clé." } }
+      },
+      "block_order": ["step_1", "step_2", "step_3", "step_4"]
+    },
+    "bookclub_faq": {
+      "type": "faq",
+      "name": "Book Club, FAQ",
+      "settings": {
+        "heading": "Tout ce qu'un parent veut savoir",
+        "heading_align": "text-center",
+        "color_scheme": "none",
+        "full_width": true
+      },
+      "blocks": {
+        "faq_1": { "type": "question", "settings": { "icon": "none", "heading": "Combien coûte le Book Club ?", "text": "<p>Un forfait unique de 39 € par enfant et par an, réglé à l'inscription. Il inclut le kit de démarrage complet : la sélection de livres de l'année, 2 livres offerts par enfant, le carnet du lecteur, le marque-page, le tote bag, le guide de séances, les fiches livres et l'accès au service client dédié.</p>" } },
+        "faq_2": { "type": "question", "settings": { "icon": "none", "heading": "Qui peut créer un club ?", "text": "<p>N'importe quel parent de la communauté Verty. Le parent organisateur crée le groupe sur cette page, partage le lien d'invitation à son entourage et constitue un groupe de 6 à 8 enfants d'âge et de niveau de lecture proches.</p>" } },
+        "faq_3": { "type": "question", "settings": { "icon": "none", "heading": "Faut-il être un bon animateur ?", "text": "<p>Aucune expérience requise. Le guide de séances, les fiches livres et les questions de discussion sont fournis et prêts à l'emploi. Le parent organisateur est accompagné pas à pas, et dispose d'un service client Verty dédié.</p>" } },
+        "faq_4": { "type": "question", "settings": { "icon": "none", "heading": "Comment sont choisis les livres ?", "text": "<p>Chaque enfant remplit un court questionnaire qui établit son profil lecteur, âge, niveau, centres d'intérêt. Verty affine alors la sélection initiale du club. Tous les titres sont lus, notés et recommandés par le comité de lecture.</p>" } },
+        "faq_5": { "type": "question", "settings": { "icon": "none", "heading": "Comment fonctionne la rotation des livres ?", "text": "<p>Les livres circulent entre les membres au fil de l'année grâce à la fiche de rotation. À chaque séance mensuelle, chaque enfant choisit son prochain titre dans la sélection disponible, sans jamais sortir du cadre validé par le comité.</p>" } },
+        "faq_6": { "type": "question", "settings": { "icon": "none", "heading": "À partir de quel âge ?", "text": "<p>Le club réunit des enfants d'âge et de niveau de lecture proches, autour d'un format unique : un temps de jeu, le carnet du lecteur, un goûter convivial puis la discussion guidée. C'est ce rythme partagé qui crée le lien entre les membres.</p>" } },
+        "faq_7": { "type": "question", "settings": { "icon": "none", "heading": "Le club se renouvelle-t-il ?", "text": "<p>Oui. Si le club fonctionne, le groupe se reconstitue l'année suivante. Le parent organisateur bénéficie par ailleurs de 5 % de remise sur sa prochaine commande Verty pour chaque club créé.</p>" } }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6", "faq_7"]
+    },
+    "bookclub_cta_final": {
+      "type": "bookclub-cta-final",
+      "name": "Book Club, CTA final",
+      "settings": {
+        "kicker": "Prêt à lancer ?",
+        "heading": "Créez votre Book Club et invitez vos premières familles.",
+        "subtext": "<p>39 € par enfant et par an, kit complet inclus. Aucune expérience d'animation requise, Verty vous guide pas à pas.</p>",
+        "cta_primary_label": "Créer mon Book Club",
+        "cta_secondary_label": "Revoir le fonctionnement",
+        "signature": "Lire ensemble, c'est lire plus longtemps."
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main", "bookclub_hero", "bookclub_kit", "bookclub_comment", "bookclub_faq", "bookclub_cta_final"]
 }
