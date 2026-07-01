@@ -87,7 +87,8 @@
           <fieldset class="bc-field">
             <legend class="bc-field__label">Centres d'intérêt (plusieurs choix)</legend>
             <div class="bc-toggle-group">
-              {%- for interest in 'Aventure,Fantasy,Chevalerie,Documentaires,Biographies,Séries,Humour,Action,Beaux graphismes,Héros identifiables,Animaux,Histoire' | split: ',' -%}
+              {% assign int = 'Aventure,Fantasy,Chevalerie,Documentaires,Biographies,Séries,Humour,Action,Beaux graphismes,Héros identifiables,Animaux,Histoire' | split: ',' %}
+              {%- for interest in int -%}
                 <label class="bc-toggle bc-toggle--sm"><input type="checkbox" name="interests" value="{{ interest }}"><span>{{ interest }}</span></label>
               {%- endfor -%}
             </div>
