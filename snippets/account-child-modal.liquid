@@ -50,7 +50,7 @@
         <div class="mc-form-group">
           <label class="mc-label">
             Thèmes préférés
-            <span class="mc-label-hint">Plusieurs choix possibles</span>
+            <span class="mc-label-hint" id="mc-themes-hint">5 choix maximum</span>
           </label>
           <div class="mc-chips mc-chips--multi" id="mc-field-themes"></div>
         </div>
@@ -418,6 +418,8 @@
       <button type="button" class="mc-chip" data-value="${item}">${item}</button>
     `).join('');
 
+    const MAX_MULTI = 5;
+
     container.addEventListener('click', function (e) {
       const chip = e.target.closest('.mc-chip');
       if (!chip) return;
@@ -425,7 +427,17 @@
         container.querySelectorAll('.mc-chip').forEach(c => c.classList.remove('is-selected'));
         chip.classList.add('is-selected');
       } else {
+        const alreadySelected = chip.classList.contains('is-selected');
+        if (!alreadySelected) {
+          const count = container.querySelectorAll('.mc-chip.is-selected').length;
+          if (count >= MAX_MULTI) return;
+        }
         chip.classList.toggle('is-selected');
+        if (containerId === 'mc-field-themes') {
+          const count = container.querySelectorAll('.mc-chip.is-selected').length;
+          const hint = document.getElementById('mc-themes-hint');
+          if (hint) hint.textContent = count >= MAX_MULTI ? `Maximum atteint (${MAX_MULTI}/5)` : '5 choix maximum';
+        }
       }
     });
   }
@@ -481,6 +493,11 @@
     setSelected('mc-field-classe',  data.classe  || '', 'single');
     setSelected('mc-field-niveau',  data.niveau  || '', 'single');
     setSelected('mc-field-themes',  data.themes  || [], 'multi');
+    const themesHint = document.getElementById('mc-themes-hint');
+    if (themesHint) {
+      const preselected = (data.themes || []).length;
+      themesHint.textContent = preselected >= 5 ? 'Maximum atteint (5/5)' : '5 choix maximum';
+    }
 
     modal.setAttribute('aria-hidden', 'false');
     modal.classList.add('is-open');
