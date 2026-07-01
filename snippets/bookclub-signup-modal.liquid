@@ -69,7 +69,8 @@
           <fieldset class="bc-field">
             <legend class="bc-field__label">Niveau de lecture</legend>
             <div class="bc-toggle-group">
-              {%- for level in 'Débute,Lit avec aisance,Dévore les livres' | split: ',' -%}
+              {% assign niv = "Débute,Lit avec aisance,Dévore les livres" | split: ','  %}
+              {%- for level in niv -%}
                 <label class="bc-toggle"><input type="radio" name="level" value="{{ level }}" required><span>{{ level }}</span></label>
               {%- endfor -%}
             </div>
