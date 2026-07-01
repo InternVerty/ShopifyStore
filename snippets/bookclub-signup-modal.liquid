@@ -78,7 +78,8 @@
           <fieldset class="bc-field">
             <legend class="bc-field__label">Longueur de récit préférée</legend>
             <div class="bc-toggle-group">
-              {%- for length in 'Courts,Moyens,Longs,Peu importe' | split: ',' -%}
+              {% assign len = 'Courts,Moyens,Longs,Peu importe' | split: ',' %}
+              {%- for length in len -%}
                 <label class="bc-toggle"><input type="radio" name="length" value="{{ length }}"><span>{{ length }}</span></label>
               {%- endfor -%}
             </div>
