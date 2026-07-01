@@ -1,13 +1,49 @@
 {%- comment -%}
-  Sidebar du compte : profil, abonnement, navigation
-  TODO: brancher les métachamps customer.metafields.verty.*
+  Sidebar du compte : profil, bookclub promo, navigation
 {%- endcomment -%}
 
-{%- assign mc_bio          = customer.metafields.verty.bio.value | default: '' -%}
-{%- assign mc_sub_type     = customer.metafields.verty.subscription_type.value | default: 'Abonnement Sélection' -%}
-{%- assign mc_sub_since    = customer.metafields.verty.subscription_since.value | default: 'sept. 2023' -%}
-{%- assign mc_sub_renewal  = customer.metafields.verty.subscription_renewal.value | default: '15 jan. 2025' -%}
-{%- assign mc_manage_url   = customer.metafields.verty.subscription_manage_url.value | default: '#' -%}
+{%- assign mc_bio = customer.metafields.verty.bio.value | default: '' -%}
+
+<style>
+  .mc-bookclub-card {
+    background: #1E3354;
+    border-radius: 16px;
+    padding: 22px 20px;
+  }
+  .mc-bookclub-card__label {
+    font-size: 1.0rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #ADBEEA;
+    margin: 0 0 6px;
+  }
+  .mc-bookclub-card__name {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 10px;
+  }
+  .mc-bookclub-card__desc {
+    font-size: 1.25rem;
+    color: #7a9fb5;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .mc-bookclub-card__btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 8px 20px;
+    background: #ADBEEA;
+    border-radius: 99px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1A2C4A;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .mc-bookclub-card__btn:hover { opacity: 0.85; }
+</style>
 
 <aside class="mc-sidebar">
 
@@ -19,15 +55,12 @@
     {%- endif -%}
   </div>
 
-  {%- comment -%} — Abonnement — {%- endcomment -%}
-  <div class="mc-sub-card">
-    <p class="mc-sub-card__label">Votre abonnement</p>
-    <p class="mc-sub-card__name">{{ mc_sub_type }}</p>
-    <p class="mc-sub-card__dates">
-      Membre depuis {{ mc_sub_since }}<br>
-      Renouvellement le {{ mc_sub_renewal }}
-    </p>
-    <a href="{{ mc_manage_url }}" class="mc-sub-card__link">Gérer ›</a>
+  {%- comment -%} — Bookclub promo — {%- endcomment -%}
+  <div class="mc-bookclub-card">
+    <p class="mc-bookclub-card__label">Nouveauté</p>
+    <p class="mc-bookclub-card__name">Le Bookclub</p>
+    <p class="mc-bookclub-card__desc">Un club de lecture mensuel avec des sélections pensées pour vos enfants.</p>
+    <a href="/pages/bookclub" class="mc-bookclub-card__btn">Découvrir →</a>
   </div>
 
   {%- comment -%} — Navigation — {%- endcomment -%}
