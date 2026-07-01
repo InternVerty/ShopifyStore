@@ -1,0 +1,87 @@
+<section class="bookclub-page bc-comment" id="fonctionnement" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-comment__header">
+      {%- if section.settings.kicker != blank -%}<p class="bc-kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="bc-section-title">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+    <div class="bc-comment__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'step' -%}
+          <div class="bc-card bc-comment__card" {{ block.shopify_attributes }}>
+            <div class="bc-comment__card-top">
+              <span class="bc-comment__card-icon">{% render 'icon', icon: block.settings.icon, width: 26, height: 26 %}</span>
+              <span class="bc-comment__card-number">{{ forloop.index }}</span>
+            </div>
+            <h3 class="bc-comment__card-title">{{ block.settings.title | escape }}</h3>
+            <p class="bc-comment__card-text">{{ block.settings.text }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Book Club, comment ça marche",
+  "tag": "section",
+  "class": "bookclub-comment-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Comment ça marche"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Lancer le club en quatre temps"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "chat_bubble", "label": "Chat bubble" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "calendar", "label": "Calendar" },
+            { "value": "star", "label": "Star" },
+            { "value": "gift", "label": "Gift" }
+          ],
+          "default": "chat_bubble"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, comment ça marche",
+      "blocks": [
+        { "type": "step", "settings": { "icon": "chat_bubble", "title": "Créez votre club", "text": "Donnez-lui un nom et invitez 6 à 8 familles avec un simple lien." } },
+        { "type": "step", "settings": { "icon": "feather", "title": "Chaque enfant, son profil", "text": "Un court questionnaire affine la sélection du comité de lecture." } },
+        { "type": "step", "settings": { "icon": "truck", "title": "Les livres circulent", "text": "La rotation démarre : chacun passe ses lectures au suivant." } },
+        { "type": "step", "settings": { "icon": "calendar", "title": "On se retrouve chaque mois", "text": "Sept séances de septembre à mai, diplôme Verty à la clé." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

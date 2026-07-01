@@ -1,0 +1,154 @@
+{%- liquid
+  assign bc_product = all_products[section.settings.product_handle]
+-%}
+
+<section class="bookclub-page bc-kit" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-kit__intro">
+      <div>
+        {%- if section.settings.kicker != blank -%}<p class="bc-kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="bc-section-title">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.intro != blank -%}<div class="bc-kit__intro-text rte">{{ section.settings.intro }}</div>{%- endif -%}
+      </div>
+      <div class="bc-kit__price-card">
+        <div>
+          <div class="bc-kit__price-label">Forfait annuel, par membre</div>
+          <div class="bc-kit__price-value">
+            {%- if bc_product -%}
+              <span class="bc-kit__price-number">{{ bc_product.price | money_without_trailing_zeros }}</span>
+            {%- else -%}
+              <span class="bc-kit__price-number">{{ section.settings.fallback_price }}&nbsp;€</span>
+            {%- endif -%}
+            <span class="bc-kit__price-period">/ an</span>
+          </div>
+          <div class="bc-kit__price-note">Kit complet inclus, 2 livres offerts par enfant</div>
+        </div>
+        <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-lg" data-bookclub-open>{{ section.settings.cta_label | escape }}</button>
+      </div>
+    </div>
+
+    <div class="bc-kit__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'kit_item' -%}
+          <div class="bc-card bc-kit__card" {{ block.shopify_attributes }}>
+            <div class="bc-kit__card-top">
+              <span class="bc-kit__card-icon">{% render 'icon', icon: block.settings.icon, width: 24, height: 24 %}</span>
+              <span class="bc-kit__card-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            </div>
+            <h3 class="bc-kit__card-title">{{ block.settings.title | escape }}</h3>
+            <p class="bc-kit__card-text">{{ block.settings.text }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.bonus_text != blank -%}
+      <div class="bc-kit__bonus">
+        <span class="bc-kit__bonus-icon">{% render 'icon', icon: 'star', width: 24, height: 24 %}</span>
+        <span>{{ section.settings.bonus_text }}</span>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Book Club, kit",
+  "tag": "section",
+  "class": "bookclub-kit-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Le kit de démarrage"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Tout pour lancer le club, dans une seule boîte"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Texte d'intro",
+      "default": "<p>Huit éléments pensés pour l'enfant comme pour le parent organisateur. Reçus à l'inscription, ils suffisent à animer toute l'année.</p>"
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Handle du produit Shopify",
+      "info": "Le prix affiché est lu directement sur ce produit.",
+      "default": "bookclub-abonnement-1-an"
+    },
+    {
+      "type": "number",
+      "id": "fallback_price",
+      "label": "Prix de secours (si produit introuvable)",
+      "default": 39
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bouton",
+      "default": "S'inscrire"
+    },
+    {
+      "type": "richtext",
+      "id": "bonus_text",
+      "label": "Texte bonus",
+      "default": "<p><strong>Bonus organisateur,</strong> créer un club ouvre droit à <strong>5 % de remise</strong> sur votre prochaine commande Verty.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "kit_item",
+      "name": "Élément du kit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "gift", "label": "Gift" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "box", "label": "Box" },
+            { "value": "calendar", "label": "Calendar" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "star", "label": "Star" },
+            { "value": "chat_bubble", "label": "Chat bubble" }
+          ],
+          "default": "gift"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, kit",
+      "blocks": [
+        { "type": "kit_item", "settings": { "icon": "gift", "title": "Sélection de livres", "text": "La sélection de l'année, choisie par le comité de lecture. Plus 2 livres offerts par enfant, à choisir en fin d'année." } },
+        { "type": "kit_item", "settings": { "icon": "feather", "title": "Carnet du lecteur", "text": "Un carnet par enfant : compléter son profil, dessiner le héros, marquer son passage préféré." } },
+        { "type": "kit_item", "settings": { "icon": "heart", "title": "Marque-page", "text": "Un marque-page à personnaliser, propre à chaque enfant." } },
+        { "type": "kit_item", "settings": { "icon": "box", "title": "Tote bag", "text": "Un tote bag par enfant pour transporter livre et carnet d'une séance à l'autre." } },
+        { "type": "kit_item", "settings": { "icon": "calendar", "title": "Guide de séances", "text": "Le guide du parent : organisation, animation, questions de discussion prêtes à l'emploi." } },
+        { "type": "kit_item", "settings": { "icon": "truck", "title": "Fiche de rotation", "text": "La fiche qui suit la circulation des livres entre membres tout au long de l'année." } },
+        { "type": "kit_item", "settings": { "icon": "star", "title": "Fiches livres", "text": "Le pitch de chaque livre envoyé, pour aider le parent à animer la toute première séance." } },
+        { "type": "kit_item", "settings": { "icon": "chat_bubble", "title": "Service client dédié", "text": "Un accès au support Verty pour le parent organisateur : questions, accompagnement, ajustements." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

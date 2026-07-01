@@ -1,0 +1,249 @@
+/* Book Club, page tokens and components. Scoped to .bookclub-page so nothing
+   here leaks into the rest of the theme (buttons, colors, header, footer). */
+
+.bookclub-page {
+  --bc-navy: #163D83;
+  --bc-navy-strong: #0E2A5C;
+  --bc-navy-wash: #EEF3FC;
+  --bc-navy-tint: #DCE6F7;
+  --bc-navy-border: #B9CBEE;
+  --bc-ink: #0A0A0A;
+  --bc-text-secondary: #4B5563;
+  --bc-text-muted: #8A93A3;
+  --bc-white: #FFFFFF;
+  --bc-gray-50: #F7F8FA;
+  --bc-gray-100: #F1F2F5;
+  --bc-gray-200: #E4E7EC;
+  --bc-radius-xs: 8px;
+  --bc-radius-sm: 12px;
+  --bc-radius-md: 16px;
+  --bc-radius-lg: 24px;
+  --bc-radius-xl: 32px;
+  --bc-radius-pill: 999px;
+  --bc-shadow-xs: 0 1px 2px rgba(10, 10, 10, 0.06);
+  --bc-shadow-sm: 0 4px 12px rgba(10, 10, 10, 0.08);
+  --bc-shadow-md: 0 12px 28px rgba(10, 10, 10, 0.12);
+  --bc-shadow-lg: 0 24px 48px rgba(10, 10, 10, 0.18);
+  --bc-font-display: 'oldblue', serif;
+  --bc-font-body: 'Satoshi', sans-serif;
+  color: var(--bc-ink);
+  font-family: var(--bc-font-body);
+}
+
+.bookclub-page .icon { width: 1em; height: 1em; }
+
+/* ---- shared: kicker / section title / badge / cards -------- */
+.bc-kicker {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bc-navy);
+}
+.bc-section-title {
+  margin: 0;
+  font-family: var(--bc-font-body);
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--bc-ink);
+}
+.bc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--bc-radius-pill);
+  background: var(--bc-navy-tint);
+  color: var(--bc-navy-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+.bc-card {
+  background: var(--bc-white);
+  border: 1px solid var(--bc-gray-200);
+  border-radius: var(--bc-radius-md);
+  box-shadow: var(--bc-shadow-xs);
+}
+.rte p { margin: 0 0 0.8em; }
+.rte p:last-child { margin-bottom: 0; }
+
+/* ---- vbtn navy modifier (this page only) -------------------- */
+.vbtn-primary.vbtn-navy {
+  background: var(--bc-navy);
+  border-color: var(--bc-navy);
+  color: #fff;
+}
+.vbtn-primary.vbtn-navy:hover { background: var(--bc-navy-strong); border-color: var(--bc-navy-strong); box-shadow: 0 8px 20px rgba(22, 61, 131, 0.35); }
+.vbtn-secondary.vbtn-navy {
+  background: var(--bc-navy-tint);
+  border-color: var(--bc-navy-border);
+  color: var(--bc-navy-strong);
+}
+.vbtn-secondary.vbtn-navy:hover { background: var(--bc-navy-border); }
+
+/* ---- hero ---------------------------------------------------- */
+.bc-hero { background: var(--bc-navy-wash); padding: 56px 0 64px; }
+.bc-hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+.bc-hero__intro { display: flex; flex-direction: column; align-items: flex-start; }
+.bc-hero__title { font-size: clamp(32px, 4.4vw, 54px); line-height: 1.05; font-weight: 900; letter-spacing: -0.02em; margin: 20px 0 0; }
+.bc-hero__subtitle { font-size: 19px; line-height: 1.55; color: var(--bc-text-secondary); margin-top: 22px; max-width: 480px; }
+.bc-hero__cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.bc-hero__visual { display: flex; flex-direction: column; gap: 22px; }
+.bc-hero__image-wrap { position: relative; max-width: 440px; width: 100%; margin: 0 auto; }
+.bc-hero__image-wrap img { width: 100%; height: auto; display: block; filter: drop-shadow(0 20px 32px rgba(10, 40, 80, 0.16)); }
+.bc-hero__floater {
+  position: absolute; display: flex; align-items: center; gap: 12px; max-width: 230px;
+  background: var(--bc-white); border-radius: var(--bc-radius-md); box-shadow: var(--bc-shadow-md); padding: 12px 16px;
+}
+.bc-hero__floater--left { left: -8px; bottom: 14px; }
+.bc-hero__floater--right { right: -4px; top: 4px; }
+.bc-hero__floater-icon {
+  flex: 0 0 auto; width: 40px; height: 40px; border-radius: var(--bc-radius-pill);
+  background: var(--bc-navy); color: #fff; display: flex; align-items: center; justify-content: center;
+}
+.bc-hero__floater-title { font-weight: 800; font-size: 14px; }
+.bc-hero__floater-text { font-size: 12.5px; color: var(--bc-text-secondary); }
+.bc-hero__essentials { display: flex; flex-direction: column; gap: 12px; }
+.bc-hero__essential { display: flex; align-items: center; gap: 10px; font-size: 14.5px; font-weight: 500; }
+.bc-hero__essential-icon { color: var(--bc-navy); display: inline-flex; flex: 0 0 auto; }
+
+/* ---- kit ------------------------------------------------------ */
+.bc-kit { background: var(--bc-navy-wash); padding: 72px 0; }
+.bc-kit__intro { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; margin-bottom: 40px; }
+.bc-kit__intro-text { margin-top: 16px; font-size: 17px; line-height: 1.6; color: var(--bc-text-secondary); max-width: 460px; }
+.bc-kit__price-card {
+  background: var(--bc-white); border-radius: var(--bc-radius-xl); padding: 26px 28px;
+  box-shadow: var(--bc-shadow-sm); display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+}
+.bc-kit__price-label { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--bc-navy); }
+.bc-kit__price-value { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; }
+.bc-kit__price-number { font-weight: 900; font-size: 44px; line-height: 1; }
+.bc-kit__price-period { font-size: 14px; color: var(--bc-text-secondary); }
+.bc-kit__price-note { font-size: 13.5px; color: var(--bc-text-secondary); margin-top: 6px; }
+.bc-kit__price-card .vbtn { margin-left: auto; }
+.bc-kit__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.bc-kit__card { padding: 20px 20px 22px; }
+.bc-kit__card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.bc-kit__card-icon {
+  width: 44px; height: 44px; border-radius: var(--bc-radius-sm); background: var(--bc-navy-tint);
+  color: var(--bc-navy); display: flex; align-items: center; justify-content: center;
+}
+.bc-kit__card-number { font-weight: 900; font-size: 22px; color: var(--bc-navy-border); }
+.bc-kit__card-title { font-size: 16px; font-weight: 800; margin: 0 0 6px; line-height: 1.2; }
+.bc-kit__card-text { font-size: 13.5px; line-height: 1.5; color: var(--bc-text-secondary); margin: 0; }
+.bc-kit__bonus {
+  display: flex; align-items: center; gap: 12px; margin-top: 22px; padding: 16px 22px;
+  background: var(--bc-white); border-radius: var(--bc-radius-md); border: 1px dashed var(--bc-navy-border); font-size: 15px;
+}
+.bc-kit__bonus-icon { color: var(--bc-navy); display: inline-flex; flex: 0 0 auto; }
+
+/* ---- comment ça marche ---------------------------------------- */
+.bc-comment { background: var(--bc-white); padding: 72px 0 56px; }
+.bc-comment__header { text-align: center; max-width: 720px; margin: 0 auto 44px; }
+.bc-comment__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.bc-comment__card { padding: 28px 24px 26px; }
+.bc-comment__card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.bc-comment__card-icon {
+  width: 52px; height: 52px; border-radius: var(--bc-radius-md); background: var(--bc-navy-tint);
+  color: var(--bc-navy); display: flex; align-items: center; justify-content: center;
+}
+.bc-comment__card-number { font-weight: 900; font-size: 36px; color: var(--bc-navy-border); line-height: 1; }
+.bc-comment__card-title { font-size: 18px; font-weight: 800; margin: 0 0 8px; line-height: 1.2; }
+.bc-comment__card-text { font-size: 14px; line-height: 1.5; color: var(--bc-text-secondary); margin: 0; }
+
+/* ---- CTA final -------------------------------------------------- */
+.bc-cta-final { background: var(--bc-white); padding: 20px 0 80px; }
+.bc-cta-final__panel {
+  background: var(--bc-navy-wash); border: 1px solid var(--bc-navy-border); border-radius: var(--bc-radius-xl);
+  padding: 60px 48px; text-align: center;
+}
+.bc-cta-final__title { font-size: clamp(28px, 3.6vw, 44px); font-weight: 900; letter-spacing: -0.02em; margin: 0 auto; max-width: 660px; line-height: 1.08; }
+.bc-cta-final__text { font-size: 17.5px; line-height: 1.55; color: var(--bc-text-secondary); margin: 18px auto 0; max-width: 520px; }
+.bc-cta-final__actions { display: flex; gap: 14px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+.bc-cta-final__signature { font-family: var(--bc-font-display); font-size: 24px; color: var(--bc-navy); margin: 36px 0 0; }
+
+/* ---- signup modal ------------------------------------------------ */
+bookclub-signup {
+  position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-start; justify-content: center;
+  padding: 40px 20px; overflow-y: auto;
+}
+bookclub-signup[hidden] { display: none; }
+.bc-modal__overlay { position: fixed; inset: 0; background: rgba(10, 10, 10, 0.45); }
+.bc-modal__window {
+  position: relative; width: 100%; max-width: 660px; background: var(--bc-white); border-radius: var(--bc-radius-xl);
+  box-shadow: var(--bc-shadow-lg); overflow: hidden; display: flex; flex-direction: column;
+}
+.bc-modal__top { display: flex; align-items: center; justify-content: space-between; padding: 20px 26px 0; }
+.bc-badge--modal { background: var(--bc-navy-tint); }
+.bc-modal__close {
+  width: 36px; height: 36px; border-radius: var(--bc-radius-pill); border: none; cursor: pointer;
+  background: var(--bc-gray-100); display: inline-flex; align-items: center; justify-content: center; color: var(--bc-ink);
+}
+.bc-modal__stepper { display: flex; align-items: center; padding: 20px 26px 4px; }
+.bc-modal__step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 0 0 auto; }
+.bc-modal__step-dot {
+  width: 28px; height: 28px; border-radius: var(--bc-radius-pill); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; background: var(--bc-gray-100); color: var(--bc-text-muted);
+}
+.bc-modal__step.is-active .bc-modal__step-dot { background: var(--bc-navy-tint); color: var(--bc-navy-strong); }
+.bc-modal__step.is-done .bc-modal__step-dot { background: var(--bc-navy); color: #fff; }
+.bc-modal__step-label { font-size: 11px; font-weight: 500; color: var(--bc-text-muted); white-space: nowrap; }
+.bc-modal__step.is-active .bc-modal__step-label, .bc-modal__step.is-done .bc-modal__step-label { color: var(--bc-ink); font-weight: 700; }
+.bc-modal__step-line { flex: 1; height: 2px; margin: 0 6px 20px; background: var(--bc-gray-200); border-radius: 2px; }
+.bc-modal__body { padding: 16px 26px 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; max-height: 60vh; }
+.bc-modal__lead { margin: 0; font-size: 15px; line-height: 1.6; color: var(--bc-text-secondary); }
+.bc-field { display: flex; flex-direction: column; gap: 6px; }
+.bc-field__label { font-size: 13.5px; font-weight: 500; color: var(--bc-text-secondary); }
+.bc-field input[type='text'], .bc-field input[type='email'], .bc-field select {
+  height: 46px; padding: 0 14px; width: 100%; box-sizing: border-box; background: var(--bc-white);
+  border-radius: var(--bc-radius-xs); border: 1.5px solid var(--bc-gray-200); font-family: var(--bc-font-body);
+  font-size: 15.5px; color: var(--bc-ink);
+}
+.bc-field input:focus, .bc-field select:focus { outline: none; border-color: var(--bc-navy); }
+.bc-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+fieldset.bc-field { border: none; padding: 0; margin: 0; }
+fieldset.bc-field legend { padding: 0; }
+.bc-toggle-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.bc-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+.bc-toggle span {
+  display: inline-flex; padding: 9px 16px; border-radius: var(--bc-radius-pill); border: 1.5px solid var(--bc-gray-200);
+  font-size: 14px; cursor: pointer; user-select: none; transition: all 0.15s ease;
+}
+.bc-toggle--sm span { padding: 7px 13px; font-size: 13px; }
+.bc-toggle input:checked + span { background: var(--bc-navy); border-color: var(--bc-navy); color: #fff; }
+.bc-toggle input:focus-visible + span { outline: 2px solid var(--bc-navy); outline-offset: 1px; }
+.bc-charter { display: flex; flex-direction: column; gap: 4px; }
+.bc-charter__item {
+  display: flex; gap: 14px; align-items: flex-start; padding: 13px 15px; cursor: pointer;
+  border-radius: var(--bc-radius-sm); border: 1.5px solid var(--bc-gray-200); transition: all 0.15s ease;
+}
+.bc-charter__item:has(input:checked) { background: var(--bc-navy-tint); border-color: var(--bc-navy-border); }
+.bc-charter__item input { margin-top: 3px; flex: 0 0 auto; width: 18px; height: 18px; accent-color: var(--bc-navy); }
+.bc-charter__item span { font-size: 14.5px; line-height: 1.5; }
+.bc-modal__recap { background: var(--bc-navy-wash); border-radius: var(--bc-radius-lg); padding: 20px 22px; }
+.bc-modal__recap-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.bc-modal__recap-kicker { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--bc-navy-strong); }
+.bc-modal__recap-club { font-size: 17px; font-weight: 700; margin-top: 4px; }
+.bc-modal__recap-price { font-weight: 900; font-size: 32px; }
+.bc-modal__recap-list { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.bc-modal__recap-list li { display: flex; gap: 9px; align-items: center; font-size: 14px; }
+.bc-modal__recap-list .icon { color: var(--bc-navy); }
+.bc-modal__note { font-size: 13px; color: var(--bc-text-secondary); margin: 0; }
+.bc-modal__error { color: #B3261E; font-size: 13.5px; margin: 0; }
+.bc-modal__footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 26px 22px; border-top: 1px solid var(--bc-gray-200); margin-top: 8px; }
+.bc-modal__back { background: none; border: none; cursor: pointer; font-family: var(--bc-font-body); font-size: 15px; font-weight: 500; color: var(--bc-text-secondary); padding: 8px 4px; }
+.bc-modal__footer-right { display: flex; align-items: center; gap: 14px; }
+
+/* ---- responsive --------------------------------------------------- */
+@media (max-width: 900px) {
+  .bc-hero__grid, .bc-kit__intro { grid-template-columns: 1fr; }
+  .bc-kit__grid, .bc-comment__grid { grid-template-columns: repeat(2, 1fr); }
+  .bc-field-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .bc-kit__grid, .bc-comment__grid { grid-template-columns: 1fr; }
+  .bc-cta-final__panel { padding: 40px 24px; }
+}

@@ -1,0 +1,135 @@
+{{ 'bookclub.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bookclub-signup.js' | asset_url }}" defer="defer"></script>
+
+<section class="bookclub-page bc-hero" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-hero__grid">
+      <div class="bc-hero__intro">
+        {%- if section.settings.badge_label != blank -%}
+          <span class="bc-badge">{% render 'icon', icon: 'star', width: 15, height: 15 %}{{ section.settings.badge_label | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h1 class="bc-hero__title">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <div class="bc-hero__subtitle rte">{{ section.settings.subheading }}</div>
+        {%- endif -%}
+        <div class="bc-hero__cta">
+          <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-lg" data-bookclub-open>{{ section.settings.cta_primary_label | escape }}</button>
+          <a href="#fonctionnement" class="vbtn vbtn-secondary vbtn-navy vbtn-lg">{{ section.settings.cta_secondary_label | escape }}</a>
+        </div>
+      </div>
+      <div class="bc-hero__visual">
+        <div class="bc-hero__image-wrap">
+          <img src="{{ 'bookclub-hero.png' | asset_url }}" alt="Des enfants réunis autour de leurs livres et carnets de lecture" loading="eager" width="440" height="440">
+          <div class="bc-hero__floater bc-hero__floater--left">
+            <span class="bc-hero__floater-icon">{% render 'icon', icon: 'gift', width: 22, height: 22 %}</span>
+            <div>
+              <div class="bc-hero__floater-title">Le carnet du lecteur</div>
+              <div class="bc-hero__floater-text">un par enfant, dans le kit</div>
+            </div>
+          </div>
+          <div class="bc-hero__floater bc-hero__floater--right">
+            <span class="bc-hero__floater-icon">{% render 'icon', icon: 'feather', width: 22, height: 22 %}</span>
+            <div>
+              <div class="bc-hero__floater-title">Le guide de séance</div>
+              <div class="bc-hero__floater-text">clé en main, dans le kit</div>
+            </div>
+          </div>
+        </div>
+        <div class="bc-hero__essentials">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'essential' -%}
+              <div class="bc-hero__essential" {{ block.shopify_attributes }}>
+                <span class="bc-hero__essential-icon">{% render 'icon', icon: block.settings.icon, width: 20, height: 20 %}</span>
+                {{ block.settings.label | escape }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% render 'bookclub-signup-modal' %}
+
+{% schema %}
+{
+  "name": "Book Club, hero",
+  "tag": "section",
+  "class": "bookclub-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Badge",
+      "default": "Nouveau service Verty"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Une bibliothèque tournante qui devient un club."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Accroche",
+      "default": "<p>Des livres choisis par notre comité qui circulent entre amis. Un parent qu'on déleste de la charge mentale, des enfants qui lisent parce que leurs copains lisent.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Bouton principal",
+      "default": "Créer mon Book Club"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Bouton secondaire",
+      "default": "Comment ça marche"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "essential",
+      "name": "Essentiel",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "chat_bubble", "label": "Chat bubble" },
+            { "value": "star", "label": "Star" },
+            { "value": "calendar", "label": "Calendar" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "box", "label": "Box" }
+          ],
+          "default": "chat_bubble"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texte",
+          "default": "6 à 8 enfants par club"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, hero",
+      "blocks": [
+        { "type": "essential", "settings": { "icon": "chat_bubble", "label": "6 à 8 enfants par club" } },
+        { "type": "essential", "settings": { "icon": "star", "label": "Sélection du comité de lecture" } },
+        { "type": "essential", "settings": { "icon": "calendar", "label": "7 séances, de septembre à mai" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
