@@ -149,7 +149,7 @@
           return res.json();
         })
         .then(() => {
-          window.location.href = '/checkout';
+          window.location.href = '/checkout?return_to={{ request.path | url_encode }}';
         })
         .catch(() => {
           this.submitting = false;
