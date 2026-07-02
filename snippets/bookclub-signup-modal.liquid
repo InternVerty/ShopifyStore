@@ -58,33 +58,16 @@
       <!-- Compte -->
       <div class="bc-modal__panel" data-step-key="account" data-step-label="Compte" data-next-label="Continuer">
         <p class="bc-modal__lead">Connectez-vous pour retrouver les profils lecteurs déjà enregistrés sur votre compte Verty, ou continuez sans compte.</p>
-        {%- form 'customer_login', class: 'bc-login-form' -%}
-          <input type="hidden" name="return_to" value="{{ request.origin }}{{ request.path }}">
-          {%- if form.errors -%}
-            <p class="bc-modal__error">{{ form.errors | default_errors }}</p>
-          {%- endif -%}
-          <label class="bc-field">
-            <span class="bc-field__label">E-mail</span>
-            <input type="email" name="customer[email]" autocomplete="email" required>
-          </label>
-          {%- if form.password_needed -%}
-            <label class="bc-field">
-              <span class="bc-field__label">Mot de passe</span>
-              <input type="password" name="customer[password]" required>
-            </label>
-          {%- endif -%}
-          <button type="submit" class="vbtn vbtn-primary vbtn-navy bc-login-form__submit">Se connecter</button>
-        {%- endform -%}
-        <p class="bc-modal__note">
-          Pas encore de compte ? <a href="{{ routes.account_register_url }}?return_to={{ request.origin | append: request.path | url_encode }}">Créez-en un</a>.
-        </p>
-        <button type="button" class="bc-modal__guest" data-bookclub-guest>Continuer sans compte</button>
+        <div class="bc-account-choice">
+          <a href="{{ routes.account_login_url }}" class="vbtn vbtn-primary vbtn-navy" data-bookclub-save-draft>Se connecter</a>
+          <button type="button" class="vbtn vbtn-secondary vbtn-navy" data-bookclub-guest>Continuer en tant qu'invité</button>
+        </div>
       </div>
       {%- endunless -%}
 
       <!-- Profil lecteur -->
       <div class="bc-modal__panel" data-step-key="profile" data-step-label="Profil lecteur" data-next-label="Continuer">
-        <p class="bc-modal__lead">Le <strong>profil lecteur</strong> de votre enfant permet à Verty d'affiner la sélection initiale du club. Chaque famille remplira le sien à l'inscription.</p>
+        <p class="bc-modal__lead">Le <strong>profil lecteur</strong> de votre enfant permet à Verty d'affiner la sélection initiale du club.</p>
 
         {%- if has_children -%}
           <fieldset class="bc-field" data-bookclub-child-picker>
@@ -98,8 +81,15 @@
                     {%- assign mc_now_ts = 'now' | date: '%s' | plus: 0 -%}
                     {%- assign mc_age = mc_now_ts | minus: mc_birth_ts | divided_by: 31557600 -%}
                   {%- endif -%}
+                  {%- assign mc_themes_joined = mc_child.themes | join: ', ' -%}
                   <label class="bc-child-card">
-                    <input type="radio" name="existing_child" value="{{ forloop.index0 }}" data-prenom="{{ mc_child.prenom | escape }}" data-age="{{ mc_age }}">
+                    <input type="radio" name="existing_child" value="{{ forloop.index0 }}"
+                      data-prenom="{{ mc_child.prenom | escape }}"
+                      data-naissance="{{ mc_child.naissance }}"
+                      data-genre="{{ mc_child.genre | escape }}"
+                      data-classe="{{ mc_child.classe | escape }}"
+                      data-niveau="{{ mc_child.niveau | escape }}"
+                      data-themes="{{ mc_themes_joined | escape }}">
                     <span class="bc-child-card__name">{{ mc_child.prenom }}</span>
                     <span class="bc-child-card__meta">{%- if mc_age != blank -%}{{ mc_age }} ans{%- endif -%}{%- if mc_age != blank and mc_child.classe != blank %}, {% endif -%}{{ mc_child.classe }}</span>
                   </label>
@@ -107,52 +97,63 @@
               {%- endfor -%}
               <label class="bc-child-card bc-child-card--new">
                 <input type="radio" name="existing_child" value="new">
-                <span class="bc-child-card__name">Ajouter un nouveau profil</span>
+                <span class="bc-child-card__name">Ajouter un enfant</span>
               </label>
             </div>
           </fieldset>
         {%- endif -%}
 
-        <div class="bc-field-row" data-bookclub-child-manual{% if has_children %} hidden{% endif %}>
+        <div data-bookclub-child-manual{% if has_children %} hidden{% endif %}>
+          <div class="bc-field-row">
+            <label class="bc-field">
+              <span class="bc-field__label">Prénom</span>
+              <input type="text" name="child_prenom" placeholder="Prénom de l'enfant" autocomplete="off" required>
+            </label>
+            <label class="bc-field">
+              <span class="bc-field__label">Date de naissance</span>
+              <input type="date" name="child_naissance">
+            </label>
+          </div>
+          <fieldset class="bc-field">
+            <legend class="bc-field__label">Genre</legend>
+            <div class="bc-toggle-group">
+              {%- for genre in 'Garçon,Fille' | split: ',' -%}
+                <label class="bc-toggle"><input type="radio" name="child_genre" value="{{ genre }}"><span>{{ genre }}</span></label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+          <fieldset class="bc-field">
+            <legend class="bc-field__label">Classe</legend>
+            <div class="bc-toggle-group">
+              {%- assign classes = 'Crèche,Petite section,Moyenne section,Grande section,CP,CE1,CE2,CM1,CM2,6ème,5ème,4ème,3ème,2nde,1ère,Terminale' | split: ',' -%}
+              {%- for classe in classes -%}
+                <label class="bc-toggle bc-toggle--sm"><input type="radio" name="child_classe" value="{{ classe }}"><span>{{ classe }}</span></label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+          <fieldset class="bc-field">
+            <legend class="bc-field__label">Niveau de lecture</legend>
+            <div class="bc-toggle-group">
+              {%- assign niveaux = 'Au-dessus du niveau de sa classe,Conforme au niveau de la classe,En-dessous du niveau de sa classe' | split: ',' -%}
+              {%- for niveau in niveaux -%}
+                <label class="bc-toggle"><input type="radio" name="child_niveau" value="{{ niveau }}"><span>{{ niveau }}</span></label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+          <fieldset class="bc-field">
+            <legend class="bc-field__label">Thèmes préférés <span class="bc-field__hint" data-bookclub-themes-hint>5 choix maximum</span></legend>
+            <div class="bc-toggle-group" data-bookclub-themes-group>
+              {%- assign themes = 'Humour,Aventures,Histoire,Animaux,Emotions,Documentaire,Spiritualité,Amitié,Famille,Nature,Arts,Contes et légendes,Sport,Voyages,Policiers,Fantastique,BD,Mythologie,Biographies,Mystère,Classiques,Science fiction,Intrigue' | split: ',' -%}
+              {%- for theme in themes -%}
+                <label class="bc-toggle bc-toggle--sm"><input type="checkbox" name="child_themes" value="{{ theme }}"><span>{{ theme }}</span></label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
           <label class="bc-field">
-            <span class="bc-field__label">Prénom de l'enfant</span>
-            <input type="text" name="child_name" placeholder="Jules" required>
-          </label>
-          <label class="bc-field">
-            <span class="bc-field__label">Âge</span>
-            <select name="child_age" required>
-              <option value="" disabled selected>Choisir</option>
-              {%- for age in (7..16) -%}<option value="{{ age }} ans">{{ age }} ans</option>{%- endfor -%}
-            </select>
+            <span class="bc-field__label">Remarque</span>
+            <textarea name="child_remarque" rows="3" placeholder="Informations utiles pour la sélection"></textarea>
           </label>
         </div>
-        <fieldset class="bc-field">
-          <legend class="bc-field__label">Niveau de lecture</legend>
-          <div class="bc-toggle-group">
-            {%- assign niv = 'Débute,Lit avec aisance,Dévore les livres' | split: ',' -%}
-            {%- for level in niv -%}
-              <label class="bc-toggle"><input type="radio" name="level" value="{{ level }}" required><span>{{ level }}</span></label>
-            {%- endfor -%}
-          </div>
-        </fieldset>
-        <fieldset class="bc-field">
-          <legend class="bc-field__label">Longueur de récit préférée</legend>
-          <div class="bc-toggle-group">
-            {%- assign len = 'Courts,Moyens,Longs,Peu importe' | split: ',' -%}
-            {%- for length in len -%}
-              <label class="bc-toggle"><input type="radio" name="length" value="{{ length }}"><span>{{ length }}</span></label>
-            {%- endfor -%}
-          </div>
-        </fieldset>
-        <fieldset class="bc-field">
-          <legend class="bc-field__label">Centres d'intérêt (plusieurs choix)</legend>
-          <div class="bc-toggle-group">
-            {%- assign int = 'Aventure,Fantasy,Chevalerie,Documentaires,Biographies,Séries,Humour,Action,Beaux graphismes,Héros identifiables,Animaux,Histoire' | split: ',' -%}
-            {%- for interest in int -%}
-              <label class="bc-toggle bc-toggle--sm"><input type="checkbox" name="interests" value="{{ interest }}"><span>{{ interest }}</span></label>
-            {%- endfor -%}
-          </div>
-        </fieldset>
       </div>
 
       <!-- La charte -->

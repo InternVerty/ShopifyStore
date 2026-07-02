@@ -16,10 +16,11 @@
       this.errorEl = this.querySelector('[data-bookclub-error]');
       this.recapNameEl = this.querySelector('[data-bookclub-recap-name]');
       this.guestBtn = this.querySelector('[data-bookclub-guest]');
-      this.loginForm = this.querySelector('.bc-login-form');
+      this.loginLink = this.querySelector('[data-bookclub-save-draft]');
 
       this.buildStepper();
       this.setupChildPicker();
+      this.setupThemesLimit();
 
       this.nextBtn.addEventListener('click', () => this.handleNext());
       this.backBtn.addEventListener('click', () => this.handleBack());
@@ -31,8 +32,8 @@
         });
       }
 
-      if (this.loginForm) {
-        this.loginForm.addEventListener('submit', () => this.saveDraft());
+      if (this.loginLink) {
+        this.loginLink.addEventListener('click', () => this.saveDraft());
       }
 
       this.querySelectorAll('[data-bookclub-close]').forEach((btn) => {
@@ -89,23 +90,29 @@
       this.childPicker = this.querySelector('[data-bookclub-child-picker]');
       if (!this.childPicker) return;
       this.childManual = this.querySelector('[data-bookclub-child-manual]');
-      this.childNameField = this.form.querySelector('[name="child_name"]');
-      this.childAgeField = this.form.querySelector('[name="child_age"]');
 
       this.childPicker.querySelectorAll('input[name="existing_child"]').forEach((radio) => {
         radio.addEventListener('change', () => {
-          if (radio.value === 'new') {
-            this.childManual.hidden = false;
-            this.childNameField.value = '';
-            this.childAgeField.value = '';
-          } else {
-            this.childManual.hidden = true;
-            this.childNameField.value = radio.dataset.prenom || '';
-            this.childAgeField.value = radio.dataset.age ? radio.dataset.age + ' ans' : '';
-          }
+          this.childManual.hidden = radio.value !== 'new';
           this.updateNextState();
         });
       });
+    }
+
+    setupThemesLimit() {
+      var group = this.querySelector('[data-bookclub-themes-group]');
+      var hint = this.querySelector('[data-bookclub-themes-hint]');
+      if (!group) return;
+      var boxes = Array.prototype.slice.call(group.querySelectorAll('input[name="child_themes"]'));
+      var max = 5;
+
+      var update = () => {
+        var count = boxes.filter((b) => b.checked).length;
+        boxes.forEach((b) => { b.disabled = !b.checked && count >= max; });
+        if (hint) hint.textContent = count >= max ? 'Maximum atteint (' + max + '/' + max + ')' : '5 choix maximum';
+      };
+
+      boxes.forEach((b) => b.addEventListener('change', update));
     }
 
     saveDraft() {
@@ -173,10 +180,12 @@
         );
       }
       if (key === 'profile') {
-        var hasLevel = !!form.querySelector('input[name="level"]:checked');
-        var name = form.querySelector('[name="child_name"]').value;
-        var age = form.querySelector('[name="child_age"]').value;
-        return !!(name && age && hasLevel);
+        if (this.childPicker) {
+          var existingChild = form.querySelector('input[name="existing_child"]:checked');
+          if (!existingChild) return false;
+          if (existingChild.value !== 'new') return true;
+        }
+        return !!form.querySelector('[name="child_prenom"]').value;
       }
       if (key === 'charter') {
         var checked = form.querySelectorAll('input[name="charter"]:checked').length;
@@ -271,29 +280,53 @@
         });
     }
 
-    collectProperties() {
+    collectChildData() {
       var form = this.form;
-      var interests = Array.prototype.slice
-        .call(form.querySelectorAll('input[name="interests"]:checked'))
+      var existingChild = this.childPicker && form.querySelector('input[name="existing_child"]:checked');
+
+      if (existingChild && existingChild.value !== 'new') {
+        return {
+          Enfant: existingChild.dataset.prenom || '',
+          'Date de naissance': existingChild.dataset.naissance || '',
+          Genre: existingChild.dataset.genre || '',
+          Classe: existingChild.dataset.classe || '',
+          'Niveau de lecture': existingChild.dataset.niveau || '',
+          'Themes preferes': existingChild.dataset.themes || '',
+          Remarque: '',
+          'Profil existant': 'Oui',
+        };
+      }
+
+      var themes = Array.prototype.slice
+        .call(form.querySelectorAll('input[name="child_themes"]:checked'))
         .map((el) => el.value)
         .join(', ');
-      var level = form.querySelector('input[name="level"]:checked');
-      var length = form.querySelector('input[name="length"]:checked');
-      var existingChild = form.querySelector('input[name="existing_child"]:checked');
+      var genre = form.querySelector('input[name="child_genre"]:checked');
+      var classe = form.querySelector('input[name="child_classe"]:checked');
+      var niveau = form.querySelector('input[name="child_niveau"]:checked');
 
       return {
+        Enfant: form.querySelector('[name="child_prenom"]').value,
+        'Date de naissance': form.querySelector('[name="child_naissance"]').value,
+        Genre: genre ? genre.value : '',
+        Classe: classe ? classe.value : '',
+        'Niveau de lecture': niveau ? niveau.value : '',
+        'Themes preferes': themes,
+        Remarque: form.querySelector('[name="child_remarque"]').value,
+        'Profil existant': 'Non',
+      };
+    }
+
+    collectProperties() {
+      var form = this.form;
+      var base = {
         Club: form.querySelector('[name="club_name"]').value,
         Organisateur: form.querySelector('[name="organizer"]').value,
         Email: form.querySelector('[name="email"]').value,
         Ville: form.querySelector('[name="city"]').value || '',
-        Enfant: form.querySelector('[name="child_name"]').value,
-        Age: form.querySelector('[name="child_age"]').value,
-        'Profil existant': existingChild && existingChild.value !== 'new' ? 'Oui' : 'Non',
-        'Niveau de lecture': level ? level.value : '',
-        'Longueur preferee': length ? length.value : '',
-        "Centres d'interet": interests,
         'Charte acceptee': 'Oui',
       };
+      return Object.assign(base, this.collectChildData());
     }
   }
 
