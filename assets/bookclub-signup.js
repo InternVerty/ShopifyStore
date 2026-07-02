@@ -1,8 +1,7 @@
 (function () {
   'use strict';
 
-  var STEP_COUNT = 4;
-  var NEXT_LABELS = ['Continuer', 'Continuer', 'Accepter la charte', 'Ajouter au panier'];
+  var DRAFT_KEY = 'bookclub-draft';
 
   class BookclubSignup extends HTMLElement {
     connectedCallback() {
@@ -10,16 +9,31 @@
       this.submitting = false;
 
       this.form = this.querySelector('[data-bookclub-form]');
-      this.panels = Array.prototype.slice.call(this.querySelectorAll('[data-step]'));
-      this.stepEls = Array.prototype.slice.call(this.querySelectorAll('[data-step-index]'));
+      this.panels = Array.prototype.slice.call(this.querySelectorAll('[data-step-key]'));
+      this.stepper = this.querySelector('[data-bookclub-stepper]');
       this.nextBtn = this.querySelector('[data-bookclub-next]');
       this.backBtn = this.querySelector('[data-bookclub-back]');
       this.errorEl = this.querySelector('[data-bookclub-error]');
       this.recapNameEl = this.querySelector('[data-bookclub-recap-name]');
+      this.guestBtn = this.querySelector('[data-bookclub-guest]');
+      this.loginForm = this.querySelector('.bc-login-form');
 
-      this.form.addEventListener('submit', (e) => e.preventDefault());
+      this.buildStepper();
+      this.setupChildPicker();
+
       this.nextBtn.addEventListener('click', () => this.handleNext());
       this.backBtn.addEventListener('click', () => this.handleBack());
+
+      if (this.guestBtn) {
+        this.guestBtn.addEventListener('click', () => {
+          this.step += 1;
+          this.render();
+        });
+      }
+
+      if (this.loginForm) {
+        this.loginForm.addEventListener('submit', () => this.saveDraft());
+      }
 
       this.querySelectorAll('[data-bookclub-close]').forEach((btn) => {
         btn.addEventListener('click', () => this.close());
@@ -41,6 +55,92 @@
       });
 
       this.render();
+
+      if (this.restoreDraft()) {
+        var accountIdx = this.panels.findIndex((p) => p.dataset.stepKey === 'account');
+        var profileIdx = this.panels.findIndex((p) => p.dataset.stepKey === 'profile');
+        this.step = accountIdx !== -1 ? accountIdx : profileIdx;
+        this.render();
+        this.open();
+      }
+    }
+
+    buildStepper() {
+      if (!this.stepper) return;
+      this.stepper.innerHTML = '';
+      this.panels.forEach((panel, idx) => {
+        var stepEl = document.createElement('div');
+        stepEl.className = 'bc-modal__step';
+        stepEl.setAttribute('data-step-index', idx);
+        stepEl.innerHTML =
+          '<span class="bc-modal__step-dot">' + (idx + 1) + '</span>' +
+          '<span class="bc-modal__step-label">' + panel.dataset.stepLabel + '</span>';
+        this.stepper.appendChild(stepEl);
+        if (idx < this.panels.length - 1) {
+          var line = document.createElement('span');
+          line.className = 'bc-modal__step-line';
+          this.stepper.appendChild(line);
+        }
+      });
+      this.stepEls = Array.prototype.slice.call(this.stepper.querySelectorAll('[data-step-index]'));
+    }
+
+    setupChildPicker() {
+      this.childPicker = this.querySelector('[data-bookclub-child-picker]');
+      if (!this.childPicker) return;
+      this.childManual = this.querySelector('[data-bookclub-child-manual]');
+      this.childNameField = this.form.querySelector('[name="child_name"]');
+      this.childAgeField = this.form.querySelector('[name="child_age"]');
+
+      this.childPicker.querySelectorAll('input[name="existing_child"]').forEach((radio) => {
+        radio.addEventListener('change', () => {
+          if (radio.value === 'new') {
+            this.childManual.hidden = false;
+            this.childNameField.value = '';
+            this.childAgeField.value = '';
+          } else {
+            this.childManual.hidden = true;
+            this.childNameField.value = radio.dataset.prenom || '';
+            this.childAgeField.value = radio.dataset.age ? radio.dataset.age + ' ans' : '';
+          }
+          this.updateNextState();
+        });
+      });
+    }
+
+    saveDraft() {
+      var data = {};
+      this.form.querySelectorAll('[name]').forEach((el) => {
+        if (el.type === 'password') return;
+        if (el.type === 'checkbox' || el.type === 'radio') {
+          if (el.checked) {
+            data[el.name] = data[el.name] || [];
+            data[el.name].push(el.value);
+          }
+        } else {
+          data[el.name] = el.value;
+        }
+      });
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+    }
+
+    restoreDraft() {
+      var raw = sessionStorage.getItem(DRAFT_KEY);
+      if (!raw) return false;
+      sessionStorage.removeItem(DRAFT_KEY);
+
+      var data = JSON.parse(raw);
+      Object.keys(data).forEach((name) => {
+        var value = data[name];
+        var els = this.form.querySelectorAll('[name="' + name + '"]');
+        if (!els.length) return;
+        if (Array.isArray(value)) {
+          els.forEach((el) => { el.checked = value.indexOf(el.value) !== -1; });
+        } else {
+          els.forEach((el) => { el.value = value; });
+        }
+      });
+      return true;
     }
 
     open() {
@@ -54,23 +154,31 @@
     }
 
     updateNextState() {
-      this.nextBtn.disabled = !this.canProceed(this.step);
+      this.nextBtn.disabled = !this.canProceed();
       var nameField = this.form.querySelector('[name="club_name"]');
       if (this.recapNameEl && nameField && nameField.value) {
         this.recapNameEl.textContent = nameField.value;
       }
     }
 
-    canProceed(step) {
+    canProceed() {
       var form = this.form;
-      if (step === 0) {
-        return !!(form.club_name.value && form.organizer.value && form.email.value);
+      var key = this.panels[this.step] && this.panels[this.step].dataset.stepKey;
+
+      if (key === 'group') {
+        return !!(
+          form.querySelector('[name="club_name"]').value &&
+          form.querySelector('[name="organizer"]').value &&
+          form.querySelector('[name="email"]').value
+        );
       }
-      if (step === 1) {
+      if (key === 'profile') {
         var hasLevel = !!form.querySelector('input[name="level"]:checked');
-        return !!(form.child_name.value && form.child_age.value && hasLevel);
+        var name = form.querySelector('[name="child_name"]').value;
+        var age = form.querySelector('[name="child_age"]').value;
+        return !!(name && age && hasLevel);
       }
-      if (step === 2) {
+      if (key === 'charter') {
         var checked = form.querySelectorAll('input[name="charter"]:checked').length;
         var total = form.querySelectorAll('input[name="charter"]').length;
         return checked === total;
@@ -88,9 +196,9 @@
     }
 
     handleNext() {
-      if (!this.canProceed(this.step)) return;
+      if (!this.canProceed()) return;
 
-      if (this.step === STEP_COUNT - 1) {
+      if (this.step === this.panels.length - 1) {
         this.submit();
         return;
       }
@@ -100,17 +208,22 @@
     }
 
     render() {
-      this.panels.forEach((panel) => {
-        panel.hidden = Number(panel.getAttribute('data-step')) !== this.step;
+      this.panels.forEach((panel, idx) => {
+        panel.hidden = idx !== this.step;
       });
       this.stepEls.forEach((stepEl) => {
         var idx = Number(stepEl.getAttribute('data-step-index'));
         stepEl.classList.toggle('is-active', idx === this.step);
         stepEl.classList.toggle('is-done', idx < this.step);
       });
+
+      var currentPanel = this.panels[this.step];
+      var isAccountStep = currentPanel && currentPanel.dataset.stepKey === 'account';
+
       this.backBtn.textContent = this.step === 0 ? 'Annuler' : 'Retour';
-      this.nextBtn.textContent = this.submitting ? 'Ajout en cours...' : NEXT_LABELS[this.step];
-      this.nextBtn.disabled = this.submitting || !this.canProceed(this.step);
+      this.nextBtn.hidden = isAccountStep;
+      this.nextBtn.textContent = this.submitting ? 'Ajout en cours...' : currentPanel.dataset.nextLabel;
+      this.nextBtn.disabled = this.submitting || !this.canProceed();
       if (this.errorEl) this.errorEl.hidden = true;
     }
 
@@ -149,7 +262,7 @@
           return res.json();
         })
         .then(() => {
-          window.location.href = '/checkout?return_to={{ request.path | url_encode }}';
+          window.location.href = '/checkout';
         })
         .catch(() => {
           this.submitting = false;
@@ -166,14 +279,16 @@
         .join(', ');
       var level = form.querySelector('input[name="level"]:checked');
       var length = form.querySelector('input[name="length"]:checked');
+      var existingChild = form.querySelector('input[name="existing_child"]:checked');
 
       return {
-        Club: form.club_name.value,
-        Organisateur: form.organizer.value,
-        Email: form.email.value,
-        Ville: form.city.value || '',
-        Enfant: form.child_name.value,
-        Age: form.child_age.value,
+        Club: form.querySelector('[name="club_name"]').value,
+        Organisateur: form.querySelector('[name="organizer"]').value,
+        Email: form.querySelector('[name="email"]').value,
+        Ville: form.querySelector('[name="city"]').value || '',
+        Enfant: form.querySelector('[name="child_name"]').value,
+        Age: form.querySelector('[name="child_age"]').value,
+        'Profil existant': existingChild && existingChild.value !== 'new' ? 'Oui' : 'Non',
         'Niveau de lecture': level ? level.value : '',
         'Longueur preferee': length ? length.value : '',
         "Centres d'interet": interests,

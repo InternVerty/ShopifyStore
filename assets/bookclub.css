@@ -197,7 +197,7 @@ bookclub-signup[hidden] { display: none; }
 .bc-modal__lead { margin: 0; font-size: 15px; line-height: 1.6; color: var(--bc-text-secondary); }
 .bc-field { display: flex; flex-direction: column; gap: 6px; }
 .bc-field__label { font-size: 13.5px; font-weight: 500; color: var(--bc-text-secondary); }
-.bc-field input[type='text'], .bc-field input[type='email'], .bc-field select {
+.bc-field input[type='text'], .bc-field input[type='email'], .bc-field input[type='password'], .bc-field select {
   height: 46px; padding: 0 14px; width: 100%; box-sizing: border-box; background: var(--bc-white);
   border-radius: var(--bc-radius-xs); border: 1.5px solid var(--bc-gray-200); font-family: var(--bc-font-body);
   font-size: 15.5px; color: var(--bc-ink);
@@ -232,7 +232,29 @@ fieldset.bc-field legend { padding: 0; }
 .bc-modal__recap-list li { display: flex; gap: 9px; align-items: center; font-size: 14px; }
 .bc-modal__recap-list .icon { color: var(--bc-navy); }
 .bc-modal__note { font-size: 13px; color: var(--bc-text-secondary); margin: 0; }
+.bc-modal__note a { color: var(--bc-navy); font-weight: 600; }
 .bc-modal__error { color: #B3261E; font-size: 13.5px; margin: 0; }
+
+/* ---- login step ------------------------------------------------- */
+.bc-login-form { display: flex; flex-direction: column; gap: 16px; }
+.bc-login-form__submit { align-self: flex-start; }
+.bc-modal__guest {
+  align-self: flex-start; background: none; border: none; cursor: pointer; padding: 4px 0;
+  font-family: var(--bc-font-body); font-size: 14.5px; font-weight: 600; color: var(--bc-navy); text-decoration: underline;
+}
+
+/* ---- child picker ------------------------------------------------- */
+.bc-child-picker { display: flex; flex-wrap: wrap; gap: 10px; }
+.bc-child-card {
+  position: relative; display: flex; flex-direction: column; gap: 2px; min-width: 140px; padding: 12px 16px;
+  border-radius: var(--bc-radius-sm); border: 1.5px solid var(--bc-gray-200); cursor: pointer; transition: all 0.15s ease;
+}
+.bc-child-card input { position: absolute; opacity: 0; width: 0; height: 0; }
+.bc-child-card:has(input:checked) { background: var(--bc-navy-tint); border-color: var(--bc-navy-border); }
+.bc-child-card__name { font-size: 14.5px; font-weight: 700; }
+.bc-child-card__meta { font-size: 12.5px; color: var(--bc-text-secondary); }
+.bc-child-card--new { justify-content: center; }
+.bc-child-card--new .bc-child-card__name { font-weight: 600; color: var(--bc-navy); }
 .bc-modal__footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 26px 22px; border-top: 1px solid var(--bc-gray-200); margin-top: 8px; }
 .bc-modal__back { background: none; border: none; cursor: pointer; font-family: var(--bc-font-body); font-size: 15px; font-weight: 500; color: var(--bc-text-secondary); padding: 8px 4px; }
 .bc-modal__footer-right { display: flex; align-items: center; gap: 14px; }

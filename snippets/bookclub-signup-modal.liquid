@@ -1,144 +1,203 @@
 {%- comment -%}
-  Modale d'inscription "Créer mon Book Club", 4 étapes.
+  Modale d'inscription "Créer mon Book Club".
   Rendue une seule fois par la section bookclub-hero. Ouverte par tout élément
   portant l'attribut data-bookclub-open (voir assets/bookclub-signup.js).
+
+  Étapes (chacune est un data-step-key sur .bc-modal__panel, l'ordre DOM fait foi) :
+    group   : le club
+    account : connexion / continuer sans compte, absente du DOM si customer est déjà présent
+    profile : profil lecteur, avec sélection d'un enfant existant si le compte en a
+    charter : charte du club
+    payment : récap + ajout au panier
 {%- endcomment -%}
 {%- liquid
   assign bc_product = all_products['bookclub-abonnement-1-an']
+
+  assign mc_children = customer.metafields.custom.dataenfant.value
+  assign mc_prenoms = mc_children | map: 'prenom' | join: ''
+  assign has_children = false
+  if customer and mc_children != blank and mc_prenoms != blank
+    assign has_children = true
+  endif
 -%}
 <bookclub-signup class="bookclub-page bc-modal" hidden data-product-handle="bookclub-abonnement-1-an">
   <div class="bc-modal__overlay" data-bookclub-close></div>
   <div class="bc-modal__window" role="dialog" aria-modal="true" aria-labelledby="bookclub-signup-heading">
-    <form data-bookclub-form novalidate>
-      <div class="bc-modal__top">
-        <span class="bc-badge bc-badge--modal" id="bookclub-signup-heading">Book Club</span>
-        <button type="button" class="bc-modal__close" data-bookclub-close aria-label="Fermer">{% render 'icon-close' %}</button>
-      </div>
+    <div class="bc-modal__top">
+      <span class="bc-badge bc-badge--modal" id="bookclub-signup-heading">Book Club</span>
+      <button type="button" class="bc-modal__close" data-bookclub-close aria-label="Fermer">{% render 'icon-close' %}</button>
+    </div>
 
-      <div class="bc-modal__stepper" data-bookclub-stepper>
-        {%- assign steps = 'Le groupe,Profil lecteur,La charte,Paiement' | split: ',' -%}
-        {%- for step in steps -%}
-          <div class="bc-modal__step" data-step-index="{{ forloop.index0 }}">
-            <span class="bc-modal__step-dot">{{ forloop.index }}</span>
-            <span class="bc-modal__step-label">{{ step }}</span>
-          </div>
-          {%- unless forloop.last -%}<span class="bc-modal__step-line"></span>{%- endunless -%}
-        {%- endfor -%}
-      </div>
+    <div class="bc-modal__stepper" data-bookclub-stepper></div>
 
-      <div class="bc-modal__body">
-        <!-- Étape 1 : le groupe -->
-        <div class="bc-modal__panel" data-step="0">
-          <p class="bc-modal__lead">Vous serez le <strong>parent organisateur</strong>. Donnez un nom à votre club, vous inviterez ensuite 6 à 8 familles d'enfants d'âge et de niveau proches avec un lien.</p>
+    <div class="bc-modal__body" data-bookclub-form>
+      <!-- Le groupe -->
+      <div class="bc-modal__panel" data-step-key="group" data-step-label="Le groupe" data-next-label="Continuer">
+        <p class="bc-modal__lead">Vous serez le <strong>parent organisateur</strong>. Donnez un nom à votre club, vous inviterez ensuite 6 à 8 familles d'enfants d'âge et de niveau proches avec un lien.</p>
+        <label class="bc-field">
+          <span class="bc-field__label">Nom du club</span>
+          <input type="text" name="club_name" placeholder="Les Explorateurs du mercredi" required>
+        </label>
+        <div class="bc-field-row">
           <label class="bc-field">
-            <span class="bc-field__label">Nom du club</span>
-            <input type="text" name="club_name" placeholder="Les Explorateurs du mercredi" required>
+            <span class="bc-field__label">Votre prénom</span>
+            <input type="text" name="organizer" placeholder="Camille" required>
           </label>
-          <div class="bc-field-row">
-            <label class="bc-field">
-              <span class="bc-field__label">Votre prénom</span>
-              <input type="text" name="organizer" placeholder="Camille" required>
-            </label>
-            <label class="bc-field">
-              <span class="bc-field__label">Votre e-mail</span>
-              <input type="email" name="email" placeholder="camille@exemple.fr" required>
-            </label>
-          </div>
           <label class="bc-field">
-            <span class="bc-field__label">Ville / quartier</span>
-            <input type="text" name="city" placeholder="Lyon 6e">
+            <span class="bc-field__label">Votre e-mail</span>
+            <input type="email" name="email" placeholder="camille@exemple.fr" required>
           </label>
         </div>
+        <label class="bc-field">
+          <span class="bc-field__label">Ville / quartier</span>
+          <input type="text" name="city" placeholder="Lyon 6e">
+        </label>
+      </div>
 
-        <!-- Étape 2 : profil lecteur -->
-        <div class="bc-modal__panel" data-step="1" hidden>
-          <p class="bc-modal__lead">Le <strong>profil lecteur</strong> de votre enfant permet à Verty d'affiner la sélection initiale du club. Chaque famille remplira le sien à l'inscription.</p>
-          <div class="bc-field-row">
+      {%- unless customer -%}
+      <!-- Compte -->
+      <div class="bc-modal__panel" data-step-key="account" data-step-label="Compte" data-next-label="Continuer">
+        <p class="bc-modal__lead">Connectez-vous pour retrouver les profils lecteurs déjà enregistrés sur votre compte Verty, ou continuez sans compte.</p>
+        {%- form 'customer_login', class: 'bc-login-form' -%}
+          <input type="hidden" name="return_to" value="{{ request.origin }}{{ request.path }}">
+          {%- if form.errors -%}
+            <p class="bc-modal__error">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+          <label class="bc-field">
+            <span class="bc-field__label">E-mail</span>
+            <input type="email" name="customer[email]" autocomplete="email" required>
+          </label>
+          {%- if form.password_needed -%}
             <label class="bc-field">
-              <span class="bc-field__label">Prénom de l'enfant</span>
-              <input type="text" name="child_name" placeholder="Jules" required>
+              <span class="bc-field__label">Mot de passe</span>
+              <input type="password" name="customer[password]" required>
             </label>
-            <label class="bc-field">
-              <span class="bc-field__label">Âge</span>
-              <select name="child_age" required>
-                <option value="" disabled selected>Choisir</option>
-                {%- for age in (7..16) -%}<option value="{{ age }} ans">{{ age }} ans</option>{%- endfor -%}
-              </select>
-            </label>
-          </div>
-          <fieldset class="bc-field">
-            <legend class="bc-field__label">Niveau de lecture</legend>
-            <div class="bc-toggle-group">
-              {% assign niv = "Débute,Lit avec aisance,Dévore les livres" | split: ','  %}
-              {%- for level in niv -%}
-                <label class="bc-toggle"><input type="radio" name="level" value="{{ level }}" required><span>{{ level }}</span></label>
-              {%- endfor -%}
-            </div>
-          </fieldset>
-          <fieldset class="bc-field">
-            <legend class="bc-field__label">Longueur de récit préférée</legend>
-            <div class="bc-toggle-group">
-              {% assign len = 'Courts,Moyens,Longs,Peu importe' | split: ',' %}
-              {%- for length in len -%}
-                <label class="bc-toggle"><input type="radio" name="length" value="{{ length }}"><span>{{ length }}</span></label>
-              {%- endfor -%}
-            </div>
-          </fieldset>
-          <fieldset class="bc-field">
-            <legend class="bc-field__label">Centres d'intérêt (plusieurs choix)</legend>
-            <div class="bc-toggle-group">
-              {% assign int = 'Aventure,Fantasy,Chevalerie,Documentaires,Biographies,Séries,Humour,Action,Beaux graphismes,Héros identifiables,Animaux,Histoire' | split: ',' %}
-              {%- for interest in int -%}
-                <label class="bc-toggle bc-toggle--sm"><input type="checkbox" name="interests" value="{{ interest }}"><span>{{ interest }}</span></label>
-              {%- endfor -%}
-            </div>
-          </fieldset>
-        </div>
+          {%- endif -%}
+          <button type="submit" class="vbtn vbtn-primary vbtn-navy bc-login-form__submit">Se connecter</button>
+        {%- endform -%}
+        <p class="bc-modal__note">
+          Pas encore de compte ? <a href="{{ routes.account_register_url }}?return_to={{ request.origin | append: request.path | url_encode }}">Créez-en un</a>.
+        </p>
+        <button type="button" class="bc-modal__guest" data-bookclub-guest>Continuer sans compte</button>
+      </div>
+      {%- endunless -%}
 
-        <!-- Étape 3 : la charte -->
-        <div class="bc-modal__panel" data-step="2" hidden>
-          <p class="bc-modal__lead">La <strong>charte du club</strong> cadre le rôle du parent organisateur. Cochez chaque engagement pour continuer.</p>
-          <div class="bc-charter">
-            {%- assign charter_items = "Je m'engage à organiser les rencontres mensuelles de septembre à mai et à communiquer les dates aux familles.|Je veille à la rotation des livres et au soin qui leur est apporté par les membres.|Je compose un groupe homogène de 6 à 8 enfants d'âge et de niveau de lecture proches.|Je m'appuie sur le guide de séances et les fiches Verty pour animer les discussions.|J'accepte que chaque enfant complète son profil lecteur pour affiner la sélection du club." | split: '|' -%}
-            {%- for item in charter_items -%}
-              <label class="bc-charter__item">
-                <input type="checkbox" name="charter" value="{{ forloop.index }}" required>
-                <span>{{ item }}</span>
+      <!-- Profil lecteur -->
+      <div class="bc-modal__panel" data-step-key="profile" data-step-label="Profil lecteur" data-next-label="Continuer">
+        <p class="bc-modal__lead">Le <strong>profil lecteur</strong> de votre enfant permet à Verty d'affiner la sélection initiale du club. Chaque famille remplira le sien à l'inscription.</p>
+
+        {%- if has_children -%}
+          <fieldset class="bc-field" data-bookclub-child-picker>
+            <legend class="bc-field__label">Pour quel enfant ?</legend>
+            <div class="bc-child-picker">
+              {%- for mc_child in mc_children -%}
+                {%- if mc_child.prenom != blank -%}
+                  {%- assign mc_age = '' -%}
+                  {%- if mc_child.naissance != blank -%}
+                    {%- assign mc_birth_ts = mc_child.naissance | date: '%s' | plus: 0 -%}
+                    {%- assign mc_now_ts = 'now' | date: '%s' | plus: 0 -%}
+                    {%- assign mc_age = mc_now_ts | minus: mc_birth_ts | divided_by: 31557600 -%}
+                  {%- endif -%}
+                  <label class="bc-child-card">
+                    <input type="radio" name="existing_child" value="{{ forloop.index0 }}" data-prenom="{{ mc_child.prenom | escape }}" data-age="{{ mc_age }}">
+                    <span class="bc-child-card__name">{{ mc_child.prenom }}</span>
+                    <span class="bc-child-card__meta">{%- if mc_age != blank -%}{{ mc_age }} ans{%- endif -%}{%- if mc_age != blank and mc_child.classe != blank %}, {% endif -%}{{ mc_child.classe }}</span>
+                  </label>
+                {%- endif -%}
+              {%- endfor -%}
+              <label class="bc-child-card bc-child-card--new">
+                <input type="radio" name="existing_child" value="new">
+                <span class="bc-child-card__name">Ajouter un nouveau profil</span>
               </label>
+            </div>
+          </fieldset>
+        {%- endif -%}
+
+        <div class="bc-field-row" data-bookclub-child-manual{% if has_children %} hidden{% endif %}>
+          <label class="bc-field">
+            <span class="bc-field__label">Prénom de l'enfant</span>
+            <input type="text" name="child_name" placeholder="Jules" required>
+          </label>
+          <label class="bc-field">
+            <span class="bc-field__label">Âge</span>
+            <select name="child_age" required>
+              <option value="" disabled selected>Choisir</option>
+              {%- for age in (7..16) -%}<option value="{{ age }} ans">{{ age }} ans</option>{%- endfor -%}
+            </select>
+          </label>
+        </div>
+        <fieldset class="bc-field">
+          <legend class="bc-field__label">Niveau de lecture</legend>
+          <div class="bc-toggle-group">
+            {%- assign niv = 'Débute,Lit avec aisance,Dévore les livres' | split: ',' -%}
+            {%- for level in niv -%}
+              <label class="bc-toggle"><input type="radio" name="level" value="{{ level }}" required><span>{{ level }}</span></label>
             {%- endfor -%}
           </div>
-        </div>
-
-        <!-- Étape 4 : récap + inscription au checkout -->
-        <div class="bc-modal__panel" data-step="3" hidden>
-          <div class="bc-modal__recap">
-            <div class="bc-modal__recap-head">
-              <div>
-                <div class="bc-modal__recap-kicker">Forfait annuel, 1 membre</div>
-                <div class="bc-modal__recap-club" data-bookclub-recap-name>Votre Book Club</div>
-              </div>
-              <div class="bc-modal__recap-price">
-                {%- if bc_product -%}{{ bc_product.price | money_without_trailing_zeros }}{%- else -%}39&nbsp;€{%- endif -%}
-              </div>
-            </div>
-            <ul class="bc-modal__recap-list">
-              <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Sélection de livres, plus 2 livres offerts</li>
-              <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Carnet du lecteur, marque-page et tote bag</li>
-              <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Guide de séances, fiches livres et rotation</li>
-              <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Service client Verty dédié</li>
-            </ul>
+        </fieldset>
+        <fieldset class="bc-field">
+          <legend class="bc-field__label">Longueur de récit préférée</legend>
+          <div class="bc-toggle-group">
+            {%- assign len = 'Courts,Moyens,Longs,Peu importe' | split: ',' -%}
+            {%- for length in len -%}
+              <label class="bc-toggle"><input type="radio" name="length" value="{{ length }}"><span>{{ length }}</span></label>
+            {%- endfor -%}
           </div>
-          <p class="bc-modal__note">En continuant, votre club est ajouté au panier avec les informations que vous venez de renseigner. Vous serez redirigé vers le paiement sécurisé Shopify pour finaliser votre inscription.</p>
-          <p class="bc-modal__error" data-bookclub-error hidden>Une erreur est survenue, merci de réessayer.</p>
+        </fieldset>
+        <fieldset class="bc-field">
+          <legend class="bc-field__label">Centres d'intérêt (plusieurs choix)</legend>
+          <div class="bc-toggle-group">
+            {%- assign int = 'Aventure,Fantasy,Chevalerie,Documentaires,Biographies,Séries,Humour,Action,Beaux graphismes,Héros identifiables,Animaux,Histoire' | split: ',' -%}
+            {%- for interest in int -%}
+              <label class="bc-toggle bc-toggle--sm"><input type="checkbox" name="interests" value="{{ interest }}"><span>{{ interest }}</span></label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- La charte -->
+      <div class="bc-modal__panel" data-step-key="charter" data-step-label="La charte" data-next-label="Accepter la charte">
+        <p class="bc-modal__lead">La <strong>charte du club</strong> cadre le rôle du parent organisateur. Cochez chaque engagement pour continuer.</p>
+        <div class="bc-charter">
+          {%- assign charter_items = "Je m'engage à organiser les rencontres mensuelles de septembre à mai et à communiquer les dates aux familles.|Je veille à la rotation des livres et au soin qui leur est apporté par les membres.|Je compose un groupe homogène de 6 à 8 enfants d'âge et de niveau de lecture proches.|Je m'appuie sur le guide de séances et les fiches Verty pour animer les discussions.|J'accepte que chaque enfant complète son profil lecteur pour affiner la sélection du club." | split: '|' -%}
+          {%- for item in charter_items -%}
+            <label class="bc-charter__item">
+              <input type="checkbox" name="charter" value="{{ forloop.index }}" required>
+              <span>{{ item }}</span>
+            </label>
+          {%- endfor -%}
         </div>
       </div>
 
-      <div class="bc-modal__footer">
-        <button type="button" class="bc-modal__back" data-bookclub-back>Annuler</button>
-        <div class="bc-modal__footer-right">
-          <button type="button" class="vbtn vbtn-primary vbtn-navy" data-bookclub-next disabled>Continuer</button>
+      <!-- Récap + inscription au checkout -->
+      <div class="bc-modal__panel" data-step-key="payment" data-step-label="Paiement" data-next-label="Ajouter au panier">
+        <div class="bc-modal__recap">
+          <div class="bc-modal__recap-head">
+            <div>
+              <div class="bc-modal__recap-kicker">Forfait annuel, 1 membre</div>
+              <div class="bc-modal__recap-club" data-bookclub-recap-name>Votre Book Club</div>
+            </div>
+            <div class="bc-modal__recap-price">
+              {%- if bc_product -%}{{ bc_product.price | money_without_trailing_zeros }}{%- else -%}39&nbsp;€{%- endif -%}
+            </div>
+          </div>
+          <ul class="bc-modal__recap-list">
+            <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Sélection de livres, plus 2 livres offerts</li>
+            <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Carnet du lecteur, marque-page et tote bag</li>
+            <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Guide de séances, fiches livres et rotation</li>
+            <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Service client Verty dédié</li>
+          </ul>
         </div>
+        <p class="bc-modal__note">En continuant, votre club est ajouté au panier avec les informations que vous venez de renseigner. Vous serez redirigé vers le paiement sécurisé Shopify pour finaliser votre inscription.</p>
+        <p class="bc-modal__error" data-bookclub-error hidden>Une erreur est survenue, merci de réessayer.</p>
       </div>
-    </form>
+    </div>
+
+    <div class="bc-modal__footer">
+      <button type="button" class="bc-modal__back" data-bookclub-back>Annuler</button>
+      <div class="bc-modal__footer-right">
+        <button type="button" class="vbtn vbtn-primary vbtn-navy" data-bookclub-next disabled>Continuer</button>
+      </div>
+    </div>
   </div>
 </bookclub-signup>
