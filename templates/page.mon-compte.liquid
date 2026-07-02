@@ -498,7 +498,7 @@
   {% comment %} Redirection si non connecté {% endcomment %}
   {% unless customer or request.design_mode %}
     <script>
-      window.location.href = '{{ routes.account_login_url }}?return_to={{ request.path | url_encode }}';
+      window.location.href = '{{ routes.storefront_login_url }}?return_to={{ request.path | url_encode }}';
     </script>
   {% endunless %}
 
