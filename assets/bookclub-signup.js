@@ -127,14 +127,21 @@
         .then((product) => {
           var variant = product.variants && product.variants[0];
           if (!variant) throw new Error('no-variant');
+
+          var payload = {
+            id: variant.id,
+            quantity: 1,
+            properties: this.collectProperties(),
+          };
+
+          var group = product.selling_plan_groups && product.selling_plan_groups[0];
+          var plan = group && group.selling_plans && group.selling_plans[0];
+          if (plan) payload.selling_plan = plan.id;
+
           return fetch('/cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({
-              id: variant.id,
-              quantity: 1,
-              properties: this.collectProperties(),
-            }),
+            body: JSON.stringify(payload),
           });
         })
         .then((res) => {
