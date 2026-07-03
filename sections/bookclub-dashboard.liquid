@@ -1,3 +1,6 @@
+{{ 'bookclub.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bookclub-signup.js' | asset_url }}" defer="defer"></script>
+
 {%- liquid
   assign members_count = section.blocks.size
   assign target = section.settings.target_size
