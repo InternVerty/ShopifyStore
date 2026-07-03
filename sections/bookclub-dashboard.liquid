@@ -1,0 +1,246 @@
+{%- liquid
+  assign members_count = section.blocks.size
+  assign target = section.settings.target_size
+  assign progress = 0
+  if target > 0
+    assign progress = members_count | times: 100 | divided_by: target
+  endif
+  if progress > 100
+    assign progress = 100
+  endif
+-%}
+<section class="bookclub-page bc-dash" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-dash__header">
+      <div>
+        <div class="bc-dash__title-row">
+          <h1 class="bc-dash__title">{{ section.settings.club_name | escape }}</h1>
+          <span class="bc-badge bc-badge--status">{{ section.settings.status_label | escape }}</span>
+        </div>
+        <p class="bc-dash__subtitle">Organisé par {{ section.settings.organizer_name | escape }}{% if section.settings.city != blank %}, {{ section.settings.city }}{% endif %}</p>
+      </div>
+      <div class="bc-dash__actions">
+        <button type="button" class="vbtn vbtn-primary vbtn-navy" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
+        <button type="button" class="vbtn vbtn-secondary vbtn-navy" data-bookclub-copy-invite data-invite-url="{{ section.settings.invite_url | escape }}">{% render 'icon', icon: 'chat_bubble', width: 18, height: 18 %}<span data-copy-label>Lien d'invitation</span></button>
+      </div>
+    </div>
+
+    <div class="bc-dash__stats">
+      <div class="bc-dash__stat">
+        <div class="bc-dash__stat-label">Membres</div>
+        <div class="bc-dash__stat-value">{{ members_count }}<span>/{{ target }}</span></div>
+      </div>
+      <div class="bc-dash__stat">
+        <div class="bc-dash__stat-label">Statut</div>
+        <div class="bc-dash__stat-value bc-dash__stat-value--sm">{{ section.settings.status_label | escape }}</div>
+      </div>
+      <div class="bc-dash__stat">
+        <div class="bc-dash__stat-label">Lancement visé</div>
+        <div class="bc-dash__stat-value bc-dash__stat-value--sm">{{ section.settings.launch_month | escape }}</div>
+      </div>
+      <div class="bc-dash__stat bc-dash__stat--navy">
+        <div class="bc-dash__stat-label">Bonus organisateur</div>
+        <div class="bc-dash__stat-value bc-dash__stat-value--sm">5 % de remise</div>
+      </div>
+    </div>
+
+    <div class="bc-dash__grid">
+      <div class="bc-dash__col">
+        <div class="bc-card bc-dash__panel">
+          <div class="bc-dash__panel-head">
+            <h3 class="bc-dash__panel-title">Membres du club</h3>
+            <button type="button" class="bc-dash__link-btn" data-bookclub-open>Inviter une famille</button>
+          </div>
+          <div class="bc-dash__members">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'member' -%}
+                {%- assign mc_ci = forloop.index0 | modulo: 4 -%}
+                <div class="bc-dash__member" {{ block.shopify_attributes }}>
+                  <span class="bc-dash__member-avatar bc-dash__member-avatar--{{ mc_ci }}">{{ block.settings.prenom | slice: 0 | upcase }}</span>
+                  <div>
+                    <div class="bc-dash__member-name">{{ block.settings.prenom | escape }}</div>
+                    <div class="bc-dash__member-meta">{{ block.settings.meta | escape }}</div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- assign remaining = target | minus: members_count -%}
+            {%- if remaining > 0 -%}
+              <button type="button" class="bc-dash__member bc-dash__member--empty" data-bookclub-open>
+                <span class="bc-dash__member-avatar bc-dash__member-avatar--empty">{% render 'icon', icon: 'gift', width: 16, height: 16 %}</span>
+                <div class="bc-dash__member-name">{{ remaining }} place{% if remaining > 1 %}s{% endif %} restante{% if remaining > 1 %}s{% endif %}</div>
+              </button>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="bc-card bc-dash__panel">
+          <h3 class="bc-dash__panel-title">Le rythme du club</h3>
+          <div class="bc-dash__timeline">
+            {%- assign tl_months = 'Sep,Oct,Nov,Déc,Jan,Fév,Mar,Avr,Mai' | split: ',' -%}
+            {%- assign tl_active = section.settings.timeline_step -%}
+            {%- for m in tl_months -%}
+              <div class="bc-dash__tl-step{% if forloop.index0 <= tl_active %} is-done{% endif %}{% if forloop.index0 == tl_active %} is-current{% endif %}">
+                <span class="bc-dash__tl-dot"></span>
+                <span class="bc-dash__tl-label">{{ m }}</span>
+              </div>
+              {%- unless forloop.last -%}<span class="bc-dash__tl-line{% if forloop.index0 < tl_active %} is-done{% endif %}"></span>{%- endunless -%}
+            {%- endfor -%}
+          </div>
+          <p class="bc-dash__tl-note">{{ section.settings.timeline_note | escape }}</p>
+        </div>
+      </div>
+
+      <div class="bc-dash__col">
+        <div class="bc-dash__panel bc-dash__panel--navy">
+          <div class="bc-dash__panel-kicker">Avant le lancement</div>
+          <p class="bc-dash__panel-lead">Le club démarre dès que {{ target }} familles ont rejoint le groupe.</p>
+          <div class="bc-dash__progress-row">
+            <span class="bc-dash__progress-value">{{ members_count }}<small>/{{ target }} familles</small></span>
+            <span class="bc-dash__progress-pct">{{ progress }} %</span>
+          </div>
+          <div class="bc-dash__progress-bar"><div class="bc-dash__progress-fill" style="width: {{ progress }}%;"></div></div>
+        </div>
+
+        <div class="bc-card bc-dash__panel">
+          <h3 class="bc-dash__panel-title">Ressources du kit</h3>
+          <ul class="bc-dash__resources">
+            <li><span>{% render 'icon', icon: 'calendar', width: 18, height: 18 %}Guide de séances</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'star', width: 18, height: 18 %}Fiches livres</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'feather', width: 18, height: 18 %}Carnet du lecteur</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+          </ul>
+        </div>
+
+        <div class="bc-dash__invite">
+          <div class="bc-dash__invite-label">Lien d'invitation</div>
+          <div class="bc-dash__invite-row">
+            <span class="bc-dash__invite-url">{{ section.settings.invite_url | escape }}</span>
+            <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-sm" data-bookclub-copy-invite data-invite-url="{{ section.settings.invite_url | escape }}"><span data-copy-label>Copier</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% render 'bookclub-join-modal', club_name: section.settings.club_name %}
+
+<script>
+(function () {
+  document.querySelectorAll('[data-bookclub-copy-invite]').forEach(function (btn) {
+    var label = btn.querySelector('[data-copy-label]');
+    if (!label) return;
+    btn.addEventListener('click', function () {
+      var url = btn.getAttribute('data-invite-url');
+      navigator.clipboard.writeText(url).then(function () {
+        var original = label.textContent;
+        label.textContent = 'Copié';
+        setTimeout(function () { label.textContent = original; }, 1600);
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Book Club, dashboard",
+  "tag": "section",
+  "class": "bookclub-dashboard-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "club_name",
+      "label": "Nom du club",
+      "default": "Les Explorateurs du mercredi"
+    },
+    {
+      "type": "text",
+      "id": "organizer_name",
+      "label": "Organisateur",
+      "default": "Camille"
+    },
+    {
+      "type": "text",
+      "id": "city",
+      "label": "Ville",
+      "default": "Lyon 6e"
+    },
+    {
+      "type": "text",
+      "id": "status_label",
+      "label": "Statut affiché",
+      "default": "En préparation"
+    },
+    {
+      "type": "number",
+      "id": "target_size",
+      "label": "Nombre de familles visé",
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "launch_month",
+      "label": "Mois de lancement visé",
+      "default": "Novembre"
+    },
+    {
+      "type": "range",
+      "id": "timeline_step",
+      "label": "Étape actuelle sur la frise (0 = septembre)",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "timeline_note",
+      "label": "Note sous la frise",
+      "default": "Actuellement en phase de constitution du groupe, avant le lancement de novembre."
+    },
+    {
+      "type": "text",
+      "id": "invite_url",
+      "label": "Lien d'invitation affiché",
+      "default": "verty.eu/book-club/explorateurs"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Bouton d'ajout",
+      "default": "Ajouter mon enfant"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Membre",
+      "settings": [
+        {
+          "type": "text",
+          "id": "prenom",
+          "label": "Prénom"
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Détails (âge, classe, niveau)",
+          "default": "9 ans, CE2, Conforme au niveau de la classe"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, dashboard",
+      "blocks": [
+        { "type": "member", "settings": { "prenom": "Jules", "meta": "9 ans, CE2, Conforme au niveau de la classe" } },
+        { "type": "member", "settings": { "prenom": "Inès", "meta": "8 ans, CE1, Au-dessus du niveau de sa classe" } },
+        { "type": "member", "settings": { "prenom": "Marius", "meta": "10 ans, CM2, Conforme au niveau de la classe" } },
+        { "type": "member", "settings": { "prenom": "Léa", "meta": "9 ans, CE2, En-dessous du niveau de sa classe" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
