@@ -270,6 +270,12 @@ fieldset.bc-field legend { padding: 0; }
 
 /* ---- dashboard ------------------------------------------------------ */
 .bc-dash { background: var(--bc-white); padding: 48px 0 72px; }
+.bc-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 13.5px; color: var(--bc-text-secondary); }
+.bc-breadcrumb__link { display: inline-flex; align-items: center; gap: 4px; color: var(--bc-navy); font-weight: 600; text-decoration: none; }
+.bc-breadcrumb__link .icon { width: 14px; height: 14px; }
+.bc-breadcrumb__link:hover { text-decoration: underline; }
+.bc-breadcrumb__sep { color: var(--bc-text-muted); }
+.bc-breadcrumb__current { font-weight: 500; }
 .bc-dash__header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
 .bc-dash__title-row { display: flex; align-items: center; gap: 10px; }
 .bc-dash__title { margin: 0; font-size: 24px; font-weight: 800; }

@@ -14,6 +14,11 @@
 -%}
 <section class="bookclub-page bc-dash" data-section-id="{{ section.id }}">
   <div class="container">
+    <nav class="bc-breadcrumb" aria-label="Fil d'ariane">
+      <a class="bc-breadcrumb__link" href="https://verty.eu/pages/mon-compte">{% render 'icon-chevron-left' %}Mon compte</a>
+      <span class="bc-breadcrumb__sep">/</span>
+      <span class="bc-breadcrumb__current" aria-current="page">{{ section.settings.club_name | escape }}</span>
+    </nav>
     <div class="bc-dash__header">
       <div>
         <div class="bc-dash__title-row">
