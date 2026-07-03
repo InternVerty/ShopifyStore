@@ -111,7 +111,8 @@
           <fieldset class="bc-field">
             <legend class="bc-field__label">Genre</legend>
             <div class="bc-toggle-group">
-              {%- for genre in 'Garçon,Fille' | split: ',' -%}
+              {% assign gen = "Garçon,Fille" | split: ',' -%}
+              {%- for genre in gen -%}
                 <label class="bc-toggle"><input type="radio" name="child_genre" value="{{ genre }}"><span>{{ genre }}</span></label>
               {%- endfor -%}
             </div>
