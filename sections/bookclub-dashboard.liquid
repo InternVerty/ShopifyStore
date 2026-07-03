@@ -108,6 +108,22 @@
             <span class="bc-dash__progress-pct">{{ progress }} %</span>
           </div>
           <div class="bc-dash__progress-bar"><div class="bc-dash__progress-fill" style="width: {{ progress }}%;"></div></div>
+          {%- assign has_objectifs = false -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'objectif' -%}{%- assign has_objectifs = true -%}{%- endif -%}
+          {%- endfor -%}
+          {%- if has_objectifs -%}
+            <ul class="bc-dash__checklist">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'objectif' -%}
+                  <li class="bc-dash__checklist-item{% if block.settings.done %} is-done{% endif %}" {{ block.shopify_attributes }}>
+                    <span class="bc-dash__checklist-icon">{% render 'icon', icon: 'check_mark', width: 14, height: 14 %}</span>
+                    {{ block.settings.label | escape }}
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
         </div>
 
         <div class="bc-card bc-dash__panel">
@@ -237,6 +253,23 @@
           "default": "9 ans, CE2, Conforme au niveau de la classe"
         }
       ]
+    },
+    {
+      "type": "objectif",
+      "name": "Objectif avant lancement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé"
+        },
+        {
+          "type": "checkbox",
+          "id": "done",
+          "label": "Déjà fait",
+          "default": false
+        }
+      ]
     }
   ],
   "presets": [
@@ -246,7 +279,9 @@
         { "type": "member", "settings": { "prenom": "Jules", "meta": "9 ans, CE2, Conforme au niveau de la classe" } },
         { "type": "member", "settings": { "prenom": "Inès", "meta": "8 ans, CE1, Au-dessus du niveau de sa classe" } },
         { "type": "member", "settings": { "prenom": "Marius", "meta": "10 ans, CM2, Conforme au niveau de la classe" } },
-        { "type": "member", "settings": { "prenom": "Léa", "meta": "9 ans, CE2, En-dessous du niveau de sa classe" } }
+        { "type": "member", "settings": { "prenom": "Léa", "meta": "9 ans, CE2, En-dessous du niveau de sa classe" } },
+        { "type": "objectif", "settings": { "label": "Signer la charte", "done": false } },
+        { "type": "objectif", "settings": { "label": "Inscrire mon enfant", "done": false } }
       ]
     }
   ]

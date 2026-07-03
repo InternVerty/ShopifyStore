@@ -332,6 +332,14 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__progress-pct { font-size: 13px; color: var(--bc-navy-tint); }
 .bc-dash__progress-bar { height: 8px; border-radius: var(--bc-radius-pill); background: rgba(255, 255, 255, 0.2); overflow: hidden; }
 .bc-dash__progress-fill { height: 100%; background: #fff; border-radius: var(--bc-radius-pill); }
+.bc-dash__checklist { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.bc-dash__checklist-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--bc-navy-tint); }
+.bc-dash__checklist-icon {
+  width: 20px; height: 20px; border-radius: var(--bc-radius-pill); flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.35); color: transparent;
+}
+.bc-dash__checklist-item.is-done { color: #fff; font-weight: 600; }
+.bc-dash__checklist-item.is-done .bc-dash__checklist-icon { background: #fff; border-color: #fff; color: var(--bc-navy); }
 .bc-dash__resources { list-style: none; margin: 0; padding: 0; }
 .bc-dash__resources li { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-top: 1px solid var(--bc-gray-100); font-size: 13.5px; }
 .bc-dash__resources li:first-child { border-top: none; }
