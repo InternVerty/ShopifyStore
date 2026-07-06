@@ -15,8 +15,6 @@
       this.backBtn = this.querySelector('[data-bookclub-back]');
       this.errorEl = this.querySelector('[data-bookclub-error]');
       this.recapNameEl = this.querySelector('[data-bookclub-recap-name]');
-      this.guestBtn = this.querySelector('[data-bookclub-guest]');
-      this.loginLink = this.querySelector('[data-bookclub-save-draft]');
 
       this.buildStepper();
       this.setupChildPicker();
@@ -25,16 +23,9 @@
       this.nextBtn.addEventListener('click', () => this.handleNext());
       this.backBtn.addEventListener('click', () => this.handleBack());
 
-      if (this.guestBtn) {
-        this.guestBtn.addEventListener('click', () => {
-          this.step += 1;
-          this.render();
-        });
-      }
-
-      if (this.loginLink) {
-        this.loginLink.addEventListener('click', () => this.saveDraft());
-      }
+      this.querySelectorAll('[data-bookclub-save-draft]').forEach((link) => {
+        link.addEventListener('click', () => this.saveDraft());
+      });
 
       this.querySelectorAll('[data-bookclub-close]').forEach((btn) => {
         btn.addEventListener('click', () => this.close());
@@ -210,7 +201,8 @@
       if (!this.canProceed()) return;
 
       var leavingPanel = this.panels[this.step];
-      if (leavingPanel && leavingPanel.dataset.stepKey === 'profile' && this.isNewChild()) {
+      var loggedIn = !!this.getAttribute('data-customer-id');
+      if (leavingPanel && leavingPanel.dataset.stepKey === 'profile' && this.isNewChild() && loggedIn) {
         this.addChildToAccount();
       }
 
@@ -231,16 +223,10 @@
     addChildToAccount() {
       // Meilleur effort, comme notifyJoin() : enregistre le nouveau profil sur
       // le compte client (même mécanisme que "Mes enfants"), sans bloquer la
-      // suite du parcours d'inscription au club si ça échoue.
-      var form = this.form;
-      var loggedIn = !!this.getAttribute('data-customer-id');
-      var email = loggedIn
-        ? this.getAttribute('data-customer-email') || ''
-        : form.querySelector('[name="email"]').value;
-      var firstName = loggedIn
-        ? this.getAttribute('data-customer-first-name') || ''
-        : form.querySelector('[name="organizer"]').value;
-      var lastName = loggedIn ? this.getAttribute('data-customer-last-name') || '' : '';
+      // suite du parcours d'inscription au club si ça échoue. N'est appelée
+      // que si la personne est connectée (voir handleNext) : sans compte,
+      // il n'y a pas de fiche client à laquelle attacher ce profil.
+      var email = this.getAttribute('data-customer-email') || '';
       var child = this.collectChildForSync();
 
       fetch('/apps/verty-sync', {
@@ -249,8 +235,8 @@
         body: JSON.stringify({
           customer_id: this.getAttribute('data-customer-id') || '',
           customer_mail: email,
-          customer_first_name: firstName,
-          customer_last_name: lastName,
+          customer_first_name: this.getAttribute('data-customer-first-name') || '',
+          customer_last_name: this.getAttribute('data-customer-last-name') || '',
           child: Object.assign({ index: '', email: email }, child),
           action: 'add-child',
         }),

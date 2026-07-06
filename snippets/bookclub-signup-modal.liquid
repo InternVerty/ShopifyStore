@@ -59,10 +59,10 @@
       {%- unless customer -%}
       <!-- Le compte -->
       <div class="bc-modal__panel" data-step-key="account" data-step-label="Le compte" data-next-label="Continuer">
-        <p class="bc-modal__lead">Connectez-vous pour retrouver les profils lecteurs déjà enregistrés sur votre compte Verty, ou continuez sans compte.</p>
+        <p class="bc-modal__lead">Connectez-vous pour retrouver les profils lecteurs déjà enregistrés sur votre compte Verty, ou créez-en un.</p>
         <div class="bc-account-choice">
           <a href="{{ routes.storefront_login_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-primary vbtn-navy" data-bookclub-save-draft>Se connecter</a>
-          <button type="button" class="vbtn vbtn-secondary vbtn-navy" data-bookclub-guest>Continuer en tant qu'invité</button>
+          <a href="{{ routes.account_register_url }}" class="vbtn vbtn-secondary vbtn-navy" data-bookclub-save-draft>Créer un compte</a>
         </div>
       </div>
       {%- endunless -%}

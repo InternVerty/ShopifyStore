@@ -236,7 +236,7 @@ fieldset.bc-field legend { padding: 0; }
 .bc-modal__error { color: #B3261E; font-size: 13.5px; margin: 0; }
 
 /* ---- account step ------------------------------------------------- */
-.bc-account-choice { display: flex; gap: 12px; flex-wrap: wrap; }
+.bc-account-choice { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
 /* ---- child picker ------------------------------------------------- */
 .bc-child-picker { display: flex; flex-wrap: wrap; gap: 10px; }
