@@ -364,6 +364,19 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__invite-row { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: var(--bc-radius-pill); padding: 8px 8px 8px 14px; }
 .bc-dash__invite-url { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+.bc-dash__gate-wrap { position: relative; }
+.bc-dash__gated.is-blurred { filter: blur(6px); pointer-events: none; user-select: none; }
+.bc-dash__gate-overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  padding: 24px; background: rgba(255, 255, 255, 0.35);
+}
+.bc-dash__gate-card {
+  background: #fff; border-radius: var(--bc-radius-lg); box-shadow: var(--bc-shadow-lg);
+  padding: 32px 36px; text-align: center; max-width: 420px;
+}
+.bc-dash__gate-title { margin: 0 0 8px; font-size: 19px; font-weight: 800; }
+.bc-dash__gate-text { margin: 0 0 20px; font-size: 14px; color: var(--bc-text-secondary); }
+
 /* ---- responsive --------------------------------------------------- */
 @media (max-width: 900px) {
   .bc-hero__grid, .bc-kit__intro { grid-template-columns: 1fr; }

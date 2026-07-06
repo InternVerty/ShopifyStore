@@ -60,6 +60,8 @@
       </div>
     </div>
 
+    <div class="bc-dash__gate-wrap">
+    <div class="bc-dash__gated{% unless customer %} is-blurred{% endunless %}">
     <div class="bc-dash__stats">
       <div class="bc-dash__stat">
         <div class="bc-dash__stat-label">Membres</div>
@@ -220,6 +222,20 @@
           </div>
         </div>
       </div>
+    </div>
+    </div>
+    {%- unless customer -%}
+      <div class="bc-dash__gate-overlay">
+        <div class="bc-dash__gate-card">
+          <h3 class="bc-dash__gate-title">Connectez-vous pour voir les informations du club</h3>
+          <p class="bc-dash__gate-text">Membres, avancement et ressources sont réservés aux familles connectées.</p>
+          <div class="bc-account-choice">
+            <a href="{{ routes.account_login_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-primary vbtn-navy">Se connecter</a>
+            <a href="{{ routes.account_register_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-secondary vbtn-navy">Créer un compte</a>
+          </div>
+        </div>
+      </div>
+    {%- endunless -%}
     </div>
   </div>
 </section>
