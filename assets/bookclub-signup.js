@@ -274,8 +274,9 @@
           if (!res.ok) throw new Error('bookclub-create-failed');
           return res.json();
         })
-        .then(() => {
-          window.location.href = this.getAttribute('data-dashboard-url') || '/pages/bookclub-dashboard';
+        .then((data) => {
+          var url = (data && data.club_url) || this.getAttribute('data-dashboard-url') || '/pages/bookclub-dashboard';
+          window.location.href = url;
         })
         .catch(() => {
           this.submitting = false;
