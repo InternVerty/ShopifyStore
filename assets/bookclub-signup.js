@@ -46,6 +46,16 @@
         if (e.key === 'Escape' && !this.hidden) this.close();
       });
 
+      // Se connecter / créer un compte peut ouvrir un nouvel onglet (comportement
+      // du système de comptes clients Shopify, hors de notre contrôle). Si un
+      // brouillon est en attente quand cet onglet reprend le focus, on suppose
+      // que l'inscription a pu se terminer ailleurs et on recharge pour vérifier.
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && sessionStorage.getItem(DRAFT_KEY)) {
+          window.location.reload();
+        }
+      });
+
       this.render();
 
       if (this.restoreDraft()) {
