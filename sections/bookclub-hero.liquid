@@ -52,7 +52,7 @@
   </div>
 </section>
 
-{% render 'bookclub-signup-modal' %}
+{% render 'bookclub-signup-modal', dashboard_url: section.settings.dashboard_url %}
 
 {% schema %}
 {
@@ -89,6 +89,12 @@
       "id": "cta_secondary_label",
       "label": "Bouton secondaire",
       "default": "Comment ça marche"
+    },
+    {
+      "type": "text",
+      "id": "dashboard_url",
+      "label": "URL du dashboard (redirection après création)",
+      "default": "/pages/book-club-dashboard"
     }
   ],
   "blocks": [

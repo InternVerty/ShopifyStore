@@ -237,9 +237,53 @@
     }
 
     submit() {
-      var handle = this.getAttribute('data-product-handle');
       this.submitting = true;
       this.render();
+
+      if (this.getAttribute('data-submit-mode') === 'create') {
+        this.submitCreate();
+      } else {
+        this.submitJoin();
+      }
+    }
+
+    submitCreate() {
+      var form = this.form;
+      var payload = {
+        customer_id: this.getAttribute('data-customer-id') || '',
+        customer_mail: this.getAttribute('data-customer-email') || '',
+        customer_first_name: this.getAttribute('data-customer-first-name') || '',
+        customer_last_name: this.getAttribute('data-customer-last-name') || '',
+        club: {
+          name: form.querySelector('[name="club_name"]').value,
+          organizer: form.querySelector('[name="organizer"]').value,
+          email: form.querySelector('[name="email"]').value,
+          city: form.querySelector('[name="city"]').value || '',
+        },
+        action: 'create-bookclub',
+      };
+
+      fetch('/apps/verty-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error('bookclub-create-failed');
+          return res.json();
+        })
+        .then(() => {
+          window.location.href = this.getAttribute('data-dashboard-url') || '/pages/bookclub-dashboard';
+        })
+        .catch(() => {
+          this.submitting = false;
+          this.render();
+          if (this.errorEl) this.errorEl.hidden = false;
+        });
+    }
+
+    submitJoin() {
+      var handle = this.getAttribute('data-product-handle');
 
       fetch('/products/' + handle + '.js')
         .then((res) => {
