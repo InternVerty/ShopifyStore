@@ -6,6 +6,7 @@
   # page), on lit les vraies données du club. Sinon (page générique de test),
   # on retombe sur les réglages/blocks de la section, comme avant.
   if metaobject
+    assign club_id = metaobject.id
     assign club_name = metaobject.name.value
     assign organizer_name = metaobject.organizer_name.value
     assign city = metaobject.city.value
@@ -15,6 +16,7 @@
     assign members_count = club_members.size
     assign invite_url = metaobject.system.url
   else
+    assign club_id = blank
     assign club_name = section.settings.club_name
     assign organizer_name = section.settings.organizer_name
     assign city = section.settings.city
@@ -205,7 +207,7 @@
   </div>
 </section>
 
-{% render 'bookclub-join-modal', club_name: club_name %}
+{% render 'bookclub-join-modal', club_name: club_name, club_id: club_id %}
 
 <script>
 (function () {

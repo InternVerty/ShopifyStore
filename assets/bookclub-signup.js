@@ -318,6 +318,7 @@
           return res.json();
         })
         .then(() => {
+          this.notifyJoin();
           window.location.href = '/checkout';
         })
         .catch(() => {
@@ -325,6 +326,60 @@
           this.render();
           if (this.errorEl) this.errorEl.hidden = false;
         });
+    }
+
+    notifyJoin() {
+      // Meilleur effort : le paiement reste la source de vérité, un échec ici
+      // ne doit pas bloquer la redirection vers le checkout.
+      var form = this.form;
+      fetch('/apps/verty-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          club_id: this.getAttribute('data-club-id') || '',
+          organizer: form.querySelector('[name="organizer"]').value,
+          email: form.querySelector('[name="email"]').value,
+          child: this.collectChildForSync(),
+          action: 'join-bookclub',
+        }),
+      }).catch(() => {});
+    }
+
+    collectChildForSync() {
+      var form = this.form;
+      var existingChild = this.childPicker && form.querySelector('input[name="existing_child"]:checked');
+
+      if (existingChild && existingChild.value !== 'new') {
+        var existingThemes = (existingChild.dataset.themes || '')
+          .split(', ')
+          .filter((t) => t);
+        return {
+          prenom: existingChild.dataset.prenom || '',
+          naissance: existingChild.dataset.naissance || '',
+          genre: existingChild.dataset.genre || '',
+          classe: existingChild.dataset.classe || '',
+          niveau: existingChild.dataset.niveau || '',
+          themes: existingThemes,
+          remarque: '',
+        };
+      }
+
+      var themes = Array.prototype.slice
+        .call(form.querySelectorAll('input[name="child_themes"]:checked'))
+        .map((el) => el.value);
+      var genre = form.querySelector('input[name="child_genre"]:checked');
+      var classe = form.querySelector('input[name="child_classe"]:checked');
+      var niveau = form.querySelector('input[name="child_niveau"]:checked');
+
+      return {
+        prenom: form.querySelector('[name="child_prenom"]').value,
+        naissance: form.querySelector('[name="child_naissance"]').value,
+        genre: genre ? genre.value : '',
+        classe: classe ? classe.value : '',
+        niveau: niveau ? niveau.value : '',
+        themes: themes,
+        remarque: form.querySelector('[name="child_remarque"]').value,
+      };
     }
 
     collectChildData() {

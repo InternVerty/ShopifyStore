@@ -71,7 +71,7 @@
       <div class="bc-modal__panel" data-step-key="charter" data-step-label="La charte" data-next-label="Créer mon Book Club">
         <p class="bc-modal__lead">La <strong>charte du club</strong> cadre le rôle du parent organisateur. Cochez chaque engagement pour continuer.</p>
         <div class="bc-charter">
-          {%- assign charter_items = "Je m'engage à organiser les rencontres mensuelles de septembre à mai et à communiquer les dates aux familles.|Je veille à la rotation des livres et au soin qui leur est apporté par les membres.|Je compose un groupe homogène de 6 à 8 enfants d'âge et de niveau de lecture proches.|Je m'appuie sur le guide de séances et les fiches Verty pour animer les discussions.|J'accepte que chaque enfant complète son profil lecteur pour affiner la sélection du club." | split: '|' -%}
+          {%- assign charter_items = "Je compose un groupe homogène de 6 à 8 enfants, d'âge et de niveau de lecture proches.|Je m'engage à organiser les rencontres mensuelles et à communiquer les dates aux familles.|Je veille à la rotation des livres et au soin qui leur est apporté par les membres.|Je m'appuie sur le guide de séances et les fiches Verty pour animer les discussions.|Je favorise un climat bienveillant, convivial et respectueux entre les enfants et les familles." | split: '|' -%}
           {%- for item in charter_items -%}
             <label class="bc-charter__item">
               <input type="checkbox" name="charter" value="{{ forloop.index }}" required>

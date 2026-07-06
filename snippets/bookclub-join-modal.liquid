@@ -3,9 +3,12 @@
   Même custom element et même JS que snippets/bookclub-signup-modal.liquid
   (assets/bookclub-signup.js est générique par data-step-key, aucune modification requise).
 
-  Paramètre :
+  Paramètres :
     club_name {String} - nom du club affiché, transmis en champ caché "club_name"
       pour que collectProperties() dans le JS continue de fonctionner à l'identique.
+    club_id {String} - GID du metaobject "bookclub" (metaobject.id), transmis en
+      attribut data-club-id pour que le fetch vers /apps/verty-sync (action
+      join-bookclub) sache à quel club rattacher le nouveau membre.
 {%- endcomment -%}
 {%- liquid
   assign bc_product = all_products['bookclub-abonnement-1-an']
@@ -17,7 +20,7 @@
     assign has_children = true
   endif
 -%}
-<bookclub-signup class="bookclub-page bc-modal" hidden data-product-handle="bookclub-abonnement-1-an">
+<bookclub-signup class="bookclub-page bc-modal" hidden data-product-handle="bookclub-abonnement-1-an" data-club-id="{{ club_id }}">
   <div class="bc-modal__overlay" data-bookclub-close></div>
   <div class="bc-modal__window" role="dialog" aria-modal="true" aria-labelledby="bookclub-join-heading">
     <div class="bc-modal__top">
@@ -171,7 +174,7 @@
       <div class="bc-modal__panel" data-step-key="charter" data-step-label="La charte" data-next-label="Accepter la charte">
         <p class="bc-modal__lead">La <strong>charte du club</strong> cadre les engagements de chaque famille membre. Cochez chaque engagement pour continuer.</p>
         <div class="bc-charter">
-          {%- assign charter_items = "Je m'engage à participer aux rencontres mensuelles de septembre à mai.|Je veille à la rotation des livres et au soin qui leur est apporté.|J'accepte que mon enfant complète son profil lecteur pour affiner la sélection du club.|Je respecte le rythme et l'organisation fixés par le parent organisateur." | split: '|' -%}
+          {%- assign charter_items = "J'encourage mon enfant à participer au Book Club dans un esprit de respect, d'écoute et de bienveillance.|Je m'engage à ce que les livres confiés soient manipulés avec soin.|Notre famille accepte, dans la mesure du possible, de participer à l'accueil des réunions et de prévenir l'organisateur en cas de difficulté." | split: '|' -%}
           {%- for item in charter_items -%}
             <label class="bc-charter__item">
               <input type="checkbox" name="charter" value="{{ forloop.index }}" required>
