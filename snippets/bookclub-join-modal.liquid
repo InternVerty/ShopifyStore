@@ -21,7 +21,16 @@
     assign has_children = true
   endif
 -%}
-<bookclub-signup class="bookclub-page bc-modal" hidden data-product-handle="bookclub-abonnement-1-an" data-club-token="{{ club_token }}">
+<bookclub-signup
+  class="bookclub-page bc-modal"
+  hidden
+  data-product-handle="bookclub-abonnement-1-an"
+  data-club-token="{{ club_token }}"
+  data-customer-id="{{ customer.id }}"
+  data-customer-email="{{ customer.email }}"
+  data-customer-first-name="{{ customer.first_name | escape }}"
+  data-customer-last-name="{{ customer.last_name | escape }}"
+>
   <div class="bc-modal__overlay" data-bookclub-close></div>
   <div class="bc-modal__window" role="dialog" aria-modal="true" aria-labelledby="bookclub-join-heading">
     <div class="bc-modal__top">
@@ -88,6 +97,7 @@
                   {%- assign mc_themes_joined = mc_child.themes | join: ', ' -%}
                   <label class="bc-child-card">
                     <input type="radio" name="existing_child" value="{{ forloop.index0 }}"
+                      data-id="{{ mc_child.id | escape }}"
                       data-prenom="{{ mc_child.prenom | escape }}"
                       data-naissance="{{ mc_child.naissance }}"
                       data-genre="{{ mc_child.genre | escape }}"

@@ -209,6 +209,11 @@
     handleNext() {
       if (!this.canProceed()) return;
 
+      var leavingPanel = this.panels[this.step];
+      if (leavingPanel && leavingPanel.dataset.stepKey === 'profile' && this.isNewChild()) {
+        this.addChildToAccount();
+      }
+
       if (this.step === this.panels.length - 1) {
         this.submit();
         return;
@@ -216,6 +221,40 @@
 
       this.step += 1;
       this.render();
+    }
+
+    isNewChild() {
+      var existingChild = this.childPicker && this.form.querySelector('input[name="existing_child"]:checked');
+      return !existingChild || existingChild.value === 'new';
+    }
+
+    addChildToAccount() {
+      // Meilleur effort, comme notifyJoin() : enregistre le nouveau profil sur
+      // le compte client (même mécanisme que "Mes enfants"), sans bloquer la
+      // suite du parcours d'inscription au club si ça échoue.
+      var form = this.form;
+      var loggedIn = !!this.getAttribute('data-customer-id');
+      var email = loggedIn
+        ? this.getAttribute('data-customer-email') || ''
+        : form.querySelector('[name="email"]').value;
+      var firstName = loggedIn
+        ? this.getAttribute('data-customer-first-name') || ''
+        : form.querySelector('[name="organizer"]').value;
+      var lastName = loggedIn ? this.getAttribute('data-customer-last-name') || '' : '';
+      var child = this.collectChildForSync();
+
+      fetch('/apps/verty-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_id: this.getAttribute('data-customer-id') || '',
+          customer_mail: email,
+          customer_first_name: firstName,
+          customer_last_name: lastName,
+          child: Object.assign({ index: '', email: email }, child),
+          action: 'add-child',
+        }),
+      }).catch(() => {});
     }
 
     render() {
@@ -354,6 +393,7 @@
           .split(', ')
           .filter((t) => t);
         return {
+          id: existingChild.dataset.id || '',
           prenom: existingChild.dataset.prenom || '',
           naissance: existingChild.dataset.naissance || '',
           genre: existingChild.dataset.genre || '',
@@ -372,6 +412,7 @@
       var niveau = form.querySelector('input[name="child_niveau"]:checked');
 
       return {
+        id: '',
         prenom: form.querySelector('[name="child_prenom"]').value,
         naissance: form.querySelector('[name="child_naissance"]').value,
         genre: genre ? genre.value : '',
@@ -388,6 +429,7 @@
 
       if (existingChild && existingChild.value !== 'new') {
         return {
+          'ID enfant': existingChild.dataset.id || '',
           Enfant: existingChild.dataset.prenom || '',
           'Date de naissance': existingChild.dataset.naissance || '',
           Genre: existingChild.dataset.genre || '',
@@ -408,6 +450,7 @@
       var niveau = form.querySelector('input[name="child_niveau"]:checked');
 
       return {
+        'ID enfant': '',
         Enfant: form.querySelector('[name="child_prenom"]').value,
         'Date de naissance': form.querySelector('[name="child_naissance"]').value,
         Genre: genre ? genre.value : '',
