@@ -262,6 +262,9 @@ fieldset.bc-field legend { padding: 0; }
 .bc-child-card:has(input:checked) { background: var(--bc-navy-tint); border-color: var(--bc-navy-border); }
 .bc-child-card__name { font-size: 14.5px; font-weight: 700; }
 .bc-child-card__meta { font-size: 12.5px; color: var(--bc-text-secondary); }
+.bc-child-card__niveau { font-size: 12px; color: var(--bc-navy); font-weight: 600; }
+.bc-child-card__themes { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.bc-child-card__theme-chip { font-size: 11px; padding: 2px 8px; border-radius: var(--bc-radius-pill); background: var(--bc-navy-tint); color: var(--bc-navy-strong); }
 .bc-child-card--new { justify-content: center; }
 .bc-child-card--new .bc-child-card__name { font-weight: 600; color: var(--bc-navy); }
 .bc-modal__footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 26px 22px; border-top: 1px solid var(--bc-gray-200); margin-top: 8px; }
