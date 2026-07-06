@@ -336,7 +336,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          club_id: this.getAttribute('data-club-id') || '',
+          club_token: this.getAttribute('data-club-token') || '',
           organizer: form.querySelector('[name="organizer"]').value,
           email: form.querySelector('[name="email"]').value,
           child: this.collectChildForSync(),
@@ -423,6 +423,7 @@
       var form = this.form;
       var base = {
         Club: form.querySelector('[name="club_name"]').value,
+        'Club Token': this.getAttribute('data-club-token') || '',
         Organisateur: form.querySelector('[name="organizer"]').value,
         Email: form.querySelector('[name="email"]').value,
         Ville: form.querySelector('[name="city"]').value || '',

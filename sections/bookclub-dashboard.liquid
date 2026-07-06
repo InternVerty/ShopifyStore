@@ -6,7 +6,7 @@
   # page), on lit les vraies données du club. Sinon (page générique de test),
   # on retombe sur les réglages/blocks de la section, comme avant.
   if metaobject
-    assign club_id = metaobject.id
+    assign club_token = metaobject.system.handle
     assign club_name = metaobject.name.value
     assign organizer_name = metaobject.organizer_name.value
     assign city = metaobject.city.value
@@ -16,7 +16,7 @@
     assign members_count = club_members.size
     assign invite_url = metaobject.system.url
   else
-    assign club_id = blank
+    assign club_token = blank
     assign club_name = section.settings.club_name
     assign organizer_name = section.settings.organizer_name
     assign city = section.settings.city
@@ -34,6 +34,10 @@
   if progress > 100
     assign progress = 100
   endif
+
+  # Forcer en chaîne pour une comparaison fiable avec parent_customer_id
+  # (metaobject, "Une ligne de texte"), customer.id étant un nombre en Liquid.
+  assign viewer_customer_id = customer.id | append: ''
 -%}
 <section class="bookclub-page bc-dash" data-section-id="{{ section.id }}">
   <div class="container">
@@ -115,7 +119,20 @@
                   <div>
                     <div class="bc-dash__member-name">{{ member.prenom.value | escape }}</div>
                     <div class="bc-dash__member-meta">{{ mc_meta_parts | escape }}</div>
+                    {%- unless member.paiement_confirme.value -%}
+                      <span class="bc-dash__member-pending">Inscription non validée, paiement en attente</span>
+                    {%- endunless -%}
                   </div>
+                  {%- if customer and member.parent_customer_id.value == viewer_customer_id -%}
+                    <button
+                      type="button"
+                      class="bc-dash__member-remove"
+                      data-bookclub-remove-child
+                      data-member-id="{{ member.id }}"
+                      data-club-token="{{ club_token }}"
+                      data-child-name="{{ member.prenom.value | escape }}"
+                    >Retirer</button>
+                  {%- endif -%}
                 </div>
               {%- endfor -%}
             {%- else -%}
@@ -207,7 +224,7 @@
   </div>
 </section>
 
-{% render 'bookclub-join-modal', club_name: club_name, club_id: club_id %}
+{% render 'bookclub-join-modal', club_name: club_name, club_token: club_token %}
 
 <script>
 (function () {
@@ -221,6 +238,34 @@
         label.textContent = 'Copié';
         setTimeout(function () { label.textContent = original; }, 1600);
       });
+    });
+  });
+
+  document.querySelectorAll('[data-bookclub-remove-child]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var childName = btn.getAttribute('data-child-name') || 'cet enfant';
+      if (!window.confirm('Retirer ' + childName + ' du club ? Cette action est irréversible.')) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Retrait...';
+
+      fetch('/apps/verty-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          club_token: btn.getAttribute('data-club-token') || '',
+          member_id: btn.getAttribute('data-member-id') || '',
+          action: 'remove-child',
+        }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('remove-child-failed');
+          window.location.reload();
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = 'Retirer';
+        });
     });
   });
 })();

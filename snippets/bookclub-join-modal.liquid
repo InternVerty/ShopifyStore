@@ -6,9 +6,10 @@
   Paramètres :
     club_name {String} - nom du club affiché, transmis en champ caché "club_name"
       pour que collectProperties() dans le JS continue de fonctionner à l'identique.
-    club_id {String} - GID du metaobject "bookclub" (metaobject.id), transmis en
-      attribut data-club-id pour que le fetch vers /apps/verty-sync (action
-      join-bookclub) sache à quel club rattacher le nouveau membre.
+    club_token {String} - handle du metaobject "bookclub" (metaobject.system.handle,
+      le token d'invitation), transmis en attribut data-club-token pour que le
+      fetch vers /apps/verty-sync (action join-bookclub) et les propriétés de
+      panier sachent à quel club rattacher le nouveau membre.
 {%- endcomment -%}
 {%- liquid
   assign bc_product = all_products['bookclub-abonnement-1-an']
@@ -20,7 +21,7 @@
     assign has_children = true
   endif
 -%}
-<bookclub-signup class="bookclub-page bc-modal" hidden data-product-handle="bookclub-abonnement-1-an" data-club-id="{{ club_id }}">
+<bookclub-signup class="bookclub-page bc-modal" hidden data-product-handle="bookclub-abonnement-1-an" data-club-token="{{ club_token }}">
   <div class="bc-modal__overlay" data-bookclub-close></div>
   <div class="bc-modal__window" role="dialog" aria-modal="true" aria-labelledby="bookclub-join-heading">
     <div class="bc-modal__top">
