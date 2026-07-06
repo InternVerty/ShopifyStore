@@ -59,8 +59,10 @@
 
       if (this.restoreDraft()) {
         var accountIdx = this.panels.findIndex((p) => p.dataset.stepKey === 'account');
-        var profileIdx = this.panels.findIndex((p) => p.dataset.stepKey === 'profile');
-        this.step = accountIdx !== -1 ? accountIdx : profileIdx;
+        // Si l'étape "account" n'existe plus dans le DOM (déjà connecté), l'étape
+        // suivante est toujours celle juste après "group" (index 1), quelle qu'elle
+        // soit (profile pour la jonction, charter pour la création).
+        this.step = accountIdx !== -1 ? accountIdx : 1;
         this.render();
         this.open();
       }
