@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -27,13 +36,9 @@
         "member_3": { "type": "member", "settings": { "prenom": "Marius", "meta": "10 ans, CM2, Conforme au niveau de la classe" } },
         "member_4": { "type": "member", "settings": { "prenom": "Léa", "meta": "9 ans, CE2, En-dessous du niveau de sa classe" } },
         "objectif_1": { "type": "objectif", "settings": { "label": "Signer la charte", "done": false } },
-        "objectif_2": { "type": "objectif", "settings": { "label": "Inscrire mon enfant", "done": false } },
-        "milestone_1": { "type": "milestone", "settings": { "label": "Valider la charte", "done": false } },
-        "milestone_2": { "type": "milestone", "settings": { "label": "Renseigner un enfant lecteur", "done": false } },
-        "milestone_3": { "type": "milestone", "settings": { "label": "Inviter d'autres à rejoindre", "done": false } },
-        "milestone_4": { "type": "milestone", "settings": { "label": "Valider le groupe et recevoir le kit", "done": false } }
+        "objectif_2": { "type": "objectif", "settings": { "label": "Inscrire mon enfant", "done": false } }
       },
-      "block_order": ["member_1", "member_2", "member_3", "member_4", "objectif_1", "objectif_2", "milestone_1", "milestone_2", "milestone_3", "milestone_4"]
+      "block_order": ["member_1", "member_2", "member_3", "member_4", "objectif_1", "objectif_2"]
     }
   },
   "order": ["main", "bookclub_dashboard"]
