@@ -56,31 +56,38 @@
       </div>
       <div class="bc-dash__actions">
         <button type="button" class="vbtn vbtn-primary vbtn-navy" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
-        <div class="bc-dash__invite-row">
-          <span class="bc-dash__invite-url">{{ invite_url | escape }}</span>
-          <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-sm" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}"><span data-copy-label>Copier</span></button>
-        </div>
       </div>
     </div>
 
     <div class="bc-dash__gate-wrap">
     <div class="bc-dash__gated{% unless customer %} is-blurred{% endunless %}">
-    <div class="bc-dash__stats">
-      <div class="bc-dash__stat">
-        <div class="bc-dash__stat-label">Membres</div>
-        <div class="bc-dash__stat-value">{{ members_count }}<span>/{{ target }}</span></div>
-      </div>
-      <div class="bc-dash__stat">
-        <div class="bc-dash__stat-label">Statut</div>
-        <div class="bc-dash__stat-value bc-dash__stat-value--sm">{{ section.settings.status_label | escape }}</div>
-      </div>
-      <div class="bc-dash__stat">
-        <div class="bc-dash__stat-label">Lancement visé</div>
-        <div class="bc-dash__stat-value bc-dash__stat-value--sm">{{ launch_month | escape }}</div>
-      </div>
-      <div class="bc-dash__stat bc-dash__stat--navy">
-        <div class="bc-dash__stat-label">Bonus organisateur</div>
-        <div class="bc-dash__stat-value bc-dash__stat-value--sm">5 % de remise</div>
+    {%- liquid
+      assign milestone_total = 0
+      assign milestone_done = 0
+      for block in section.blocks
+        if block.type == 'milestone'
+          assign milestone_total = milestone_total | plus: 1
+          if block.settings.done
+            assign milestone_done = milestone_done | plus: 1
+          endif
+        endif
+      endfor
+      assign milestone_pct = 0
+      if milestone_total > 0
+        assign milestone_pct = milestone_done | times: 100 | divided_by: milestone_total
+      endif
+    -%}
+    <div class="bc-dash__milestones">
+      <div class="bc-dash__milestones-bar"><div class="bc-dash__milestones-fill" style="width: {{ milestone_pct }}%;"></div></div>
+      <div class="bc-dash__milestones-list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'milestone' -%}
+            <div class="bc-dash__milestone{% if block.settings.done %} is-done{% endif %}" {{ block.shopify_attributes }}>
+              <span class="bc-dash__milestone-icon">{% render 'icon', icon: 'check_mark', width: 12, height: 12 %}</span>
+              <span class="bc-dash__milestone-label">{{ forloop.index }}. {{ block.settings.label | escape }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
     </div>
 
@@ -171,6 +178,14 @@
       </div>
 
       <div class="bc-dash__col">
+        <div class="bc-dash__invite">
+          <div class="bc-dash__invite-label">Lien d'invitation</div>
+          <div class="bc-dash__invite-row">
+            <span class="bc-dash__invite-url">{{ invite_url | escape }}</span>
+            <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-sm" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}"><span data-copy-label>Copier</span></button>
+          </div>
+        </div>
+
         <div class="bc-dash__panel bc-dash__panel--navy">
           <div class="bc-dash__panel-kicker">Avant le lancement</div>
           <p class="bc-dash__panel-lead">Le club démarre dès que {{ target }} familles ont rejoint le groupe.</p>
@@ -208,14 +223,6 @@
             <li><span>{% render 'icon', icon: 'truck', width: 18, height: 18 %}Fiche de rotation</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
             <li><span>{% render 'icon', icon: 'star', width: 18, height: 18 %}Fiches livres</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
           </ul>
-        </div>
-
-        <div class="bc-dash__invite">
-          <div class="bc-dash__invite-label">Lien d'invitation</div>
-          <div class="bc-dash__invite-row">
-            <span class="bc-dash__invite-url">{{ invite_url | escape }}</span>
-            <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-sm" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}"><span data-copy-label>Copier</span></button>
-          </div>
         </div>
       </div>
     </div>
@@ -372,6 +379,23 @@
           "default": false
         }
       ]
+    },
+    {
+      "type": "milestone",
+      "name": "Étape (barre de progression)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé"
+        },
+        {
+          "type": "checkbox",
+          "id": "done",
+          "label": "Déjà fait",
+          "default": false
+        }
+      ]
     }
   ],
   "presets": [
@@ -383,7 +407,11 @@
         { "type": "member", "settings": { "prenom": "Marius", "meta": "10 ans, CM2, Conforme au niveau de la classe" } },
         { "type": "member", "settings": { "prenom": "Léa", "meta": "9 ans, CE2, En-dessous du niveau de sa classe" } },
         { "type": "objectif", "settings": { "label": "Signer la charte", "done": false } },
-        { "type": "objectif", "settings": { "label": "Inscrire mon enfant", "done": false } }
+        { "type": "objectif", "settings": { "label": "Inscrire mon enfant", "done": false } },
+        { "type": "milestone", "settings": { "label": "Valider la charte", "done": false } },
+        { "type": "milestone", "settings": { "label": "Renseigner un enfant lecteur", "done": false } },
+        { "type": "milestone", "settings": { "label": "Inviter d'autres à rejoindre", "done": false } },
+        { "type": "milestone", "settings": { "label": "Valider le groupe et recevoir le kit", "done": false } }
       ]
     }
   ]
