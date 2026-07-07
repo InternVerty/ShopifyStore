@@ -638,7 +638,7 @@
       "type": "image-block",
       "name": "Image Block",
       "settings": {
-        "image": "shopify://shop_images/banniere-abonnement.png",
+        "image": "shopify://shop_images/visuel-verty-nl.png",
         "bg_color": "#ffffff",
         "bg_opacity": 100,
         "section_pad_v": 0,
