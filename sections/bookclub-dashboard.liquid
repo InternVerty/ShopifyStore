@@ -121,7 +121,11 @@
                   <div>
                     <div class="bc-dash__member-name">{{ member.prenom.value | escape }}</div>
                     <div class="bc-dash__member-meta">{{ mc_meta_parts | escape }}</div>
-                    {%- unless member.paiement_confirme.value -%}
+                    {%- liquid
+                      assign bc_paid = member.paiement_confirm.value
+                      assign bc_paid_str = bc_paid | append: ''
+                    -%}
+                    {%- unless bc_paid == true or bc_paid_str == 'Vrai' or bc_paid_str == 'true' or bc_paid_str == 'True' -%}
                       <span class="bc-dash__member-pending">Inscription non validée, paiement en attente</span>
                     {%- endunless -%}
                   </div>
