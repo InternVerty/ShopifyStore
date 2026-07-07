@@ -322,8 +322,17 @@
 
     submitJoin() {
       var handle = this.getAttribute('data-product-handle');
+      var memberId = '';
 
-      fetch('/products/' + handle + '.js')
+      // notifyJoin() doit se terminer en premier : le membre créé côté n8n a
+      // besoin d'exister avant qu'on construise le panier, pour que son ID
+      // parte avec la commande (le webhook orders/paid s'en sert ensuite pour
+      // savoir exactement quelle entrée bookclub_member confirmer).
+      this.notifyJoin()
+        .then((id) => {
+          memberId = id;
+          return fetch('/products/' + handle + '.js');
+        })
         .then((res) => {
           if (!res.ok) throw new Error('product-not-found');
           return res.json();
@@ -332,10 +341,13 @@
           var variant = product.variants && product.variants[0];
           if (!variant) throw new Error('no-variant');
 
+          var properties = this.collectProperties();
+          properties['Member ID'] = memberId;
+
           var payload = {
             id: variant.id,
             quantity: 1,
-            properties: this.collectProperties(),
+            properties: properties,
           };
 
           var group = product.selling_plan_groups && product.selling_plan_groups[0];
@@ -353,7 +365,6 @@
           return res.json();
         })
         .then(() => {
-          this.notifyJoin();
           window.location.href = '/checkout';
         })
         .catch(() => {
@@ -364,10 +375,11 @@
     }
 
     notifyJoin() {
-      // Meilleur effort : le paiement reste la source de vérité, un échec ici
-      // ne doit pas bloquer la redirection vers le checkout.
+      // Meilleur effort : si ça échoue, on laisse quand même la personne
+      // continuer jusqu'au paiement (memberId vide, à réconcilier manuellement
+      // si besoin), le paiement Shopify reste la source de vérité de la commande.
       var form = this.form;
-      fetch('/apps/verty-sync', {
+      return fetch('/apps/verty-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -377,7 +389,10 @@
           child: this.collectChildForSync(),
           action: 'join-bookclub',
         }),
-      }).catch(() => {});
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => (data && data.member_id) || '')
+        .catch(() => '');
     }
 
     collectChildForSync() {

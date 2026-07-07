@@ -35,7 +35,7 @@
     assign progress = 100
   endif
 
-  # Forcer en chaîne pour une comparaison fiable avec parent_customer_id
+  # Forcer en chaîne pour une comparaison fiable avec customer_id
   # (metaobject, "Une ligne de texte"), customer.id étant un nombre en Liquid.
   assign viewer_customer_id = customer.id | append: ''
 -%}
@@ -125,7 +125,7 @@
                       <span class="bc-dash__member-pending">Inscription non validée, paiement en attente</span>
                     {%- endunless -%}
                   </div>
-                  {%- if customer and member.parent_customer_id.value == viewer_customer_id -%}
+                  {%- if customer and member.customer_id.value == viewer_customer_id -%}
                     <button
                       type="button"
                       class="bc-dash__member-remove"
