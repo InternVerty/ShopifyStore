@@ -5,8 +5,6 @@
       "name": "Book Club, dashboard",
       "settings": {
         "status_label": "En préparation",
-        "timeline_step": 1,
-        "timeline_note": "Actuellement en phase de constitution du groupe, avant le lancement de novembre.",
         "cta_label": "Ajouter mon enfant"
       }
     }

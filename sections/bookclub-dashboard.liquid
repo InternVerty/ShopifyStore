@@ -56,7 +56,10 @@
       </div>
       <div class="bc-dash__actions">
         <button type="button" class="vbtn vbtn-primary vbtn-navy" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
-        <button type="button" class="vbtn vbtn-secondary vbtn-navy" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}">{% render 'icon', icon: 'chat_bubble', width: 18, height: 18 %}<span data-copy-label>Lien d'invitation</span></button>
+        <div class="bc-dash__invite-row">
+          <span class="bc-dash__invite-url">{{ invite_url | escape }}</span>
+          <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-sm" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}"><span data-copy-label>Copier</span></button>
+        </div>
       </div>
     </div>
 
@@ -165,21 +168,6 @@
           </div>
         </div>
 
-        <div class="bc-card bc-dash__panel">
-          <h3 class="bc-dash__panel-title">Le rythme du club</h3>
-          <div class="bc-dash__timeline">
-            {%- assign tl_months = 'Sep,Oct,Nov,Déc,Jan,Fév,Mar,Avr,Mai' | split: ',' -%}
-            {%- assign tl_active = section.settings.timeline_step -%}
-            {%- for m in tl_months -%}
-              <div class="bc-dash__tl-step{% if forloop.index0 <= tl_active %} is-done{% endif %}{% if forloop.index0 == tl_active %} is-current{% endif %}">
-                <span class="bc-dash__tl-dot"></span>
-                <span class="bc-dash__tl-label">{{ m }}</span>
-              </div>
-              {%- unless forloop.last -%}<span class="bc-dash__tl-line{% if forloop.index0 < tl_active %} is-done{% endif %}"></span>{%- endunless -%}
-            {%- endfor -%}
-          </div>
-          <p class="bc-dash__tl-note">{{ section.settings.timeline_note | escape }}</p>
-        </div>
       </div>
 
       <div class="bc-dash__col">
@@ -212,9 +200,13 @@
         <div class="bc-card bc-dash__panel">
           <h3 class="bc-dash__panel-title">Ressources du kit</h3>
           <ul class="bc-dash__resources">
-            <li><span>{% render 'icon', icon: 'calendar', width: 18, height: 18 %}Guide de séances</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
-            <li><span>{% render 'icon', icon: 'star', width: 18, height: 18 %}Fiches livres</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'gift', width: 18, height: 18 %}Sélection de livres</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
             <li><span>{% render 'icon', icon: 'feather', width: 18, height: 18 %}Carnet du lecteur</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'heart', width: 18, height: 18 %}Marque-page</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'box', width: 18, height: 18 %}Tote bag</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'calendar', width: 18, height: 18 %}Guide de séances</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'truck', width: 18, height: 18 %}Fiche de rotation</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
+            <li><span>{% render 'icon', icon: 'star', width: 18, height: 18 %}Fiches livres</span>{% render 'icon', icon: 'box', width: 16, height: 16 %}</li>
           </ul>
         </div>
 
@@ -332,21 +324,6 @@
       "id": "launch_month",
       "label": "Mois de lancement visé",
       "default": "Novembre"
-    },
-    {
-      "type": "range",
-      "id": "timeline_step",
-      "label": "Étape actuelle sur la frise (0 = septembre)",
-      "min": 0,
-      "max": 8,
-      "step": 1,
-      "default": 1
-    },
-    {
-      "type": "text",
-      "id": "timeline_note",
-      "label": "Note sous la frise",
-      "default": "Actuellement en phase de constitution du groupe, avant le lancement de novembre."
     },
     {
       "type": "text",

@@ -327,16 +327,6 @@ fieldset.bc-field legend { padding: 0; }
   width: 100%; text-align: left; border: 1.5px dashed var(--bc-gray-200); background: none; cursor: pointer; font-family: var(--bc-font-body);
 }
 .bc-dash__member--empty .bc-dash__member-name { color: var(--bc-navy); }
-.bc-dash__timeline { display: flex; align-items: flex-start; width: 100%; margin-bottom: 12px; }
-.bc-dash__tl-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.bc-dash__tl-dot { width: 10px; height: 10px; border-radius: var(--bc-radius-pill); background: var(--bc-gray-200); }
-.bc-dash__tl-step.is-done .bc-dash__tl-dot { background: var(--bc-navy); }
-.bc-dash__tl-step.is-current .bc-dash__tl-dot { box-shadow: 0 0 0 3px var(--bc-navy-tint); }
-.bc-dash__tl-label { font-size: 11px; color: var(--bc-text-secondary); font-weight: 500; }
-.bc-dash__tl-step.is-done .bc-dash__tl-label { color: var(--bc-ink); font-weight: 700; }
-.bc-dash__tl-line { flex: 1; height: 2px; background: var(--bc-gray-200); margin-bottom: 20px; }
-.bc-dash__tl-line.is-done { background: var(--bc-navy); }
-.bc-dash__tl-note { margin: 0; font-size: 12.5px; color: var(--bc-text-secondary); }
 .bc-dash__panel--navy { background: var(--bc-navy); border-radius: var(--bc-radius-md); padding: 18px 20px; color: #fff; }
 .bc-dash__panel-kicker { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--bc-navy-tint); margin-bottom: 10px; }
 .bc-dash__panel-lead { font-size: 14px; line-height: 1.5; margin: 0 0 14px; }
@@ -361,7 +351,8 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__resources li .icon:first-child { color: var(--bc-navy); }
 .bc-dash__invite { background: var(--bc-navy-wash); border-radius: var(--bc-radius-md); padding: 16px 18px; }
 .bc-dash__invite-label { font-size: 13px; color: var(--bc-navy-strong); margin-bottom: 8px; font-weight: 600; }
-.bc-dash__invite-row { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: var(--bc-radius-pill); padding: 8px 8px 8px 14px; }
+.bc-dash__invite-row { display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid var(--bc-gray-200); border-radius: var(--bc-radius-pill); padding: 8px 8px 8px 14px; }
+.bc-dash__invite-row .bc-dash__invite-url { max-width: 220px; }
 .bc-dash__invite-url { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .bc-dash__gate-wrap { position: relative; }
