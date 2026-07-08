@@ -111,7 +111,7 @@
       assign todo_done = todo_done | plus: 1
     endif
   elsif is_organizer
-    assign todo_total = 3
+    assign todo_total = 3 | plus: pending_count
   else
     assign todo_total = 2
     assign todo_done = 2
@@ -150,7 +150,7 @@
           </div>
         {%- endif -%}
         <div class="bc-dash__hero-actions">
-          <button type="button" class="vbtn vbtn-primary vbtn-lg" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
+          <button type="button" class="vbtn vbtn-primary vbtn-invite vbtn-lg" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
         </div>
       </div>
       <div class="bc-dash__hero-side">
@@ -162,8 +162,8 @@
         </div>
         <div class="bc-dash__hero-widget">
           {%- if is_prep -%}
-            <p class="bc-dash__hero-widget-label">Recrutement</p>
-            <p class="bc-dash__hero-widget-value">{{ members_count }}<small>/{{ target }} familles</small></p>
+            <p class="bc-dash__hero-widget-label">Membres</p>
+            <p class="bc-dash__hero-widget-value">{{ members_count }}<small>/{{ target }}</small></p>
             <div class="bc-dash__hero-widget-bar"><div class="bc-dash__hero-widget-fill" style="width: {{ progress }}%;"></div></div>
           {%- else -%}
             <p class="bc-dash__hero-widget-label">Prochaine séance</p>
@@ -232,9 +232,7 @@
                       <div class="bc-dash__member-name">{{ member.prenom.value | escape }}</div>
                       <div class="bc-dash__member-meta">{{ mc_meta_parts | escape }}</div>
                       {%- unless bc_is_paid -%}
-                        {%- if is_prep -%}
-                          <span class="bc-dash__member-pending">En attente</span>
-                        {%- endif -%}
+                        <span class="bc-dash__member-pending">En attente</span>
                       {%- endunless -%}
                     </div>
                     {%- if customer and member.customer_id.value == viewer_customer_id -%}
@@ -258,7 +256,7 @@
                       <div class="bc-dash__member-info">
                         <div class="bc-dash__member-name">{{ block.settings.prenom | escape }}</div>
                         <div class="bc-dash__member-meta">{{ block.settings.meta | escape }}</div>
-                        {%- if block.settings.paiement_confirm == false and is_prep -%}
+                        {%- if block.settings.paiement_confirm == false -%}
                           <span class="bc-dash__member-pending">En attente</span>
                         {%- endif -%}
                       </div>
@@ -295,6 +293,9 @@
                   <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Planifier la prochaine séance</li>
                   <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Envoyer un rappel aux familles</li>
                   <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Vérifier la rotation des livres</li>
+                  {%- for name in pending_names -%}
+                    <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Paiement de {{ name | escape }} en attente</li>
+                  {%- endfor -%}
                 {%- else -%}
                   <li class="bc-dash__todo-item is-done"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Mon inscription est confirmée</li>
                   <li class="bc-dash__todo-item is-done"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Profil lecteur renseigné</li>

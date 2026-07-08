@@ -83,6 +83,12 @@
   color: var(--bc-navy-strong);
 }
 .vbtn-secondary.vbtn-navy:hover { background: var(--bc-navy-border); }
+.vbtn-primary.vbtn-invite {
+  background: var(--bc-navy-wash);
+  border-color: var(--bc-navy-wash);
+  color: var(--bc-navy-strong);
+}
+.vbtn-primary.vbtn-invite:hover { background: var(--bc-navy-tint); border-color: var(--bc-navy-tint); box-shadow: none; }
 
 /* ---- hero ---------------------------------------------------- */
 .bc-hero { background: var(--bc-navy-wash); padding: 56px 0 64px; }
