@@ -56,7 +56,9 @@
   if customer and organizer_customer_id != blank and viewer_customer_id == organizer_customer_id
     assign is_organizer = true
   endif
-  if customer and organizer_email != blank and customer.email != blank and customer.email | downcase == organizer_email | downcase
+  assign viewer_email_lower = customer.email | downcase
+  assign organizer_email_lower = organizer_email | downcase
+  if customer and organizer_email != blank and customer.email != blank and viewer_email_lower == organizer_email_lower
     assign is_organizer = true
   endif
   if section.settings.preview_as_organizer
