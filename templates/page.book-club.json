@@ -60,7 +60,7 @@
     },
     "bookclub_comment": {
       "type": "bookclub-comment",
-      "name": "Book Club, comment ça marche",
+      "name": "Comment ça marche",
       "settings": {
         "kicker": "Comment ça marche",
         "heading": "Lancer le club en quatre temps"
