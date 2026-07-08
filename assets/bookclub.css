@@ -389,8 +389,8 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__invite { background: var(--bc-navy-wash); border-radius: var(--bc-radius-md); padding: 16px 18px; }
 .bc-dash__invite-label { font-size: 13px; color: var(--bc-navy-strong); margin-bottom: 8px; font-weight: 600; }
 .bc-dash__invite-row { display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid var(--bc-gray-200); border-radius: var(--bc-radius-pill); padding: 8px 8px 8px 14px; }
-.bc-dash__invite-row .bc-dash__invite-url { max-width: 220px; }
-.bc-dash__invite-url { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bc-dash__invite-url { flex: 1; min-width: 0; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bc-dash__invite-row .vbtn { margin-left: auto; flex: 0 0 auto; }
 
 .bc-dash__gate-wrap { position: relative; }
 .bc-dash__gate-wrap .container { padding-top: 24px; }
