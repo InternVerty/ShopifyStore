@@ -24,21 +24,19 @@
         "club_name": "Les Explorateurs du mercredi",
         "organizer_name": "Camille",
         "city": "Lyon 6e",
-        "status_label": "En préparation",
         "target_size": 8,
         "launch_month": "Novembre",
         "invite_url": "verty.eu/book-club/explorateurs",
-        "cta_label": "Ajouter mon enfant"
+        "cta_label": "Ajouter mon enfant",
+        "preview_as_organizer": true
       },
       "blocks": {
-        "member_1": { "type": "member", "settings": { "prenom": "Jules", "meta": "9 ans, CE2, Conforme au niveau de la classe" } },
-        "member_2": { "type": "member", "settings": { "prenom": "Inès", "meta": "8 ans, CE1, Au-dessus du niveau de sa classe" } },
-        "member_3": { "type": "member", "settings": { "prenom": "Marius", "meta": "10 ans, CM2, Conforme au niveau de la classe" } },
-        "member_4": { "type": "member", "settings": { "prenom": "Léa", "meta": "9 ans, CE2, En-dessous du niveau de sa classe" } },
-        "objectif_1": { "type": "objectif", "settings": { "label": "Signer la charte", "done": false } },
-        "objectif_2": { "type": "objectif", "settings": { "label": "Inscrire mon enfant", "done": false } }
+        "member_1": { "type": "member", "settings": { "prenom": "Jules", "meta": "9 ans, CE2, Conforme au niveau de la classe", "paiement_confirm": true } },
+        "member_2": { "type": "member", "settings": { "prenom": "Inès", "meta": "8 ans, CE1, Au-dessus du niveau de sa classe", "paiement_confirm": true } },
+        "member_3": { "type": "member", "settings": { "prenom": "Marius", "meta": "10 ans, CM2, Conforme au niveau de la classe", "paiement_confirm": false } },
+        "member_4": { "type": "member", "settings": { "prenom": "Léa", "meta": "9 ans, CE2, En-dessous du niveau de sa classe", "paiement_confirm": true } }
       },
-      "block_order": ["member_1", "member_2", "member_3", "member_4", "objectif_1", "objectif_2"]
+      "block_order": ["member_1", "member_2", "member_3", "member_4"]
     }
   },
   "order": ["main", "bookclub_dashboard"]
