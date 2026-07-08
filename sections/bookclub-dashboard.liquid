@@ -9,6 +9,7 @@
     assign club_token = metaobject.system.handle
     assign club_name = metaobject.name.value
     assign organizer_name = metaobject.organizer_name.value
+    assign organizer_email = metaobject.organizer_email.value
     assign organizer_customer_id = metaobject.organizer_customer_id.value
     assign city = metaobject.city.value
     assign target = metaobject.target_size.value
@@ -22,6 +23,7 @@
     assign club_token = blank
     assign club_name = section.settings.club_name
     assign organizer_name = section.settings.organizer_name
+    assign organizer_email = section.settings.organizer_email
     assign organizer_customer_id = section.settings.organizer_customer_id
     assign city = section.settings.city
     assign target = section.settings.target_size
@@ -54,6 +56,9 @@
   if customer and organizer_customer_id != blank and viewer_customer_id == organizer_customer_id
     assign is_organizer = true
   endif
+  if customer and organizer_email != blank and customer.email != blank and customer.email | downcase == organizer_email | downcase
+    assign is_organizer = true
+  endif
   if section.settings.preview_as_organizer
     assign is_organizer = true
   endif
@@ -61,8 +66,11 @@
   # Statut de paiement + inscription du visiteur courant, calculés une seule
   # fois ici pour être réutilisés à la fois dans la liste des membres et dans
   # la liste "À faire".
+  # Une même famille peut avoir plusieurs enfants inscrits : on ne doit pas
+  # se contenter du dernier enfant traité dans la boucle, sinon un enfant payé
+  # peut masquer le paiement en attente d'un autre enfant du même compte.
   assign viewer_is_member = false
-  assign viewer_paid = true
+  assign viewer_has_pending = false
   assign pending_count = 0
   assign pending_names_list = ''
   if metaobject
@@ -83,7 +91,9 @@
       endunless
       if customer and m.customer_id.value == viewer_customer_id
         assign viewer_is_member = true
-        assign viewer_paid = m_is_paid
+        unless m_is_paid
+          assign viewer_has_pending = true
+        endunless
       endif
     endfor
   endif
@@ -115,9 +125,9 @@
   else
     assign todo_total = 2
     assign todo_done = 2
-    unless viewer_paid
+    if viewer_has_pending
       assign todo_total = todo_total | plus: 1
-    endunless
+    endif
   endif
   assign todo_pct = 0
   if todo_total > 0
@@ -299,9 +309,9 @@
                 {%- else -%}
                   <li class="bc-dash__todo-item is-done"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Mon inscription est confirmée</li>
                   <li class="bc-dash__todo-item is-done"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Profil lecteur renseigné</li>
-                  {%- unless viewer_paid -%}
+                  {%- if viewer_has_pending -%}
                     <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Mon paiement est en attente</li>
-                  {%- endunless -%}
+                  {%- endif -%}
                 {%- endif -%}
               </ul>
             </div>
@@ -412,9 +422,15 @@
     },
     {
       "type": "text",
+      "id": "organizer_email",
+      "label": "E-mail de l'organisateur",
+      "info": "Utilisé pour détecter si le visiteur connecté est l'organisateur du club."
+    },
+    {
+      "type": "text",
       "id": "organizer_customer_id",
       "label": "ID client de l'organisateur",
-      "info": "Doit correspondre au champ organizer_customer_id du metaobject bookclub."
+      "info": "Optionnel, si ce champ existe côté metaobject bookclub."
     },
     {
       "type": "text",
