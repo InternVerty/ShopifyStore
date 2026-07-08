@@ -81,6 +81,7 @@
       <!-- Profil lecteur -->
       <div class="bc-modal__panel" data-step-key="profile" data-step-label="Profil lecteur" data-next-label="Continuer">
         <p class="bc-modal__lead">Le <strong>profil lecteur</strong> de votre enfant permet à Verty d'affiner la sélection initiale du club.</p>
+        <p class="bc-modal__note">Vous pouvez modifier les préférences de votre enfant à tout moment depuis votre profil.</p>
 
         {%- if has_children -%}
           <fieldset class="bc-field" data-bookclub-child-picker>
@@ -214,6 +215,8 @@
             <li>{% render 'icon', icon: 'check_mark', width: 18, height: 18 %} Service client Verty dédié</li>
           </ul>
         </div>
+        <p class="bc-modal__note">L'inscription de votre enfant au Book Club ne pourra pas être annulée.</p>
+        <p class="bc-modal__note">Le kit est livré à l'organisateur du club : vous ne recevrez pas le kit directement à votre domicile.</p>
         <p class="bc-modal__note">En continuant, votre inscription est ajoutée au panier avec les informations que vous venez de renseigner. Vous serez redirigé vers le paiement sécurisé Shopify pour la finaliser.</p>
         <p class="bc-modal__error" data-bookclub-error hidden>Une erreur est survenue, merci de réessayer.</p>
       </div>
