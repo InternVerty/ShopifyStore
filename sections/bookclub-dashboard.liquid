@@ -174,6 +174,20 @@
   </nav>
 
   <div class="bc-dash__hero">
+    {%- if club_token != blank -%}
+      <div class="bc-dash__hero-code">
+        <span class="bc-dash__hero-code-value">{{ club_token | upcase }}</span>
+        <button type="button" class="bc-dash__hero-share" data-bookclub-share data-invite-url="{{ invite_url | escape }}" data-club-name="{{ club_name | escape }}" aria-label="Partager le lien d'invitation">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.6" y1="10.6" x2="15.4" y2="6.4"></line>
+            <line x1="8.6" y1="13.4" x2="15.4" y2="17.6"></line>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
     <div class="container bc-dash__hero-inner">
       <div class="bc-dash__hero-main">
         <p class="bc-dash__hero-kicker">
@@ -408,6 +422,23 @@
         var original = label.textContent;
         label.textContent = 'Copié';
         setTimeout(function () { label.textContent = original; }, 1600);
+      });
+    });
+  });
+
+  document.querySelectorAll('[data-bookclub-share]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var url = btn.getAttribute('data-invite-url');
+      var title = btn.getAttribute('data-club-name') || 'Book Club Verty';
+
+      if (navigator.share) {
+        navigator.share({ title: title, url: url }).catch(function () {});
+        return;
+      }
+
+      navigator.clipboard.writeText(url).then(function () {
+        btn.classList.add('is-copied');
+        setTimeout(function () { btn.classList.remove('is-copied'); }, 1600);
       });
     });
   });
