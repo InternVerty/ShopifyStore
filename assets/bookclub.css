@@ -344,6 +344,13 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__panel-head .bc-dash__panel-title { margin-bottom: 0; }
 .bc-dash__link-btn { background: none; border: none; color: var(--bc-navy); font-size: 13px; font-weight: 600; cursor: pointer; padding: 0; }
 .bc-dash__members { display: flex; flex-direction: column; gap: 2px; }
+.bc-dash__members-hidden { position: relative; min-height: 160px; border-radius: var(--bc-radius-sm); overflow: hidden; }
+.bc-dash__members--blurred { filter: blur(6px); pointer-events: none; user-select: none; opacity: 0.7; }
+.bc-dash__members-overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  padding: 16px; text-align: center; background: rgba(255, 255, 255, 0.55);
+}
+.bc-dash__members-overlay p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--bc-text-secondary); max-width: 220px; }
 .bc-dash__member { display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-radius: 10px; }
 .bc-dash__member-avatar {
   width: 36px; height: 36px; border-radius: var(--bc-radius-pill); display: flex; align-items: center;

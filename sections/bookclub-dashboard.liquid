@@ -230,80 +230,99 @@
           <div class="bc-card bc-dash__panel">
             <div class="bc-dash__panel-head">
               <h3 class="bc-dash__panel-title">Membres</h3>
-              {%- if is_organizer -%}
+              {%- if is_organizer and is_join_blocked == false -%}
                 <button type="button" class="bc-dash__link-btn" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}"><span data-copy-label>+ Inviter</span></button>
               {%- endif -%}
             </div>
-            <div class="bc-dash__members">
-              {%- if metaobject -%}
-                {%- for member in club_members -%}
-                  {%- liquid
-                    assign mc_ci = forloop.index0 | modulo: 4
-                    assign mc_age = ''
-                    if member.naissance.value != blank
-                      assign mc_birth_ts = member.naissance.value | date: '%s' | plus: 0
-                      assign mc_now_ts = 'now' | date: '%s' | plus: 0
-                      assign mc_age = mc_now_ts | minus: mc_birth_ts | divided_by: 31557600
-                    endif
-                    assign mc_meta_parts = ''
-                    if mc_age != blank
-                      assign mc_meta_parts = mc_age | append: ' ans'
-                    endif
-                    if member.classe.value != blank
-                      if mc_meta_parts != blank
-                        assign mc_meta_parts = mc_meta_parts | append: ', '
+            {%- if is_join_blocked -%}
+              {%- comment -%}
+                Club complet ou déjà lancé : par souci de confidentialité, on
+                n'affiche plus les enfants inscrits (ni ne charge leurs données
+                dans le HTML). Le nombre de rangées factices ci-dessous est
+                fixe et ne reflète pas l'effectif réel du club.
+              {%- endcomment -%}
+              <div class="bc-dash__members-hidden">
+                <div class="bc-dash__members bc-dash__members--blurred" aria-hidden="true">
+                  <div class="bc-dash__member"><span class="bc-dash__member-avatar"></span><div class="bc-dash__member-info"><div class="bc-dash__member-name">••••••</div><div class="bc-dash__member-meta">•• ••••, •••</div></div></div>
+                  <div class="bc-dash__member"><span class="bc-dash__member-avatar"></span><div class="bc-dash__member-info"><div class="bc-dash__member-name">••••••</div><div class="bc-dash__member-meta">•• ••••, •••</div></div></div>
+                  <div class="bc-dash__member"><span class="bc-dash__member-avatar"></span><div class="bc-dash__member-info"><div class="bc-dash__member-name">••••••</div><div class="bc-dash__member-meta">•• ••••, •••</div></div></div>
+                </div>
+                <div class="bc-dash__members-overlay">
+                  <p>Les membres ne sont plus affichés une fois le club complet ou lancé, pour préserver leurs données.</p>
+                </div>
+              </div>
+            {%- else -%}
+              <div class="bc-dash__members">
+                {%- if metaobject -%}
+                  {%- for member in club_members -%}
+                    {%- liquid
+                      assign mc_ci = forloop.index0 | modulo: 4
+                      assign mc_age = ''
+                      if member.naissance.value != blank
+                        assign mc_birth_ts = member.naissance.value | date: '%s' | plus: 0
+                        assign mc_now_ts = 'now' | date: '%s' | plus: 0
+                        assign mc_age = mc_now_ts | minus: mc_birth_ts | divided_by: 31557600
                       endif
-                      assign mc_meta_parts = mc_meta_parts | append: member.classe.value
-                    endif
-                    if member.niveau.value != blank
-                      if mc_meta_parts != blank
-                        assign mc_meta_parts = mc_meta_parts | append: ', '
+                      assign mc_meta_parts = ''
+                      if mc_age != blank
+                        assign mc_meta_parts = mc_age | append: ' ans'
                       endif
-                      assign mc_meta_parts = mc_meta_parts | append: member.niveau.value
-                    endif
-                    assign bc_paid = member.paiement_confirm.value
-                    assign bc_paid_str = bc_paid | append: ''
-                    assign bc_is_paid = false
-                    if bc_paid == true or bc_paid_str == 'Vrai' or bc_paid_str == 'true' or bc_paid_str == 'True'
-                      assign bc_is_paid = true
-                    endif
-                  -%}
-                  <div class="bc-dash__member">
-                    <span class="bc-dash__member-avatar bc-dash__member-avatar--{{ mc_ci }}">{{ member.prenom.value | slice: 0 | upcase }}</span>
-                    <div class="bc-dash__member-info">
-                      <div class="bc-dash__member-name">{{ member.prenom.value | escape }}</div>
-                      <div class="bc-dash__member-meta">{{ mc_meta_parts | escape }}</div>
-                      {%- unless bc_is_paid -%}
-                        <span class="bc-dash__member-pending">En attente</span>
-                      {%- endunless -%}
-                    </div>
-                  </div>
-                {%- endfor -%}
-              {%- else -%}
-                {%- for block in section.blocks -%}
-                  {%- if block.type == 'member' -%}
-                    {%- assign mc_ci = forloop.index0 | modulo: 4 -%}
-                    <div class="bc-dash__member" {{ block.shopify_attributes }}>
-                      <span class="bc-dash__member-avatar bc-dash__member-avatar--{{ mc_ci }}">{{ block.settings.prenom | slice: 0 | upcase }}</span>
+                      if member.classe.value != blank
+                        if mc_meta_parts != blank
+                          assign mc_meta_parts = mc_meta_parts | append: ', '
+                        endif
+                        assign mc_meta_parts = mc_meta_parts | append: member.classe.value
+                      endif
+                      if member.niveau.value != blank
+                        if mc_meta_parts != blank
+                          assign mc_meta_parts = mc_meta_parts | append: ', '
+                        endif
+                        assign mc_meta_parts = mc_meta_parts | append: member.niveau.value
+                      endif
+                      assign bc_paid = member.paiement_confirm.value
+                      assign bc_paid_str = bc_paid | append: ''
+                      assign bc_is_paid = false
+                      if bc_paid == true or bc_paid_str == 'Vrai' or bc_paid_str == 'true' or bc_paid_str == 'True'
+                        assign bc_is_paid = true
+                      endif
+                    -%}
+                    <div class="bc-dash__member">
+                      <span class="bc-dash__member-avatar bc-dash__member-avatar--{{ mc_ci }}">{{ member.prenom.value | slice: 0 | upcase }}</span>
                       <div class="bc-dash__member-info">
-                        <div class="bc-dash__member-name">{{ block.settings.prenom | escape }}</div>
-                        <div class="bc-dash__member-meta">{{ block.settings.meta | escape }}</div>
-                        {%- if block.settings.paiement_confirm == false -%}
+                        <div class="bc-dash__member-name">{{ member.prenom.value | escape }}</div>
+                        <div class="bc-dash__member-meta">{{ mc_meta_parts | escape }}</div>
+                        {%- unless bc_is_paid -%}
                           <span class="bc-dash__member-pending">En attente</span>
-                        {%- endif -%}
+                        {%- endunless -%}
                       </div>
                     </div>
-                  {%- endif -%}
-                {%- endfor -%}
-              {%- endif -%}
-              {%- assign remaining = target | minus: members_count -%}
-              {%- if is_organizer and is_prep and remaining > 0 -%}
-                <button type="button" class="bc-dash__member bc-dash__member--empty" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}">
-                  <span class="bc-dash__member-avatar bc-dash__member-avatar--empty">{% render 'icon', icon: 'gift', width: 16, height: 16 %}</span>
-                  <div class="bc-dash__member-name">{{ remaining }} place{% if remaining > 1 %}s{% endif %} libre{% if remaining > 1 %}s{% endif %}</div>
-                </button>
-              {%- endif -%}
-            </div>
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'member' -%}
+                      {%- assign mc_ci = forloop.index0 | modulo: 4 -%}
+                      <div class="bc-dash__member" {{ block.shopify_attributes }}>
+                        <span class="bc-dash__member-avatar bc-dash__member-avatar--{{ mc_ci }}">{{ block.settings.prenom | slice: 0 | upcase }}</span>
+                        <div class="bc-dash__member-info">
+                          <div class="bc-dash__member-name">{{ block.settings.prenom | escape }}</div>
+                          <div class="bc-dash__member-meta">{{ block.settings.meta | escape }}</div>
+                          {%- if block.settings.paiement_confirm == false -%}
+                            <span class="bc-dash__member-pending">En attente</span>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+                {%- assign remaining = target | minus: members_count -%}
+                {%- if is_organizer and is_prep and remaining > 0 -%}
+                  <button type="button" class="bc-dash__member bc-dash__member--empty" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}">
+                    <span class="bc-dash__member-avatar bc-dash__member-avatar--empty">{% render 'icon', icon: 'gift', width: 16, height: 16 %}</span>
+                    <div class="bc-dash__member-name">{{ remaining }} place{% if remaining > 1 %}s{% endif %} libre{% if remaining > 1 %}s{% endif %}</div>
+                  </button>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
           </div>
 
           <div class="bc-dash__col">
