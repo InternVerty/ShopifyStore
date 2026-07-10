@@ -19,6 +19,7 @@
     assign invite_url = shop.url | append: metaobject.system.url
     assign next_session_date = metaobject.next_session_date.value
     assign next_session_number = metaobject.next_session_number.value
+    assign club_state = metaobject.state.value | default: 'opened'
   else
     assign club_token = blank
     assign club_name = section.settings.club_name
@@ -33,6 +34,7 @@
     assign invite_url = section.settings.invite_url
     assign next_session_date = section.settings.next_session_date
     assign next_session_number = section.settings.next_session_number
+    assign club_state = section.settings.club_state | default: 'opened'
   endif
 
   assign progress = 0
@@ -47,9 +49,25 @@
   # (metaobject, "Une ligne de texte"), customer.id étant un nombre en Liquid.
   assign viewer_customer_id = customer.id | append: ''
 
-  assign is_prep = true
-  if target > 0 and members_count >= target
-    assign is_prep = false
+  # L'état du club (opened / full / started) est géré côté backend et fait
+  # foi : il pilote l'affichage du widget hero, la vue "À faire" de
+  # l'organisateur et le blocage de l'inscription, plutôt qu'un calcul local
+  # basé sur le nombre de membres.
+  assign is_prep = false
+  if club_state == 'opened'
+    assign is_prep = true
+  endif
+  assign is_full = false
+  if club_state == 'full'
+    assign is_full = true
+  endif
+  assign is_started = false
+  if club_state == 'started'
+    assign is_started = true
+  endif
+  assign is_join_blocked = false
+  if is_full or is_started
+    assign is_join_blocked = true
   endif
 
   assign is_organizer = false
@@ -102,9 +120,11 @@
   assign pending_names = pending_names_list | split: '||'
 
   assign state_label = 'En préparation'
-  unless is_prep
+  if is_full
+    assign state_label = 'Complet'
+  elsif is_started
     assign state_label = 'Saison en cours'
-  endunless
+  endif
   assign role_label = 'Membre'
   if is_organizer
     assign role_label = 'Organisateur'
@@ -162,7 +182,17 @@
           </div>
         {%- endif -%}
         <div class="bc-dash__hero-actions">
-          <button type="button" class="vbtn vbtn-primary vbtn-invite vbtn-lg" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
+          {%- if is_join_blocked -%}
+            <p class="bc-dash__hero-blocked">
+              {%- if is_full -%}
+                Ce club est complet, il n'accepte plus de nouvelles familles.
+              {%- else -%}
+                Ce club a déjà démarré sa saison, les inscriptions sont closes.
+              {%- endif -%}
+            </p>
+          {%- else -%}
+            <button type="button" class="vbtn vbtn-primary vbtn-invite vbtn-lg" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
+          {%- endif -%}
         </div>
       </div>
       <div class="bc-dash__hero-side">
@@ -442,6 +472,17 @@
       "id": "preview_as_organizer",
       "label": "Forcer la vue organisateur (test)",
       "default": false
+    },
+    {
+      "type": "select",
+      "id": "club_state",
+      "label": "État du club (test)",
+      "options": [
+        { "value": "opened", "label": "Ouvert (recrutement)" },
+        { "value": "full", "label": "Complet" },
+        { "value": "started", "label": "Saison démarrée" }
+      ],
+      "default": "opened"
     }
   ],
   "blocks": [
