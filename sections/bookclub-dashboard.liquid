@@ -70,6 +70,14 @@
     assign is_join_blocked = true
   endif
 
+  # La carte "Membres" ne doit jamais charger de données d'enfants réelles
+  # tant que le visiteur n'est pas identifié comme une famille du club (pas
+  # connecté) ou une fois le club complet/lancé (confidentialité).
+  assign hide_members = false
+  if is_join_blocked or customer == blank
+    assign hide_members = true
+  endif
+
   assign is_organizer = false
   if customer and organizer_customer_id != blank and viewer_customer_id == organizer_customer_id
     assign is_organizer = true
@@ -143,7 +151,7 @@
       assign todo_done = todo_done | plus: 1
     endif
   elsif is_organizer
-    assign todo_total = 3 | plus: pending_count
+    assign todo_total = 3
   else
     assign todo_total = 2
     assign todo_done = 2
@@ -224,22 +232,22 @@
   </div>
 
   <div class="container">
-    <div class="bc-dash__gate-wrap">
-      <div class="bc-dash__gated{% unless customer %} is-blurred{% endunless %}">
         <div class="bc-dash__grid3">
           <div class="bc-card bc-dash__panel">
             <div class="bc-dash__panel-head">
               <h3 class="bc-dash__panel-title">Membres</h3>
-              {%- if is_organizer and is_join_blocked == false -%}
+              {%- if is_organizer and hide_members == false -%}
                 <button type="button" class="bc-dash__link-btn" data-bookclub-copy-invite data-invite-url="{{ invite_url | escape }}"><span data-copy-label>+ Inviter</span></button>
               {%- endif -%}
             </div>
-            {%- if is_join_blocked -%}
+            {%- if hide_members -%}
               {%- comment -%}
-                Club complet ou déjà lancé : par souci de confidentialité, on
-                n'affiche plus les enfants inscrits (ni ne charge leurs données
-                dans le HTML). Le nombre de rangées factices ci-dessous est
-                fixe et ne reflète pas l'effectif réel du club.
+                Club complet/lancé, ou visiteur non connecté : par souci de
+                confidentialité, on n'affiche jamais les enfants inscrits (ni
+                ne charge leurs données dans le HTML) en dehors du cas où le
+                visiteur est identifié comme une famille du club. Le nombre de
+                rangées factices ci-dessous est fixe et ne reflète pas
+                l'effectif réel du club.
               {%- endcomment -%}
               <div class="bc-dash__members-hidden">
                 <div class="bc-dash__members bc-dash__members--blurred" aria-hidden="true">
@@ -248,7 +256,15 @@
                   <div class="bc-dash__member"><span class="bc-dash__member-avatar"></span><div class="bc-dash__member-info"><div class="bc-dash__member-name">••••••</div><div class="bc-dash__member-meta">•• ••••, •••</div></div></div>
                 </div>
                 <div class="bc-dash__members-overlay">
-                  <p>Les membres ne sont plus affichés une fois le club complet ou lancé, pour préserver leurs données.</p>
+                  {%- if customer == blank -%}
+                    <p>Connectez-vous pour voir les membres de ce club.</p>
+                    <div class="bc-account-choice">
+                      <a href="{{ routes.account_login_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-primary vbtn-navy vbtn-sm">Se connecter</a>
+                      <a href="{{ routes.account_register_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-secondary vbtn-navy vbtn-sm">Créer un compte</a>
+                    </div>
+                  {%- else -%}
+                    <p>Les membres ne sont plus affichés une fois le club complet ou lancé.</p>
+                  {%- endif -%}
                 </div>
               </div>
             {%- else -%}
@@ -344,9 +360,6 @@
                   <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Planifier la prochaine séance</li>
                   <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Envoyer un rappel aux familles</li>
                   <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Vérifier la rotation des livres</li>
-                  {%- for name in pending_names -%}
-                    <li class="bc-dash__todo-item"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Paiement de {{ name | escape }} en attente</li>
-                  {%- endfor -%}
                 {%- else -%}
                   <li class="bc-dash__todo-item is-done"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Mon inscription est confirmée</li>
                   <li class="bc-dash__todo-item is-done"><span class="bc-dash__todo-icon">{% render 'icon', icon: 'check_mark', width: 11, height: 11 %}</span>Profil lecteur renseigné</li>
@@ -379,20 +392,6 @@
             </ul>
           </div>
         </div>
-      </div>
-      {%- unless customer -%}
-        <div class="bc-dash__gate-overlay">
-          <div class="bc-dash__gate-card">
-            <h3 class="bc-dash__gate-title">Connectez-vous pour voir les informations du club</h3>
-            <p class="bc-dash__gate-text">Membres, avancement et ressources sont réservés aux familles connectées.</p>
-            <div class="bc-account-choice">
-              <a href="{{ routes.account_login_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-primary vbtn-navy">Se connecter</a>
-              <a href="{{ routes.account_register_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-secondary vbtn-navy">Créer un compte</a>
-            </div>
-          </div>
-        </div>
-      {%- endunless -%}
-    </div>
   </div>
 </section>
 

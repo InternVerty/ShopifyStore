@@ -336,7 +336,7 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__hero-widget-bar { margin-top: 10px; height: 6px; border-radius: var(--bc-radius-pill); background: rgba(255, 255, 255, 0.2); overflow: hidden; }
 .bc-dash__hero-widget-fill { height: 100%; background: #fff; border-radius: var(--bc-radius-pill); }
 
-.bc-dash__grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: start; }
+.bc-dash__grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: start; margin-top: 24px; }
 .bc-dash__col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .bc-dash__panel { padding: 18px 20px; }
 .bc-dash__panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -347,10 +347,12 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__members-hidden { position: relative; min-height: 160px; border-radius: var(--bc-radius-sm); overflow: hidden; }
 .bc-dash__members--blurred { filter: blur(6px); pointer-events: none; user-select: none; opacity: 0.7; }
 .bc-dash__members-overlay {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
   padding: 16px; text-align: center; background: rgba(255, 255, 255, 0.55);
 }
 .bc-dash__members-overlay p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--bc-text-secondary); max-width: 220px; }
+.bc-dash__members-overlay .bc-account-choice { gap: 8px; }
+.bc-dash__members-overlay .vbtn-sm { padding: 8px 14px; font-size: 13px; }
 .bc-dash__member { display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-radius: 10px; }
 .bc-dash__member-avatar {
   width: 36px; height: 36px; border-radius: var(--bc-radius-pill); display: flex; align-items: center;
@@ -397,19 +399,6 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__invite-url { flex: 1; min-width: 0; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bc-dash__invite-row .vbtn { margin-left: auto; flex: 0 0 auto; }
 
-.bc-dash__gate-wrap { position: relative; }
-.bc-dash__gate-wrap .container { padding-top: 24px; }
-.bc-dash__gated.is-blurred { filter: blur(6px); pointer-events: none; user-select: none; }
-.bc-dash__gate-overlay {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  padding: 24px; background: rgba(255, 255, 255, 0.35);
-}
-.bc-dash__gate-card {
-  background: #fff; border-radius: var(--bc-radius-lg); box-shadow: var(--bc-shadow-lg);
-  padding: 32px 36px; text-align: center; max-width: 420px;
-}
-.bc-dash__gate-title { margin: 0 0 8px; font-size: 19px; font-weight: 800; }
-.bc-dash__gate-text { margin: 0 0 20px; font-size: 14px; color: var(--bc-text-secondary); }
 
 /* ---- responsive --------------------------------------------------- */
 @media (max-width: 900px) {
