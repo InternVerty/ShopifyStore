@@ -18,6 +18,13 @@
           <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-lg" data-bookclub-open>{{ section.settings.cta_primary_label | escape }}</button>
           <a href="#fonctionnement" class="vbtn vbtn-secondary vbtn-navy vbtn-lg">{{ section.settings.cta_secondary_label | escape }}</a>
         </div>
+        <form class="bc-hero__token-form" data-bookclub-token-form>
+          <label class="bc-hero__token-label" for="bookclub-hero-token">Vous avez déjà un code de club ?</label>
+          <div class="bc-hero__token-row">
+            <input type="text" id="bookclub-hero-token" name="token" placeholder="Code du club" autocomplete="off" required>
+            <button type="submit" class="vbtn vbtn-secondary vbtn-navy vbtn-sm">Consulter mon Book Club</button>
+          </div>
+        </form>
       </div>
       <div class="bc-hero__visual">
         <div class="bc-hero__image-wrap">
@@ -53,6 +60,20 @@
 </section>
 
 {% render 'bookclub-signup-modal', dashboard_url: section.settings.dashboard_url %}
+
+<script>
+(function () {
+  document.querySelectorAll('[data-bookclub-token-form]').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = form.querySelector('input[name="token"]');
+      var token = (input.value || '').trim().toLowerCase();
+      if (!token) return;
+      window.location.href = 'https://verty.eu/pages/bookclub-dashboard/' + encodeURIComponent(token);
+    });
+  });
+})();
+</script>
 
 {% schema %}
 {

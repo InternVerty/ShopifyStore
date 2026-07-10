@@ -97,6 +97,15 @@
 .bc-hero__title { font-size: clamp(32px, 4.4vw, 54px); line-height: 1.05; font-weight: 900; letter-spacing: -0.02em; margin: 20px 0 0; }
 .bc-hero__subtitle { font-size: 19px; line-height: 1.55; color: var(--bc-text-secondary); margin-top: 22px; max-width: 480px; }
 .bc-hero__cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+.bc-hero__token-form { margin-top: 18px; }
+.bc-hero__token-label { display: block; margin-bottom: 8px; font-size: 13.5px; color: var(--bc-text-secondary); }
+.bc-hero__token-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.bc-hero__token-row input {
+  height: 46px; padding: 0 16px; width: 200px; max-width: 100%; box-sizing: border-box;
+  background: var(--bc-white); border-radius: var(--bc-radius-pill); border: 1.5px solid var(--bc-gray-200);
+  font-family: var(--bc-font-body); font-size: 14.5px; color: var(--bc-ink);
+}
+.bc-hero__token-row input:focus { outline: none; border-color: var(--bc-navy); }
 .bc-hero__visual { display: flex; flex-direction: column; gap: 22px; }
 .bc-hero__image-wrap { position: relative; max-width: 440px; width: 100%; margin: 0 auto; }
 .bc-hero__image-wrap img { width: 100%; height: auto; display: block; filter: drop-shadow(0 20px 32px rgba(10, 40, 80, 0.16)); }
