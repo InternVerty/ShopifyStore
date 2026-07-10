@@ -295,7 +295,6 @@ fieldset.bc-field legend { padding: 0; }
   margin-bottom: 24px;
 }
 .bc-dash__hero-code {
-  position: absolute; top: 16px; right: 24px; z-index: 1;
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--bc-radius-pill); padding: 6px 8px 6px 14px;
@@ -339,17 +338,30 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__hero-book--2 { left: 18px; bottom: 4px; transform: rotate(2deg); z-index: 1; }
 .bc-dash__hero-book--3 { left: 34px; bottom: 0; transform: rotate(-1.5deg); z-index: 2; }
 .bc-dash__hero-book--4 { left: 40px; bottom: 6px; transform: rotate(3deg); z-index: 3; }
+.bc-dash__hero-widget-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .bc-dash__hero-widget {
   background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 14px;
   padding: 16px 22px; min-width: 190px; color: #fff;
 }
-.bc-dash__hero-widget-label { margin: 0 0 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bc-navy-border); }
+.bc-dash__hero-widget-label { margin: 0 0 6px; display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bc-navy-border); }
 .bc-dash__hero-widget-value { margin: 0; font-size: 32px; font-weight: 700; }
 .bc-dash__hero-widget-value small { font-size: 13px; font-weight: 500; opacity: 0.7; margin-left: 2px; }
 .bc-dash__hero-widget-value--text { font-size: 20px; }
 .bc-dash__hero-widget-sub { margin: 4px 0 0; font-size: 13px; opacity: 0.7; }
 .bc-dash__hero-widget-bar { margin-top: 10px; height: 6px; border-radius: var(--bc-radius-pill); background: rgba(255, 255, 255, 0.2); overflow: hidden; }
 .bc-dash__hero-widget-fill { height: 100%; background: #fff; border-radius: var(--bc-radius-pill); }
+.bc-dash__hero-info { position: relative; display: inline-flex; cursor: help; color: rgba(255, 255, 255, 0.55); }
+.bc-dash__hero-info:hover, .bc-dash__hero-info:focus-visible { color: #fff; outline: none; }
+.bc-dash__hero-info-tooltip {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  width: 190px; background: #fff; color: var(--bc-ink); font-size: 11.5px; font-weight: 500; line-height: 1.45;
+  text-transform: none; letter-spacing: normal;
+  padding: 10px 12px; border-radius: var(--bc-radius-xs); box-shadow: var(--bc-shadow-sm);
+  opacity: 0; visibility: hidden; transition: opacity 0.15s ease; pointer-events: none; z-index: 5;
+}
+.bc-dash__hero-info:hover .bc-dash__hero-info-tooltip, .bc-dash__hero-info:focus-visible .bc-dash__hero-info-tooltip {
+  opacity: 1; visibility: visible;
+}
 
 .bc-dash__grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: start; margin-top: 24px; }
 .bc-dash__col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }

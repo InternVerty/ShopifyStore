@@ -174,20 +174,6 @@
   </nav>
 
   <div class="bc-dash__hero">
-    {%- if club_token != blank -%}
-      <div class="bc-dash__hero-code">
-        <span class="bc-dash__hero-code-value">{{ club_token | upcase }}</span>
-        <button type="button" class="bc-dash__hero-share" data-bookclub-share data-invite-url="{{ invite_url | escape }}" data-club-name="{{ club_name | escape }}" aria-label="Partager le lien d'invitation">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="18" cy="5" r="3"></circle>
-            <circle cx="6" cy="12" r="3"></circle>
-            <circle cx="18" cy="19" r="3"></circle>
-            <line x1="8.6" y1="10.6" x2="15.4" y2="6.4"></line>
-            <line x1="8.6" y1="13.4" x2="15.4" y2="17.6"></line>
-          </svg>
-        </button>
-      </div>
-    {%- endif -%}
     <div class="container bc-dash__hero-inner">
       <div class="bc-dash__hero-main">
         <p class="bc-dash__hero-kicker">
@@ -224,22 +210,48 @@
           <img class="bc-dash__hero-book bc-dash__hero-book--3" src="{{ 'bookclub-dash-b3.webp' | asset_url }}" alt="" width="68" height="102" loading="lazy">
           <img class="bc-dash__hero-book bc-dash__hero-book--4" src="{{ 'bookclub-dash-b4.webp' | asset_url }}" alt="" width="68" height="102" loading="lazy">
         </div>
-        <div class="bc-dash__hero-widget">
-          {%- if is_prep -%}
-            <p class="bc-dash__hero-widget-label">Membres</p>
-            <p class="bc-dash__hero-widget-value">{{ members_count }}<small>/{{ target }}</small></p>
-            <div class="bc-dash__hero-widget-bar"><div class="bc-dash__hero-widget-fill" style="width: {{ progress }}%;"></div></div>
-          {%- else -%}
-            <p class="bc-dash__hero-widget-label">Prochaine séance</p>
-            {%- if next_session_date != blank -%}
-              <p class="bc-dash__hero-widget-value bc-dash__hero-widget-value--text">{{ next_session_date | escape }}</p>
-              {%- if next_session_number != blank and next_session_number > 0 -%}
-                <p class="bc-dash__hero-widget-sub">Séance {{ next_session_number }}</p>
-              {%- endif -%}
-            {%- else -%}
-              <p class="bc-dash__hero-widget-value bc-dash__hero-widget-value--text">À définir</p>
-            {%- endif -%}
+        <div class="bc-dash__hero-widget-wrap">
+          {%- if club_token != blank -%}
+            <div class="bc-dash__hero-code">
+              <span class="bc-dash__hero-code-value">{{ club_token | upcase }}</span>
+              <button type="button" class="bc-dash__hero-share" data-bookclub-share data-invite-url="{{ invite_url | escape }}" data-club-name="{{ club_name | escape }}" aria-label="Partager le lien d'invitation">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.6" y1="10.6" x2="15.4" y2="6.4"></line>
+                  <line x1="8.6" y1="13.4" x2="15.4" y2="17.6"></line>
+                </svg>
+              </button>
+            </div>
           {%- endif -%}
+          <div class="bc-dash__hero-widget">
+            {%- if is_prep -%}
+              <p class="bc-dash__hero-widget-label">
+                Membres
+                <span class="bc-dash__hero-info" tabindex="0">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <line x1="12" y1="11" x2="12" y2="16.5"></line>
+                    <circle cx="12" cy="7.5" r="0.5" fill="currentColor"></circle>
+                  </svg>
+                  <span class="bc-dash__hero-info-tooltip">Le club peut être lancé à tout moment : atteindre 8 familles n'est pas obligatoire.</span>
+                </span>
+              </p>
+              <p class="bc-dash__hero-widget-value">{{ members_count }}</p>
+              <div class="bc-dash__hero-widget-bar"><div class="bc-dash__hero-widget-fill" style="width: {{ progress }}%;"></div></div>
+            {%- else -%}
+              <p class="bc-dash__hero-widget-label">Prochaine séance</p>
+              {%- if next_session_date != blank -%}
+                <p class="bc-dash__hero-widget-value bc-dash__hero-widget-value--text">{{ next_session_date | escape }}</p>
+                {%- if next_session_number != blank and next_session_number > 0 -%}
+                  <p class="bc-dash__hero-widget-sub">Séance {{ next_session_number }}</p>
+                {%- endif -%}
+              {%- else -%}
+                <p class="bc-dash__hero-widget-value bc-dash__hero-widget-value--text">À définir</p>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
         </div>
       </div>
     </div>
