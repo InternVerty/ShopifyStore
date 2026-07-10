@@ -16,7 +16,7 @@
     assign launch_month = metaobject.launch_month.value
     assign club_members = metaobject.members.value
     assign members_count = club_members.size
-    assign invite_url = metaobject.system.url
+    assign invite_url = shop.url | append: metaobject.system.url
     assign next_session_date = metaobject.next_session_date.value
     assign next_session_number = metaobject.next_session_number.value
   else
@@ -247,16 +247,6 @@
                         <span class="bc-dash__member-pending">En attente</span>
                       {%- endunless -%}
                     </div>
-                    {%- if customer and member.customer_id.value == viewer_customer_id -%}
-                      <button
-                        type="button"
-                        class="bc-dash__member-remove"
-                        data-bookclub-remove-child
-                        data-member-id="{{ member.id }}"
-                        data-club-token="{{ club_token }}"
-                        data-child-name="{{ member.prenom.value | escape }}"
-                      >Retirer</button>
-                    {%- endif -%}
                   </div>
                 {%- endfor -%}
               {%- else -%}
@@ -374,33 +364,6 @@
     });
   });
 
-  document.querySelectorAll('[data-bookclub-remove-child]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var childName = btn.getAttribute('data-child-name') || 'cet enfant';
-      if (!window.confirm('Retirer ' + childName + ' du club ? Cette action est irréversible.')) return;
-
-      btn.disabled = true;
-      btn.textContent = 'Retrait...';
-
-      fetch('/apps/verty-sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          club_token: btn.getAttribute('data-club-token') || '',
-          member_id: btn.getAttribute('data-member-id') || '',
-          action: 'remove-child',
-        }),
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('remove-child-failed');
-          window.location.reload();
-        })
-        .catch(function () {
-          btn.disabled = false;
-          btn.textContent = 'Retirer';
-        });
-    });
-  });
 })();
 </script>
 
