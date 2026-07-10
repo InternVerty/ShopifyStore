@@ -213,7 +213,10 @@
         <div class="bc-dash__hero-widget-wrap">
           {%- if club_token != blank -%}
             <div class="bc-dash__hero-code">
-              <span class="bc-dash__hero-code-value">{{ club_token | upcase }}</span>
+              <div class="bc-dash__hero-code-text">
+                <span class="bc-dash__hero-code-label">Code du bookclub</span>
+                <span class="bc-dash__hero-code-value">{{ club_token | upcase }}</span>
+              </div>
               <button type="button" class="bc-dash__hero-share" data-bookclub-share data-invite-url="{{ invite_url | escape }}" data-club-name="{{ club_name | escape }}" aria-label="Partager le lien d'invitation">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <circle cx="18" cy="5" r="3"></circle>

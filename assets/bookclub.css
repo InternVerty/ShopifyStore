@@ -295,10 +295,12 @@ fieldset.bc-field legend { padding: 0; }
   margin-bottom: 24px;
 }
 .bc-dash__hero-code {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 10px;
   background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--bc-radius-pill); padding: 6px 8px 6px 14px;
+  border-radius: var(--bc-radius-md); padding: 8px 8px 8px 14px;
 }
+.bc-dash__hero-code-text { display: flex; flex-direction: column; gap: 2px; }
+.bc-dash__hero-code-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.55); }
 .bc-dash__hero-code-value { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: #fff; }
 .bc-dash__hero-share {
   display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;
