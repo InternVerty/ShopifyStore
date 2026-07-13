@@ -288,8 +288,8 @@
                   {%- if customer == blank -%}
                     <p>Connectez-vous pour voir les membres de ce club.</p>
                     <div class="bc-account-choice">
-                      <a href="{{ routes.account_login_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-primary vbtn-navy vbtn-sm">Se connecter</a>
-                      <a href="{{ routes.account_register_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-secondary vbtn-navy vbtn-sm">Créer un compte</a>
+                      <a href="{{ routes.storefront_login_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-primary vbtn-navy vbtn-sm">Se connecter</a>
+                      <a href="{{ routes.storefront_register_url }}?return_to={{ request.path | url_encode }}" class="vbtn vbtn-secondary vbtn-navy vbtn-sm">Créer un compte</a>
                     </div>
                   {%- else -%}
                     <p>Les membres ne sont plus affichés une fois le club complet ou lancé.</p>
@@ -430,7 +430,7 @@
 {% render 'bookclub-join-modal', club_name: club_name, club_token: club_token %}
 
 {%- if is_organizer -%}
-  <div class="bc-transfer-modal" hidden data-bookclub-transfer-modal data-club-token="{{ club_token | escape }}">
+  <div class="bookclub-page bc-transfer-modal" hidden data-bookclub-transfer-modal data-club-token="{{ club_token | escape }}">
     <div class="bc-modal__overlay" data-bookclub-transfer-close></div>
     <div class="bc-modal__window bc-transfer-modal__window" role="dialog" aria-modal="true" aria-labelledby="bookclub-transfer-heading">
       <div class="bc-modal__top">
