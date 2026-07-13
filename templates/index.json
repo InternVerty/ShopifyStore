@@ -105,7 +105,7 @@
         "show_view_all": false,
         "view_religion": false,
         "use_anchor_for_view_all": false,
-        "collection": "premieres-lectures",
+        "collection": "cahiers-de-vacances",
         "layout": "carousel",
         "card_size_mobile": "small",
         "card_size": "small",
@@ -113,7 +113,7 @@
         "show_promo_info": true,
         "image_ratio": "fill",
         "dis": "",
-        "content": "<p>Les premières lectures sont une étape clé dans le développement de l’enfant, où il découvre le plaisir de lire en toute autonomie. Grâce à des textes adaptés et des illustrations engageantes, les enfants gagnent en confiance et développent leur goût pour les livres. </p><p>Cette sélection propose des ouvrages soigneusement choisis pour éveiller la curiosité, encourager la compréhension et faire de la lecture un véritable moment de plaisir.</p>",
+        "content": "<p>Les grandes vacances, c’est la saison des découvertes, de la détente, des petits bonheurs partagés en famille. Et pour les enfants, c'est aussi une période idéale pour consolider ce qu’ils ont appris pendant l’année scolaire, pour ne pas tout oublier en deux mois… ou pour enfin apprivoiser une notion qui leur résistait un peu. </p><p>Notre comité de lecture a fait pour vous la liste des meilleurs cahiers de vacances, de quoi trouver celui qui correspond à votre enfant, selon son rythme et ses besoins.</p>",
         "link_url": "{{ section.settings.collection.url }}",
         "button_label": "Voir toute la collection",
         "color_scheme": "none",
@@ -898,7 +898,7 @@
       "settings": {
         "heading": "Redécouvrez nos sélections temporaires et thématiques",
         "description": "Au fil des saisons et au gré du calendrier, notre sélection jeunesse se pare de couleurs changeantes et d’horizons multiples. Chaque période de l’année devient l’occasion d’explorer un thème nouveau, qu’il s’agisse de la magie de l’hiver, du renouveau printanier, des épopées chevaleresques ou des voyages à travers l'histoire. Ces sélections temporaires, soigneusement composées, invitent les jeunes lecteurs à découvrir des mondes riches et variés, à travers des ouvrages choisis pour leur poésie, leur profondeur ou leur espièglerie. Qu’ils soient rêveurs ou curieux, les enfants y trouveront de quoi nourrir leur imagination et élargir leur regard sur le monde, au rythme des fêtes, des saisons et des grandes questions de leur âge.",
-        "background_color": "#F5FAF9",
+        "background_color": "#f5faf9",
         "margin_top": 50,
         "margin_bottom": 0
       }
