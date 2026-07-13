@@ -464,6 +464,7 @@
             {%- endfor -%}
           {%- endif -%}
         </div>
+        <p class="bc-modal__warning" data-bookclub-transfer-warning hidden>Cette action est immédiate et irréversible. Cliquez à nouveau pour confirmer le transfert.</p>
         <p class="bc-modal__error" data-bookclub-transfer-error hidden>Une erreur est survenue, merci de réessayer.</p>
       </div>
       <div class="bc-modal__footer">
@@ -512,6 +513,15 @@
   if (transferModal) {
     var confirmBtn = transferModal.querySelector('[data-bookclub-transfer-confirm]');
     var errorEl = transferModal.querySelector('[data-bookclub-transfer-error]');
+    var warningEl = transferModal.querySelector('[data-bookclub-transfer-warning]');
+    var confirmDefaultLabel = confirmBtn.textContent;
+    var armed = false;
+
+    var resetConfirm = function () {
+      armed = false;
+      confirmBtn.textContent = confirmDefaultLabel;
+      if (warningEl) warningEl.hidden = true;
+    };
 
     document.querySelectorAll('[data-bookclub-transfer-open]').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -524,17 +534,27 @@
       btn.addEventListener('click', function () {
         transferModal.hidden = true;
         document.body.style.overflow = '';
+        resetConfirm();
       });
     });
 
     transferModal.querySelectorAll('input[name="transfer_member_id"]').forEach(function (radio) {
-      radio.addEventListener('change', function () { confirmBtn.disabled = false; });
+      radio.addEventListener('change', function () {
+        confirmBtn.disabled = false;
+        resetConfirm();
+      });
     });
 
     confirmBtn.addEventListener('click', function () {
       var selected = transferModal.querySelector('input[name="transfer_member_id"]:checked');
       if (!selected) return;
-      if (!window.confirm("Transférer le rôle d'organisateur à cette famille ? Cette action est immédiate.")) return;
+
+      if (!armed) {
+        armed = true;
+        confirmBtn.textContent = 'Oui, transférer le rôle';
+        if (warningEl) warningEl.hidden = false;
+        return;
+      }
 
       confirmBtn.disabled = true;
       confirmBtn.textContent = 'Transfert...';
@@ -555,7 +575,7 @@
         })
         .catch(function () {
           confirmBtn.disabled = false;
-          confirmBtn.textContent = 'Confirmer le transfert';
+          resetConfirm();
           if (errorEl) errorEl.hidden = false;
         });
     });

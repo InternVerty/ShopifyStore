@@ -256,6 +256,10 @@ fieldset.bc-field legend { padding: 0; }
 .bc-modal__note { font-size: 13px; color: var(--bc-text-secondary); margin: 0; }
 .bc-modal__note a { color: var(--bc-navy); font-weight: 600; }
 .bc-modal__error { color: #B3261E; font-size: 13.5px; margin: 0; }
+.bc-modal__warning {
+  margin: 0; font-size: 13px; line-height: 1.5; font-weight: 600; color: #712B13;
+  background: #FAECE7; border-radius: var(--bc-radius-xs); padding: 10px 14px;
+}
 
 /* ---- account step ------------------------------------------------- */
 .bc-account-choice { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
