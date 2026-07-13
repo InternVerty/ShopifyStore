@@ -368,6 +368,9 @@
                 {%- endif -%}
               </div>
             {%- endif -%}
+            {%- if is_organizer -%}
+              <button type="button" class="bc-dash__link-btn bc-dash__transfer-trigger" data-bookclub-transfer-open>Transférer le rôle d'organisateur</button>
+            {%- endif -%}
           </div>
 
           <div class="bc-dash__col">
@@ -426,6 +429,53 @@
 
 {% render 'bookclub-join-modal', club_name: club_name, club_token: club_token %}
 
+{%- if is_organizer -%}
+  <div class="bc-transfer-modal" hidden data-bookclub-transfer-modal data-club-token="{{ club_token | escape }}">
+    <div class="bc-modal__overlay" data-bookclub-transfer-close></div>
+    <div class="bc-modal__window bc-transfer-modal__window" role="dialog" aria-modal="true" aria-labelledby="bookclub-transfer-heading">
+      <div class="bc-modal__top">
+        <span class="bc-badge bc-badge--modal" id="bookclub-transfer-heading">Transférer le rôle</span>
+        <button type="button" class="bc-modal__close" data-bookclub-transfer-close aria-label="Fermer">{% render 'icon-close' %}</button>
+      </div>
+      <div class="bc-modal__body">
+        <p class="bc-modal__lead">Choisissez la famille qui deviendra organisatrice du club. Vous perdez les actions d'administration dès la confirmation.</p>
+        <div class="bc-charter">
+          {%- if metaobject -%}
+            {%- for member in club_members -%}
+              {%- liquid
+                assign transfer_label = member.prenom.value
+                if hide_members
+                  assign transfer_label = 'Membre ' | append: forloop.index
+                endif
+              -%}
+              <label class="bc-charter__item">
+                <input type="radio" name="transfer_member_id" value="{{ member.id }}">
+                <span>{{ transfer_label | escape }}</span>
+              </label>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'member' -%}
+                <label class="bc-charter__item">
+                  <input type="radio" name="transfer_member_id" value="{{ block.id }}">
+                  <span>{{ block.settings.prenom | escape }}</span>
+                </label>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+        <p class="bc-modal__error" data-bookclub-transfer-error hidden>Une erreur est survenue, merci de réessayer.</p>
+      </div>
+      <div class="bc-modal__footer">
+        <button type="button" class="bc-modal__back" data-bookclub-transfer-close>Annuler</button>
+        <div class="bc-modal__footer-right">
+          <button type="button" class="vbtn vbtn-primary vbtn-navy" data-bookclub-transfer-confirm disabled>Confirmer le transfert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
 <script>
 (function () {
   document.querySelectorAll('[data-bookclub-copy-invite]').forEach(function (btn) {
@@ -457,6 +507,59 @@
       });
     });
   });
+
+  var transferModal = document.querySelector('[data-bookclub-transfer-modal]');
+  if (transferModal) {
+    var confirmBtn = transferModal.querySelector('[data-bookclub-transfer-confirm]');
+    var errorEl = transferModal.querySelector('[data-bookclub-transfer-error]');
+
+    document.querySelectorAll('[data-bookclub-transfer-open]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        transferModal.hidden = false;
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    transferModal.querySelectorAll('[data-bookclub-transfer-close]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        transferModal.hidden = true;
+        document.body.style.overflow = '';
+      });
+    });
+
+    transferModal.querySelectorAll('input[name="transfer_member_id"]').forEach(function (radio) {
+      radio.addEventListener('change', function () { confirmBtn.disabled = false; });
+    });
+
+    confirmBtn.addEventListener('click', function () {
+      var selected = transferModal.querySelector('input[name="transfer_member_id"]:checked');
+      if (!selected) return;
+      if (!window.confirm("Transférer le rôle d'organisateur à cette famille ? Cette action est immédiate.")) return;
+
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Transfert...';
+      if (errorEl) errorEl.hidden = true;
+
+      fetch('/apps/verty-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          club_token: transferModal.getAttribute('data-club-token') || '',
+          new_organizer_member_id: selected.value,
+          action: 'transfer-organizer',
+        }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('transfer-organizer-failed');
+          window.location.reload();
+        })
+        .catch(function () {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = 'Confirmer le transfert';
+          if (errorEl) errorEl.hidden = false;
+        });
+    });
+  }
 
 })();
 </script>

@@ -186,6 +186,13 @@ bookclub-signup {
   padding: 40px 20px; overflow-y: auto;
 }
 bookclub-signup[hidden] { display: none; }
+.bc-transfer-modal {
+  position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-start; justify-content: center;
+  padding: 40px 20px; overflow-y: auto;
+}
+.bc-transfer-modal[hidden] { display: none; }
+.bc-transfer-modal__window { max-width: 440px; }
+.bc-dash__transfer-trigger { display: block; margin-top: 12px; font-size: 12.5px; }
 .bc-modal__overlay { position: fixed; inset: 0; background: rgba(10, 10, 10, 0.45); }
 .bc-modal__window {
   position: relative; width: 100%; max-width: 660px; background: var(--bc-white); border-radius: var(--bc-radius-xl);
