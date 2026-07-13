@@ -449,7 +449,7 @@
                 endif
               -%}
               <label class="bc-charter__item">
-                <input type="radio" name="transfer_member_id" value="{{ member.id }}">
+                <input type="radio" name="transfer_member_id" value="gid://shopify/Metaobject/{{ member.system.id }}">
                 <span>{{ transfer_label | escape }}</span>
               </label>
             {%- endfor -%}
