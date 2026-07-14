@@ -449,6 +449,28 @@ fieldset.bc-field legend { padding: 0; }
 .bc-dash__invite-url { flex: 1; min-width: 0; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bc-dash__invite-row .vbtn { margin-left: auto; flex: 0 0 auto; }
 
+.bc-dash__reveal {
+  margin-top: 16px; background: var(--bc-navy); border-radius: var(--bc-radius-lg);
+  padding: 26px 28px 22px; background-image: radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 60%);
+}
+.bc-dash__reveal-head { margin-bottom: 20px; }
+.bc-dash__reveal-kicker { margin: 0 0 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bc-navy-border); }
+.bc-dash__reveal-title { margin: 0; font-family: var(--bc-font-display); font-size: 22px; font-weight: 400; color: #fff; }
+.bc-dash__reveal-row { display: flex; gap: 20px; overflow-x: auto; padding: 6px 4px 10px; scrollbar-width: thin; }
+.bc-dash__reveal-card {
+  flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 120px;
+  text-decoration: none; transition: transform 0.15s ease;
+}
+.bc-dash__reveal-card:hover { transform: translateY(-4px); }
+.bc-dash__reveal-cover {
+  display: flex; align-items: center; justify-content: center; width: 120px; height: 180px; border-radius: 8px;
+  overflow: hidden; background: rgba(255, 255, 255, 0.1); box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35); color: rgba(255, 255, 255, 0.5);
+}
+.bc-dash__reveal-card--1 .bc-dash__reveal-cover { transform: rotate(-2deg); }
+.bc-dash__reveal-card--2 .bc-dash__reveal-cover { transform: rotate(1.5deg); }
+.bc-dash__reveal-card--3 .bc-dash__reveal-cover { transform: rotate(-1deg); }
+.bc-dash__reveal-cover img { width: 100%; height: 100%; object-fit: cover; }
+.bc-dash__reveal-name { font-size: 12.5px; font-weight: 600; text-align: center; line-height: 1.35; color: #fff; }
 
 /* ---- responsive --------------------------------------------------- */
 @media (max-width: 900px) {
