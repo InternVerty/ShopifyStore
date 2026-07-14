@@ -204,10 +204,7 @@
           </div>
         {%- endif -%}
         <div class="bc-dash__hero-actions">
-          {%- if can_launch -%}
-            <button type="button" class="vbtn vbtn-primary vbtn-invite vbtn-lg" data-bookclub-launch data-club-token="{{ club_token | escape }}" data-club-id="{{ club_gid | escape }}">{% render 'icon', icon: 'check_mark_in_circle', width: 18, height: 18 %}Lancer le Book Club</button>
-            <p class="bc-dash__hero-blocked" data-bookclub-launch-warning hidden>Cette action est immédiate : les inscriptions seront closes et le club passera en saison. Cliquez à nouveau pour confirmer.</p>
-          {%- elsif is_join_blocked -%}
+          {%- if is_join_blocked -%}
             <p class="bc-dash__hero-blocked">
               {%- if is_full -%}
                 Ce club est complet, il n'accepte plus de nouvelles familles.
@@ -218,7 +215,13 @@
           {%- else -%}
             <button type="button" class="vbtn vbtn-primary vbtn-invite vbtn-lg" data-bookclub-open>{% render 'icon', icon: 'gift', width: 18, height: 18 %}{{ section.settings.cta_label | escape }}</button>
           {%- endif -%}
+          {%- if can_launch -%}
+            <button type="button" class="vbtn vbtn-primary vbtn-invite vbtn-lg" data-bookclub-launch data-club-token="{{ club_token | escape }}" data-club-id="{{ club_gid | escape }}">{% render 'icon', icon: 'check_mark_in_circle', width: 18, height: 18 %}Lancer le Book Club</button>
+          {%- endif -%}
         </div>
+        {%- if can_launch -%}
+          <p class="bc-dash__hero-blocked" data-bookclub-launch-warning hidden>Cette action est immédiate : les inscriptions seront closes et le club passera en saison. Cliquez à nouveau pour confirmer.</p>
+        {%- endif -%}
       </div>
       <div class="bc-dash__hero-side">
         <div class="bc-dash__hero-books" aria-hidden="true">
