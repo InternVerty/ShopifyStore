@@ -133,6 +133,14 @@
   endif
   assign pending_names = pending_names_list | split: '||'
 
+  # L'organisateur peut lancer le club dès que tous les paiements des
+  # membres inscrits sont confirmés (indépendamment de la cible de 8
+  # familles), tant que le club n'est pas déjà en saison.
+  assign can_launch = false
+  if is_organizer and is_started == false and members_count > 0 and pending_count == 0
+    assign can_launch = true
+  endif
+
   assign state_label = 'En préparation'
   if is_full
     assign state_label = 'Complet'
@@ -196,7 +204,10 @@
           </div>
         {%- endif -%}
         <div class="bc-dash__hero-actions">
-          {%- if is_join_blocked -%}
+          {%- if can_launch -%}
+            <button type="button" class="vbtn vbtn-primary vbtn-invite vbtn-lg" data-bookclub-launch data-club-token="{{ club_token | escape }}" data-club-id="{{ club_gid | escape }}">{% render 'icon', icon: 'check_mark_in_circle', width: 18, height: 18 %}Lancer le Book Club</button>
+            <p class="bc-dash__hero-blocked" data-bookclub-launch-warning hidden>Cette action est immédiate : les inscriptions seront closes et le club passera en saison. Cliquez à nouveau pour confirmer.</p>
+          {%- elsif is_join_blocked -%}
             <p class="bc-dash__hero-blocked">
               {%- if is_full -%}
                 Ce club est complet, il n'accepte plus de nouvelles familles.
@@ -518,6 +529,45 @@
       });
     });
   });
+
+  var launchBtn = document.querySelector('[data-bookclub-launch]');
+  if (launchBtn) {
+    var launchWarning = document.querySelector('[data-bookclub-launch-warning]');
+    var launchDefaultLabel = launchBtn.innerHTML;
+    var launchArmed = false;
+
+    launchBtn.addEventListener('click', function () {
+      if (!launchArmed) {
+        launchArmed = true;
+        launchBtn.textContent = 'Confirmer le lancement';
+        if (launchWarning) launchWarning.hidden = false;
+        return;
+      }
+
+      launchBtn.disabled = true;
+      launchBtn.textContent = 'Lancement...';
+
+      fetch('/apps/verty-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          club_token: launchBtn.getAttribute('data-club-token') || '',
+          club: launchBtn.getAttribute('data-club-id') || '',
+          action: 'launch-bookclub',
+        }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('launch-bookclub-failed');
+          window.location.reload();
+        })
+        .catch(function () {
+          launchArmed = false;
+          launchBtn.disabled = false;
+          launchBtn.innerHTML = launchDefaultLabel;
+          if (launchWarning) launchWarning.hidden = true;
+        });
+    });
+  }
 
   var transferModal = document.querySelector('[data-bookclub-transfer-modal]');
   if (transferModal) {
