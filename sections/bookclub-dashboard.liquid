@@ -7,7 +7,11 @@
   # on retombe sur les réglages/blocks de la section, comme avant.
   if metaobject
     assign club_token = metaobject.system.handle
-    assign club_gid = 'gid://shopify/Metaobject/' | append: metaobject.system.id
+    assign club_id_raw = metaobject.system.id
+    if club_id_raw == blank
+      assign club_id_raw = metaobject.id
+    endif
+    assign club_gid = 'gid://shopify/Metaobject/' | append: club_id_raw
     assign club_name = metaobject.name.value
     assign organizer_name = metaobject.organizer_name.value
     assign organizer_email = metaobject.organizer_email.value
@@ -449,9 +453,13 @@
                 if hide_members
                   assign transfer_label = 'Membre ' | append: forloop.index
                 endif
+                assign member_id_raw = member.system.id
+                if member_id_raw == blank
+                  assign member_id_raw = member.id
+                endif
               -%}
               <label class="bc-charter__item">
-                <input type="radio" name="transfer_member_id" value="gid://shopify/Metaobject/{{ member.system.id }}">
+                <input type="radio" name="transfer_member_id" value="gid://shopify/Metaobject/{{ member_id_raw }}">
                 <span>{{ transfer_label | escape }}</span>
               </label>
             {%- endfor -%}
