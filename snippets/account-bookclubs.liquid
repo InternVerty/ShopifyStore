@@ -1,0 +1,72 @@
+{%- comment -%}
+  Section "Mes Bookclubs"
+  Source : metaobjects.bookclub.values (tous les clubs publiés), filtrés côté
+  Liquid pour ne garder que ceux où le client connecté est organisateur
+  (organizer_email) ou membre (customer_id d'un bookclub_member).
+{%- endcomment -%}
+
+<section class="mc-section" id="bookclubs">
+  <div class="mc-section__header">
+    <h2 class="mc-section__title">Mes Bookclubs</h2>
+  </div>
+
+  {%- assign mc_bc_shown = 0 -%}
+  {%- if customer -%}
+    {%- assign mc_bc_customer_id = customer.id | append: '' -%}
+    {%- assign mc_bc_customer_email_lower = customer.email | downcase -%}
+
+    {%- for mc_club in metaobjects.bookclub.values -%}
+      {%- liquid
+        assign mc_bc_is_org = false
+        assign mc_bc_org_email_lower = mc_club.organizer_email.value | downcase
+        if mc_club.organizer_email.value != blank and mc_bc_customer_email_lower != blank and mc_bc_org_email_lower == mc_bc_customer_email_lower
+          assign mc_bc_is_org = true
+        endif
+
+        assign mc_bc_is_member = false
+        for mc_bc_member in mc_club.members.value
+          if mc_bc_member.customer_id.value == mc_bc_customer_id
+            assign mc_bc_is_member = true
+          endif
+        endfor
+      -%}
+
+      {%- if mc_bc_is_org or mc_bc_is_member -%}
+        {%- assign mc_bc_shown = mc_bc_shown | plus: 1 -%}
+        <a href="{{ mc_club.system.url }}" class="mc-row">
+
+          <div class="mc-row__thumb" style="background-color:#e8f0ea; display:flex; align-items:center; justify-content:center; color:#2D6A4F;" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+          </div>
+
+          <div class="mc-row__info">
+            <p class="mc-row__title">{{ mc_club.name.value | escape }}</p>
+            <div class="mc-row__meta">
+              <span class="mc-badge" style="color:#2D6A4F; border-color:#2D6A4F;">
+                {%- if mc_bc_is_org -%}Organisateur{%- else -%}Membre{%- endif -%}
+              </span>
+              {%- if mc_club.city.value != blank -%}
+                <span class="mc-row__duration">{{ mc_club.city.value | escape }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <span class="mc-row__chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </span>
+
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if mc_bc_shown == 0 -%}
+    <p class="mc-empty-state">Aucun Book Club pour le moment.</p>
+  {%- endif -%}
+
+</section>
