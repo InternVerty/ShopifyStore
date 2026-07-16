@@ -84,8 +84,9 @@
         <p class="bc-modal__note">Vous pouvez modifier les préférences de votre enfant à tout moment depuis votre profil.</p>
 
         {%- if has_children -%}
+          <p class="bc-modal__note">Vous pouvez inscrire plusieurs enfants en une seule fois : cochez tous ceux qui rejoignent le club.</p>
           <fieldset class="bc-field" data-bookclub-child-picker>
-            <legend class="bc-field__label">Pour quel enfant ?</legend>
+            <legend class="bc-field__label">Quels enfants rejoignent le club ?</legend>
             <div class="bc-child-picker">
               {%- for mc_child in mc_children -%}
                 {%- if mc_child.prenom != blank -%}
@@ -97,7 +98,7 @@
                   {%- endif -%}
                   {%- assign mc_themes_joined = mc_child.themes | join: ', ' -%}
                   <label class="bc-child-card">
-                    <input type="radio" name="existing_child" value="{{ forloop.index0 }}"
+                    <input type="checkbox" name="existing_child_ids" value="{{ forloop.index0 }}"
                       data-id="{{ mc_child.id | escape }}"
                       data-prenom="{{ mc_child.prenom | escape }}"
                       data-naissance="{{ mc_child.naissance }}"
@@ -121,8 +122,8 @@
                 {%- endif -%}
               {%- endfor -%}
               <label class="bc-child-card bc-child-card--new">
-                <input type="radio" name="existing_child" value="new">
-                <span class="bc-child-card__name">Ajouter un enfant</span>
+                <input type="checkbox" name="add_new_child" value="new">
+                <span class="bc-child-card__name">Ajouter un autre enfant</span>
               </label>
             </div>
           </fieldset>

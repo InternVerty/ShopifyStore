@@ -91,15 +91,19 @@
 
     setupChildPicker() {
       this.childPicker = this.querySelector('[data-bookclub-child-picker]');
-      if (!this.childPicker) return;
       this.childManual = this.querySelector('[data-bookclub-child-manual]');
+      if (!this.childManual) return;
 
-      this.childPicker.querySelectorAll('input[name="existing_child"]').forEach((radio) => {
-        radio.addEventListener('change', () => {
-          this.childManual.hidden = radio.value !== 'new';
+      // Le formulaire manuel reste limité à un seul nouvel enfant à la fois,
+      // mais il est maintenant indépendant des enfants existants cochés
+      // (case "Ajouter un autre enfant" au lieu d'une option radio exclusive).
+      var addNewToggle = this.querySelector('input[name="add_new_child"]');
+      if (this.childPicker && addNewToggle) {
+        addNewToggle.addEventListener('change', () => {
+          this.childManual.hidden = !addNewToggle.checked;
           this.updateNextState();
         });
-      });
+      }
     }
 
     setupThemesLimit() {
@@ -183,12 +187,7 @@
         );
       }
       if (key === 'profile') {
-        if (this.childPicker) {
-          var existingChild = form.querySelector('input[name="existing_child"]:checked');
-          if (!existingChild) return false;
-          if (existingChild.value !== 'new') return true;
-        }
-        return !!form.querySelector('[name="child_prenom"]').value;
+        return this.getSelectedChildren().length > 0;
       }
       if (key === 'charter') {
         var checked = form.querySelectorAll('input[name="charter"]:checked').length;
@@ -212,8 +211,9 @@
 
       var leavingPanel = this.panels[this.step];
       var loggedIn = !!this.getAttribute('data-customer-id');
-      if (leavingPanel && leavingPanel.dataset.stepKey === 'profile' && this.isNewChild() && loggedIn) {
-        this.addChildToAccount();
+      if (leavingPanel && leavingPanel.dataset.stepKey === 'profile' && loggedIn) {
+        var newChild = this.getSelectedChildren().filter((c) => c.isNew)[0];
+        if (newChild) this.addChildToAccount(newChild);
       }
 
       if (this.step === this.panels.length - 1) {
@@ -225,19 +225,78 @@
       this.render();
     }
 
-    isNewChild() {
-      var existingChild = this.childPicker && this.form.querySelector('input[name="existing_child"]:checked');
-      return !existingChild || existingChild.value === 'new';
+    // Renvoie tous les enfants sélectionnés à l'étape "Profil lecteur" : un
+    // par case cochée parmi les profils existants, plus au maximum un
+    // nouveau profil (le formulaire manuel reste limité à un seul à la fois).
+    getSelectedChildren() {
+      var form = this.form;
+      var children = [];
+
+      if (this.childPicker) {
+        this.childPicker.querySelectorAll('input[name="existing_child_ids"]:checked').forEach((cb) => {
+          children.push({
+            isNew: false,
+            id: cb.dataset.id || '',
+            prenom: cb.dataset.prenom || '',
+            naissance: cb.dataset.naissance || '',
+            genre: cb.dataset.genre || '',
+            classe: cb.dataset.classe || '',
+            niveau: cb.dataset.niveau || '',
+            themes: (cb.dataset.themes || '').split(', ').filter((t) => t),
+            remarque: '',
+          });
+        });
+      }
+
+      var addNewToggle = form.querySelector('input[name="add_new_child"]');
+      var prenomField = form.querySelector('[name="child_prenom"]');
+      var prenom = prenomField ? prenomField.value : '';
+      var manualIncluded = !this.childPicker || (addNewToggle && addNewToggle.checked);
+
+      if (manualIncluded && prenom) {
+        var themes = Array.prototype.slice
+          .call(form.querySelectorAll('input[name="child_themes"]:checked'))
+          .map((el) => el.value);
+        var genre = form.querySelector('input[name="child_genre"]:checked');
+        var classe = form.querySelector('input[name="child_classe"]:checked');
+        var niveau = form.querySelector('input[name="child_niveau"]:checked');
+
+        children.push({
+          isNew: true,
+          id: '',
+          prenom: prenom,
+          naissance: form.querySelector('[name="child_naissance"]').value,
+          genre: genre ? genre.value : '',
+          classe: classe ? classe.value : '',
+          niveau: niveau ? niveau.value : '',
+          themes: themes,
+          remarque: form.querySelector('[name="child_remarque"]').value,
+        });
+      }
+
+      return children;
     }
 
-    addChildToAccount() {
+    childToSyncPayload(child) {
+      return {
+        id: child.id,
+        prenom: child.prenom,
+        naissance: child.naissance,
+        genre: child.genre,
+        classe: child.classe,
+        niveau: child.niveau,
+        themes: child.themes,
+        remarque: child.remarque,
+      };
+    }
+
+    addChildToAccount(child) {
       // Meilleur effort, comme notifyJoin() : enregistre le nouveau profil sur
       // le compte client (même mécanisme que "Mes enfants"), sans bloquer la
       // suite du parcours d'inscription au club si ça échoue. N'est appelée
       // que si la personne est connectée (voir handleNext) : sans compte,
       // il n'y a pas de fiche client à laquelle attacher ce profil.
       var email = this.getAttribute('data-customer-email') || '';
-      var child = this.collectChildForSync();
 
       fetch('/apps/verty-sync', {
         method: 'POST',
@@ -247,7 +306,7 @@
           customer_mail: email,
           customer_first_name: this.getAttribute('data-customer-first-name') || '',
           customer_last_name: this.getAttribute('data-customer-last-name') || '',
-          child: Object.assign({ index: '', email: email }, child),
+          child: Object.assign({ index: '', email: email }, this.childToSyncPayload(child)),
           action: 'add-child',
         }),
       }).catch(() => {});
@@ -324,14 +383,43 @@
     }
 
     submitJoin() {
+      var children = this.getSelectedChildren();
+      if (!children.length) {
+        this.submitting = false;
+        this.render();
+        if (this.errorEl) this.errorEl.hidden = false;
+        return;
+      }
+
+      // Un enfant à la fois, dans l'ordre : join-bookclub puis ajout au panier
+      // pour chacun, avant de passer au suivant. Ça évite les écritures
+      // concurrentes sur le même panier et garde le lien 1 pour 1 entre
+      // chaque ligne de commande et le Member ID qui lui correspond.
+      var chain = Promise.resolve();
+      children.forEach((child) => {
+        chain = chain.then(() => this.joinChildAndAddToCart(child));
+      });
+
+      chain
+        .then(() => {
+          window.location.href = '/checkout';
+        })
+        .catch(() => {
+          this.submitting = false;
+          this.render();
+          if (this.errorEl) this.errorEl.hidden = false;
+        });
+    }
+
+    joinChildAndAddToCart(child) {
       var handle = this.getAttribute('data-product-handle');
       var memberId = '';
 
       // notifyJoin() doit se terminer en premier : le membre créé côté n8n a
-      // besoin d'exister avant qu'on construise le panier, pour que son ID
-      // parte avec la commande (le webhook orders/paid s'en sert ensuite pour
+      // besoin d'exister avant qu'on ajoute cette ligne au panier, pour que
+      // son ID parte avec elle (le webhook orders/paid s'en sert ensuite pour
       // savoir exactement quelle entrée bookclub_member confirmer).
-      this.notifyJoin()
+      return this.notifyJoin(child)
         .then((id) => {
           memberId = id;
           return fetch('/products/' + handle + '.js');
@@ -344,7 +432,7 @@
           var variant = product.variants && product.variants[0];
           if (!variant) throw new Error('no-variant');
 
-          var properties = this.collectProperties();
+          var properties = this.collectProperties(child);
           properties['Member ID'] = memberId;
 
           var payload = {
@@ -366,18 +454,10 @@
         .then((res) => {
           if (!res.ok) throw new Error('cart-add-failed');
           return res.json();
-        })
-        .then(() => {
-          window.location.href = '/checkout';
-        })
-        .catch(() => {
-          this.submitting = false;
-          this.render();
-          if (this.errorEl) this.errorEl.hidden = false;
         });
     }
 
-    notifyJoin() {
+    notifyJoin(child) {
       // Meilleur effort : si ça échoue, on laisse quand même la personne
       // continuer jusqu'au paiement (memberId vide, à réconcilier manuellement
       // si besoin), le paiement Shopify reste la source de vérité de la commande.
@@ -389,7 +469,7 @@
           club_token: this.getAttribute('data-club-token') || '',
           organizer: form.querySelector('[name="organizer"]').value,
           email: form.querySelector('[name="email"]').value,
-          child: this.collectChildForSync(),
+          child: this.childToSyncPayload(child),
           action: 'join-bookclub',
         }),
       })
@@ -398,85 +478,21 @@
         .catch(() => '');
     }
 
-    collectChildForSync() {
-      var form = this.form;
-      var existingChild = this.childPicker && form.querySelector('input[name="existing_child"]:checked');
-
-      if (existingChild && existingChild.value !== 'new') {
-        var existingThemes = (existingChild.dataset.themes || '')
-          .split(', ')
-          .filter((t) => t);
-        return {
-          id: existingChild.dataset.id || '',
-          prenom: existingChild.dataset.prenom || '',
-          naissance: existingChild.dataset.naissance || '',
-          genre: existingChild.dataset.genre || '',
-          classe: existingChild.dataset.classe || '',
-          niveau: existingChild.dataset.niveau || '',
-          themes: existingThemes,
-          remarque: '',
-        };
-      }
-
-      var themes = Array.prototype.slice
-        .call(form.querySelectorAll('input[name="child_themes"]:checked'))
-        .map((el) => el.value);
-      var genre = form.querySelector('input[name="child_genre"]:checked');
-      var classe = form.querySelector('input[name="child_classe"]:checked');
-      var niveau = form.querySelector('input[name="child_niveau"]:checked');
-
+    collectChildData(child) {
       return {
-        id: '',
-        prenom: form.querySelector('[name="child_prenom"]').value,
-        naissance: form.querySelector('[name="child_naissance"]').value,
-        genre: genre ? genre.value : '',
-        classe: classe ? classe.value : '',
-        niveau: niveau ? niveau.value : '',
-        themes: themes,
-        remarque: form.querySelector('[name="child_remarque"]').value,
+        'ID enfant': child.id || '',
+        Enfant: child.prenom || '',
+        'Date de naissance': child.naissance || '',
+        Genre: child.genre || '',
+        Classe: child.classe || '',
+        'Niveau de lecture': child.niveau || '',
+        'Themes preferes': (child.themes || []).join(', '),
+        Remarque: child.remarque || '',
+        'Profil existant': child.isNew ? 'Non' : 'Oui',
       };
     }
 
-    collectChildData() {
-      var form = this.form;
-      var existingChild = this.childPicker && form.querySelector('input[name="existing_child"]:checked');
-
-      if (existingChild && existingChild.value !== 'new') {
-        return {
-          'ID enfant': existingChild.dataset.id || '',
-          Enfant: existingChild.dataset.prenom || '',
-          'Date de naissance': existingChild.dataset.naissance || '',
-          Genre: existingChild.dataset.genre || '',
-          Classe: existingChild.dataset.classe || '',
-          'Niveau de lecture': existingChild.dataset.niveau || '',
-          'Themes preferes': existingChild.dataset.themes || '',
-          Remarque: '',
-          'Profil existant': 'Oui',
-        };
-      }
-
-      var themes = Array.prototype.slice
-        .call(form.querySelectorAll('input[name="child_themes"]:checked'))
-        .map((el) => el.value)
-        .join(', ');
-      var genre = form.querySelector('input[name="child_genre"]:checked');
-      var classe = form.querySelector('input[name="child_classe"]:checked');
-      var niveau = form.querySelector('input[name="child_niveau"]:checked');
-
-      return {
-        'ID enfant': '',
-        Enfant: form.querySelector('[name="child_prenom"]').value,
-        'Date de naissance': form.querySelector('[name="child_naissance"]').value,
-        Genre: genre ? genre.value : '',
-        Classe: classe ? classe.value : '',
-        'Niveau de lecture': niveau ? niveau.value : '',
-        'Themes preferes': themes,
-        Remarque: form.querySelector('[name="child_remarque"]').value,
-        'Profil existant': 'Non',
-      };
-    }
-
-    collectProperties() {
+    collectProperties(child) {
       var form = this.form;
       var base = {
         Club: form.querySelector('[name="club_name"]').value,
@@ -486,7 +502,7 @@
         Ville: form.querySelector('[name="city"]').value || '',
         'Charte acceptee': 'Oui',
       };
-      return Object.assign(base, this.collectChildData());
+      return Object.assign(base, this.collectChildData(child));
     }
   }
 
