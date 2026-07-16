@@ -310,7 +310,10 @@
           return res.json();
         })
         .then((data) => {
-          var url = (data && data.club_url) || this.getAttribute('data-dashboard-url') || '/pages/bookclub-dashboard';
+          var token = data && data.token;
+          var url = token
+            ? '/pages/bookclub-dashboard/' + encodeURIComponent(token)
+            : this.getAttribute('data-dashboard-url') || '/pages/bookclub-dashboard';
           window.location.href = url;
         })
         .catch(() => {
