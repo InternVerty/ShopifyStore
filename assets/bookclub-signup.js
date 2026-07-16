@@ -369,9 +369,9 @@
           return res.json();
         })
         .then((data) => {
-          var token = data && data.token;
-          var url = token
-            ? '/pages/bookclub-dashboard/' + encodeURIComponent(token)
+          var handle = data && (data.handle || data.token);
+          var url = handle
+            ? '/pages/bookclub-dashboard/' + encodeURIComponent(handle)
             : this.getAttribute('data-dashboard-url') || '/pages/bookclub-dashboard';
           window.location.href = url;
         })
