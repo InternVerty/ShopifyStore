@@ -369,7 +369,11 @@
           return res.json();
         })
         .then((data) => {
-          var handle = data && (data.handle || data.token);
+          // n8n renvoie la réponse GraphQL brute de metaobjectCreate, dans un
+          // tableau (une entrée par item traité par le node HTTP).
+          var payload = Array.isArray(data) ? data[0] : data;
+          var metaobject = payload && payload.data && payload.data.metaobjectCreate && payload.data.metaobjectCreate.metaobject;
+          var handle = metaobject && metaobject.handle;
           var url = handle
             ? '/pages/bookclub-dashboard/' + encodeURIComponent(handle)
             : this.getAttribute('data-dashboard-url') || '/pages/bookclub-dashboard';
