@@ -224,7 +224,7 @@
   display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
 }
 .bc-piliers__card-tag { margin-bottom: 12px; }
-.bc-piliers__card-title { font-size: 18px; font-weight: 800; margin: 0 0 14px; }
+.bc-piliers__card-title { font-family: var(--bc-font-display); font-weight: 700; font-size: 22px; line-height: 1.25; margin: 0 0 14px; }
 .bc-piliers__card-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .bc-piliers__card-list li { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; color: var(--bc-text-secondary); line-height: 1.5; }
 .bc-piliers__card-list .icon { color: var(--bc-navy); flex: 0 0 auto; margin-top: 3px; }
