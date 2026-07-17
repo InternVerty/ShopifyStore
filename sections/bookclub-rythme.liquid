@@ -51,10 +51,12 @@
         <span class="bc-rythme__seance-total">{% render 'icon', icon: 'clock', width: 16, height: 16 %}Durée totale &asymp; {{ section.settings.total_duration | escape }}</span>
       </div>
       <div class="bc-rythme__seance-list">
+        {%- assign bc_seance_index = 0 -%}
         {%- for block in section.blocks -%}
           {%- if block.type == 'seance_block' -%}
+            {%- assign bc_seance_index = bc_seance_index | plus: 1 -%}
             <div class="bc-rythme__seance-item" {{ block.shopify_attributes }}>
-              <span class="bc-rythme__seance-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <span class="bc-rythme__seance-number">{{ bc_seance_index | prepend: '0' | slice: -2, 2 }}</span>
               <div class="bc-rythme__seance-info">
                 <p class="bc-rythme__seance-name">{{ block.settings.name | escape }}</p>
                 <p class="bc-rythme__seance-text">{{ block.settings.text | escape }}</p>
