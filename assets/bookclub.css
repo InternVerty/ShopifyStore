@@ -171,7 +171,7 @@
 .bc-constat__col--off { background: var(--bc-white); border: 1px solid var(--bc-gray-200); }
 .bc-constat__col--on { background: var(--bc-navy-wash); border: 1.5px solid var(--bc-navy-border); box-shadow: 0 24px 50px -24px rgba(20, 61, 131, 0.35); }
 .bc-constat__col-tag { margin: 0 0 6px; }
-.bc-constat__col-title { font-family: var(--bc-font-display); font-weight: 400; font-size: 24px; line-height: 1.25; margin: 0 0 24px; }
+.bc-constat__col-title { font-family: var(--bc-font-display); font-weight: 700; font-size: 32px; line-height: 1.2; margin: 0 0 24px; }
 .bc-constat__stat { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
 .bc-constat__stat-icon {
   flex: 0 0 auto; width: 40px; height: 40px; border-radius: var(--bc-radius-sm); background: var(--bc-white);
@@ -187,20 +187,23 @@
 .bc-constat__bridge em { color: var(--bc-navy); font-style: italic; }
 
 /* ---- promesse ------------------------------------------------------ */
-.bc-promesse { background: var(--bc-white); padding: 84px 0; text-align: center; }
+.bc-promesse { background: var(--bc-white); padding: 64px 0 28px; text-align: center; }
 .bc-promesse__kicker { text-align: center; }
 .bc-promesse__text { max-width: 780px; margin: 0 auto; font-family: var(--bc-font-body); font-weight: 900; font-size: 30px; line-height: 1.4; }
 .bc-promesse__text em { font-style: italic; color: var(--bc-navy); }
 
 /* ---- audiences (pour l'enfant / pour le parent) --------------------- */
-.bc-audiences { background: var(--bc-navy-wash); padding: 64px 0; text-align: center; }
-.bc-audiences__toggle { display: inline-flex; margin: 0 auto 36px; padding: 4px; background: rgba(255, 255, 255, 0.6); border-radius: var(--bc-radius-pill); }
+.bc-audiences { background: var(--bc-navy-wash); padding: 28px 0 64px; text-align: center; }
+.bc-audiences__toggle { display: inline-flex; margin: 0 auto 28px; padding: 4px; background: rgba(255, 255, 255, 0.6); border-radius: var(--bc-radius-pill); }
 .bc-audiences__tab {
   border: none; background: none; padding: 12px 28px; border-radius: var(--bc-radius-pill); font-family: var(--bc-font-body);
   font-weight: 700; font-size: 14.5px; color: var(--bc-text-secondary); cursor: pointer;
 }
 .bc-audiences__tab.is-active { background: var(--bc-white); color: var(--bc-navy-strong); box-shadow: var(--bc-shadow-sm); }
-.bc-audiences__panel { display: none; max-width: 640px; margin: 0 auto; text-align: left; }
+.bc-audiences__panel {
+  display: none; max-width: 640px; margin: 0 auto; text-align: left;
+  background: var(--bc-white); border-radius: var(--bc-radius-lg); padding: 32px 34px; box-shadow: var(--bc-shadow-sm);
+}
 .bc-audiences__panel.is-active { display: block; }
 .bc-audiences__title { font-size: 24px; font-weight: 800; margin: 0 0 24px; text-align: center; }
 .bc-audiences__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
