@@ -21,7 +21,7 @@
             {%- endif -%}
             <span class="bc-kit__price-period">/ an</span>
           </div>
-          <div class="bc-kit__price-note">Kit complet inclus, 2 livres offerts par enfant</div>
+          <div class="bc-kit__price-note">Kit complet inclus, <span class="bc-kit__highlight">2 livres offerts par enfant</span></div>
         </div>
         <button type="button" class="vbtn vbtn-primary vbtn-navy vbtn-lg" data-bookclub-open>{{ section.settings.cta_label | escape }}</button>
       </div>
@@ -139,8 +139,8 @@
     {
       "name": "Book Club, kit",
       "blocks": [
-        { "type": "kit_item", "settings": { "icon": "gift", "title": "Sélection de livres", "text": "La sélection de l'année, choisie par le comité de lecture. Plus 2 livres offerts par enfant, à choisir en fin d'année." } },
-        { "type": "kit_item", "settings": { "icon": "feather", "title": "Carnet du lecteur", "text": "Un carnet par enfant : compléter son profil, dessiner le héros, marquer son passage préféré." } },
+        { "type": "kit_item", "settings": { "icon": "gift", "title": "Sélection de livres", "text": "La sélection de l'année, choisie par le comité de lecture. Plus <span class=\"bc-kit__highlight\">chaque enfant repart avec ses 2 livres coups de coeur en fin d'année</span>." } },
+        { "type": "kit_item", "settings": { "icon": "feather", "title": "Carnet du lecteur", "text": "Un support ludique pour compléter son profil, dessiner le héros, noter son passage préféré... et parler plus facilement de ses lectures." } },
         { "type": "kit_item", "settings": { "icon": "heart", "title": "Marque-page", "text": "Un marque-page à personnaliser, propre à chaque enfant." } },
         { "type": "kit_item", "settings": { "icon": "box", "title": "Tote bag", "text": "Un tote bag par enfant pour transporter livre et carnet d'une séance à l'autre." } },
         { "type": "kit_item", "settings": { "icon": "calendar", "title": "Guide de séances", "text": "Le guide du parent : organisation, animation, questions de discussion prêtes à l'emploi." } },

@@ -150,6 +150,7 @@
 .bc-kit__card-number { font-weight: 900; font-size: 22px; color: var(--bc-navy-border); }
 .bc-kit__card-title { font-size: 16px; font-weight: 800; margin: 0 0 6px; line-height: 1.2; }
 .bc-kit__card-text { font-size: 13.5px; line-height: 1.5; color: var(--bc-text-secondary); margin: 0; }
+.bc-kit__highlight { color: var(--bc-navy); font-weight: 700; }
 .bc-kit__bonus {
   display: flex; align-items: center; gap: 12px; margin-top: 22px; padding: 16px 22px;
   background: var(--bc-white); border-radius: var(--bc-radius-md); border: 1px dashed var(--bc-navy-border); font-size: 15px;
@@ -251,7 +252,7 @@
 .bc-rythme__node-label { font-size: 12.5px; font-weight: 600; line-height: 1.3; max-width: 110px; }
 .bc-rythme__node.is-milestone .bc-rythme__node-label { color: var(--bc-navy-strong); }
 .bc-rythme__text { max-width: 760px; margin: 48px auto 0; text-align: center; font-size: 16px; line-height: 1.6; color: var(--bc-text-secondary); }
-.bc-rythme__seance { margin-top: 48px; background: var(--bc-white); border: 1.5px solid var(--bc-gray-200); border-radius: var(--bc-radius-xl); padding: 40px 44px; }
+.bc-rythme__seance { margin-top: 48px; background: var(--bc-gray-50); border-radius: var(--bc-radius-xl); padding: 40px 44px; }
 .bc-rythme__seance-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 26px; }
 .bc-rythme__seance-title { font-family: var(--bc-font-display); font-weight: 700; font-size: 30px; margin: 0; }
 .bc-rythme__seance-note { font-size: 15.5px; color: var(--bc-text-secondary); margin: 8px 0 0; max-width: 460px; }
@@ -261,7 +262,7 @@
 }
 .bc-rythme__seance-list { display: flex; flex-direction: column; gap: 12px; }
 .bc-rythme__seance-item {
-  display: flex; align-items: center; gap: 18px; background: var(--bc-gray-50); border-radius: var(--bc-radius-md);
+  display: flex; align-items: center; gap: 18px; background: var(--bc-white); border-radius: var(--bc-radius-md);
   padding: 16px 20px; border: 1px solid var(--bc-gray-200);
 }
 .bc-rythme__seance-number { font-weight: 900; font-size: 18px; color: var(--bc-navy-border); width: 30px; flex: 0 0 auto; }

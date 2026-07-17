@@ -68,7 +68,7 @@
       "name": "Book Club, promesse",
       "settings": {
         "kicker": "La promesse",
-        "text": "<p>Le rêve des parents, c'est de recevoir \"quelque chose qui donne le déclic à l'enfant\". Le Book Club fait de la lecture une <em>activité de pairs, désirée.</em></p>"
+        "text": "<p>Le rêve des parents, c'est de recevoir \"quelque chose qui donne le déclic à l'enfant\". Le Book Club fait de la lecture une <em>activité entre amis, désirée.</em></p>"
       }
     },
     "bookclub_audiences": {
@@ -81,7 +81,7 @@
         "parent_title": "Simplifier, sans déléguer"
       },
       "blocks": {
-        "bullet_1": { "type": "bullet", "settings": { "audience": "enfant", "text": "Lire devient une activité de pairs, plus une corvée solitaire." } },
+        "bullet_1": { "type": "bullet", "settings": { "audience": "enfant", "text": "Lire devient une activité entre amis, plus une corvée solitaire." } },
         "bullet_2": { "type": "bullet", "settings": { "audience": "enfant", "text": "Choisir ses livres dans une sélection, sans imposition." } },
         "bullet_3": { "type": "bullet", "settings": { "audience": "enfant", "text": "Avoir des amis qui lisent autour de soi." } },
         "bullet_4": { "type": "bullet", "settings": { "audience": "enfant", "text": "Échanger sur ses lectures, ce qu'on a aimé et moins aimé." } },
@@ -103,7 +103,7 @@
       },
       "blocks": {
         "pilier_1": { "type": "pilier", "settings": { "icon": "star", "tag": "Qualité", "heading": "Le comité de lecture Verty au cœur", "points": "Des livres lus, notés et recommandés par le comité.\nAucun risque éditorial pour le parent.\nLe sceau Verty s'applique aux livres du club, comme sur le site." } },
-        "pilier_2": { "type": "pilier", "settings": { "icon": "chat_bubble", "tag": "Communauté", "heading": "Les pairs comme moteur", "points": "6 à 8 enfants d'âge et de niveau proches par groupe.\nLa recommandation entre amis, déclencheur n° 1 de lecture.\nDes échanges réguliers, au rythme mensuel." } },
+        "pilier_2": { "type": "pilier", "settings": { "icon": "chat_bubble", "tag": "Communauté", "heading": "Les copains comme moteur", "points": "6 à 8 enfants d'âge et de niveau proches par groupe.\nLa recommandation entre amis, déclencheur n° 1 de lecture.\nDes échanges réguliers, au rythme mensuel." } },
         "pilier_3": { "type": "pilier", "settings": { "icon": "check_mark", "tag": "Clé en main", "heading": "Un parent guidé pas à pas", "points": "Fiches livres prêtes à l'emploi pour animer.\nGuide de séances et questions de discussion fournies.\nAucune expérience préalable requise." } }
       },
       "block_order": ["pilier_1", "pilier_2", "pilier_3"]
@@ -121,8 +121,8 @@
         "bonus_text": "<p><strong>Bonus organisateur,</strong> créer un club ouvre droit à <strong>5 % de remise</strong> sur votre prochaine commande Verty.</p>"
       },
       "blocks": {
-        "kit_1": { "type": "kit_item", "settings": { "icon": "gift", "title": "Sélection de livres", "text": "La sélection de l'année, choisie par le comité de lecture. Plus 2 livres offerts par enfant, à choisir en fin d'année." } },
-        "kit_2": { "type": "kit_item", "settings": { "icon": "feather", "title": "Carnet du lecteur", "text": "Un carnet par enfant : compléter son profil, dessiner le héros, marquer son passage préféré." } },
+        "kit_1": { "type": "kit_item", "settings": { "icon": "gift", "title": "Sélection de livres", "text": "La sélection de l'année, choisie par le comité de lecture. Plus <span class=\"bc-kit__highlight\">chaque enfant repart avec ses 2 livres coups de coeur en fin d'année</span>." } },
+        "kit_2": { "type": "kit_item", "settings": { "icon": "feather", "title": "Carnet du lecteur", "text": "Un support ludique pour compléter son profil, dessiner le héros, noter son passage préféré... et parler plus facilement de ses lectures." } },
         "kit_3": { "type": "kit_item", "settings": { "icon": "heart", "title": "Marque-page", "text": "Un marque-page à personnaliser, propre à chaque enfant." } },
         "kit_4": { "type": "kit_item", "settings": { "icon": "box", "title": "Tote bag", "text": "Un tote bag par enfant pour transporter livre et carnet d'une séance à l'autre." } },
         "kit_5": { "type": "kit_item", "settings": { "icon": "calendar", "title": "Guide de séances", "text": "Le guide du parent : organisation, animation, questions de discussion prêtes à l'emploi." } },
@@ -142,8 +142,8 @@
       "blocks": {
         "step_1": { "type": "step", "settings": { "icon": "chat_bubble", "title": "Créez votre club", "text": "Donnez-lui un nom et invitez 6 à 8 familles avec un simple lien." } },
         "step_2": { "type": "step", "settings": { "icon": "feather", "title": "Chaque enfant, son profil", "text": "Un court questionnaire affine la sélection du comité de lecture." } },
-        "step_3": { "type": "step", "settings": { "icon": "truck", "title": "Les livres circulent", "text": "La rotation démarre : chacun passe ses lectures au suivant." } },
-        "step_4": { "type": "step", "settings": { "icon": "calendar", "title": "On se retrouve chaque mois", "text": "Sept séances de septembre à mai, diplôme Verty à la clé." } }
+        "step_3": { "type": "step", "settings": { "icon": "truck", "title": "Lancez l'aventure", "text": "Les enfants se rencontrent, découvrent les livres et la rotation démarre." } },
+        "step_4": { "type": "step", "settings": { "icon": "calendar", "title": "On se retrouve chaque mois", "text": "Le carnet du lecteur les guide de manière ludique pour préparer leurs idées et parler du livre lu." } }
       },
       "block_order": ["step_1", "step_2", "step_3", "step_4"]
     },
@@ -183,11 +183,11 @@
       "settings": {
         "kicker": "Le guide de séance",
         "heading": "Les questions qui font parler les enfants",
-        "intro": "Le guide Verty propose deux niveaux : un temps intime, en duo, puis un temps collectif, en groupe."
+        "intro": "Le guide Verty accompagne le parent pas à pas pour organiser et animer chaque séance, avec un déroulé clair, des idées de jeux et des questions adaptées à l'âge des enfants.\nLes plus grands peuvent même s'appuyer sur le guide pour animer eux-mêmes leur séance."
       },
       "blocks": {
-        "card_1": { "type": "card", "settings": { "icon": "feather", "title": "D'abord, entrer dans le livre", "text": "Une question douce ouvre la parole : l'enfant dit ce qu'il a ressenti, sans crainte de mal répondre." } },
-        "card_2": { "type": "card", "settings": { "icon": "chat_bubble", "title": "Ensuite, penser ensemble", "text": "Le groupe rebondit, confronte ses avis et s'écoute : la lecture devient une aventure partagée." } }
+        "card_1": { "type": "card", "settings": { "icon": "feather", "title": "D'abord, entrer dans le livre", "text": "Une question simple aide chaque enfant à partager ce qu'il a compris, aimé ou ressenti, sans crainte de mal répondre." } },
+        "card_2": { "type": "card", "settings": { "icon": "chat_bubble", "title": "Ensuite, échanger ensemble", "text": "Le groupe rebondit, confronte ses avis et s'écoute grâce à des questions qui relancent la discussion et font parler les enfants autour du livre." } }
       },
       "block_order": ["card_1", "card_2"]
     },
@@ -219,7 +219,7 @@
         "faq_2": { "type": "question", "settings": { "icon": "none", "heading": "Qui peut créer un club ?", "text": "<p>N'importe quel parent de la communauté Verty. Le parent organisateur crée le groupe sur cette page, partage le lien d'invitation à son entourage et constitue un groupe de 6 à 8 enfants d'âge et de niveau de lecture proches.</p>" } },
         "faq_3": { "type": "question", "settings": { "icon": "none", "heading": "Faut-il être un bon animateur ?", "text": "<p>Aucune expérience requise. Le guide de séances, les fiches livres et les questions de discussion sont fournis et prêts à l'emploi. Le parent organisateur est accompagné pas à pas, et dispose d'un service client Verty dédié.</p>" } },
         "faq_4": { "type": "question", "settings": { "icon": "none", "heading": "Comment sont choisis les livres ?", "text": "<p>Chaque enfant remplit un court questionnaire qui établit son profil lecteur, âge, niveau, centres d'intérêt. Verty affine alors la sélection initiale du club. Tous les titres sont lus, notés et recommandés par le comité de lecture.</p>" } },
-        "faq_5": { "type": "question", "settings": { "icon": "none", "heading": "Comment fonctionne la rotation des livres ?", "text": "<p>Les livres circulent entre les membres au fil de l'année grâce à la fiche de rotation. À chaque séance mensuelle, chaque enfant choisit son prochain titre dans la sélection disponible, sans jamais sortir du cadre validé par le comité.</p>" } },
+        "faq_5": { "type": "question", "settings": { "icon": "none", "heading": "Comment fonctionne la rotation des livres ?", "text": "<p>Lancez l'aventure entre les membres au fil de l'année grâce à la fiche de rotation. À chaque séance mensuelle, chaque enfant choisit son prochain titre dans la sélection disponible, sans jamais sortir du cadre validé par le comité.</p>" } },
         "faq_6": { "type": "question", "settings": { "icon": "none", "heading": "À partir de quel âge ?", "text": "<p>Le club réunit des enfants d'âge et de niveau de lecture proches, autour d'un format unique : un temps de jeu, le carnet du lecteur, un goûter convivial puis la discussion guidée. C'est ce rythme partagé qui crée le lien entre les membres.</p>" } },
         "faq_7": { "type": "question", "settings": { "icon": "none", "heading": "Le club se renouvelle-t-il ?", "text": "<p>Oui. Si le club fonctionne, le groupe se reconstitue l'année suivante. Le parent organisateur bénéficie par ailleurs de 5 % de remise sur sa prochaine commande Verty pour chaque club créé.</p>" } }
       },

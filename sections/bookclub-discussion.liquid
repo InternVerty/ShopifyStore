@@ -3,7 +3,14 @@
     <div class="bc-discussion__header">
       {%- if section.settings.kicker != blank -%}<p class="bc-kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
       {%- if section.settings.heading != blank -%}<h2 class="bc-section-title">{{ section.settings.heading }}</h2>{%- endif -%}
-      {%- if section.settings.intro != blank -%}<p class="bc-discussion__intro">{{ section.settings.intro | escape }}</p>{%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        {%- assign bc_intro_lines = section.settings.intro | split: "
+" -%}
+        {%- for bc_intro_line in bc_intro_lines -%}
+          {%- assign bc_intro_line_trim = bc_intro_line | strip -%}
+          {%- if bc_intro_line_trim != blank -%}<p class="bc-discussion__intro">{{ bc_intro_line_trim | escape }}</p>{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
 
     <div class="bc-discussion__grid">
@@ -44,10 +51,10 @@
       "default": "Les questions qui font parler les enfants"
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "intro",
-      "label": "Texte d'intro",
-      "default": "Le guide Verty propose deux niveaux : un temps intime, en duo, puis un temps collectif, en groupe."
+      "label": "Texte d'intro (retour à la ligne = nouveau paragraphe)",
+      "default": "Le guide Verty accompagne le parent pas à pas pour organiser et animer chaque séance, avec un déroulé clair, des idées de jeux et des questions adaptées à l'âge des enfants.\nLes plus grands peuvent même s'appuyer sur le guide pour animer eux-mêmes leur séance."
     }
   ],
   "blocks": [
@@ -83,8 +90,8 @@
     {
       "name": "Book Club, guide séance",
       "blocks": [
-        { "type": "card", "settings": { "icon": "feather", "title": "D'abord, entrer dans le livre", "text": "Une question douce ouvre la parole : l'enfant dit ce qu'il a ressenti, sans crainte de mal répondre." } },
-        { "type": "card", "settings": { "icon": "chat_bubble", "title": "Ensuite, penser ensemble", "text": "Le groupe rebondit, confronte ses avis et s'écoute : la lecture devient une aventure partagée." } }
+        { "type": "card", "settings": { "icon": "feather", "title": "D'abord, entrer dans le livre", "text": "Une question simple aide chaque enfant à partager ce qu'il a compris, aimé ou ressenti, sans crainte de mal répondre." } },
+        { "type": "card", "settings": { "icon": "chat_bubble", "title": "Ensuite, échanger ensemble", "text": "Le groupe rebondit, confronte ses avis et s'écoute grâce à des questions qui relancent la discussion et font parler les enfants autour du livre." } }
       ]
     }
   ]
