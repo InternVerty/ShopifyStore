@@ -159,16 +159,16 @@
 /* ---- wave transition ------------------------------------------- */
 .bc-wave { position: relative; height: 140px; background: var(--bc-navy-wash); overflow: hidden; }
 .bc-wave__curve { position: absolute; inset: 0; width: 100%; height: 100%; }
-.bc-wave__curve path { fill: var(--bc-gray-50); }
+.bc-wave__curve path { fill: var(--bc-white); }
 .bc-wave__books { position: absolute; inset: 0; }
 .bc-wave__book { position: absolute; bottom: 10px; object-fit: cover; border-radius: 5px; box-shadow: var(--bc-shadow-md); }
 
 /* ---- constat ----------------------------------------------------- */
-.bc-constat { background: var(--bc-gray-50); padding: 72px 0; }
+.bc-constat { background: var(--bc-white); padding: 72px 0; }
 .bc-constat__header { text-align: center; max-width: 720px; margin: 0 auto 44px; }
 .bc-constat__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
 .bc-constat__col { border-radius: var(--bc-radius-lg); padding: 32px 30px; }
-.bc-constat__col--off { background: var(--bc-white); border: 1px solid var(--bc-gray-200); }
+.bc-constat__col--off { background: var(--bc-gray-50); border: 1px solid var(--bc-gray-200); }
 .bc-constat__col--on { background: var(--bc-navy-wash); border: 1.5px solid var(--bc-navy-border); box-shadow: 0 24px 50px -24px rgba(20, 61, 131, 0.35); }
 .bc-constat__col-tag { margin: 0 0 6px; }
 .bc-constat__col-title { font-family: var(--bc-font-display); font-weight: 700; font-size: 32px; line-height: 1.2; margin: 0 0 24px; }
