@@ -34,6 +34,78 @@
       },
       "block_order": ["essential_1", "essential_2", "essential_3"]
     },
+    "bookclub_wave": {
+      "type": "bookclub-wave",
+      "name": "Book Club, transition",
+      "settings": {}
+    },
+    "bookclub_constat": {
+      "type": "bookclub-constat",
+      "name": "Book Club, constat",
+      "settings": {
+        "kicker": "Le constat",
+        "heading": "Le problème n'a jamais été le livre. C'est le déclic.",
+        "off_title": "Le déclic vient rarement seul",
+        "off_foot": "L'envie est là, le déclencheur manque.",
+        "on_title": "Les copains font le déclic",
+        "on_foot": "Le déclic vient des pairs, et il dure.",
+        "bridge_text": "<p>Ce qui s'est éteint, ce n'est pas le goût, c'est le <em>cercle</em> qui le déclenche : des amis qui lisent, se passent les livres, en parlent.</p>"
+      },
+      "blocks": {
+        "stat_1": { "type": "stat", "settings": { "column": "off", "icon": "question_mark", "figure": "1 / 5", "label": "n'a aucun lecteur à la maison", "subline": "près d'un jeune sur cinq n'a aucun parent qui lit." } },
+        "stat_2": { "type": "stat", "settings": { "column": "off", "icon": "feather", "figure": "18 min", "label": "de lecture plaisir par jour", "subline": "quand les écrans en prennent dix fois plus." } },
+        "stat_3": { "type": "stat", "settings": { "column": "off", "icon": "clock", "figure": "3 h 11", "label": "d'écrans quotidiens", "subline": "plus simple, plus social, toujours à portée." } },
+        "stat_4": { "type": "stat", "settings": { "column": "on", "icon": "award", "figure": "n° 1", "label": "déclencheur de lecture", "subline": "la reco d'un ami, devant l'école et les parents." } },
+        "stat_5": { "type": "stat", "settings": { "column": "on", "icon": "chat_bubble", "figure": "6 à 8", "label": "amis lisent les mêmes livres", "subline": "ils se les passent, en parlent, se lancent des défis." } },
+        "stat_6": { "type": "stat", "settings": { "column": "on", "icon": "heart", "figure": "8 / 10", "label": "aiment déjà lire", "subline": "l'envie était là, il manquait un copain pour l'allumer." } }
+      },
+      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4", "stat_5", "stat_6"]
+    },
+    "bookclub_promesse": {
+      "type": "bookclub-promesse",
+      "name": "Book Club, promesse",
+      "settings": {
+        "kicker": "La promesse",
+        "text": "<p>Le rêve des parents, c'est de recevoir \"quelque chose qui donne le déclic à l'enfant\". Le Book Club fait de la lecture une <em>activité de pairs, désirée.</em></p>"
+      }
+    },
+    "bookclub_audiences": {
+      "type": "bookclub-audiences",
+      "name": "Book Club, audiences",
+      "settings": {
+        "enfant_kicker": "Pour l'enfant",
+        "enfant_title": "Lire devient une affaire de copains",
+        "parent_kicker": "Pour le parent",
+        "parent_title": "Simplifier, sans déléguer"
+      },
+      "blocks": {
+        "bullet_1": { "type": "bullet", "settings": { "audience": "enfant", "text": "Lire devient une activité de pairs, plus une corvée solitaire." } },
+        "bullet_2": { "type": "bullet", "settings": { "audience": "enfant", "text": "Choisir ses livres dans une sélection, sans imposition." } },
+        "bullet_3": { "type": "bullet", "settings": { "audience": "enfant", "text": "Avoir des amis qui lisent autour de soi." } },
+        "bullet_4": { "type": "bullet", "settings": { "audience": "enfant", "text": "Échanger sur ses lectures, ce qu'on a aimé et moins aimé." } },
+        "bullet_5": { "type": "bullet", "settings": { "audience": "enfant", "text": "Recevoir, et donner, des recommandations." } },
+        "bullet_6": { "type": "bullet", "settings": { "audience": "parent", "text": "Une expérience clé en main, la charge mentale déléguée." } },
+        "bullet_7": { "type": "bullet", "settings": { "audience": "parent", "text": "Guidé pas à pas dans l'organisation des séances." } },
+        "bullet_8": { "type": "bullet", "settings": { "audience": "parent", "text": "Rassuré : l'enfant lit grâce à l'effet communauté." } },
+        "bullet_9": { "type": "bullet", "settings": { "audience": "parent", "text": "Ce que lit l'enfant a été sélectionné par le comité." } },
+        "bullet_10": { "type": "bullet", "settings": { "audience": "parent", "text": "Éducatif, ludique et social, à la fois." } }
+      },
+      "block_order": ["bullet_1", "bullet_2", "bullet_3", "bullet_4", "bullet_5", "bullet_6", "bullet_7", "bullet_8", "bullet_9", "bullet_10"]
+    },
+    "bookclub_piliers": {
+      "type": "bookclub-piliers",
+      "name": "Book Club, piliers",
+      "settings": {
+        "kicker": "Ce qui rend le club unique",
+        "heading": "Trois piliers, une même promesse"
+      },
+      "blocks": {
+        "pilier_1": { "type": "pilier", "settings": { "icon": "star", "tag": "Qualité", "heading": "Le comité de lecture Verty au cœur", "points": "Des livres lus, notés et recommandés par le comité.\nAucun risque éditorial pour le parent.\nLe sceau Verty s'applique aux livres du club, comme sur le site." } },
+        "pilier_2": { "type": "pilier", "settings": { "icon": "chat_bubble", "tag": "Communauté", "heading": "Les pairs comme moteur", "points": "6 à 8 enfants d'âge et de niveau proches par groupe.\nLa recommandation entre amis, déclencheur n° 1 de lecture.\nDes échanges réguliers, au rythme mensuel." } },
+        "pilier_3": { "type": "pilier", "settings": { "icon": "check_mark", "tag": "Clé en main", "heading": "Un parent guidé pas à pas", "points": "Fiches livres prêtes à l'emploi pour animer.\nGuide de séances et questions de discussion fournies.\nAucune expérience préalable requise." } }
+      },
+      "block_order": ["pilier_1", "pilier_2", "pilier_3"]
+    },
     "bookclub_kit": {
       "type": "bookclub-kit",
       "name": "Book Club, kit",
@@ -73,6 +145,64 @@
       },
       "block_order": ["step_1", "step_2", "step_3", "step_4"]
     },
+    "bookclub_rythme": {
+      "type": "bookclub-rythme",
+      "name": "Book Club, rythme",
+      "settings": {
+        "kicker": "Le rythme du club",
+        "heading": "Sept séances mensuelles, de septembre à mai",
+        "start_kicker": "Rentrée",
+        "start_text": "Constitution du Book Club",
+        "annotation_text": "Commencer à tout moment, c'est possible aussi",
+        "rythme_text": "<p>Le club s'ouvre en novembre et se retrouve chaque mois, la <strong>dernière séance, en mai</strong>, couronne l'année, l'<strong>élection du livre de l'année</strong> et la remise du <strong>diplôme du Book Club</strong>.</p>",
+        "seance_heading": "Une séance type",
+        "seance_note": "Format ludique",
+        "total_duration": "1 h 45"
+      },
+      "blocks": {
+        "seance_1": { "type": "seance", "settings": { "month": "Nov", "label": "Lancement", "milestone": true, "milestone_icon": "check_mark" } },
+        "seance_2": { "type": "seance", "settings": { "month": "Déc", "label": "Séance 2", "milestone": false } },
+        "seance_3": { "type": "seance", "settings": { "month": "Jan", "label": "Séance 3", "milestone": false } },
+        "seance_4": { "type": "seance", "settings": { "month": "Fév", "label": "Séance 4", "milestone": false } },
+        "seance_5": { "type": "seance", "settings": { "month": "Mar", "label": "Séance 5", "milestone": false } },
+        "seance_6": { "type": "seance", "settings": { "month": "Avr", "label": "Séance 6", "milestone": false } },
+        "seance_7": { "type": "seance", "settings": { "month": "Mai", "label": "Élection du meilleur livre\net Diplôme", "milestone": true, "milestone_icon": "star" } },
+        "seance_block_1": { "type": "seance_block", "settings": { "name": "Temps de jeu libre", "text": "Les enfants arrivent, se retrouvent, jouent.", "duration": "20 min" } },
+        "seance_block_2": { "type": "seance_block", "settings": { "name": "Carnet du lecteur", "text": "Chacun complète son carnet : dessine, écrit, marque ses passages.", "duration": "20 min" } },
+        "seance_block_3": { "type": "seance_block", "settings": { "name": "Goûter et convivialité", "text": "Pause partagée, créer le moment.", "duration": "20 min" } },
+        "seance_block_4": { "type": "seance_block", "settings": { "name": "Discussion autour des livres", "text": "Guidée par les questions du guide Verty, d'abord en duo puis en groupe.", "duration": "35 min" } },
+        "seance_block_5": { "type": "seance_block", "settings": { "name": "Choix du livre du mois", "text": "Rotation : chacun choisit son prochain livre dans la sélection.", "duration": "10 min" } }
+      },
+      "block_order": ["seance_1", "seance_2", "seance_3", "seance_4", "seance_5", "seance_6", "seance_7", "seance_block_1", "seance_block_2", "seance_block_3", "seance_block_4", "seance_block_5"]
+    },
+    "bookclub_discussion": {
+      "type": "bookclub-discussion",
+      "name": "Book Club, guide séance",
+      "settings": {
+        "kicker": "Le guide de séance",
+        "heading": "Les questions qui font parler les enfants",
+        "intro": "Le guide Verty propose deux niveaux : un temps intime, en duo, puis un temps collectif, en groupe."
+      },
+      "blocks": {
+        "card_1": { "type": "card", "settings": { "icon": "feather", "title": "D'abord, entrer dans le livre", "text": "Une question douce ouvre la parole : l'enfant dit ce qu'il a ressenti, sans crainte de mal répondre." } },
+        "card_2": { "type": "card", "settings": { "icon": "chat_bubble", "title": "Ensuite, penser ensemble", "text": "Le groupe rebondit, confronte ses avis et s'écoute : la lecture devient une aventure partagée." } }
+      },
+      "block_order": ["card_1", "card_2"]
+    },
+    "bookclub_temoignages": {
+      "type": "bookclub-temoignages",
+      "name": "Book Club, témoignages",
+      "settings": {
+        "heading": "Ce qu'en disent les premières familles",
+        "subheading": "Et on les remercie."
+      },
+      "blocks": {
+        "temoignage_1": { "type": "temoignage", "settings": { "photo_asset": "bookclub-testimonial-b.jpg", "quote": "Mon fils refusait que je lui choisisse ses livres. Dans le club, il pioche lui-même dans la sélection, et il lit. Le déclic est venu de ses copains, pas de moi.", "author": "Claire, 38 ans", "role": "maman, club de Lyon" } },
+        "temoignage_2": { "type": "temoignage", "settings": { "photo_asset": "bookclub-testimonial-a.jpg", "quote": "Je redoutais d'animer les séances. Le guide et les fiches font tout le travail : j'arrive à chaque séance sans rien préparer, et les enfants parlent pendant trois quarts d'heure.", "author": "Marc, 41 ans", "role": "parent organisateur, club de Nantes" } },
+        "temoignage_3": { "type": "temoignage", "settings": { "photo_asset": "bookclub-hero.png", "quote": "Le carnet et le diplôme de fin d'année ont transformé la lecture en aventure collective. Ma fille range le sien comme un trésor.", "author": "Inès, 36 ans", "role": "maman, club de Bordeaux" } }
+      },
+      "block_order": ["temoignage_1", "temoignage_2", "temoignage_3"]
+    },
     "bookclub_faq": {
       "type": "faq",
       "name": "Book Club, FAQ",
@@ -106,5 +236,20 @@
       }
     }
   },
-  "order": ["main", "bookclub_hero", "bookclub_kit", "bookclub_comment", "bookclub_faq", "bookclub_cta_final"]
+  "order": [
+    "main",
+    "bookclub_hero",
+    "bookclub_wave",
+    "bookclub_constat",
+    "bookclub_promesse",
+    "bookclub_audiences",
+    "bookclub_piliers",
+    "bookclub_kit",
+    "bookclub_comment",
+    "bookclub_rythme",
+    "bookclub_discussion",
+    "bookclub_temoignages",
+    "bookclub_faq",
+    "bookclub_cta_final"
+  ]
 }
