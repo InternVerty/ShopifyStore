@@ -236,9 +236,9 @@
 .bc-rythme__start { background: var(--bc-white); border: 1.5px dashed var(--bc-navy-border); border-radius: var(--bc-radius-md); padding: 20px; }
 .bc-rythme__start-text { font-weight: 700; font-size: 15px; margin: 6px 0 0; }
 .bc-rythme__timeline-wrap { position: relative; padding-top: 76px; }
-.bc-rythme__annotation { position: absolute; top: 0; left: 50%; transform: translateX(-52%) rotate(-3deg); width: 280px; text-align: center; color: var(--bc-rose); }
-.bc-rythme__annotation-arrow { display: block; margin: 0 auto; }
-.bc-rythme__annotation-text { font-family: var(--bc-font-display); font-style: italic; font-size: 16px; line-height: 1.3; margin: 4px 0 0; }
+.bc-rythme__annotation { position: absolute; top: 0; left: 50%; transform: translateX(-52%) rotate(-3deg); width: 280px; text-align: center; color: var(--bc-rose); z-index: 4; }
+.bc-rythme__annotation-text { font-family: var(--bc-font-display); font-style: italic; font-size: 16px; line-height: 1.3; margin: 0; }
+.bc-rythme__annotation-arrow { position: absolute; top: 46px; left: 50%; margin-left: -29px; color: var(--bc-rose); z-index: 4; overflow: visible; }
 .bc-rythme__timeline { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; padding: 0 8px; position: relative; }
 .bc-rythme__timeline::before { content: ''; position: absolute; top: 9px; left: 8px; right: 8px; height: 2px; background: var(--bc-gray-200); }
 .bc-rythme__node { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; text-align: center; }
@@ -632,6 +632,7 @@ fieldset.bc-field legend { padding: 0; }
   .bc-constat__grid, .bc-piliers__grid, .bc-discussion__grid { grid-template-columns: 1fr; }
   .bc-rythme__timeline-row { grid-template-columns: 1fr; }
   .bc-rythme__annotation { position: static; transform: none; width: auto; margin: 0 auto 16px; }
+  .bc-rythme__annotation-arrow { display: none; }
   .bc-rythme__timeline-wrap { padding-top: 0; }
   .bc-rythme__timeline { flex-wrap: wrap; }
   .bc-rythme__timeline::before { display: none; }

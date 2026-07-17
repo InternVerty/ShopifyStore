@@ -14,12 +14,12 @@
       <div class="bc-rythme__timeline-wrap">
         {%- if section.settings.annotation_text != blank -%}
           <div class="bc-rythme__annotation">
-            <svg width="46" height="40" viewBox="0 0 58 50" class="bc-rythme__annotation-arrow" aria-hidden="true">
-              <path d="M29 2 C 20 18, 20 30, 27 44" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
-              <path d="M18 38 L27 44 L22 33" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
             <p class="bc-rythme__annotation-text">{{ section.settings.annotation_text }}</p>
           </div>
+          <svg width="58" height="50" viewBox="0 0 58 50" class="bc-rythme__annotation-arrow" aria-hidden="true">
+            <path d="M50 3 C 36 5, 16 12, 9 42" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+            <path d="M9 42 L 19 34 M9 42 L 4 31" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+          </svg>
         {%- endif -%}
 
         <div class="bc-rythme__timeline">
