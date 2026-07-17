@@ -44,8 +44,11 @@
 
     <div class="bc-rythme__seance">
       <div class="bc-rythme__seance-head">
-        <h3 class="bc-rythme__seance-title">{{ section.settings.seance_heading | escape }}</h3>
-        <span class="bc-badge">{{ section.settings.seance_note | escape }}</span>
+        <div>
+          <h3 class="bc-rythme__seance-title">{{ section.settings.seance_heading | escape }}</h3>
+          <p class="bc-rythme__seance-note">{{ section.settings.seance_note | escape }}</p>
+        </div>
+        <span class="bc-rythme__seance-total">{% render 'icon', icon: 'clock', width: 16, height: 16 %}Durée totale &asymp; {{ section.settings.total_duration | escape }}</span>
       </div>
       <div class="bc-rythme__seance-list">
         {%- for block in section.blocks -%}
@@ -56,12 +59,11 @@
                 <p class="bc-rythme__seance-name">{{ block.settings.name | escape }}</p>
                 <p class="bc-rythme__seance-text">{{ block.settings.text | escape }}</p>
               </div>
-              <span class="bc-rythme__seance-duration">{{ block.settings.duration | escape }}</span>
+              <span class="bc-rythme__seance-duration">{% render 'icon', icon: 'clock', width: 14, height: 14 %}{{ block.settings.duration | escape }}</span>
             </div>
           {%- endif -%}
         {%- endfor -%}
       </div>
-      <p class="bc-rythme__seance-total">Durée totale : <strong>{{ section.settings.total_duration | escape }}</strong></p>
     </div>
   </div>
 </section>
@@ -118,7 +120,7 @@
       "type": "text",
       "id": "seance_note",
       "label": "Note, séance type",
-      "default": "Format ludique"
+      "default": "Format ludique : on joue, on remplit le carnet, on goûte, puis on échange."
     },
     {
       "type": "text",
