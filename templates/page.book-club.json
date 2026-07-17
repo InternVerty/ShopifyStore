@@ -45,8 +45,10 @@
       "settings": {
         "kicker": "Le constat",
         "heading": "Le problème n'a jamais été le livre. C'est le déclic.",
+        "off_tag": "Seul, à la maison",
         "off_title": "Le déclic vient rarement seul",
         "off_foot": "L'envie est là, le déclencheur manque.",
+        "on_tag": "Dans le Book Club",
         "on_title": "Les copains font le déclic",
         "on_foot": "Le déclic vient des pairs, et il dure.",
         "bridge_text": "<p>Ce qui s'est éteint, ce n'est pas le goût, c'est le <em>cercle</em> qui le déclenche : des amis qui lisent, se passent les livres, en parlent.</p>"

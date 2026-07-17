@@ -170,7 +170,8 @@
 .bc-constat__col { border-radius: var(--bc-radius-lg); padding: 32px 30px; }
 .bc-constat__col--off { background: var(--bc-white); border: 1px solid var(--bc-gray-200); }
 .bc-constat__col--on { background: var(--bc-navy-wash); border: 1.5px solid var(--bc-navy-border); box-shadow: 0 24px 50px -24px rgba(20, 61, 131, 0.35); }
-.bc-constat__col-title { font-size: 20px; font-weight: 800; margin: 0 0 24px; }
+.bc-constat__col-tag { margin: 0 0 6px; }
+.bc-constat__col-title { font-family: var(--bc-font-display); font-weight: 400; font-size: 24px; line-height: 1.25; margin: 0 0 24px; }
 .bc-constat__stat { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
 .bc-constat__stat-icon {
   flex: 0 0 auto; width: 40px; height: 40px; border-radius: var(--bc-radius-sm); background: var(--bc-white);

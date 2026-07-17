@@ -7,6 +7,7 @@
 
     <div class="bc-constat__grid">
       <div class="bc-constat__col bc-constat__col--off">
+        {%- if section.settings.off_tag != blank -%}<p class="bc-kicker bc-constat__col-tag">{{ section.settings.off_tag | escape }}</p>{%- endif -%}
         <h3 class="bc-constat__col-title">{{ section.settings.off_title | escape }}</h3>
         {%- for block in section.blocks -%}
           {%- if block.type == 'stat' and block.settings.column == 'off' -%}
@@ -23,6 +24,7 @@
       </div>
 
       <div class="bc-constat__col bc-constat__col--on">
+        {%- if section.settings.on_tag != blank -%}<p class="bc-kicker bc-constat__col-tag">{{ section.settings.on_tag | escape }}</p>{%- endif -%}
         <h3 class="bc-constat__col-title">{{ section.settings.on_title | escape }}</h3>
         {%- for block in section.blocks -%}
           {%- if block.type == 'stat' and block.settings.column == 'on' -%}
@@ -65,6 +67,12 @@
     },
     {
       "type": "text",
+      "id": "off_tag",
+      "label": "Étiquette colonne gauche",
+      "default": "Seul, à la maison"
+    },
+    {
+      "type": "text",
       "id": "off_title",
       "label": "Titre colonne gauche",
       "default": "Le déclic vient rarement seul"
@@ -74,6 +82,12 @@
       "id": "off_foot",
       "label": "Phrase de fin, colonne gauche",
       "default": "L'envie est là, le déclencheur manque."
+    },
+    {
+      "type": "text",
+      "id": "on_tag",
+      "label": "Étiquette colonne droite",
+      "default": "Dans le Book Club"
     },
     {
       "type": "text",
