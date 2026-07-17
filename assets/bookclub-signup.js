@@ -216,6 +216,15 @@
         if (newChild) this.addChildToAccount(newChild);
       }
 
+      // La soumission se déclenche en quittant l'étape "payment" (join) ou la
+      // dernière étape du parcours (create, où il n'y a pas d'étape "payment").
+      // Une étape "done" existe après "payment" côté join pour afficher les
+      // options une fois l'ajout au panier terminé : elle ne doit jamais
+      // déclencher une nouvelle soumission si jamais on y revenait.
+      if (leavingPanel && leavingPanel.dataset.stepKey === 'payment') {
+        this.submit();
+        return;
+      }
       if (this.step === this.panels.length - 1) {
         this.submit();
         return;
@@ -324,9 +333,11 @@
 
       var currentPanel = this.panels[this.step];
       var isAccountStep = currentPanel && currentPanel.dataset.stepKey === 'account';
+      var isDoneStep = currentPanel && currentPanel.dataset.stepKey === 'done';
 
+      this.backBtn.hidden = isDoneStep;
       this.backBtn.textContent = this.step === 0 ? 'Annuler' : 'Retour';
-      this.nextBtn.hidden = isAccountStep;
+      this.nextBtn.hidden = isAccountStep || isDoneStep;
       this.nextBtn.textContent = this.submitting ? 'Ajout en cours...' : currentPanel.dataset.nextLabel;
       this.nextBtn.disabled = this.submitting || !this.canProceed();
       if (this.errorEl) this.errorEl.hidden = true;
@@ -399,7 +410,11 @@
 
       chain
         .then(() => {
-          window.location.href = '/checkout';
+          window.open('/checkout', '_blank');
+          this.submitting = false;
+          var doneIdx = this.panels.findIndex((p) => p.dataset.stepKey === 'done');
+          if (doneIdx !== -1) this.step = doneIdx;
+          this.render();
         })
         .catch(() => {
           this.submitting = false;

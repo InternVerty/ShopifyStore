@@ -421,6 +421,10 @@ fieldset.bc-field legend { padding: 0; }
 /* ---- account step ------------------------------------------------- */
 .bc-account-choice { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
+/* ---- join modal, done step ----------------------------------------- */
+.bc-modal__done-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+.bc-modal__done-actions .vbtn { width: 100%; }
+
 /* ---- child picker ------------------------------------------------- */
 .bc-child-picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
 [data-bookclub-child-manual] { display: flex; flex-direction: column; gap: 18px; }

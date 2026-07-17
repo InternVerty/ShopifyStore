@@ -218,8 +218,18 @@
         </div>
         <p class="bc-modal__note">L'inscription de votre enfant au Book Club ne pourra pas être annulée.</p>
         <p class="bc-modal__note">Le kit est livré à l'organisateur du club : vous ne recevrez pas le kit directement à votre domicile.</p>
-        <p class="bc-modal__note">En continuant, votre inscription est ajoutée au panier avec les informations que vous venez de renseigner. Vous serez redirigé vers le paiement sécurisé Shopify pour la finaliser.</p>
+        <p class="bc-modal__note">En continuant, votre inscription est ajoutée au panier avec les informations que vous venez de renseigner. Le paiement sécurisé Shopify s'ouvrira dans un nouvel onglet pour le finaliser.</p>
         <p class="bc-modal__error" data-bookclub-error hidden>Une erreur est survenue, merci de réessayer.</p>
+      </div>
+
+      <!-- Confirmation, une fois le panier ouvert dans un nouvel onglet -->
+      <div class="bc-modal__panel" data-step-key="done" data-step-label="Terminé" data-next-label="">
+        <p class="bc-modal__lead">Votre inscription est ajoutée au panier, dans un nouvel onglet. Une fois le paiement finalisé là-bas, que souhaitez-vous faire ici ?</p>
+        <div class="bc-modal__done-actions">
+          <button type="button" class="vbtn vbtn-primary vbtn-navy" data-bookclub-close>Voir le bookclub actuel</button>
+          <a href="/pages/bookclub" class="vbtn vbtn-secondary vbtn-navy">Rejoindre un autre bookclub</a>
+          <a href="/pages/bookclub" class="vbtn vbtn-secondary vbtn-navy">Créer un nouveau bookclub</a>
+        </div>
       </div>
     </div>
 
