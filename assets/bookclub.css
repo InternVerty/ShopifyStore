@@ -307,6 +307,7 @@
 /* ---- comment ça marche ---------------------------------------- */
 .bc-comment { background: var(--bc-white); padding: 72px 0 56px; }
 .bc-comment__header { text-align: center; max-width: 720px; margin: 0 auto 44px; }
+.bc-comment__header .bc-section-title { font-weight: 900; }
 .bc-comment__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .bc-comment__card { padding: 28px 24px 26px; }
 .bc-comment__card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
@@ -315,7 +316,7 @@
   color: var(--bc-navy); display: flex; align-items: center; justify-content: center;
 }
 .bc-comment__card-number { font-weight: 900; font-size: 36px; color: var(--bc-navy-border); line-height: 1; }
-.bc-comment__card-title { font-size: 18px; font-weight: 800; margin: 0 0 8px; line-height: 1.2; }
+.bc-comment__card-title { font-family: var(--bc-font-display); font-weight: 700; font-size: 20px; margin: 0 0 8px; line-height: 1.25; }
 .bc-comment__card-text { font-size: 14px; line-height: 1.5; color: var(--bc-text-secondary); margin: 0; }
 
 /* ---- CTA final -------------------------------------------------- */
