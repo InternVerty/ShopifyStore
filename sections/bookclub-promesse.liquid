@@ -1,0 +1,31 @@
+<section class="bookclub-page bc-promesse" data-section-id="{{ section.id }}">
+  <div class="container">
+    {%- if section.settings.kicker != blank -%}<p class="bc-kicker bc-promesse__kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
+    {%- if section.settings.text != blank -%}<div class="bc-promesse__text">{{ section.settings.text }}</div>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Book Club, promesse",
+  "tag": "section",
+  "class": "bookclub-promesse-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "La promesse"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte",
+      "default": "<p>Le rêve des parents, c'est de recevoir \"quelque chose qui donne le déclic à l'enfant\". Le Book Club fait de la lecture une <em>activité de pairs, désirée.</em></p>"
+    }
+  ],
+  "presets": [
+    { "name": "Book Club, promesse" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,125 @@
+<section class="bookclub-page bc-audiences" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-audiences__toggle" role="tablist">
+      <button type="button" class="bc-audiences__tab is-active" data-bc-audience-tab="enfant" role="tab" aria-selected="true">{{ section.settings.enfant_kicker | escape }}</button>
+      <button type="button" class="bc-audiences__tab" data-bc-audience-tab="parent" role="tab" aria-selected="false">{{ section.settings.parent_kicker | escape }}</button>
+    </div>
+
+    <div class="bc-audiences__panel is-active" data-bc-audience-panel="enfant">
+      <h3 class="bc-audiences__title">{{ section.settings.enfant_title | escape }}</h3>
+      <ul class="bc-audiences__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'bullet' and block.settings.audience == 'enfant' -%}
+            <li {{ block.shopify_attributes }}>{% render 'icon', icon: 'check_mark', width: 16, height: 16 %}{{ block.settings.text | escape }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="bc-audiences__panel" data-bc-audience-panel="parent">
+      <h3 class="bc-audiences__title">{{ section.settings.parent_title | escape }}</h3>
+      <ul class="bc-audiences__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'bullet' and block.settings.audience == 'parent' -%}
+            <li {{ block.shopify_attributes }}>{% render 'icon', icon: 'check_mark', width: 16, height: 16 %}{{ block.settings.text | escape }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-bc-audience-tab]').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var section = tab.closest('.bc-audiences');
+      if (!section) return;
+      var target = tab.getAttribute('data-bc-audience-tab');
+
+      section.querySelectorAll('[data-bc-audience-tab]').forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      section.querySelectorAll('[data-bc-audience-panel]').forEach(function (p) {
+        p.classList.toggle('is-active', p.getAttribute('data-bc-audience-panel') === target);
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Book Club, audiences",
+  "tag": "section",
+  "class": "bookclub-audiences-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "enfant_kicker",
+      "label": "Onglet, enfant",
+      "default": "Pour l'enfant"
+    },
+    {
+      "type": "text",
+      "id": "enfant_title",
+      "label": "Titre, enfant",
+      "default": "Lire devient une affaire de copains"
+    },
+    {
+      "type": "text",
+      "id": "parent_kicker",
+      "label": "Onglet, parent",
+      "default": "Pour le parent"
+    },
+    {
+      "type": "text",
+      "id": "parent_title",
+      "label": "Titre, parent",
+      "default": "Simplifier, sans déléguer"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bénéfice",
+      "settings": [
+        {
+          "type": "select",
+          "id": "audience",
+          "label": "Public",
+          "options": [
+            { "value": "enfant", "label": "Enfant" },
+            { "value": "parent", "label": "Parent" }
+          ],
+          "default": "enfant"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, audiences",
+      "blocks": [
+        { "type": "bullet", "settings": { "audience": "enfant", "text": "Lire devient une activité de pairs, plus une corvée solitaire." } },
+        { "type": "bullet", "settings": { "audience": "enfant", "text": "Choisir ses livres dans une sélection, sans imposition." } },
+        { "type": "bullet", "settings": { "audience": "enfant", "text": "Avoir des amis qui lisent autour de soi." } },
+        { "type": "bullet", "settings": { "audience": "enfant", "text": "Échanger sur ses lectures, ce qu'on a aimé et moins aimé." } },
+        { "type": "bullet", "settings": { "audience": "enfant", "text": "Recevoir, et donner, des recommandations." } },
+        { "type": "bullet", "settings": { "audience": "parent", "text": "Une expérience clé en main, la charge mentale déléguée." } },
+        { "type": "bullet", "settings": { "audience": "parent", "text": "Guidé pas à pas dans l'organisation des séances." } },
+        { "type": "bullet", "settings": { "audience": "parent", "text": "Rassuré : l'enfant lit grâce à l'effet communauté." } },
+        { "type": "bullet", "settings": { "audience": "parent", "text": "Ce que lit l'enfant a été sélectionné par le comité." } },
+        { "type": "bullet", "settings": { "audience": "parent", "text": "Éducatif, ludique et social, à la fois." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

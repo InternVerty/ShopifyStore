@@ -1,0 +1,158 @@
+<section class="bookclub-page bc-constat" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-constat__header">
+      {%- if section.settings.kicker != blank -%}<p class="bc-kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="bc-section-title">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    <div class="bc-constat__grid">
+      <div class="bc-constat__col bc-constat__col--off">
+        <h3 class="bc-constat__col-title">{{ section.settings.off_title | escape }}</h3>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' and block.settings.column == 'off' -%}
+            <div class="bc-constat__stat" {{ block.shopify_attributes }}>
+              <span class="bc-constat__stat-icon">{% render 'icon', icon: block.settings.icon, width: 22, height: 22 %}</span>
+              <div>
+                <p class="bc-constat__stat-figure">{{ block.settings.figure | escape }}<span>{{ block.settings.label | escape }}</span></p>
+                <p class="bc-constat__stat-subline">{{ block.settings.subline | escape }}</p>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+        <p class="bc-constat__col-foot">{{ section.settings.off_foot | escape }}</p>
+      </div>
+
+      <div class="bc-constat__col bc-constat__col--on">
+        <h3 class="bc-constat__col-title">{{ section.settings.on_title | escape }}</h3>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' and block.settings.column == 'on' -%}
+            <div class="bc-constat__stat" {{ block.shopify_attributes }}>
+              <span class="bc-constat__stat-icon">{% render 'icon', icon: block.settings.icon, width: 22, height: 22 %}</span>
+              <div>
+                <p class="bc-constat__stat-figure">{{ block.settings.figure | escape }}<span>{{ block.settings.label | escape }}</span></p>
+                <p class="bc-constat__stat-subline">{{ block.settings.subline | escape }}</p>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+        <p class="bc-constat__col-foot">{{ section.settings.on_foot | escape }}</p>
+      </div>
+    </div>
+
+    {%- if section.settings.bridge_text != blank -%}
+      <div class="bc-constat__bridge">{{ section.settings.bridge_text }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Book Club, constat",
+  "tag": "section",
+  "class": "bookclub-constat-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Le constat"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Le problème n'a jamais été le livre. C'est le déclic."
+    },
+    {
+      "type": "text",
+      "id": "off_title",
+      "label": "Titre colonne gauche",
+      "default": "Le déclic vient rarement seul"
+    },
+    {
+      "type": "text",
+      "id": "off_foot",
+      "label": "Phrase de fin, colonne gauche",
+      "default": "L'envie est là, le déclencheur manque."
+    },
+    {
+      "type": "text",
+      "id": "on_title",
+      "label": "Titre colonne droite",
+      "default": "Les copains font le déclic"
+    },
+    {
+      "type": "text",
+      "id": "on_foot",
+      "label": "Phrase de fin, colonne droite",
+      "default": "Le déclic vient des pairs, et il dure."
+    },
+    {
+      "type": "richtext",
+      "id": "bridge_text",
+      "label": "Phrase charnière",
+      "default": "<p>Ce qui s'est éteint, ce n'est pas le goût, c'est le <em>cercle</em> qui le déclenche : des amis qui lisent, se passent les livres, en parlent.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistique",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Colonne",
+          "options": [
+            { "value": "off", "label": "Seul, à la maison" },
+            { "value": "on", "label": "Dans le Book Club" }
+          ],
+          "default": "off"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "question_mark", "label": "Question mark" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "award", "label": "Award" },
+            { "value": "chat_bubble", "label": "Chat bubble" },
+            { "value": "heart", "label": "Heart" }
+          ],
+          "default": "clock"
+        },
+        {
+          "type": "text",
+          "id": "figure",
+          "label": "Chiffre"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé"
+        },
+        {
+          "type": "text",
+          "id": "subline",
+          "label": "Sous-ligne"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, constat",
+      "blocks": [
+        { "type": "stat", "settings": { "column": "off", "icon": "question_mark", "figure": "1 / 5", "label": "n'a aucun lecteur à la maison", "subline": "près d'un jeune sur cinq n'a aucun parent qui lit." } },
+        { "type": "stat", "settings": { "column": "off", "icon": "feather", "figure": "18 min", "label": "de lecture plaisir par jour", "subline": "quand les écrans en prennent dix fois plus." } },
+        { "type": "stat", "settings": { "column": "off", "icon": "clock", "figure": "3 h 11", "label": "d'écrans quotidiens", "subline": "plus simple, plus social, toujours à portée." } },
+        { "type": "stat", "settings": { "column": "on", "icon": "award", "figure": "n° 1", "label": "déclencheur de lecture", "subline": "la reco d'un ami, devant l'école et les parents." } },
+        { "type": "stat", "settings": { "column": "on", "icon": "chat_bubble", "figure": "6 à 8", "label": "amis lisent les mêmes livres", "subline": "ils se les passent, en parlent, se lancent des défis." } },
+        { "type": "stat", "settings": { "column": "on", "icon": "heart", "figure": "8 / 10", "label": "aiment déjà lire", "subline": "l'envie était là, il manquait un copain pour l'allumer." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

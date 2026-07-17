@@ -1,0 +1,133 @@
+<section class="bookclub-page bc-temoignages" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-temoignages__header">
+      {%- if section.settings.heading != blank -%}<h2 class="bc-section-title">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subheading != blank -%}<p class="bc-temoignages__subheading">{{ section.settings.subheading | escape }}</p>{%- endif -%}
+    </div>
+
+    <div class="bc-temoignages__carousel" data-bc-temoignages>
+      <div class="bc-temoignages__track">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'temoignage' -%}
+            <div class="bc-card bc-temoignages__card{% if forloop.first %} is-active{% endif %}" data-bc-temoignage-card {{ block.shopify_attributes }}>
+              {%- if block.settings.photo_asset != blank -%}
+                <img class="bc-temoignages__photo" src="{{ block.settings.photo_asset | asset_url }}" alt="" width="64" height="64" loading="lazy">
+              {%- endif -%}
+              <div class="bc-temoignages__stars">
+                {%- for i in (1..5) -%}{% render 'icon', icon: 'star', width: 14, height: 14 %}{%- endfor -%}
+              </div>
+              <p class="bc-temoignages__quote">{{ block.settings.quote | escape }}</p>
+              <p class="bc-temoignages__author">{{ block.settings.author | escape }}</p>
+              <p class="bc-temoignages__role">{{ block.settings.role | escape }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="bc-temoignages__controls">
+        <button type="button" class="bc-temoignages__arrow" data-bc-temoignage-prev aria-label="Avis précédent">{% render 'icon-chevron-left' %}</button>
+        <div class="bc-temoignages__dots" data-bc-temoignage-dots></div>
+        <button type="button" class="bc-temoignages__arrow" data-bc-temoignage-next aria-label="Avis suivant">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-bc-temoignages]').forEach(function (root) {
+    var cards = Array.prototype.slice.call(root.querySelectorAll('[data-bc-temoignage-card]'));
+    if (!cards.length) return;
+
+    var dotsWrap = root.querySelector('[data-bc-temoignage-dots]');
+    var dots = cards.map(function (_, idx) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'bc-temoignages__dot';
+      dot.setAttribute('aria-label', 'Avis ' + (idx + 1));
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    var current = 0;
+
+    function render() {
+      cards.forEach(function (card, idx) { card.classList.toggle('is-active', idx === current); });
+      dots.forEach(function (dot, idx) { dot.classList.toggle('is-active', idx === current); });
+    }
+
+    dots.forEach(function (dot, idx) {
+      dot.addEventListener('click', function () { current = idx; render(); });
+    });
+
+    var prevBtn = root.querySelector('[data-bc-temoignage-prev]');
+    var nextBtn = root.querySelector('[data-bc-temoignage-next]');
+    if (prevBtn) prevBtn.addEventListener('click', function () { current = (current - 1 + cards.length) % cards.length; render(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { current = (current + 1) % cards.length; render(); });
+
+    render();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Book Club, témoignages",
+  "tag": "section",
+  "class": "bookclub-temoignages-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Ce qu'en disent les premières familles"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sous-titre",
+      "default": "Et on les remercie."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "temoignage",
+      "name": "Témoignage",
+      "settings": [
+        {
+          "type": "text",
+          "id": "photo_asset",
+          "label": "Nom du fichier photo (dans les assets du thème)"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Citation"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Auteur"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Rôle / ville"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, témoignages",
+      "blocks": [
+        { "type": "temoignage", "settings": { "photo_asset": "bookclub-testimonial-b.jpg", "quote": "Mon fils refusait que je lui choisisse ses livres. Dans le club, il pioche lui-même dans la sélection, et il lit. Le déclic est venu de ses copains, pas de moi.", "author": "Claire, 38 ans", "role": "maman, club de Lyon" } },
+        { "type": "temoignage", "settings": { "photo_asset": "bookclub-testimonial-a.jpg", "quote": "Je redoutais d'animer les séances. Le guide et les fiches font tout le travail : j'arrive à chaque séance sans rien préparer, et les enfants parlent pendant trois quarts d'heure.", "author": "Marc, 41 ans", "role": "parent organisateur, club de Nantes" } },
+        { "type": "temoignage", "settings": { "photo_asset": "bookclub-hero.png", "quote": "Le carnet et le diplôme de fin d'année ont transformé la lecture en aventure collective. Ma fille range le sien comme un trésor.", "author": "Inès, 36 ans", "role": "maman, club de Bordeaux" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

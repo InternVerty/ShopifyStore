@@ -1,0 +1,205 @@
+<section class="bookclub-page bc-rythme" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="bc-rythme__header">
+      {%- if section.settings.kicker != blank -%}<p class="bc-kicker">{{ section.settings.kicker | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="bc-section-title">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    <div class="bc-rythme__timeline-row">
+      <div class="bc-rythme__start">
+        <p class="bc-kicker">{{ section.settings.start_kicker | escape }}</p>
+        <p class="bc-rythme__start-text">{{ section.settings.start_text | escape }}</p>
+      </div>
+
+      <div class="bc-rythme__timeline-wrap">
+        {%- if section.settings.annotation_text != blank -%}
+          <div class="bc-rythme__annotation">
+            <svg width="46" height="40" viewBox="0 0 58 50" class="bc-rythme__annotation-arrow" aria-hidden="true">
+              <path d="M29 2 C 20 18, 20 30, 27 44" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+              <path d="M18 38 L27 44 L22 33" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <p class="bc-rythme__annotation-text">{{ section.settings.annotation_text }}</p>
+          </div>
+        {%- endif -%}
+
+        <div class="bc-rythme__timeline">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'seance' -%}
+              <div class="bc-rythme__node{% if block.settings.milestone %} is-milestone{% endif %}" {{ block.shopify_attributes }}>
+                <span class="bc-rythme__node-dot">
+                  {%- if block.settings.milestone -%}{% render 'icon', icon: block.settings.milestone_icon, width: 12, height: 12 %}{%- endif -%}
+                </span>
+                <span class="bc-rythme__node-month">{{ block.settings.month | escape }}</span>
+                <span class="bc-rythme__node-label">{{ block.settings.label | newline_to_br }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.rythme_text != blank -%}
+      <div class="bc-rythme__text rte">{{ section.settings.rythme_text }}</div>
+    {%- endif -%}
+
+    <div class="bc-rythme__seance">
+      <div class="bc-rythme__seance-head">
+        <h3 class="bc-rythme__seance-title">{{ section.settings.seance_heading | escape }}</h3>
+        <span class="bc-badge">{{ section.settings.seance_note | escape }}</span>
+      </div>
+      <div class="bc-rythme__seance-list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'seance_block' -%}
+            <div class="bc-rythme__seance-item" {{ block.shopify_attributes }}>
+              <span class="bc-rythme__seance-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <div class="bc-rythme__seance-info">
+                <p class="bc-rythme__seance-name">{{ block.settings.name | escape }}</p>
+                <p class="bc-rythme__seance-text">{{ block.settings.text | escape }}</p>
+              </div>
+              <span class="bc-rythme__seance-duration">{{ block.settings.duration | escape }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <p class="bc-rythme__seance-total">Durée totale : <strong>{{ section.settings.total_duration | escape }}</strong></p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Book Club, rythme",
+  "tag": "section",
+  "class": "bookclub-rythme-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Le rythme du club"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Sept séances mensuelles, de septembre à mai"
+    },
+    {
+      "type": "text",
+      "id": "start_kicker",
+      "label": "Kicker, rentrée",
+      "default": "Rentrée"
+    },
+    {
+      "type": "text",
+      "id": "start_text",
+      "label": "Texte, rentrée",
+      "default": "Constitution du Book Club"
+    },
+    {
+      "type": "text",
+      "id": "annotation_text",
+      "label": "Annotation manuscrite",
+      "default": "Commencer à tout moment, c'est possible aussi"
+    },
+    {
+      "type": "richtext",
+      "id": "rythme_text",
+      "label": "Texte sous la timeline",
+      "default": "<p>Le club s'ouvre en novembre et se retrouve chaque mois, la <strong>dernière séance, en mai</strong>, couronne l'année, l'<strong>élection du livre de l'année</strong> et la remise du <strong>diplôme du Book Club</strong>.</p>"
+    },
+    {
+      "type": "text",
+      "id": "seance_heading",
+      "label": "Titre, séance type",
+      "default": "Une séance type"
+    },
+    {
+      "type": "text",
+      "id": "seance_note",
+      "label": "Note, séance type",
+      "default": "Format ludique"
+    },
+    {
+      "type": "text",
+      "id": "total_duration",
+      "label": "Durée totale affichée",
+      "default": "1 h 45"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "seance",
+      "name": "Mois de la timeline",
+      "settings": [
+        {
+          "type": "text",
+          "id": "month",
+          "label": "Mois"
+        },
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Libellé (retour à la ligne possible)"
+        },
+        {
+          "type": "checkbox",
+          "id": "milestone",
+          "label": "Étape clé (point plus grand)",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "milestone_icon",
+          "label": "Icône (si étape clé)",
+          "options": [
+            { "value": "check_mark", "label": "Check mark" },
+            { "value": "star", "label": "Star" }
+          ],
+          "default": "check_mark"
+        }
+      ]
+    },
+    {
+      "type": "seance_block",
+      "name": "Bloc de la séance type",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nom du bloc"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "duration",
+          "label": "Durée"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Club, rythme",
+      "blocks": [
+        { "type": "seance", "settings": { "month": "Nov", "label": "Lancement", "milestone": true, "milestone_icon": "check_mark" } },
+        { "type": "seance", "settings": { "month": "Déc", "label": "Séance 2", "milestone": false } },
+        { "type": "seance", "settings": { "month": "Jan", "label": "Séance 3", "milestone": false } },
+        { "type": "seance", "settings": { "month": "Fév", "label": "Séance 4", "milestone": false } },
+        { "type": "seance", "settings": { "month": "Mar", "label": "Séance 5", "milestone": false } },
+        { "type": "seance", "settings": { "month": "Avr", "label": "Séance 6", "milestone": false } },
+        { "type": "seance", "settings": { "month": "Mai", "label": "Élection du meilleur livre\net Diplôme", "milestone": true, "milestone_icon": "star" } },
+        { "type": "seance_block", "settings": { "name": "Temps de jeu libre", "text": "Les enfants arrivent, se retrouvent, jouent.", "duration": "20 min" } },
+        { "type": "seance_block", "settings": { "name": "Carnet du lecteur", "text": "Chacun complète son carnet : dessine, écrit, marque ses passages.", "duration": "20 min" } },
+        { "type": "seance_block", "settings": { "name": "Goûter et convivialité", "text": "Pause partagée, créer le moment.", "duration": "20 min" } },
+        { "type": "seance_block", "settings": { "name": "Discussion autour des livres", "text": "Guidée par les questions du guide Verty, d'abord en duo puis en groupe.", "duration": "35 min" } },
+        { "type": "seance_block", "settings": { "name": "Choix du livre du mois", "text": "Rotation : chacun choisit son prochain livre dans la sélection.", "duration": "10 min" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
