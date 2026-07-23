@@ -4254,6 +4254,20 @@ label[data-swatch]::before {
   color: rgb(var(--preorder-label-text-color));
 }
 
+.product-label--coup-de-coeur {
+  align-items: center;
+  gap: 0.4em;
+  padding: 5px 11px 5px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  background-color: rgb(var(--coup-de-coeur-bg-color));
+  color: rgb(var(--coup-de-coeur-text-color));
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+}
+.product-label--coup-de-coeur .icon {
+  margin-inline-end: 0;
+}
+
 @media (max-width: 599.98px) {
   [data-layout=list] .product-label-container {
     position: relative;

@@ -204,6 +204,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       --custom-label-bg-color: {{ settings.custom_label_bg_color.rgb }};
       --custom-label-text-color: {{ settings.custom_label_text_color.rgb }};
       {%- endif -%}
+      {%- if settings.show_coup_de_coeur_label -%}
+      --coup-de-coeur-bg-color: {{ settings.coup_de_coeur_bg_color.rgb }};
+      --coup-de-coeur-text-color: {{ settings.coup_de_coeur_text_color.rgb }};
+      {%- endif -%}
       {%- if settings.show_sale_label -%}
       --sale-label-bg-color: {{ settings.sale_label_bg_color.rgb }};
       --sale-label-text-color: {{ settings.sale_label_text_color.rgb }};

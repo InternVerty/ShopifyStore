@@ -12,6 +12,16 @@
 {%- capture product_label -%}
   {%- assign label_count = 0 -%}
 
+  {%- if label_count < limit and settings.show_coup_de_coeur_label and product.metafields.custom.coup_de_coeur -%}
+    {%- assign label_count = label_count | plus: 1 -%}
+    <div class="product-label-wrapper flex{% if settings.product_label_card_position contains "end" %} justify-end{% endif %}">
+      <span class="product-label product-label--coup-de-coeur">
+        {% render 'icon', icon: 'heart', width: 13, height: 13 %}
+        {{ settings.coup_de_coeur_label_text }}
+      </span>
+    </div>
+  {%- endif -%}
+
   {%- if label_count < limit and settings.show_custom_label and product.metafields.theme.label != blank -%}
     {%- assign label_count = label_count | plus: 1 -%}
     <div class="product-label-wrapper flex{% if settings.product_label_card_position contains "end" %} justify-end{% endif %}">
