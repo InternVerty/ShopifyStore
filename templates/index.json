@@ -78,7 +78,7 @@
         "title": "Les nouveautés du catalogue Verty !",
         "use_linked_title": false,
         "heading_align": "text-start",
-        "show_view_all": false,
+        "show_view_all": true,
         "view_religion": false,
         "use_anchor_for_view_all": false,
         "collection": "all-products",
