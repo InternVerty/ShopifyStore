@@ -332,8 +332,6 @@
       overlay.addEventListener('click', () => this.close());
       this.root.appendChild(overlay);
 
-      var scroll = el('div', { class: 'vs-modal__scroll' });
-
       var page = el('div', { class: 'vs-modal__page' });
       var col = el('div', { class: 'vs-modal__col' });
 
@@ -468,8 +466,7 @@
       actionbar.appendChild(actionRow);
       page.appendChild(actionbar);
 
-      scroll.appendChild(page);
-      this.root.appendChild(scroll);
+      this.root.appendChild(page);
     }
   }
 
