@@ -25,12 +25,13 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  overflow-y: auto;
-  background: var(--vs-bg);
   color: var(--vs-ink);
   font-family: var(--vs-font-body);
 }
 .vs-modal[hidden] { display: none; }
+
+.vs-modal__overlay { position: fixed; inset: 0; background: rgba(10, 10, 10, 0.45); }
+.vs-modal__scroll { position: relative; height: 100%; overflow-y: auto; }
 
 .vs-modal a { color: var(--vs-ink); text-decoration: underline; text-underline-offset: 3px; }
 .vs-modal a:hover { color: var(--vs-teal); }
@@ -40,7 +41,7 @@
   outline: 2px solid var(--vs-ink); outline-offset: 2px;
 }
 
-.vs-modal__page { min-height: 100vh; padding: 0 16px 108px; }
+.vs-modal__page { position: relative; z-index: 1; min-height: 100%; background: var(--vs-bg); padding: 0 16px 108px; }
 .vs-modal__col { max-width: 720px; margin: 0 auto; }
 .vs-modal__masthead { padding: 28px 4px 20px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .vs-modal__close {
