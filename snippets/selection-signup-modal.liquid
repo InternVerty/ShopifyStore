@@ -1,0 +1,23 @@
+{%- comment -%}
+  Popup d'inscription à "La Sélection Verty" (moteur de recommandation
+  personnalisée). Remplace le formulaire Tally externe (tally.so/r/Npqe1G) :
+  soumet directement au webhook n8n qui reçoit aujourd'hui les réponses
+  Tally, avec le même contrat de payload (voir design_handoff_formulaire_selection).
+
+  Interception : n'importe quel lien vers /pages/formulaire-verty présent sur
+  la page (les CTA "Je me lance" / "J'abonne un enfant" de la page
+  la-selection-verty) ouvre ce popup au lieu de naviguer, sans qu'il soit
+  nécessaire de modifier les sections qui définissent ces boutons.
+{%- endcomment -%}
+
+<selection-signup
+  class="vs-modal"
+  hidden
+  data-webhook-url="https://verty-n8n-6903d52ce24c.herokuapp.com/webhook/641c2257-bf4c-4fd7-a3ea-3f6da7c0db0d-4fd"
+  data-privacy-url="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}"
+  data-customer-email="{{ customer.email | escape }}"
+  data-customer-first-name="{{ customer.first_name | escape }}"
+  data-customer-last-name="{{ customer.last_name | escape }}"
+>
+  <div data-vs-root></div>
+</selection-signup>

@@ -1,0 +1,148 @@
+/* "La Sélection Verty" signup popup. Scoped to .vs-modal so nothing here
+   leaks into the rest of the theme. Tokens per design handoff
+   (design_handoff_formulaire_selection), sampled from verty.eu/pages/la-selection-verty. */
+
+.vs-modal {
+  --vs-bg: #EAF9F1;
+  --vs-surface: #FFFFFF;
+  --vs-mint: #97E8C7;
+  --vs-mint-hover: rgba(151, 232, 199, 0.28);
+  --vs-mint-wash: rgba(151, 232, 199, 0.35);
+  --vs-teal: #25B0A7;
+  --vs-ink: #111111;
+  --vs-text-secondary: #5A6360;
+  --vs-text-muted: #7D8A85;
+  --vs-text-rgpd: #3A4440;
+  --vs-placeholder: #9BAAA3;
+  --vs-remove: #8A6A5E;
+  --vs-error: #C0492C;
+  --vs-border: rgba(17, 17, 17, 0.16);
+  --vs-rule: rgba(17, 17, 17, 0.10);
+  --vs-border-dashed: rgba(17, 17, 17, 0.25);
+  --vs-font-title: var(--verty-font, 'DM Sans', sans-serif);
+  --vs-font-body: 'Manrope', sans-serif;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  background: var(--vs-bg);
+  color: var(--vs-ink);
+  font-family: var(--vs-font-body);
+}
+.vs-modal[hidden] { display: none; }
+
+.vs-modal a { color: var(--vs-ink); text-decoration: underline; text-underline-offset: 3px; }
+.vs-modal a:hover { color: var(--vs-teal); }
+.vs-modal input, .vs-modal textarea, .vs-modal select, .vs-modal button { font: inherit; color: inherit; }
+.vs-modal input::placeholder, .vs-modal textarea::placeholder { color: var(--vs-placeholder); }
+.vs-modal input:focus-visible, .vs-modal textarea:focus-visible, .vs-modal select:focus-visible {
+  outline: 2px solid var(--vs-ink); outline-offset: 2px;
+}
+
+.vs-modal__page { min-height: 100vh; padding: 0 16px 108px; }
+.vs-modal__col { max-width: 720px; margin: 0 auto; }
+.vs-modal__masthead { padding: 28px 4px 20px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.vs-modal__close {
+  margin-left: auto; flex: none; width: 34px; height: 34px; border-radius: 999px; border: 1px solid var(--vs-border);
+  background: var(--vs-surface); color: var(--vs-ink); cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.vs-modal__wordmark { font-family: var(--vs-font-title); font-size: 24px; color: var(--vs-ink); letter-spacing: -0.02em; }
+.vs-modal__kicker { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--vs-text-muted); }
+
+.vs-modal__card {
+  background: var(--vs-surface); border: 1px solid var(--vs-rule); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 20px 50px -30px rgba(17, 17, 17, 0.18);
+}
+.vs-modal__band { padding: 32px 22px 30px; background: var(--vs-mint); color: var(--vs-ink); }
+.vs-modal__band h1 {
+  margin: 0; font-family: var(--vs-font-title); font-weight: 700; font-size: clamp(28px, 6vw, 40px);
+  line-height: 1.12; letter-spacing: -0.02em;
+}
+.vs-modal__band p { margin: 14px 0 0; font-size: 16px; line-height: 1.65; color: #2E4A40; max-width: 52ch; }
+
+.vs-modal__body { padding: 30px 22px 34px; display: flex; flex-direction: column; gap: 40px; }
+.vs-modal__section { display: flex; flex-direction: column; gap: 22px; }
+.vs-modal__section-head { display: flex; align-items: center; gap: 12px; }
+.vs-modal__badge {
+  width: 28px; height: 28px; flex: none; border-radius: 999px; background: var(--vs-teal); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+}
+.vs-modal__section-title { margin: 0; font-family: var(--vs-font-title); font-weight: 700; font-size: 24px; color: var(--vs-ink); }
+.vs-modal__section-rule { flex: 1; height: 1px; background: var(--vs-rule); }
+.vs-modal__remove { border: none; background: transparent; color: var(--vs-remove); font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+.vs-field { display: flex; flex-direction: column; gap: 8px; }
+.vs-field__label { font-size: 16px; font-weight: 600; }
+.vs-field__required { color: var(--vs-error); }
+.vs-field__hint { font-size: 14px; color: var(--vs-text-muted); }
+.vs-field__error { font-size: 13px; color: var(--vs-error); }
+.vs-field__error[hidden] { display: none; }
+.vs-field input[type="text"], .vs-field input[type="date"], .vs-field input[type="email"], .vs-field select, .vs-field textarea {
+  padding: 13px 15px; min-height: 46px; box-sizing: border-box; border-radius: 10px; background: #fff;
+  font-size: 16px; border: 1px solid var(--vs-border); width: 100%;
+}
+.vs-field textarea { line-height: 1.7; resize: vertical; }
+.vs-field.is-invalid input, .vs-field.is-invalid select, .vs-field.is-invalid textarea { border-color: var(--vs-error); }
+.vs-field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+
+.vs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+
+.vs-pill-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.vs-pill-stack { display: grid; gap: 8px; }
+.vs-pill {
+  padding: 11px 18px; min-height: 46px; border-radius: 999px; cursor: pointer; font-size: 15px; font-weight: 500;
+  border: 1px solid var(--vs-border); background: #fff; color: var(--vs-ink);
+}
+.vs-pill--wide { text-align: left; width: 100%; }
+.vs-pill.is-active { border-color: var(--vs-ink); background: var(--vs-mint); color: var(--vs-ink); }
+
+.vs-add-child {
+  align-self: flex-start; display: flex; align-items: center; gap: 10px; padding: 13px 22px; min-height: 46px;
+  border: 1px dashed var(--vs-border-dashed); border-radius: 999px; background: transparent; color: var(--vs-ink);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+}
+.vs-add-child:hover { border-color: var(--vs-ink); background: var(--vs-mint-hover); }
+.vs-add-child span:first-child { font-size: 18px; line-height: 1; }
+
+.vs-rgpd { display: flex; flex-direction: column; gap: 8px; }
+.vs-rgpd__row {
+  display: flex; align-items: flex-start; gap: 12px; text-align: left; padding: 14px 16px; border-radius: 12px;
+  border: 1px solid var(--vs-border); background: #fff; cursor: pointer; width: 100%;
+}
+.vs-rgpd__box {
+  flex: none; width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; border: 1px solid var(--vs-border); color: transparent;
+}
+.vs-rgpd__row.is-checked .vs-rgpd__box { border-color: var(--vs-ink); background: var(--vs-mint); color: var(--vs-ink); }
+.vs-rgpd__row.is-invalid .vs-rgpd__box { border-color: var(--vs-error); }
+.vs-rgpd__text { font-size: 15px; line-height: 1.55; color: var(--vs-text-rgpd); }
+
+.vs-confirm {
+  padding: 26px 22px; border-radius: 16px; background: var(--vs-mint-wash); border: 1px solid rgba(17, 17, 17, 0.12);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.vs-confirm__title { font-family: var(--vs-font-title); font-weight: 700; font-size: 26px; color: var(--vs-ink); }
+.vs-confirm__text { font-size: 16px; line-height: 1.6; color: var(--vs-text-secondary); }
+
+.vs-modal__footnote { margin: 18px 4px 0; font-size: 13px; line-height: 1.6; color: var(--vs-text-muted); }
+
+.vs-modal__actionbar {
+  position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(234, 249, 241, 0.94); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-top: 1px solid var(--vs-rule);
+}
+.vs-modal__actionbar-row { max-width: 720px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.vs-modal__status { font-size: 14px; color: var(--vs-text-secondary); }
+.vs-modal__status.is-error { color: var(--vs-error); }
+.vs-modal__cta {
+  padding: 14px 28px; min-height: 48px; border: none; border-radius: 999px; background: var(--vs-mint); color: var(--vs-ink);
+  font-size: 16px; font-weight: 700; cursor: pointer;
+}
+.vs-modal__cta.is-sent { background: var(--vs-teal); color: #fff; }
+.vs-modal__cta:disabled { opacity: 0.75; cursor: not-allowed; }
+
+@media (max-width: 480px) {
+  .vs-modal__band { padding: 26px 18px 24px; }
+  .vs-modal__body { padding: 24px 18px 28px; }
+}

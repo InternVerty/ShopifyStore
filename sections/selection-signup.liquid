@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
+{{ 'selection-signup.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'selection-signup.js' | asset_url }}" defer="defer"></script>
+
+{% render 'selection-signup-modal' %}
+
+{% schema %}
+{
+  "name": "Sélection, popup",
+  "tag": "section",
+  "class": "selection-signup-section",
+  "settings": [],
+  "presets": [
+    { "name": "Sélection, popup" }
+  ]
+}
+{% endschema %}

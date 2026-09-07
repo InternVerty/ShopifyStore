@@ -17,6 +17,11 @@
         "heading_align": "text-center"
       }
     },
+    "selection_signup_9fW2qL": {
+      "type": "selection-signup",
+      "name": "Sélection, popup",
+      "settings": {}
+    },
     "banniere_abonnement_bMQbe3": {
       "type": "banniere-abonnement",
       "disabled": true,
@@ -876,6 +881,7 @@
   },
   "order": [
     "main",
+    "selection_signup_9fW2qL",
     "banniere_abonnement_bMQbe3",
     "banner_abonnement_v2_WTTGjg",
     "custom_two_cols_form_abo_v2_46grxq",
