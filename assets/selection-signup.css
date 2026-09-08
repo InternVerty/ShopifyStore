@@ -46,7 +46,7 @@
 }
 
 .vs-modal__page {
-  position: relative; z-index: 1; width: 100%; max-width: 760px; background: var(--vs-bg);
+  position: relative; z-index: 1; width: 100%; max-width: 760px; background: var(--vs-surface);
   border-radius: 28px; box-shadow: 0 30px 80px -30px rgba(17, 17, 17, 0.35); padding: 0 16px 16px;
 }
 .vs-modal__col { max-width: 720px; margin: 0 auto; }
