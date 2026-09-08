@@ -224,7 +224,7 @@
       section.appendChild(head);
 
       // Prénom
-      var prenomInput = el('input', { type: 'text', placeholder: 'Son prénom' });
+      var prenomInput = el('input', { type: 'text', placeholder: 'Son prénom', 'data-field': 'prenomEnfant-' + i });
       prenomInput.value = child.prenomEnfant;
       prenomInput.addEventListener('input', (ev) => this.setChild(i, 'prenomEnfant', ev.target.value));
       var prenomField = this.field("Comment s'appelle votre petit explorateur de livres ?", true, prenomInput, touched && ce.prenomEnfant ? 'Ce champ est requis.' : '');
@@ -233,14 +233,14 @@
 
       // Naissance / pays
       var grid1 = el('div', { class: 'vs-grid' });
-      var naissanceInput = el('input', { type: 'date' });
+      var naissanceInput = el('input', { type: 'date', 'data-field': 'naissance-' + i });
       naissanceInput.value = child.naissance;
       naissanceInput.addEventListener('input', (ev) => this.setChild(i, 'naissance', ev.target.value));
       var naissanceField = this.field('Quelle est sa date de naissance ?', true, naissanceInput, touched && ce.naissance ? 'Ce champ est requis.' : '');
       if (touched && ce.naissance) naissanceField.classList.add('is-invalid');
       grid1.appendChild(naissanceField);
 
-      var paysSelect = el('select', {});
+      var paysSelect = el('select', { 'data-field': 'pays-' + i });
       PAYS.forEach((p) => {
         var opt = el('option', { value: p, text: p });
         if (p === child.pays) opt.selected = true;
@@ -252,7 +252,7 @@
 
       // Classe / genre
       var grid2 = el('div', { class: 'vs-grid' });
-      var classeSelect = el('select', {});
+      var classeSelect = el('select', { 'data-field': 'classe-' + i });
       CLASSES.forEach((k) => {
         var opt = el('option', { value: k, text: k });
         if (k === child.classe) opt.selected = true;
@@ -307,7 +307,7 @@
       section.appendChild(themesWrap);
 
       // Livres
-      var livresArea = el('textarea', { rows: '5', placeholder: 'Lucky Luke\nLe Clan des Sept\nTintin' });
+      var livresArea = el('textarea', { rows: '5', placeholder: 'Lucky Luke\nLe Clan des Sept\nTintin', 'data-field': 'livres-' + i });
       livresArea.value = child.livres;
       livresArea.addEventListener('input', (ev) => this.setChild(i, 'livres', ev.target.value));
       var livresField = this.field('Quels sont ses 5 livres préférés ?', true, livresArea, touched && ce.livres ? 'Ce champ est requis.' : '', 'Un titre par ligne.');
@@ -325,6 +325,24 @@
       var touched = state.touched;
       var multi = state.enfants.length > 1;
       var hasAccount = state.d.compte === 'Oui';
+
+      // Le formulaire entier est reconstruit à chaque frappe (voir plus bas) :
+      // sans ça, le champ perd le focus dès la première touche et coupe la
+      // saisie au clavier (particulièrement visible sur les inputs de type
+      // date, où les segments jour/mois/année n'ont plus le temps de se
+      // remplir). On mémorise donc le champ actif avant de tout effacer, et
+      // on le refocalise ensuite au même endroit.
+      var active = document.activeElement;
+      var focusField = null, focusStart = null, focusEnd = null;
+      if (active && this.root.contains(active) && active.hasAttribute('data-field')) {
+        focusField = active.getAttribute('data-field');
+        try {
+          if (typeof active.selectionStart === 'number') {
+            focusStart = active.selectionStart;
+            focusEnd = active.selectionEnd;
+          }
+        } catch (err) { /* selectionStart non supporté pour ce type d'input */ }
+      }
 
       this.root.innerHTML = '';
 
@@ -385,7 +403,7 @@
       compteWrap.appendChild(compteErr);
       vousSection.appendChild(compteWrap);
 
-      var emailInput = el('input', { type: 'email', placeholder: 'vous@exemple.com' });
+      var emailInput = el('input', { type: 'email', placeholder: 'vous@exemple.com', 'data-field': 'email' });
       emailInput.value = state.d.email;
       emailInput.addEventListener('input', (ev) => this.set('email', ev.target.value));
       var emailErrorText = typeof e.email === 'string' ? e.email : 'Ce champ est requis.';
@@ -395,14 +413,14 @@
 
       if (!hasAccount) {
         var identityGrid = el('div', { class: 'vs-grid' });
-        var prenomInput = el('input', { type: 'text' });
+        var prenomInput = el('input', { type: 'text', 'data-field': 'prenom' });
         prenomInput.value = state.d.prenom;
         prenomInput.addEventListener('input', (ev) => this.set('prenom', ev.target.value));
         var prenomField = this.field('Prénom', true, prenomInput, touched && e.prenom ? 'Ce champ est requis.' : '');
         if (touched && e.prenom) prenomField.classList.add('is-invalid');
         identityGrid.appendChild(prenomField);
 
-        var nomInput = el('input', { type: 'text' });
+        var nomInput = el('input', { type: 'text', 'data-field': 'nom' });
         nomInput.value = state.d.nom;
         nomInput.addEventListener('input', (ev) => this.set('nom', ev.target.value));
         var nomField = this.field('Nom', true, nomInput, touched && e.nom ? 'Ce champ est requis.' : '');
@@ -467,6 +485,16 @@
       page.appendChild(actionbar);
 
       this.root.appendChild(page);
+
+      if (focusField) {
+        var toFocus = this.root.querySelector('[data-field="' + focusField + '"]');
+        if (toFocus) {
+          toFocus.focus();
+          if (focusStart !== null && typeof toFocus.setSelectionRange === 'function') {
+            try { toFocus.setSelectionRange(focusStart, focusEnd); } catch (err) { /* non supporté pour ce type d'input */ }
+          }
+        }
+      }
     }
   }
 
