@@ -274,13 +274,7 @@
                     {% for collection in collections %}
                       {% if product.collections contains collection %} 
                       <li{% if carousel %} class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %} data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
-                          {% render 'collection-card',
-                              collection: collection,
-                              image: {{ collection.image | img_url: '600x600', crop: 'center' }},
-                              image_ratio: image_ratio,
-                              use_product_image: section.settings.use_product_image,
-                              show_border: section.settings.show_border
-                          %} 
+                          {% render 'collection-card', collection: collection, image: nil, img_url: '600x600', crop: 'center', image_ratio: image_ratio, use_product_image: section.settings.use_product_image, show_border: section.settings.show_border %} 
                       </li>
                       {% endif %}
                     {% endfor %}
@@ -564,3 +558,22 @@
   }
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'collection-card',
+                                  collection: collection,
+                                  image: {{ collection.image | img_url: '600x600', crop: 'center' }},
+                                  image_ratio: image_ratio,
+                                  use_product_image: section.settings.use_product_image,
+                                  show_border: section.settings.show_border
+                              %}
+  to: "{% render 'collection-card', collection: collection, image: nil, img_url: '600x600',
+    crop: 'center', image_ratio: image_ratio, use_product_image: section.settings.use_product_image,
+    show_border: section.settings.show_border %}"
+  position: 14609..14835
+{% endcomment %}

@@ -256,13 +256,7 @@
                 {%- if collections != blank -%}
                   {% for collection in collections %}
                     <li{% if carousel %} class="slider__item"{% endif %}{% if settings.animations_enabled != "disabled" %} data-cc-animate data-cc-animate-delay="{{ forloop.index | times: 0.07 }}s"{% endif %}>
-                      {% render 'collection-card',
-                        collection: collection,
-                        image: {{ collection.image | img_url: '600x600', crop: 'center' }},
-                        image_ratio: image_ratio,
-                        use_product_image: section.settings.use_product_image,
-                        show_border: section.settings.show_border
-                      %} 
+                      {% render 'collection-card', collection: collection, image: nil, img_url: '600x600', crop: 'center', image_ratio: image_ratio, use_product_image: section.settings.use_product_image, show_border: section.settings.show_border %} 
                     </li>
                   {% endfor %}
                 {%- else -%}
@@ -546,3 +540,19 @@
   }
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'collection-card',\r\n                        collection: collection,\r\n
+    \                       image: {{ collection.image | img_url: '600x600', crop:
+    'center' }},\r\n                        image_ratio: image_ratio,\r\n                        use_product_image:
+    section.settings.use_product_image,\r\n                        show_border: section.settings.show_border\r\n
+    \                     %}"
+  to: "{% render 'collection-card', collection: collection, image: nil, img_url: '600x600',
+    crop: 'center', image_ratio: image_ratio, use_product_image: section.settings.use_product_image,
+    show_border: section.settings.show_border %}"
+  position: 14068..14294
+{% endcomment %}

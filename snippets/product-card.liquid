@@ -113,7 +113,7 @@
     <div class="card__media{% if show_hover_image %} has-hover-image{% endif %}{% if settings.blend_product_images %} image-blend{% endif %} relative">
       <div class="wishlist-engine" data-product_id="{{  product.id }}" data-variant_id="{{ product.selected_or_first_available_variant.id }}" data-full_button="false" data-css="true"></div>
       <a href="{{ product_url }}" aria-label="{{ product.title | escape }}" class="media block relative{% if settings.blend_product_images %} image-blend{% endif %} js-prod-link" style="padding-top: {{ 1 | divided_by: image_ratio | times: 100 }}%;" tabindex="-1">
-        {% render 'wishlisthero-collection-product' with product: product %}
+        {% render 'wishlisthero-collection-product' with product, product: product %}
         {%- if product.featured_media -%}
           {%- capture attributes %}data-media-id="{{ product.featured_media.id }}"{% endcapture -%}
           {% render 'image',
@@ -507,3 +507,14 @@
     </div>
   </div>
 {%- endif -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'wishlisthero-collection-product' with product: product %}"
+  to: "{% render 'wishlisthero-collection-product' with product, product: product
+    %}"
+  position: 4540..4617
+{% endcomment %}
