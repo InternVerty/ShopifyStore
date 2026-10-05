@@ -1,0 +1,55 @@
+{%- comment -%}
+  Formulaire du Coffret Verty, affiché directement dans la page (template
+  page.coffret). Reprend les questions du formulaire Tally "Formulaire
+  Coffret" (tally.so/r/yPBVWd) et le style du popup "La Sélection Verty"
+  (selection-signup.css, variante .vs-modal--inline).
+
+  Les réponses sont envoyées en JSON à l'URL de webhook définie dans les
+  réglages de la section (voir assets/coffret-signup.js pour le payload).
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
+{{ 'selection-signup.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'coffret-signup.js' | asset_url }}" defer="defer"></script>
+
+<coffret-signup
+  class="vs-modal vs-modal--inline"
+  data-webhook-url="{{ section.settings.webhook_url | escape }}"
+  data-redirect-url="{{ section.settings.redirect_url }}"
+  data-privacy-url="{{ section.settings.privacy_url | default: '/pages/donnees-personnelles' }}"
+  data-customer-email="{{ customer.email | escape }}"
+  data-customer-first-name="{{ customer.first_name | escape }}"
+  data-customer-last-name="{{ customer.last_name | escape }}"
+>
+  <div data-vs-root></div>
+</coffret-signup>
+
+{% schema %}
+{
+  "name": "Coffret, formulaire",
+  "tag": "section",
+  "class": "coffret-signup-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "webhook_url",
+      "label": "URL du webhook",
+      "info": "Les réponses y sont envoyées en JSON (POST). Sans URL, le formulaire affiche une erreur à l'envoi."
+    },
+    {
+      "type": "url",
+      "id": "redirect_url",
+      "label": "Page de redirection après envoi",
+      "info": "Optionnel. Sans page, un message de confirmation s'affiche dans le formulaire."
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Page de protection des données"
+    }
+  ],
+  "presets": [
+    { "name": "Coffret, formulaire" }
+  ]
+}
+{% endschema %}
