@@ -10,6 +10,7 @@
   var THEMES = ['Nature', 'Amitié', 'Histoire', 'Contes et légendes', 'Aventures', 'Animaux', 'Fantastique', 'Mystère', 'Science fiction', 'BD', 'Intrigue', 'Humour', 'Famille', 'Classiques', 'Policiers', 'Biographies', 'Voyages', 'Documentaire', 'Arts', 'Mythologie', 'Emotions', 'Spiritualité', 'Sport'];
   var MAX_THEMES = 5;
   var REQUIRED = ['prenomEnfant', 'age', 'occasion', 'pays', 'classe', 'niveau', 'email', 'prenom', 'nom'];
+  var SYNC_URL = '/apps/verty-sync';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var REQUIRED_MSG = 'Ce champ est requis.';
 
@@ -28,7 +29,6 @@
 
   class CoffretSignup extends HTMLElement {
     connectedCallback() {
-      this.webhookUrl = this.getAttribute('data-webhook-url') || '';
       this.redirectUrl = this.getAttribute('data-redirect-url') || '';
       this.privacyUrl = this.getAttribute('data-privacy-url') || '/pages/donnees-personnelles';
       this.state = {
@@ -95,28 +95,30 @@
       }
 
       var d = this.state.d;
+      // Même endpoint et même format que les autres formulaires
+      // (bookclub-signup.js, account-child-modal.liquid) : le backend
+      // verty-sync aiguille selon "action".
       var payload = {
-        formulaire: 'coffret',
-        submittedAt: new Date().toISOString(),
-        parent: {
-          email: d.email.trim(),
-          prenom: d.prenom.trim(),
-          nom: d.nom.trim(),
-          consentement: true
+        customer_id: this.getAttribute('data-customer-id') || '',
+        customer_mail: d.email.trim(),
+        customer_first_name: d.prenom.trim(),
+        customer_last_name: d.nom.trim(),
+        child: {
+          prenom: d.prenomEnfant.trim(),
+          age: Number(d.age),
+          genre: d.genre,
+          classe: d.classe,
+          niveau: d.niveau,
+          themes: d.themes,
+          livres: d.livres.split('\n').map((s) => s.trim()).filter(Boolean)
         },
         coffret: {
           occasion: d.occasion === 'Autre' ? d.occasionAutre.trim() : d.occasion,
-          paysLivraison: d.pays
+          pays_livraison: d.pays
         },
-        enfant: {
-          prenomEnfant: d.prenomEnfant.trim(),
-          age: Number(d.age),
-          classe: d.classe,
-          niveau: d.niveau,
-          genre: d.genre,
-          themes: d.themes,
-          livres: d.livres.split('\n').map((s) => s.trim()).filter(Boolean)
-        }
+        consentement: true,
+        submitted_at: new Date().toISOString(),
+        action: 'coffret'
       };
 
       this.state.sending = true;
@@ -124,13 +126,11 @@
       this.state.touched = false;
       this.render();
 
-      var request = this.webhookUrl
-        ? fetch(this.webhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          }).then((res) => { if (!res.ok) throw new Error('HTTP ' + res.status); })
-        : Promise.reject(new Error('Aucune URL de webhook configurée'));
+      var request = fetch(SYNC_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then((res) => { if (!res.ok) throw new Error('HTTP ' + res.status); });
 
       request.then(() => {
         if (this.redirectUrl) {

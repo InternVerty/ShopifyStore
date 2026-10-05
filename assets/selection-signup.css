@@ -156,3 +156,18 @@
   .vs-modal__band { padding: 26px 18px 24px; }
   .vs-modal__body { padding: 24px 18px 28px; }
 }
+
+/* Variante intégrée à la page (formulaire Coffret, sections/coffret-signup.liquid) :
+   même apparence que le popup, sans overlay ni position fixe. */
+.vs-modal--inline { position: static; z-index: auto; overflow: visible; padding: 40px 20px; }
+.vs-modal--inline .vs-modal__page { margin: 0 auto; box-shadow: 0 30px 80px -30px rgba(17, 17, 17, 0.2); }
+.vs-modal--inline .vs-modal__masthead { padding-top: 24px; }
+
+.vs-pill:disabled { opacity: 0.4; cursor: not-allowed; }
+.vs-notice {
+  margin: 4px 0 0; padding: 14px 16px; border-radius: 12px; background: var(--vs-mint-wash);
+  border: 1px solid var(--vs-rule); font-size: 15px; line-height: 1.55; color: var(--vs-text-rgpd);
+}
+@media (max-width: 480px) {
+  .vs-modal--inline { padding: 16px 10px; }
+}

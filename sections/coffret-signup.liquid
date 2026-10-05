@@ -4,8 +4,8 @@
   Coffret" (tally.so/r/yPBVWd) et le style du popup "La Sélection Verty"
   (selection-signup.css, variante .vs-modal--inline).
 
-  Les réponses sont envoyées en JSON à l'URL de webhook définie dans les
-  réglages de la section (voir assets/coffret-signup.js pour le payload).
+  Les réponses sont envoyées à /apps/verty-sync avec action "coffret",
+  comme les autres formulaires (voir assets/coffret-signup.js pour le payload).
 {%- endcomment -%}
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
@@ -14,7 +14,7 @@
 
 <coffret-signup
   class="vs-modal vs-modal--inline"
-  data-webhook-url="{{ section.settings.webhook_url | escape }}"
+  data-customer-id="{{ customer.id }}"
   data-redirect-url="{{ section.settings.redirect_url }}"
   data-privacy-url="{{ section.settings.privacy_url | default: '/pages/donnees-personnelles' }}"
   data-customer-email="{{ customer.email | escape }}"
@@ -30,12 +30,6 @@
   "tag": "section",
   "class": "coffret-signup-section",
   "settings": [
-    {
-      "type": "text",
-      "id": "webhook_url",
-      "label": "URL du webhook",
-      "info": "Les réponses y sont envoyées en JSON (POST). Sans URL, le formulaire affiche une erreur à l'envoi."
-    },
     {
       "type": "url",
       "id": "redirect_url",

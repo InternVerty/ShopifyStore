@@ -9,11 +9,7 @@
     },
     "coffret_signup": {
       "type": "coffret-signup",
-      "settings": {
-        "webhook_url": "",
-        "redirect_url": "",
-        "privacy_url": ""
-      }
+      "settings": {}
     }
   },
   "order": [
