@@ -130,7 +130,12 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
-      }).then((res) => { if (!res.ok) throw new Error('HTTP ' + res.status); });
+      }).then((res) => {
+        if (res.ok) return;
+        return res.text().then((body) => {
+          throw new Error('HTTP ' + res.status + ' ' + res.url + ' : ' + body.slice(0, 500));
+        });
+      });
 
       request.then(() => {
         if (this.redirectUrl) {
