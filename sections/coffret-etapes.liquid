@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap">
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="coffret-page cf-steps" id="comment" data-section-id="{{ section.id }}">
+  <div class="cf-steps__inner">
+    <h2 class="cf-h2">{{ section.settings.heading | escape }} <span class="cf-steps__title-hand">{{ section.settings.heading_hand | escape }}</span></h2>
+
+    <div class="cf-steps__scroll">
+      <div class="cf-steps__wrap">
+        <svg class="cf-steps__path" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M150 80 C 260 80, 340 40, 450 40 S 640 80, 750 80 S 940 40, 1050 40 C 1085 40, 1112 28, 1124 44 C 1136 60, 1110 78, 1094 62 C 1078 46, 1102 18, 1152 6" fill="none" stroke="var(--cf-theme-strong)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 10" opacity="0.75" vector-effect="non-scaling-stroke"></path>
+        </svg>
+        <svg class="cf-steps__plane" viewBox="0 0 48 48" aria-hidden="true">
+          <g fill="var(--cf-white)" stroke="var(--cf-theme-strong)" stroke-width="2" stroke-linejoin="round">
+            <path d="M4 22 L44 6 L30 44 L22 28 Z"></path>
+            <path d="M22 28 L44 6"></path>
+            <path d="M22 28 L20 40 L26 33" fill="var(--cf-theme-tint)"></path>
+          </g>
+        </svg>
+        {%- if section.settings.deco_left != blank -%}
+          <span class="cf-steps__deco cf-steps__deco--left">{{ section.settings.deco_left | escape }}</span>
+          <svg class="cf-steps__arrow" viewBox="0 0 60 60" aria-hidden="true">
+            <path d="M6 6 C 30 10, 40 26, 42 50" fill="none" stroke="var(--cf-theme-strong)" stroke-width="2.4" stroke-linecap="round"></path>
+            <path d="M32 44 L42 52 L48 40" fill="none" stroke="var(--cf-theme-strong)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        {%- endif -%}
+        {%- if section.settings.deco_right != blank -%}
+          <span class="cf-steps__deco cf-steps__deco--right">{{ section.settings.deco_right | escape }}</span>
+        {%- endif -%}
+
+        <div class="cf-steps__grid">
+          {%- for block in section.blocks -%}
+            <div class="cf-step" {{ block.shopify_attributes }}>
+              <div class="cf-step__head"><div class="cf-step__num">{{ forloop.index }}</div></div>
+              <div class="cf-step__card">
+                <span class="cf-step__label">Étape {{ forloop.index }}</span>
+                <h3 class="cf-step__title">{{ block.settings.title | escape }}</h3>
+                <p class="cf-step__text">{{ block.settings.text | escape }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.note != blank -%}
+      <p class="cf-steps__note">{{ section.settings.note | escape | newline_to_br }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, étapes",
+  "tag": "div",
+  "class": "coffret-etapes-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Le comité choisit," },
+    { "type": "text", "id": "heading_hand", "label": "Fin du titre (écriture manuscrite)", "default": "vous gardez le dernier mot" },
+    { "type": "text", "id": "deco_left", "label": "Annotation gauche", "default": "deux minutes pour vous" },
+    { "type": "text", "id": "deco_right", "label": "Annotation droite", "default": "et c'est parti !" },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note sous les étapes",
+      "default": "Vous ne savez pas tout de l'enfant ?\nUn champ libre suffit, le comité s'adapte."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Titre de l'étape" },
+        { "type": "textarea", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffret, étapes",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Parlez-nous de lui", "text": "Un questionnaire de deux minutes sur son profil lecteur : âge, ce qu'il aime, les livres qu'il a déjà, votre message." } },
+        { "type": "step", "settings": { "title": "Le comité compose", "text": "Le comité Verty choisit 2 ou 3 livres pour cet enfant précis et y ajoute le carnet du lecteur de son âge." } },
+        { "type": "step", "settings": { "title": "Vous validez", "text": "Vous recevez la sélection par mail. Un titre vous fait douter ? Un retour avec vos commentaires, et le comité ajuste avant l'envoi." } },
+        { "type": "step", "settings": { "title": "Il reçoit son coffret", "text": "La boîte arrive prête à offrir, chez vous ou directement chez lui. Commandé avant mi-décembre, garanti sous le sapin." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

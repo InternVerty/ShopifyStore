@@ -1,0 +1,50 @@
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="coffret-page cf-reviews" data-section-id="{{ section.id }}">
+  <div class="cf-reviews__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="cf-h2 cf-reviews__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <div class="cf-grid3">
+      {%- for block in section.blocks -%}
+        <div class="cf-reviews__card" {{ block.shopify_attributes }}>
+          <span class="cf-reviews__stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <p class="cf-reviews__text">{{ block.settings.text | escape }}</p>
+          <span class="cf-reviews__author">{{ block.settings.author | escape }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, témoignages",
+  "tag": "div",
+  "class": "coffret-temoignages-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Ils ont offert un coffret" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Témoignage",
+      "limit": 6,
+      "settings": [
+        { "type": "textarea", "id": "text", "label": "Texte" },
+        { "type": "text", "id": "author", "label": "Auteur", "default": "Prénom, lien avec l'enfant" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffret, témoignages",
+      "blocks": [
+        { "type": "review", "settings": { "text": "« J'ai reçu la sélection par mail, un des titres, elle l'avait déjà. Un mot en réponse, remplacé le lendemain. Ma petite-fille a lu le premier roman en trois soirs. »", "author": "Élisabeth, grand-mère de Jeanne, 9 ans" } },
+        { "type": "review", "settings": { "text": "« Ma sœur m'a envoyé le lien avec « tu choisis, ils choisissent ». Questionnaire dans le métro, coffret prêt à offrir avec un mot pour mon filleul. Tout était juste. »", "author": "Antoine, parrain de Louis, 6 ans" } },
+        { "type": "review", "settings": { "text": "« Mon fils ne lisait pas. Un des livres parlait de foot, il l'a fini, et il remplit son carnet du lecteur tout seul. C'est la première fois qu'un cadeau fait ça. »", "author": "Claire, maman de Gaspard, 8 ans" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

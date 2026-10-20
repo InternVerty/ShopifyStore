@@ -1,0 +1,40 @@
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="coffret-page cf-promesse" data-section-id="{{ section.id }}">
+  <div class="cf-promesse__grid">
+    <div class="cf-promesse__covers cf-promesse__covers--left" aria-hidden="true">
+      <img src="{{ 'coffret-landing-cover-tout-l-amour.jpg' | asset_url }}" alt="" loading="lazy" width="90" style="width:33%; max-width:90px; transform:rotate(-10deg) translate(10px, 14px);">
+      <img src="{{ 'coffret-landing-cover-petite-souris-noel.jpg' | asset_url }}" alt="" loading="lazy" width="90" style="width:33%; max-width:90px; transform:rotate(-3deg) translate(2px, 2px); position:relative; z-index:1;">
+      <img src="{{ 'coffret-landing-cover-grand-chene.jpg' | asset_url }}" alt="" loading="lazy" width="100" style="width:36%; max-width:100px; transform:rotate(5deg) translate(-4px, 0); position:relative; z-index:2;">
+    </div>
+    <div class="cf-promesse__quote">
+      <span class="cf-promesse__mark" aria-hidden="true">&ldquo;</span>
+      <p class="cf-promesse__text">{{ section.settings.quote | escape }}</p>
+      <div class="cf-promesse__rule"></div>
+    </div>
+    <div class="cf-promesse__covers cf-promesse__covers--right" aria-hidden="true">
+      <img src="{{ 'coffret-landing-cover-chemin-de-fer.jpg' | asset_url }}" alt="" loading="lazy" width="100" style="width:36%; max-width:100px; transform:rotate(-5deg) translate(4px, 0); position:relative; z-index:2;">
+      <img src="{{ 'coffret-landing-cover-samuel-plumseche.jpg' | asset_url }}" alt="" loading="lazy" width="90" style="width:33%; max-width:90px; transform:rotate(3deg) translate(-2px, 2px); position:relative; z-index:1;">
+      <img src="{{ 'coffret-landing-cover-pierre-loup-2.jpg' | asset_url }}" alt="" loading="lazy" width="90" style="width:33%; max-width:90px; transform:rotate(10deg) translate(-10px, 14px);">
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, promesse",
+  "tag": "div",
+  "class": "coffret-promesse-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Citation",
+      "default": "Un cadeau qui fait plaisir aujourd'hui et donne le goût de lire pour longtemps."
+    }
+  ],
+  "presets": [
+    { "name": "Coffret, promesse" }
+  ]
+}
+{% endschema %}

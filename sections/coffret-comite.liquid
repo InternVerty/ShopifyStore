@@ -1,0 +1,48 @@
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="coffret-page cf-committee" data-section-id="{{ section.id }}">
+  <div class="cf-committee__grid">
+    <div class="cf-committee__img">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 1200 }}" srcset="{{ section.settings.image | image_url: width: 600 }} 600w, {{ section.settings.image | image_url: width: 1200 }} 1200w" sizes="(max-width: 640px) 100vw, 50vw" alt="{{ section.settings.image.alt | default: section.settings.image_alt | escape }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" loading="lazy">
+      {%- else -%}
+        <img src="{{ 'coffret-landing-comite.jpg' | asset_url }}" alt="{{ section.settings.image_alt | escape }}" width="1200" height="800" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="cf-committee__body">
+      <h2 class="cf-committee__title">{{ section.settings.heading | escape }}</h2>
+      <p class="cf-committee__text">{{ section.settings.text | escape }}</p>
+      {%- if section.settings.quote != blank -%}
+        <p class="cf-committee__quote">{{ section.settings.quote | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_url | default: '/pages/comite-de-lecture' }}" class="cf-btn">{{ section.settings.cta_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, comité",
+  "tag": "div",
+  "class": "coffret-comite-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Photo", "info": "Sans image, la photo du design est utilisée. Format 4/3." },
+    { "type": "text", "id": "image_alt", "label": "Texte alternatif", "default": "Le comité de lecture Verty réuni autour de livres" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Composé par le comité de lecture" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texte",
+      "default": "Grands-parents et parents, institutrices, psychologues, orthophonistes : le comité lit, note et valide chaque livre du catalogue. C'est lui qui compose votre coffret, livre par livre, pour cet enfant-là. Et c'est vous qui avez le dernier mot."
+    },
+    { "type": "text", "id": "quote", "label": "Phrase en exergue", "default": "Le bon, le beau et le vrai, pour élever l'esprit, le cœur et l'intelligence." },
+    { "type": "text", "id": "cta_label", "label": "Bouton", "default": "En savoir plus" },
+    { "type": "url", "id": "cta_url", "label": "Lien du bouton", "info": "Par défaut : /pages/comite-de-lecture" }
+  ],
+  "presets": [
+    { "name": "Coffret, comité" }
+  ]
+}
+{% endschema %}

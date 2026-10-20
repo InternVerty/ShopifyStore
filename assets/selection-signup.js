@@ -165,25 +165,23 @@
         }))
       };
 
-      this.state.sending = true;
-      this.state.touched = false;
-      this.render();
-
-      var finish = () => {
-        this.state.sending = false;
-        this.state.sent = true;
-        this.render();
-      };
-
+      // On n'attend pas la réponse du webhook : l'envoi part en arrière-plan
+      // et le formulaire passe tout de suite à l'état "envoyé". `keepalive`
+      // laisse la requête aboutir même si l'utilisateur ferme le popup ou
+      // quitte la page juste après.
       if (this.webhookUrl) {
         fetch(this.webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        }).then(finish).catch(finish);
-      } else {
-        setTimeout(finish, 500);
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(function () {});
       }
+
+      this.state.touched = false;
+      this.state.sending = false;
+      this.state.sent = true;
+      this.render();
     }
 
     field(labelText, required, input, errorText, hint) {

@@ -1,0 +1,127 @@
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'coffret-landing.js' | asset_url }}" defer="defer"></script>
+
+<section class="coffret-page cf-inside" data-section-id="{{ section.id }}">
+  <div class="cf-inside__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="cf-h2">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="cf-lead cf-inside__lead">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+
+    <div class="cf-inside__grid">
+      <div class="cf-inside__media" data-cf-slider>
+        <div class="cf-slider">
+          <div class="cf-slider__track">
+            {%- for i in (1..4) -%}
+              {%- assign cf_slide_key = 'photo_' | append: i -%}
+              {%- assign cf_slide_img = section.settings[cf_slide_key] -%}
+              <div class="cf-slider__slide{% if forloop.first %} is-active{% endif %}" data-cf-slide>
+                {%- if cf_slide_img != blank -%}
+                  <img src="{{ cf_slide_img | image_url: width: 880 }}" srcset="{{ cf_slide_img | image_url: width: 440 }} 440w, {{ cf_slide_img | image_url: width: 880 }} 880w" sizes="(max-width: 820px) 300px, 440px" alt="{{ cf_slide_img.alt | escape }}" width="{{ cf_slide_img.width }}" height="{{ cf_slide_img.height }}" loading="lazy">
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        <div class="cf-slider__dots">
+          {%- for i in (1..4) -%}
+            <button type="button" class="cf-slider__dot{% if forloop.first %} is-active{% endif %}" data-cf-dot aria-label="Photo {{ i }}"></button>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="cf-inside__list">
+        {%- for block in section.blocks -%}
+          <div class="cf-inside__item" {{ block.shopify_attributes }}>
+            <div class="cf-inside__icon">{% render 'coffret-landing-icon', name: block.settings.icon, size: 24 %}</div>
+            <div>
+              <h3 class="cf-inside__item-title">{{ block.settings.title | escape }}</h3>
+              <p class="cf-inside__item-text">{{ block.settings.text | escape }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, à l'intérieur",
+  "tag": "div",
+  "class": "coffret-interieur-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "À l'intérieur" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Un coffret unique, 39,00€, composé pour un enfant précis, de 3 à 12 ans." },
+    { "type": "header", "content": "Photos du diaporama" },
+    { "type": "image_picker", "id": "photo_1", "label": "Photo 1", "info": "La boîte ouverte. Format conseillé 4/5." },
+    { "type": "image_picker", "id": "photo_2", "label": "Photo 2", "info": "Un exemple de sélection." },
+    { "type": "image_picker", "id": "photo_3", "label": "Photo 3", "info": "Le carnet du lecteur." },
+    { "type": "image_picker", "id": "photo_4", "label": "Photo 4", "info": "La personnalisation." }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Élément du coffret",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "book", "label": "Livre" },
+            { "value": "notebook", "label": "Carnet" },
+            { "value": "gift", "label": "Cadeau" },
+            { "value": "party", "label": "Surprise" }
+          ],
+          "default": "book"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Titre" },
+        { "type": "textarea", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffret, à l'intérieur",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "book",
+            "title": "2 ou 3 livres choisis pour lui",
+            "text": "Sélectionnés par le comité Verty selon l'âge de l'enfant, son niveau de lecture et ses goûts. Jusqu'à 25,00€ de valeur livres, tous lus, évalués et validés par notre comité."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "notebook",
+            "title": "Le carnet du lecteur",
+            "text": "Créé par Verty et adapté à son âge, il transforme la lecture en jeu : activités, défis et petits rendez-vous pour revenir sur ses histoires, ses héros préférés et prolonger le plaisir de lire."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "gift",
+            "title": "Une jolie boîte cadeau",
+            "text": "La présentation fait partie du cadeau : le coffret arrive prêt à offrir, rien à emballer."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "party",
+            "title": "La petite surprise",
+            "text": "Une petite surprise glissée dans le coffret pour ajouter encore un peu de plaisir au moment de l'ouverture, sans détourner l'attention de l'essentiel : les livres."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

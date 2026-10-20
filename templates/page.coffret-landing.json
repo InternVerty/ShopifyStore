@@ -1,0 +1,342 @@
+{
+  "sections": {
+    "coffret_hero": {
+      "type": "coffret-hero",
+      "settings": {
+        "badge": "Nouveau : Noël & anniversaires",
+        "heading": "Le Coffret Verty, des livres choisis spécialement pour lui.",
+        "subtext": "<p>Un vrai cadeau autour du livre, <strong>composé spécialement pour l'enfant par le comité Verty</strong>. Vous nous parlez de lui, nous choisissons, vous validez.</p>",
+        "price": "39,00€",
+        "price_note": "+ 4,90€ de livraison",
+        "cta_label": "Je commande son coffret",
+        "share_label": "Envoyer cette idée cadeau",
+        "share_url": "#partager",
+        "image_alt": "Des enfants s'envolent d'un coffret Verty avec leurs livres",
+        "float_right_title": "Choisi par le comité",
+        "float_right_text": "selon son âge et ses passions",
+        "float_left_title": "Validé par vous",
+        "float_left_text": "la sélection par mail avant l'envoi"
+      },
+      "blocks": {
+        "tag_1": {
+          "type": "tag",
+          "settings": {
+            "icon": "book",
+            "label": "2 ou 3 livres choisis pour lui"
+          }
+        },
+        "tag_2": {
+          "type": "tag",
+          "settings": {
+            "icon": "notebook",
+            "label": "Le carnet du lecteur"
+          }
+        },
+        "tag_3": {
+          "type": "tag",
+          "settings": {
+            "icon": "gift",
+            "label": "Rien à emballer"
+          }
+        }
+      },
+      "block_order": [
+        "tag_1",
+        "tag_2",
+        "tag_3"
+      ]
+    },
+    "coffret_promesse": {
+      "type": "coffret-promesse",
+      "settings": {
+        "quote": "Un cadeau qui fait plaisir aujourd'hui et donne le goût de lire pour longtemps."
+      }
+    },
+    "coffret_interieur": {
+      "type": "coffret-interieur",
+      "settings": {
+        "heading": "À l'intérieur",
+        "subheading": "Un coffret unique, 39,00€, composé pour un enfant précis, de 3 à 12 ans."
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "book",
+            "title": "2 ou 3 livres choisis pour lui",
+            "text": "Sélectionnés par le comité Verty selon l'âge de l'enfant, son niveau de lecture et ses goûts. Jusqu'à 25,00€ de valeur livres, tous lus, évalués et validés par notre comité."
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "notebook",
+            "title": "Le carnet du lecteur",
+            "text": "Créé par Verty et adapté à son âge, il transforme la lecture en jeu : activités, défis et petits rendez-vous pour revenir sur ses histoires, ses héros préférés et prolonger le plaisir de lire."
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "gift",
+            "title": "Une jolie boîte cadeau",
+            "text": "La présentation fait partie du cadeau : le coffret arrive prêt à offrir, rien à emballer."
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "party",
+            "title": "La petite surprise",
+            "text": "Une petite surprise glissée dans le coffret pour ajouter encore un peu de plaisir au moment de l'ouverture, sans détourner l'attention de l'essentiel : les livres."
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "coffret_etapes": {
+      "type": "coffret-etapes",
+      "settings": {
+        "heading": "Le comité choisit,",
+        "heading_hand": "vous gardez le dernier mot",
+        "deco_left": "deux minutes pour vous",
+        "deco_right": "et c'est parti !",
+        "note": "Vous ne savez pas tout de l'enfant ?\nUn champ libre suffit, le comité s'adapte."
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Parlez-nous de lui",
+            "text": "Un questionnaire de deux minutes sur son profil lecteur : âge, ce qu'il aime, les livres qu'il a déjà, votre message."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Le comité compose",
+            "text": "Le comité Verty choisit 2 ou 3 livres pour cet enfant précis et y ajoute le carnet du lecteur de son âge."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Vous validez",
+            "text": "Vous recevez la sélection par mail. Un titre vous fait douter ? Un retour avec vos commentaires, et le comité ajuste avant l'envoi."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Il reçoit son coffret",
+            "text": "La boîte arrive prête à offrir, chez vous ou directement chez lui. Commandé avant mi-décembre, garanti sous le sapin."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ]
+    },
+    "coffret_exemples": {
+      "type": "coffret-exemples",
+      "settings": {
+        "heading": "Des exemples de coffrets déjà composés par notre comité",
+        "subheading": "Ce que le comité Verty aurait choisi pour eux. Aucun coffret ne ressemble à un autre.",
+        "cta_label": "Je commande son coffret"
+      },
+      "blocks": {
+        "example_1": {
+          "type": "example",
+          "settings": {
+            "badge": "4 ans, aime les histoires partagées",
+            "title": "Louise, sensible aux liens familiaux",
+            "text": "Deux albums tendres autour des liens qui nous unissent et des petits moments du quotidien. Une sélection pensée pour nourrir son imaginaire et ouvrir de jolies conversations à partager ensemble."
+          }
+        },
+        "example_2": {
+          "type": "example",
+          "settings": {
+            "badge": "7 ans, commence à lire seul",
+            "title": "Emile, passionné d'animaux et de découvertes",
+            "text": "Un album à partager et un petit roman à découvrir seul, entre animaux, aventure et émotions, pour l'accompagner en douceur vers une lecture de plus en plus autonome."
+          }
+        },
+        "example_3": {
+          "type": "example",
+          "settings": {
+            "badge": "11 ans, du mal à décrocher des écrans",
+            "title": "Arthur, fan d'aventure et d'Histoire",
+            "text": "Une BD historique pleine de rebondissements et le premier tome d'une série d'aventure palpitante, drôle et mystérieuse, pour renouer avec le plaisir de lire sans effort."
+          }
+        }
+      },
+      "block_order": [
+        "example_1",
+        "example_2",
+        "example_3"
+      ]
+    },
+    "coffret_offrir": {
+      "type": "coffret-offrir",
+      "settings": {
+        "heading": "Deux façons d'offrir",
+        "subheading": "Parent, grand-parent, oncle et tante, parrain et marraine...",
+        "covers_note": "lequel choisir ?",
+        "gift_title": "Vous cherchez un cadeau ?",
+        "gift_text": "Un enfant que vous connaissez un peu, beaucoup ou pas assez. Vous dites ce que vous savez, le comité fait le reste, vous validez avant l'envoi.",
+        "gift_cta_label": "Je commande son coffret",
+        "share_title": "Tu sais ce qui ferait plaisir à Louis ?",
+        "share_text": "On vous demande, encore, « qu'est-ce qu'on peut lui offrir ? ». Envoyez cette page à vos proches : ils commandent, le comité choisit, personne ne se trompe.",
+        "share_cta_label": "Je partage",
+        "share_url": "https://verty.eu/coffret",
+        "share_message": "Une idée cadeau pour lui : le Coffret Verty, des livres choisis spécialement pour lui par le comité Verty.",
+        "chat_1": "Coucou, tu sais ce qui ferait plaisir à Louis pour son anniversaire ?",
+        "chat_2": "Trop sympa. Un coffret avec des livres choisis pour lui ! Sur Verty ils ont un comité qui te fait la sélection pour Louis.",
+        "chat_link": "verty.eu/coffret",
+        "chat_3": "Canon, merci !",
+        "chat_note": "réglé en deux messages"
+      }
+    },
+    "coffret_comite": {
+      "type": "coffret-comite",
+      "settings": {
+        "image_alt": "Le comité de lecture Verty réuni autour de livres",
+        "heading": "Composé par le comité de lecture",
+        "text": "Grands-parents et parents, institutrices, psychologues, orthophonistes : le comité lit, note et valide chaque livre du catalogue. C'est lui qui compose votre coffret, livre par livre, pour cet enfant-là. Et c'est vous qui avez le dernier mot.",
+        "quote": "Le bon, le beau et le vrai, pour élever l'esprit, le cœur et l'intelligence.",
+        "cta_label": "En savoir plus"
+      }
+    },
+    "coffret_temoignages": {
+      "type": "coffret-temoignages",
+      "settings": {
+        "heading": "Ils ont offert un coffret"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "author": "Élisabeth, grand-mère de Jeanne, 9 ans",
+            "text": "« J'ai reçu la sélection par mail, un des titres, elle l'avait déjà. Un mot en réponse, remplacé le lendemain. Ma petite-fille a lu le premier roman en trois soirs. »"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "author": "Antoine, parrain de Louis, 6 ans",
+            "text": "« Ma sœur m'a envoyé le lien avec « tu choisis, ils choisissent ». Questionnaire dans le métro, coffret prêt à offrir avec un mot pour mon filleul. Tout était juste. »"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "author": "Claire, maman de Gaspard, 8 ans",
+            "text": "« Mon fils ne lisait pas. Un des livres parlait de foot, il l'a fini, et il remplit son carnet du lecteur tout seul. C'est la première fois qu'un cadeau fait ça. »"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    },
+    "coffret_faq": {
+      "type": "coffret-faq",
+      "settings": {
+        "heading": "Vos questions"
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Qu'y a-t-il exactement dans le coffret pour 39,00€ ?",
+            "answer": "2 ou 3 livres choisis par le comité Verty selon l'enfant (jusqu'à 25,00€ de valeur livres), le carnet du lecteur adapté à son âge, et une jolie boîte cadeau prête à offrir. Les frais de livraison sont de 4,90€."
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Et si l'enfant possède déjà un des livres ?",
+            "answer": "Vous indiquez à la commande les livres qu'il a déjà et les sujets à éviter. Puis vous recevez la sélection par mail avant l'envoi : un retour avec vos commentaires suffit pour que le comité remplace un titre."
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Comment se passe la validation ?",
+            "answer": "Une fois l'achat complété, nous vous envoyons par mail les livres retenus. Vous confirmez, ou vous répondez avec vos remarques ; le comité ajuste et confirme le choix avec vous. Le coffret part ensuite."
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "Pour quel âge ?",
+            "answer": "De 3 à 12 ans. L'âge et le niveau de lecture font partie du questionnaire ; le carnet du lecteur existe en plusieurs versions selon l'âge."
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Je ne connais pas bien les goûts de l'enfant. Est-ce un problème ?",
+            "answer": "Non, c'est très fréquent chez les grands-parents, parrains et marraines. Indiquez ce que vous savez, ajoutez un mot dans le champ libre : le comité s'adapte, et vous validez la sélection avant l'envoi."
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "Le coffret arrivera-t-il avant Noël ?",
+            "answer": "Oui : commandé avant la date limite de mi-décembre, le coffret est garanti sous le sapin. Le reste de l'année, il se commande pour les anniversaires."
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "question": "Quelle différence avec la Sélection personnalisée Verty ?",
+            "answer": "La Sélection vous conseille des livres à acheter ; le Coffret est un cadeau tout prêt. Même comité, même exigence, mais ici les livres arrivent avec le carnet du lecteur dans une boîte prête à offrir, à prix fixe."
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6",
+        "question_7"
+      ]
+    },
+    "coffret_cta_final": {
+      "type": "coffret-cta-final",
+      "settings": {
+        "heading": "Le plus beau des cadeaux, choisi comme si vous aviez le temps.",
+        "text": "39,00€ + 4,90€ de livraison. Deux minutes pour nous parler de lui, le comité fait le reste, vous validez.",
+        "cta_label": "Je commande son coffret",
+        "share_label": "Envoyer cette idée cadeau",
+        "share_url": "#partager",
+        "show_shelf": true
+      }
+    }
+  },
+  "order": [
+    "coffret_hero",
+    "coffret_promesse",
+    "coffret_interieur",
+    "coffret_etapes",
+    "coffret_exemples",
+    "coffret_offrir",
+    "coffret_comite",
+    "coffret_temoignages",
+    "coffret_faq",
+    "coffret_cta_final"
+  ]
+}

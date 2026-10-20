@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap">
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+{%- assign cf_share_text = section.settings.share_message | append: ' ' | append: section.settings.share_url -%}
+{%- assign cf_whatsapp = 'https://wa.me/?text=' | append: cf_share_text | url_encode | replace: '+', '%20' -%}
+
+<section class="coffret-page cf-offer" data-section-id="{{ section.id }}">
+  <div class="cf-offer__inner">
+    {%- if section.settings.heading != blank -%}<h2 class="cf-h2" style="margin-bottom:12px;">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    {%- if section.settings.subheading != blank -%}<p class="cf-lead cf-offer__lead">{{ section.settings.subheading | escape }}</p>{%- endif -%}
+
+    <div class="cf-offer__row cf-offer__row--gift">
+      <div class="cf-offer__covers" aria-hidden="true">
+        <img src="{{ 'coffret-landing-cover-orfan.jpg' | asset_url }}" alt="" loading="lazy" width="120">
+        <img src="{{ 'coffret-landing-cover-malheurs-sophie.jpg' | asset_url }}" alt="" loading="lazy" width="140">
+        <img src="{{ 'coffret-landing-cover-appel-foret.jpg' | asset_url }}" alt="" loading="lazy" width="120">
+        {%- if section.settings.covers_note != blank -%}
+          <span class="cf-hand cf-offer__which">{{ section.settings.covers_note | escape }}</span>
+          <svg class="cf-offer__which-arrow" viewBox="0 0 60 60" aria-hidden="true">
+            <path d="M6 8 C 26 12, 38 26, 44 48" fill="none" stroke="var(--cf-theme-strong)" stroke-width="2.4" stroke-linecap="round"></path>
+            <path d="M34 42 L44 50 L50 38" fill="none" stroke="var(--cf-theme-strong)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        {%- endif -%}
+      </div>
+      <div class="cf-offer__col">
+        <span class="cf-hand cf-offer__hand">{{ section.settings.gift_title | escape }}</span>
+        <p class="cf-offer__text">{{ section.settings.gift_text | escape }}</p>
+        {%- if section.settings.gift_cta_label != blank -%}
+          <a href="{{ section.settings.gift_cta_url | default: '/pages/coffret' }}" class="cf-btn cf-offer__cta">{{ section.settings.gift_cta_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div id="partager" class="cf-offer__row cf-offer__row--share">
+      <div class="cf-offer__col cf-offer__share-text">
+        <span class="cf-hand cf-offer__hand cf-offer__share-title">{{ section.settings.share_title | escape }}</span>
+        <p class="cf-offer__text cf-offer__share-p">{{ section.settings.share_text | escape }}</p>
+        {%- if section.settings.share_cta_label != blank -%}
+          <div class="cf-offer__actions cf-offer__share-cta">
+            <a href="{{ cf_whatsapp }}" target="_blank" rel="noopener" class="cf-btn">
+              {% render 'coffret-landing-icon', name: 'share', size: 18 %}
+              {{ section.settings.share_cta_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="cf-offer__chatwrap">
+        <div class="cf-chat">
+          <div class="cf-chat__msg cf-chat__msg--in">{{ section.settings.chat_1 | escape }}<span class="cf-chat__time">10:42</span></div>
+          <div class="cf-chat__msg cf-chat__msg--out">{{ section.settings.chat_2 | escape }} <span class="cf-chat__link">{{ section.settings.chat_link | escape }}</span><span class="cf-chat__time">10:43 <span class="cf-chat__time-ticks">&#10003;&#10003;</span></span></div>
+          <div class="cf-chat__msg cf-chat__msg--in cf-chat__msg--short">{{ section.settings.chat_3 | escape }}<span class="cf-chat__time">10:44</span></div>
+          {%- if section.settings.chat_note != blank -%}
+            <span class="cf-hand cf-chat__deco">{{ section.settings.chat_note | escape }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, deux façons",
+  "tag": "div",
+  "class": "coffret-offrir-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Deux façons d'offrir" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Parent, grand-parent, oncle et tante, parrain et marraine..." },
+    { "type": "header", "content": "Je cherche un cadeau" },
+    { "type": "text", "id": "covers_note", "label": "Annotation sur les couvertures", "default": "lequel choisir ?" },
+    { "type": "text", "id": "gift_title", "label": "Titre", "default": "Vous cherchez un cadeau ?" },
+    {
+      "type": "textarea",
+      "id": "gift_text",
+      "label": "Texte",
+      "default": "Un enfant que vous connaissez un peu, beaucoup ou pas assez. Vous dites ce que vous savez, le comité fait le reste, vous validez avant l'envoi."
+    },
+    { "type": "text", "id": "gift_cta_label", "label": "Bouton", "default": "Je commande son coffret" },
+    { "type": "url", "id": "gift_cta_url", "label": "Lien du bouton", "info": "Par défaut : /pages/coffret" },
+    { "type": "header", "content": "Partager l'idée" },
+    { "type": "text", "id": "share_title", "label": "Titre", "default": "Tu sais ce qui ferait plaisir à Louis ?" },
+    {
+      "type": "textarea",
+      "id": "share_text",
+      "label": "Texte",
+      "default": "On vous demande, encore, « qu'est-ce qu'on peut lui offrir ? ». Envoyez cette page à vos proches : ils commandent, le comité choisit, personne ne se trompe."
+    },
+    { "type": "text", "id": "share_cta_label", "label": "Bouton de partage", "default": "Je partage" },
+    { "type": "text", "id": "share_url", "label": "Lien partagé", "default": "https://verty.eu/coffret" },
+    {
+      "type": "textarea",
+      "id": "share_message",
+      "label": "Message WhatsApp",
+      "info": "Le lien partagé est ajouté à la fin.",
+      "default": "Une idée cadeau pour lui : le Coffret Verty, des livres choisis spécialement pour lui par le comité Verty."
+    },
+    { "type": "header", "content": "Conversation d'exemple" },
+    { "type": "text", "id": "chat_1", "label": "Message reçu 1", "default": "Coucou, tu sais ce qui ferait plaisir à Louis pour son anniversaire ?" },
+    { "type": "text", "id": "chat_2", "label": "Réponse", "default": "Trop sympa. Un coffret avec des livres choisis pour lui ! Sur Verty ils ont un comité qui te fait la sélection pour Louis." },
+    { "type": "text", "id": "chat_link", "label": "Lien dans la réponse", "default": "verty.eu/coffret" },
+    { "type": "text", "id": "chat_3", "label": "Message reçu 2", "default": "Canon, merci !" },
+    { "type": "text", "id": "chat_note", "label": "Annotation", "default": "réglé en deux messages" }
+  ],
+  "presets": [
+    { "name": "Coffret, deux façons" }
+  ]
+}
+{% endschema %}

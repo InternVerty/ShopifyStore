@@ -1,0 +1,108 @@
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="coffret-page cf-examples" data-section-id="{{ section.id }}">
+  <div class="cf-examples__inner">
+    {%- if section.settings.heading != blank -%}<h2 class="cf-h2">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    {%- if section.settings.subheading != blank -%}<p class="cf-lead cf-examples__lead">{{ section.settings.subheading | escape }}</p>{%- endif -%}
+
+    <div class="cf-grid3">
+      {%- for block in section.blocks -%}
+        <div class="cf-example" {{ block.shopify_attributes }}>
+          <div class="cf-example__covers">
+            {%- for n in (1..2) -%}
+              {%- assign cf_key = 'product_' | append: n -%}
+              {%- assign cf_product = block.settings[cf_key] -%}
+              {%- comment -%} Sans produit choisi : couverture et lien d'exemple du design. {%- endcomment -%}
+              {%- assign cf_slot = forloop.parentloop.index0 | times: 2 | plus: n -%}
+              {%- case cf_slot -%}
+                {%- when 1 -%}{%- assign cf_fb_img = 'super-pouvoir-joie' -%}{%- assign cf_fb_title = 'Le super pouvoir de la joie' -%}{%- assign cf_fb_url = '/products/le-super-pouvoir-de-la-joie' -%}
+                {%- when 2 -%}{%- assign cf_fb_img = 'ours-grand-mere' -%}{%- assign cf_fb_title = 'Les ours de Grand-mère' -%}{%- assign cf_fb_url = '/products/les-ours-de-grand-mere' -%}
+                {%- when 3 -%}{%- assign cf_fb_img = 'rat-mesange' -%}{%- assign cf_fb_title = 'Le rat, la mésange et le jardinier' -%}{%- assign cf_fb_url = '/products/le-rat-la-mesange-et-le-jardinier' -%}
+                {%- when 4 -%}{%- assign cf_fb_img = 'amitie-difficile' -%}{%- assign cf_fb_title = 'Une amitié difficile' -%}{%- assign cf_fb_url = '/products/une-amitie-difficile' -%}
+                {%- when 5 -%}{%- assign cf_fb_img = 'jacques-vic-otto' -%}{%- assign cf_fb_title = 'Les aventures de Jacques, Vic et Otto, vol. 1' -%}{%- assign cf_fb_url = '/products/les-aventures-de-jacques-vic-et-otto-vol-1-en-route-pour-la-liberte' -%}
+                {%- when 6 -%}{%- assign cf_fb_img = 'garin-trousseboeuf' -%}{%- assign cf_fb_title = "Garin Trousseboeuf, vol. 1, L'inconnu du donjon" -%}{%- assign cf_fb_url = '/products/garin-trousseboeuf-vol-1-linconnu-du-donjon' -%}
+                {%- else -%}{%- assign cf_fb_img = blank -%}{%- assign cf_fb_title = blank -%}{%- assign cf_fb_url = blank -%}
+              {%- endcase -%}
+              {%- if cf_product != blank and cf_product.featured_image != blank -%}
+                <a href="{{ cf_product.url }}" class="cf-example__cover" title="{{ cf_product.title | escape }}"><img src="{{ cf_product.featured_image | image_url: width: 300 }}" alt="{{ cf_product.title | escape }}" width="104" loading="lazy"></a>
+              {%- elsif cf_fb_img != blank -%}
+                {%- assign cf_fb_file = 'coffret-landing-cover-' | append: cf_fb_img | append: '.jpg' -%}
+                <a href="{{ cf_fb_url }}" class="cf-example__cover" title="{{ cf_fb_title | escape }}"><img src="{{ cf_fb_file | asset_url }}" alt="{{ cf_fb_title | escape }}" width="104" loading="lazy"></a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="cf-example__body">
+            {%- if block.settings.badge != blank -%}<span class="cf-badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
+            <h3 class="cf-example__title">{{ block.settings.title | escape }}</h3>
+            <p class="cf-example__text">{{ block.settings.text | escape }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="cf-examples__cta">
+        <a href="{{ section.settings.cta_url | default: '/pages/coffret' }}" class="cf-btn cf-btn--lg">{{ section.settings.cta_label | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, exemples",
+  "tag": "div",
+  "class": "coffret-exemples-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Des exemples de coffrets déjà composés par notre comité" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Ce que le comité Verty aurait choisi pour eux. Aucun coffret ne ressemble à un autre." },
+    { "type": "text", "id": "cta_label", "label": "Bouton", "default": "Je commande son coffret" },
+    { "type": "url", "id": "cta_url", "label": "Lien du bouton", "info": "Par défaut : /pages/coffret" }
+  ],
+  "blocks": [
+    {
+      "type": "example",
+      "name": "Exemple de coffret",
+      "limit": 3,
+      "settings": [
+        { "type": "product", "id": "product_1", "label": "Livre 1", "info": "Sans produit, la couverture d'exemple du design est affichée." },
+        { "type": "product", "id": "product_2", "label": "Livre 2" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "4 ans, aime les histoires partagées" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Prénom, centres d'intérêt" },
+        { "type": "textarea", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffret, exemples",
+      "blocks": [
+        {
+          "type": "example",
+          "settings": {
+            "badge": "4 ans, aime les histoires partagées",
+            "title": "Louise, sensible aux liens familiaux",
+            "text": "Deux albums tendres autour des liens qui nous unissent et des petits moments du quotidien. Une sélection pensée pour nourrir son imaginaire et ouvrir de jolies conversations à partager ensemble."
+          }
+        },
+        {
+          "type": "example",
+          "settings": {
+            "badge": "7 ans, commence à lire seul",
+            "title": "Emile, passionné d'animaux et de découvertes",
+            "text": "Un album à partager et un petit roman à découvrir seul, entre animaux, aventure et émotions, pour l'accompagner en douceur vers une lecture de plus en plus autonome."
+          }
+        },
+        {
+          "type": "example",
+          "settings": {
+            "badge": "11 ans, du mal à décrocher des écrans",
+            "title": "Arthur, fan d'aventure et d'Histoire",
+            "text": "Une BD historique pleine de rebondissements et le premier tome d'une série d'aventure palpitante, drôle et mystérieuse, pour renouer avec le plaisir de lire sans effort."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

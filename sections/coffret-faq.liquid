@@ -1,0 +1,50 @@
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="coffret-page cf-faq" data-section-id="{{ section.id }}">
+  <div class="cf-faq__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="cf-h2 cf-faq__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      <details class="cf-faq__item" {{ block.shopify_attributes }}>
+        <summary>{{ block.settings.question | escape }}</summary>
+        <p>{{ block.settings.answer | escape }}</p>
+      </details>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffret, FAQ",
+  "tag": "div",
+  "class": "coffret-faq-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Vos questions" }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Réponse" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffret, FAQ",
+      "blocks": [
+        { "type": "question", "settings": { "question": "Qu'y a-t-il exactement dans le coffret pour 39,00€ ?", "answer": "2 ou 3 livres choisis par le comité Verty selon l'enfant (jusqu'à 25,00€ de valeur livres), le carnet du lecteur adapté à son âge, et une jolie boîte cadeau prête à offrir. Les frais de livraison sont de 4,90€." } },
+        { "type": "question", "settings": { "question": "Et si l'enfant possède déjà un des livres ?", "answer": "Vous indiquez à la commande les livres qu'il a déjà et les sujets à éviter. Puis vous recevez la sélection par mail avant l'envoi : un retour avec vos commentaires suffit pour que le comité remplace un titre." } },
+        { "type": "question", "settings": { "question": "Comment se passe la validation ?", "answer": "Une fois l'achat complété, nous vous envoyons par mail les livres retenus. Vous confirmez, ou vous répondez avec vos remarques ; le comité ajuste et confirme le choix avec vous. Le coffret part ensuite." } },
+        { "type": "question", "settings": { "question": "Pour quel âge ?", "answer": "De 3 à 12 ans. L'âge et le niveau de lecture font partie du questionnaire ; le carnet du lecteur existe en plusieurs versions selon l'âge." } },
+        { "type": "question", "settings": { "question": "Je ne connais pas bien les goûts de l'enfant. Est-ce un problème ?", "answer": "Non, c'est très fréquent chez les grands-parents, parrains et marraines. Indiquez ce que vous savez, ajoutez un mot dans le champ libre : le comité s'adapte, et vous validez la sélection avant l'envoi." } },
+        { "type": "question", "settings": { "question": "Le coffret arrivera-t-il avant Noël ?", "answer": "Oui : commandé avant la date limite de mi-décembre, le coffret est garanti sous le sapin. Le reste de l'année, il se commande pour les anniversaires." } },
+        { "type": "question", "settings": { "question": "Quelle différence avec la Sélection personnalisée Verty ?", "answer": "La Sélection vous conseille des livres à acheter ; le Coffret est un cadeau tout prêt. Même comité, même exigence, mais ici les livres arrivent avec le carnet du lecteur dans une boîte prête à offrir, à prix fixe." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
