@@ -55,7 +55,31 @@
       };
 
       this.root = this.querySelector('[data-vs-root]');
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !this.hidden) this.close();
+      });
+
+      // Tout élément [data-coffret-open] de la page (boutons "Je commande son
+      // coffret" de la landing) ouvre ce formulaire en popup.
+      document.addEventListener('click', (e) => {
+        var trigger = e.target.closest('[data-coffret-open]');
+        if (!trigger) return;
+        e.preventDefault();
+        this.open();
+      });
+
       this.render();
+    }
+
+    open() {
+      this.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+
+    close() {
+      this.hidden = true;
+      document.body.style.overflow = '';
     }
 
     set(key, value) {
@@ -145,7 +169,7 @@
         this.state.sending = false;
         this.state.sent = true;
         this.render();
-        this.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.scrollTo({ top: 0, behavior: 'smooth' });
       }).catch((err) => {
         console.error('[coffret-signup]', err);
         this.state.sending = false;
@@ -327,12 +351,20 @@
 
       this.root.innerHTML = '';
 
+      var overlay = el('div', { class: 'vs-modal__overlay' });
+      overlay.addEventListener('click', () => this.close());
+      this.root.appendChild(overlay);
+
       var page = el('div', { class: 'vs-modal__page' });
       var col = el('div', { class: 'vs-modal__col' });
 
       var masthead = el('div', { class: 'vs-modal__masthead' });
       masthead.appendChild(el('span', { class: 'vs-modal__wordmark', text: 'Verty' }));
       masthead.appendChild(el('span', { class: 'vs-modal__kicker', text: 'Coffret Verty' }));
+      var closeBtn = el('button', { type: 'button', class: 'vs-modal__close', 'aria-label': 'Fermer' });
+      closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+      closeBtn.addEventListener('click', () => this.close());
+      masthead.appendChild(closeBtn);
       col.appendChild(masthead);
 
       var card = el('div', { class: 'vs-modal__card' });
