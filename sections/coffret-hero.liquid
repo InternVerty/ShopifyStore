@@ -18,7 +18,7 @@
       </div>
       <div class="cf-hero__cta">
         {%- if section.settings.cta_label != blank -%}
-          <a href="{{ section.settings.cta_url | default: '/pages/coffret' }}" class="cf-btn cf-btn--lg">{{ section.settings.cta_label | escape }}</a>
+          <button type="button" class="cf-btn cf-btn--lg" data-coffret-open>{{ section.settings.cta_label | escape }}</button>
         {%- endif -%}
         {%- if section.settings.share_label != blank -%}
           <a href="{{ section.settings.share_url | default: '#partager' }}" class="cf-sharelink">
@@ -82,8 +82,7 @@
     },
     { "type": "text", "id": "price", "label": "Prix", "default": "39,00€" },
     { "type": "text", "id": "price_note", "label": "Mention sous le prix", "default": "+ 4,90€ de livraison" },
-    { "type": "text", "id": "cta_label", "label": "Bouton principal", "default": "Je commande son coffret" },
-    { "type": "url", "id": "cta_url", "label": "Lien du bouton principal", "info": "Par défaut : /pages/coffret" },
+    { "type": "text", "id": "cta_label", "label": "Bouton principal (ouvre le formulaire)", "default": "Je commande son coffret" },
     { "type": "text", "id": "share_label", "label": "Lien secondaire", "default": "Envoyer cette idée cadeau" },
     { "type": "text", "id": "share_url", "label": "Cible du lien secondaire", "default": "#partager" },
     { "type": "header", "content": "Illustration" },

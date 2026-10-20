@@ -1,8 +1,9 @@
 {%- comment -%}
-  Formulaire du Coffret Verty, affiché directement dans la page (template
-  page.coffret). Reprend les questions du formulaire Tally "Formulaire
-  Coffret" (tally.so/r/yPBVWd) et le style du popup "La Sélection Verty"
-  (selection-signup.css, variante .vs-modal--inline).
+  Formulaire du Coffret Verty, affiché en popup (template page.coffret).
+  Reprend les questions du formulaire Tally "Formulaire Coffret"
+  (tally.so/r/yPBVWd) et le style du popup "La Sélection Verty"
+  (selection-signup.css). Il s'ouvre depuis tout élément portant l'attribut
+  data-coffret-open, comme les boutons de la landing (sections coffret-*).
 
   Les réponses sont envoyées à /apps/verty-sync avec action "coffret",
   comme les autres formulaires (voir assets/coffret-signup.js pour le payload).
@@ -13,7 +14,8 @@
 <script src="{{ 'coffret-signup.js' | asset_url }}" defer="defer"></script>
 
 <coffret-signup
-  class="vs-modal vs-modal--inline"
+  class="vs-modal"
+  hidden
   data-customer-id="{{ customer.id }}"
   data-redirect-url="{{ section.settings.redirect_url }}"
   data-privacy-url="{{ section.settings.privacy_url | default: '/pages/donnees-personnelles' }}"

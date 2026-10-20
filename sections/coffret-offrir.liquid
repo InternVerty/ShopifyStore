@@ -26,7 +26,7 @@
         <span class="cf-hand cf-offer__hand">{{ section.settings.gift_title | escape }}</span>
         <p class="cf-offer__text">{{ section.settings.gift_text | escape }}</p>
         {%- if section.settings.gift_cta_label != blank -%}
-          <a href="{{ section.settings.gift_cta_url | default: '/pages/coffret' }}" class="cf-btn cf-offer__cta">{{ section.settings.gift_cta_label | escape }}</a>
+          <button type="button" class="cf-btn cf-offer__cta" data-coffret-open>{{ section.settings.gift_cta_label | escape }}</button>
         {%- endif -%}
       </div>
     </div>
@@ -76,7 +76,6 @@
       "default": "Un enfant que vous connaissez un peu, beaucoup ou pas assez. Vous dites ce que vous savez, le comité fait le reste, vous validez avant l'envoi."
     },
     { "type": "text", "id": "gift_cta_label", "label": "Bouton", "default": "Je commande son coffret" },
-    { "type": "url", "id": "gift_cta_url", "label": "Lien du bouton", "info": "Par défaut : /pages/coffret" },
     { "type": "header", "content": "Partager l'idée" },
     { "type": "text", "id": "share_title", "label": "Titre", "default": "Tu sais ce qui ferait plaisir à Louis ?" },
     {

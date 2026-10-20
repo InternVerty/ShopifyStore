@@ -42,7 +42,7 @@
 
     {%- if section.settings.cta_label != blank -%}
       <div class="cf-examples__cta">
-        <a href="{{ section.settings.cta_url | default: '/pages/coffret' }}" class="cf-btn cf-btn--lg">{{ section.settings.cta_label | escape }}</a>
+        <button type="button" class="cf-btn cf-btn--lg" data-coffret-open>{{ section.settings.cta_label | escape }}</button>
       </div>
     {%- endif -%}
   </div>
@@ -56,8 +56,7 @@
   "settings": [
     { "type": "text", "id": "heading", "label": "Titre", "default": "Des exemples de coffrets déjà composés par notre comité" },
     { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Ce que le comité Verty aurait choisi pour eux. Aucun coffret ne ressemble à un autre." },
-    { "type": "text", "id": "cta_label", "label": "Bouton", "default": "Je commande son coffret" },
-    { "type": "url", "id": "cta_url", "label": "Lien du bouton", "info": "Par défaut : /pages/coffret" }
+    { "type": "text", "id": "cta_label", "label": "Bouton", "default": "Je commande son coffret" }
   ],
   "blocks": [
     {
