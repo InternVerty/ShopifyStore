@@ -162,3 +162,19 @@
   margin: 4px 0 0; padding: 14px 16px; border-radius: 12px; background: var(--vs-mint-wash);
   border: 1px solid var(--vs-rule); font-size: 15px; line-height: 1.55; color: var(--vs-text-rgpd);
 }
+
+/* Variante bleu marine (formulaire Coffret, landing coffret-*) : remappe les
+   accents mint/teal sur la palette de la landing (#163D83, #0F2C61, #D3DBF0). */
+.vs-modal--marine {
+  --vs-mint: #163D83;
+  --vs-mint-hover: rgba(22, 61, 131, 0.08);
+  --vs-mint-wash: #D3DBF0;
+  --vs-teal: #0F2C61;
+}
+.vs-modal--marine .vs-modal__band { color: #fff; }
+.vs-modal--marine .vs-modal__band p { color: rgba(255, 255, 255, 0.88); }
+.vs-modal--marine .vs-pill.is-active { border-color: var(--vs-mint); color: #fff; }
+.vs-modal--marine .vs-rgpd__row.is-checked .vs-rgpd__box { border-color: var(--vs-mint); color: #fff; }
+.vs-modal--marine .vs-modal__cta { color: #fff; }
+.vs-modal--marine .vs-modal__cta:hover:not(:disabled) { background: var(--vs-teal); }
+.vs-modal--marine .vs-modal__actionbar { background: rgba(211, 219, 240, 0.94); }
