@@ -15,7 +15,7 @@
       "type": "custom-liquid",
       "name": "Image footer",
       "settings": {
-        "custom_liquid": "{% comment %}\n  Image pleine largeur – simple\n{% endcomment %}\n\n{% if template.suffix == 'abonnement-et-box' or template.suffixe == 'coffret' %}\n  <div class=\"full-width-image\">\n  <img\n    src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/footer_image_livres_desordonnes.png?v=1769174533\"\n    alt=\"\"\n    loading=\"lazy\"\n  >\n</div>\n{% else %}\n<div class=\"full-width-image\">\n  <img\n    src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/image_livre_footer.png?v=1769173319\"\n    alt=\"\"\n    loading=\"lazy\"\n  >\n</div>\n{% endif %}\n\n\n<style>\n\n  .full-width-image img{\n    width: 100%;\n    height: auto;\n  }\n</style>",
+        "custom_liquid": "{% comment %}\n  Image pleine largeur – simple\n{% endcomment %}\n\n{% if template.suffix == 'abonnement-et-box' or template.suffix == 'coffret' %}\n  <div class=\"full-width-image\">\n  <img\n    src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/footer_image_livres_desordonnes.png?v=1769174533\"\n    alt=\"\"\n    loading=\"lazy\"\n  >\n</div>\n{% else %}\n<div class=\"full-width-image\">\n  <img\n    src=\"https://cdn.shopify.com/s/files/1/0844/5447/4021/files/image_livre_footer.png?v=1769173319\"\n    alt=\"\"\n    loading=\"lazy\"\n  >\n</div>\n{% endif %}\n\n\n<style>\n\n  .full-width-image img{\n    width: 100%;\n    height: auto;\n  }\n</style>",
         "section_height": "tight",
         "full_width": true,
         "dividers": "none",
