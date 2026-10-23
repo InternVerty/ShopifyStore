@@ -1,22 +1,16 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "coffret_hero": {
       "type": "coffret-hero",
-      "settings": {
-        "badge": "Nouveau : Noël & anniversaires",
-        "heading": "Le Coffret Verty, des livres choisis spécialement pour lui.",
-        "subtext": "<p>Un vrai cadeau autour du livre, <strong>composé spécialement pour l'enfant par le comité Verty</strong>. Vous nous parlez de lui, nous choisissons, vous validez.</p>",
-        "price": "39,00€",
-        "price_note": "+ 4,90€ de livraison",
-        "cta_label": "Je commande son coffret",
-        "share_label": "Envoyer cette idée cadeau",
-        "share_url": "#partager",
-        "image_alt": "Des enfants s'envolent d'un coffret Verty avec leurs livres",
-        "float_right_title": "Choisi par le comité",
-        "float_right_text": "selon son âge et ses passions",
-        "float_left_title": "Validé par vous",
-        "float_left_text": "la sélection par mail avant l'envoi"
-      },
       "blocks": {
         "tag_1": {
           "type": "tag",
@@ -44,7 +38,22 @@
         "tag_1",
         "tag_2",
         "tag_3"
-      ]
+      ],
+      "settings": {
+        "badge": "Nouveau : Noël & anniversaires",
+        "heading": "Le Coffret Verty, des livres choisis spécialement pour lui.",
+        "subtext": "<p>Un vrai cadeau autour du livre, <strong>composé spécialement pour l'enfant par le comité Verty</strong>. Vous nous parlez de lui, nous choisissons, vous validez.</p>",
+        "price": "39,00€",
+        "price_note": "+ 4,90€ de livraison",
+        "cta_label": "Je commande son coffret",
+        "share_label": "Envoyer cette idée cadeau",
+        "share_url": "#partager",
+        "image_alt": "Des enfants s'envolent d'un coffret Verty avec leurs livres",
+        "float_right_title": "Choisi par le comité",
+        "float_right_text": "selon son âge et ses passions",
+        "float_left_title": "Validé par vous",
+        "float_left_text": "la sélection par mail avant l'envoi"
+      }
     },
     "coffret_promesse": {
       "type": "coffret-promesse",
@@ -54,10 +63,6 @@
     },
     "coffret_interieur": {
       "type": "coffret-interieur",
-      "settings": {
-        "heading": "À l'intérieur",
-        "subheading": "Un coffret unique, 39,00€, composé pour un enfant précis, de 3 à 12 ans."
-      },
       "blocks": {
         "item_1": {
           "type": "item",
@@ -97,17 +102,14 @@
         "item_2",
         "item_3",
         "item_4"
-      ]
+      ],
+      "settings": {
+        "heading": "À l'intérieur",
+        "subheading": "Un coffret unique, 39,00€, composé pour un enfant précis, de 3 à 12 ans."
+      }
     },
     "coffret_etapes": {
       "type": "coffret-etapes",
-      "settings": {
-        "heading": "Le comité choisit,",
-        "heading_hand": "vous gardez le dernier mot",
-        "deco_left": "deux minutes pour vous",
-        "deco_right": "et c'est parti !",
-        "note": "Vous ne savez pas tout de l'enfant ?\nUn champ libre suffit, le comité s'adapte."
-      },
       "blocks": {
         "step_1": {
           "type": "step",
@@ -143,27 +145,33 @@
         "step_2",
         "step_3",
         "step_4"
-      ]
+      ],
+      "settings": {
+        "heading": "Le comité choisit,",
+        "heading_hand": "vous gardez le dernier mot",
+        "deco_left": "deux minutes pour vous",
+        "deco_right": "et c'est parti !",
+        "note": "Vous ne savez pas tout de l'enfant ?\nUn champ libre suffit, le comité s'adapte."
+      }
     },
     "coffret_exemples": {
       "type": "coffret-exemples",
-      "settings": {
-        "heading": "Des exemples de coffrets déjà composés par notre comité",
-        "subheading": "Ce que le comité Verty aurait choisi pour eux. Aucun coffret ne ressemble à un autre.",
-        "cta_label": "Je commande son coffret"
-      },
       "blocks": {
         "example_1": {
           "type": "example",
           "settings": {
-            "badge": "4 ans, aime les histoires partagées",
-            "title": "Louise, sensible aux liens familiaux",
-            "text": "Deux albums tendres autour des liens qui nous unissent et des petits moments du quotidien. Une sélection pensée pour nourrir son imaginaire et ouvrir de jolies conversations à partager ensemble."
+            "product_1": "1-2-3-soleil",
+            "product_2": "",
+            "badge": "9 ans, aime les intrigues",
+            "title": "Louise, aventurière dans l’âme",
+            "text": "Deux romans captivants, entre aventures, mystères et rebondissements. Une sélection pensée pour nourrir son imagination et lui donner envie de dévorer les chapitres les uns après les autres."
           }
         },
         "example_2": {
           "type": "example",
           "settings": {
+            "product_1": "",
+            "product_2": "",
             "badge": "7 ans, commence à lire seul",
             "title": "Emile, passionné d'animaux et de découvertes",
             "text": "Un album à partager et un petit roman à découvrir seul, entre animaux, aventure et émotions, pour l'accompagner en douceur vers une lecture de plus en plus autonome."
@@ -172,6 +180,8 @@
         "example_3": {
           "type": "example",
           "settings": {
+            "product_1": "",
+            "product_2": "",
             "badge": "11 ans, du mal à décrocher des écrans",
             "title": "Arthur, fan d'aventure et d'Histoire",
             "text": "Une BD historique pleine de rebondissements et le premier tome d'une série d'aventure palpitante, drôle et mystérieuse, pour renouer avec le plaisir de lire sans effort."
@@ -182,7 +192,12 @@
         "example_1",
         "example_2",
         "example_3"
-      ]
+      ],
+      "settings": {
+        "heading": "Des exemples de coffrets déjà composés par notre comité",
+        "subheading": "Ce que le comité Verty aurait choisi pour eux. Aucun coffret ne ressemble à un autre.",
+        "cta_label": "Je commande son coffret"
+      }
     },
     "coffret_offrir": {
       "type": "coffret-offrir",
@@ -212,34 +227,32 @@
         "heading": "Composé par le comité de lecture",
         "text": "Grands-parents et parents, institutrices, psychologues, orthophonistes : le comité lit, note et valide chaque livre du catalogue. C'est lui qui compose votre coffret, livre par livre, pour cet enfant-là. Et c'est vous qui avez le dernier mot.",
         "quote": "Le bon, le beau et le vrai, pour élever l'esprit, le cœur et l'intelligence.",
-        "cta_label": "En savoir plus"
+        "cta_label": "En savoir plus",
+        "cta_url": ""
       }
     },
     "coffret_temoignages": {
       "type": "coffret-temoignages",
-      "settings": {
-        "heading": "Ils ont offert un coffret"
-      },
       "blocks": {
         "review_1": {
           "type": "review",
           "settings": {
-            "author": "Élisabeth, grand-mère de Jeanne, 9 ans",
-            "text": "« J'ai reçu la sélection par mail, un des titres, elle l'avait déjà. Un mot en réponse, remplacé le lendemain. Ma petite-fille a lu le premier roman en trois soirs. »"
+            "text": "« J'ai reçu la sélection par mail, un des titres, elle l'avait déjà. Un mot en réponse, remplacé le lendemain. Ma petite-fille a lu le premier roman en trois soirs. »",
+            "author": "Élisabeth, grand-mère de Jeanne, 9 ans"
           }
         },
         "review_2": {
           "type": "review",
           "settings": {
-            "author": "Antoine, parrain de Louis, 6 ans",
-            "text": "« Ma sœur m'a envoyé le lien avec « tu choisis, ils choisissent ». Questionnaire dans le métro, coffret prêt à offrir avec un mot pour mon filleul. Tout était juste. »"
+            "text": "« Ma sœur m'a envoyé le lien avec « tu choisis, ils choisissent ». Questionnaire dans le métro, coffret prêt à offrir avec un mot pour mon filleul. Tout était juste. »",
+            "author": "Antoine, parrain de Louis, 6 ans"
           }
         },
         "review_3": {
           "type": "review",
           "settings": {
-            "author": "Claire, maman de Gaspard, 8 ans",
-            "text": "« Mon fils ne lisait pas. Un des livres parlait de foot, il l'a fini, et il remplit son carnet du lecteur tout seul. C'est la première fois qu'un cadeau fait ça. »"
+            "text": "« Mon fils ne lisait pas. Un des livres parlait de foot, il l'a fini, et il remplit son carnet du lecteur tout seul. C'est la première fois qu'un cadeau fait ça. »",
+            "author": "Claire, maman de Gaspard, 8 ans"
           }
         }
       },
@@ -247,13 +260,13 @@
         "review_1",
         "review_2",
         "review_3"
-      ]
+      ],
+      "settings": {
+        "heading": "Ils ont offert un coffret"
+      }
     },
     "coffret_faq": {
       "type": "coffret-faq",
-      "settings": {
-        "heading": "Vos questions"
-      },
       "blocks": {
         "question_1": {
           "type": "question",
@@ -313,7 +326,10 @@
         "question_5",
         "question_6",
         "question_7"
-      ]
+      ],
+      "settings": {
+        "heading": "Vos questions"
+      }
     },
     "coffret_cta_final": {
       "type": "coffret-cta-final",
@@ -328,7 +344,10 @@
     },
     "coffret_signup": {
       "type": "coffret-signup",
-      "settings": {}
+      "settings": {
+        "redirect_url": "",
+        "privacy_url": ""
+      }
     }
   },
   "order": [
