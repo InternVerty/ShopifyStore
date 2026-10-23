@@ -41,7 +41,7 @@
         {%- if section.settings.image != blank -%}
           <img src="{{ section.settings.image | image_url: width: 900 }}" srcset="{{ section.settings.image | image_url: width: 640 }} 640w, {{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1280 }} 1280w" sizes="(max-width: 640px) 80vw, 40vw" alt="{{ section.settings.image.alt | default: section.settings.image_alt | escape }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" loading="eager">
         {%- else -%}
-          <img src="{{ 'coffret-landing-hero.webp' | asset_url }}" alt="{{ section.settings.image_alt | escape }}" width="638" height="900" loading="eager">
+          <img src="{{ 'coffret-landing-hero.webp' | asset_url }}" alt="{{ section.settings.image_alt | escape }}" width="1055" height="1491" loading="eager">
         {%- endif -%}
       </div>
       {%- if section.settings.float_right_title != blank -%}
@@ -87,7 +87,7 @@
     { "type": "text", "id": "share_url", "label": "Cible du lien secondaire", "default": "#partager" },
     { "type": "header", "content": "Illustration" },
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Sans image, l'illustration du design est utilisée." },
-    { "type": "text", "id": "image_alt", "label": "Texte alternatif", "default": "Des enfants s'envolent d'un coffret Verty avec leurs livres" },
+    { "type": "text", "id": "image_alt", "label": "Texte alternatif", "default": "Des enfants lisent dans une montgolfière faite de livres" },
     { "type": "header", "content": "Cartes flottantes" },
     { "type": "text", "id": "float_right_title", "label": "Carte haute, titre", "default": "Choisi par le comité" },
     { "type": "text", "id": "float_right_text", "label": "Carte haute, texte", "default": "selon son âge et ses passions" },
