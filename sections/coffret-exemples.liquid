@@ -8,29 +8,31 @@
     <div class="cf-grid3">
       {%- for block in section.blocks -%}
         <div class="cf-example" {{ block.shopify_attributes }}>
-          <div class="cf-example__covers">
-            {%- for n in (1..2) -%}
-              {%- assign cf_key = 'product_' | append: n -%}
-              {%- assign cf_product = block.settings[cf_key] -%}
-              {%- comment -%} Sans produit choisi : couverture et lien d'exemple du design. {%- endcomment -%}
-              {%- assign cf_slot = forloop.parentloop.index0 | times: 2 | plus: n -%}
-              {%- case cf_slot -%}
-                {%- when 1 -%}{%- assign cf_fb_img = 'super-pouvoir-joie' -%}{%- assign cf_fb_title = 'Le super pouvoir de la joie' -%}{%- assign cf_fb_url = '/products/le-super-pouvoir-de-la-joie' -%}
-                {%- when 2 -%}{%- assign cf_fb_img = 'ours-grand-mere' -%}{%- assign cf_fb_title = 'Les ours de Grand-mère' -%}{%- assign cf_fb_url = '/products/les-ours-de-grand-mere' -%}
-                {%- when 3 -%}{%- assign cf_fb_img = 'rat-mesange' -%}{%- assign cf_fb_title = 'Le rat, la mésange et le jardinier' -%}{%- assign cf_fb_url = '/products/le-rat-la-mesange-et-le-jardinier' -%}
-                {%- when 4 -%}{%- assign cf_fb_img = 'amitie-difficile' -%}{%- assign cf_fb_title = 'Une amitié difficile' -%}{%- assign cf_fb_url = '/products/une-amitie-difficile' -%}
-                {%- when 5 -%}{%- assign cf_fb_img = 'jacques-vic-otto' -%}{%- assign cf_fb_title = 'Les aventures de Jacques, Vic et Otto, vol. 1' -%}{%- assign cf_fb_url = '/products/les-aventures-de-jacques-vic-et-otto-vol-1-en-route-pour-la-liberte' -%}
-                {%- when 6 -%}{%- assign cf_fb_img = 'garin-trousseboeuf' -%}{%- assign cf_fb_title = "Garin Trousseboeuf, vol. 1, L'inconnu du donjon" -%}{%- assign cf_fb_url = '/products/garin-trousseboeuf-vol-1-linconnu-du-donjon' -%}
-                {%- else -%}{%- assign cf_fb_img = blank -%}{%- assign cf_fb_title = blank -%}{%- assign cf_fb_url = blank -%}
-              {%- endcase -%}
-              {%- if cf_product != blank and cf_product.featured_image != blank -%}
-                <a href="{{ cf_product.url }}" class="cf-example__cover" title="{{ cf_product.title | escape }}"><img src="{{ cf_product.featured_image | image_url: width: 300 }}" alt="{{ cf_product.title | escape }}" width="104" loading="lazy"></a>
-              {%- elsif cf_fb_img != blank -%}
-                {%- assign cf_fb_file = 'coffret-landing-cover-' | append: cf_fb_img | append: '.jpg' -%}
-                <a href="{{ cf_fb_url }}" class="cf-example__cover" title="{{ cf_fb_title | escape }}"><img src="{{ cf_fb_file | asset_url }}" alt="{{ cf_fb_title | escape }}" width="104" loading="lazy"></a>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
+          {%- if block.settings.image != blank -%}
+            <div class="cf-example__covers cf-example__covers--image">
+              <img src="{{ block.settings.image | image_url: width: 760 }}" srcset="{{ block.settings.image | image_url: width: 400 }} 400w, {{ block.settings.image | image_url: width: 760 }} 760w" sizes="(max-width: 820px) 340px, 400px" alt="{{ block.settings.image.alt | default: block.settings.title | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy">
+            </div>
+          {%- else -%}
+            {%- comment -%} Sans image choisie : les couvertures d'exemple du design. {%- endcomment -%}
+            <div class="cf-example__covers">
+              {%- for n in (1..2) -%}
+                {%- assign cf_slot = forloop.parentloop.index0 | times: 2 | plus: n -%}
+                {%- case cf_slot -%}
+                  {%- when 1 -%}{%- assign cf_fb_img = 'super-pouvoir-joie' -%}
+                  {%- when 2 -%}{%- assign cf_fb_img = 'ours-grand-mere' -%}
+                  {%- when 3 -%}{%- assign cf_fb_img = 'rat-mesange' -%}
+                  {%- when 4 -%}{%- assign cf_fb_img = 'amitie-difficile' -%}
+                  {%- when 5 -%}{%- assign cf_fb_img = 'jacques-vic-otto' -%}
+                  {%- when 6 -%}{%- assign cf_fb_img = 'garin-trousseboeuf' -%}
+                  {%- else -%}{%- assign cf_fb_img = blank -%}
+                {%- endcase -%}
+                {%- if cf_fb_img != blank -%}
+                  {%- assign cf_fb_file = 'coffret-landing-cover-' | append: cf_fb_img | append: '.jpg' -%}
+                  <span class="cf-example__cover"><img src="{{ cf_fb_file | asset_url }}" alt="" width="104" loading="lazy"></span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
           <div class="cf-example__body">
             {%- if block.settings.badge != blank -%}<span class="cf-badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
             <h3 class="cf-example__title">{{ block.settings.title | escape }}</h3>
@@ -64,8 +66,7 @@
       "name": "Exemple de coffret",
       "limit": 3,
       "settings": [
-        { "type": "product", "id": "product_1", "label": "Livre 1", "info": "Sans produit, la couverture d'exemple du design est affichée." },
-        { "type": "product", "id": "product_2", "label": "Livre 2" },
+        { "type": "image_picker", "id": "image", "label": "Image d'illustration", "info": "Affichée en pleine largeur au-dessus du texte. Sans image, les couvertures d'exemple du design sont affichées." },
         { "type": "text", "id": "badge", "label": "Badge", "default": "4 ans, aime les histoires partagées" },
         { "type": "text", "id": "title", "label": "Titre", "default": "Prénom, centres d'intérêt" },
         { "type": "textarea", "id": "text", "label": "Texte" }
