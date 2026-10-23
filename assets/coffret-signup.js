@@ -4,12 +4,20 @@
   // Questions reprises du formulaire Tally "Formulaire Coffret" (tally.so/r/yPBVWd).
   var AGES = ['3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
   var OCCASIONS = ['Noël', 'Anniversaire', 'Autre'];
+  // Le code (value) part dans le payload ; il sert à calibrer la reco : nouveautés =
+  // parutions des dernières années, classiques = éviter les parutions trop récentes.
+  var TYPES_LIVRES = [
+    { value: 'nouveautes', label: 'Des nouveautés : des parutions récentes pour découvrir de nouvelles histoires.' },
+    { value: 'classiques', label: 'Des grands classiques : des incontournables de la littérature jeunesse.' },
+    { value: 'melange', label: 'Un mélange des deux : pour varier les découvertes.' },
+    { value: 'confiance', label: 'Je fais confiance à Verty ! : je vous laisse choisir les livres les plus adaptés.' }
+  ];
   var PAYS = ['France', 'Etranger'];
   var CLASSES = ['Petite section', 'Moyenne section', 'Grande section', 'CP', 'CE1', 'CE2', 'CM1', 'CM2', '6e', '5e'];
   var NIVEAUX = ['Au-dessus du niveau de sa classe', 'Conforme au niveau de la classe', 'En-dessous du niveau de sa classe'];
   var THEMES = ['Nature', 'Amitié', 'Histoire', 'Contes et légendes', 'Aventures', 'Animaux', 'Fantastique', 'Mystère', 'Science fiction', 'BD', 'Intrigue', 'Humour', 'Famille', 'Classiques', 'Policiers', 'Biographies', 'Voyages', 'Documentaire', 'Arts', 'Mythologie', 'Emotions', 'Spiritualité', 'Sport'];
   var MAX_THEMES = 5;
-  var REQUIRED = ['prenomEnfant', 'age', 'occasion', 'pays', 'classe', 'niveau', 'email', 'prenom', 'nom'];
+  var REQUIRED = ['prenomEnfant', 'age', 'occasion', 'typeLivres', 'pays', 'classe', 'niveau', 'email', 'prenom', 'nom'];
   var SYNC_URL = '/apps/verty-sync';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var REQUIRED_MSG = 'Ce champ est requis.';
@@ -37,6 +45,7 @@
           age: '',
           occasion: '',
           occasionAutre: '',
+          typeLivres: '',
           pays: '',
           classe: '',
           niveau: '',
@@ -138,6 +147,7 @@
         },
         coffret: {
           occasion: d.occasion === 'Autre' ? d.occasionAutre.trim() : d.occasion,
+          type_livres: d.typeLivres,
           pays_livraison: d.pays
         },
         consentement: true,
@@ -285,6 +295,15 @@
       if (d.occasion === 'Autre') {
         section.appendChild(this.field('Laquelle ?', true, this.input('occasionAutre', 'text', 'Fête, réussite, simple envie…'), e.occasionAutre));
       }
+
+      var typesStack = el('div', { class: 'vs-pill-stack' });
+      TYPES_LIVRES.forEach((t) => {
+        var active = d.typeLivres === t.value;
+        var btn = el('button', { type: 'button', class: 'vs-pill vs-pill--wide' + (active ? ' is-active' : ''), text: t.label, 'aria-pressed': String(active) });
+        btn.addEventListener('click', () => this.set('typeLivres', t.value));
+        typesStack.appendChild(btn);
+      });
+      section.appendChild(this.field('Pour cette sélection cadeau, quels types de livres préférez-vous ?', true, typesStack, e.typeLivres, null, false));
 
       var paysField = this.field('Dans quel pays souhaitez-vous faire livrer le coffret ?', true, this.pills('pays', PAYS), d.pays === 'Etranger' ? null : e.pays, null, false);
       section.appendChild(paysField);
