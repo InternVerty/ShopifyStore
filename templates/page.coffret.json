@@ -160,8 +160,7 @@
         "example_1": {
           "type": "example",
           "settings": {
-            "product_1": "1-2-3-soleil",
-            "product_2": "200-metiers-autour-de-toi",
+            "image": "shopify://shop_images/Selection_Louise.png",
             "badge": "9 ans, aime les intrigues",
             "title": "Louise, aventurière dans l’âme",
             "text": "Deux romans captivants, entre aventures, mystères et rebondissements. Une sélection pensée pour nourrir son imagination et lui donner envie de dévorer les chapitres les uns après les autres."
@@ -170,21 +169,19 @@
         "example_2": {
           "type": "example",
           "settings": {
-            "product_1": "",
-            "product_2": "",
-            "badge": "7 ans, commence à lire seul",
-            "title": "Emile, passionné d'animaux et de découvertes",
-            "text": "Un album à partager et un petit roman à découvrir seul, entre animaux, aventure et émotions, pour l'accompagner en douceur vers une lecture de plus en plus autonome."
+            "image": "shopify://shop_images/Selection_Emile.png",
+            "badge": "6 ans, fasciné par la nature",
+            "title": "Emile, curieux de tout et joueur",
+            "text": "Deux beaux albums pour explorer les merveilles de la forêt, observer ses mille détails et percer ses petits secrets. Une sélection pensée pour nourrir sa curiosité, éveiller son sens de l'observation et partager de jolis moments de lecture."
           }
         },
         "example_3": {
           "type": "example",
           "settings": {
-            "product_1": "",
-            "product_2": "",
-            "badge": "11 ans, du mal à décrocher des écrans",
-            "title": "Arthur, fan d'aventure et d'Histoire",
-            "text": "Une BD historique pleine de rebondissements et le premier tome d'une série d'aventure palpitante, drôle et mystérieuse, pour renouer avec le plaisir de lire sans effort."
+            "image": "shopify://shop_images/Selection_Jeanne.png",
+            "badge": "12 ans, passionnée d'Histoire",
+            "title": "Jeanne, captivée par les destins extraordinaires.",
+            "text": "Deux romans passionnants, entre fresque historique, aventure et quête de liberté. Une sélection pensée pour  élargir ses horizons et lui faire découvrir la force du courage et de la détermination."
           }
         }
       },
