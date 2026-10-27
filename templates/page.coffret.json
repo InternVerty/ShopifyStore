@@ -131,14 +131,14 @@
           "type": "step",
           "settings": {
             "title": "Vous validez",
-            "text": "Vous recevez la sélection par mail. Un titre vous fait douter ? Un retour avec vos commentaires, et le comité ajuste avant l'envoi."
+            "text": "Vous recevez la sélection par mail. L’enfant possède déjà un titre ? Signalez-le-nous, et le comité vous propose une alternative avant l’envoi."
           }
         },
         "step_4": {
           "type": "step",
           "settings": {
             "title": "Il reçoit son coffret",
-            "text": "La boîte arrive prête à offrir, chez vous ou directement chez lui. Commandé avant mi-décembre, garanti sous le sapin."
+            "text": "Le colis arrive chez vous ou directement chez lui. Commandé avant mi-décembre, garanti sous le sapin."
           }
         }
       },
