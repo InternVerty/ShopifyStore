@@ -41,7 +41,7 @@
       ],
       "settings": {
         "badge": "Nouveau : Noël & anniversaires",
-        "heading": "Le Coffret Verty, des livres choisis spécialement pour lui.",
+        "heading": "Le Coffret Personnalisé, des livres choisis spécialement pour lui.",
         "subtext": "<p>Un vrai cadeau autour du livre, <strong>composé spécialement pour l'enfant par le comité Verty</strong>. Vous nous parlez de lui, nous choisissons, vous validez.</p>",
         "price": "39,00€",
         "price_note": "+ 4,90€ de livraison",
@@ -69,7 +69,7 @@
           "settings": {
             "icon": "book",
             "title": "2 ou 3 livres choisis pour lui",
-            "text": "Sélectionnés par le comité Verty selon l'âge de l'enfant, son niveau de lecture et ses goûts. Jusqu'à 25,00€ de valeur livres, tous lus, évalués et validés par notre comité."
+            "text": "Sélectionnés par le comité Verty selon l'âge de l'enfant, son niveau de lecture et ses goûts. Jusqu'à 27,00€ de valeur livres, tous lus, évalués et validés par notre comité."
           }
         },
         "item_2": {
@@ -84,16 +84,16 @@
           "type": "item",
           "settings": {
             "icon": "gift",
-            "title": "Une jolie boîte cadeau",
-            "text": "La présentation fait partie du cadeau : le coffret arrive prêt à offrir, rien à emballer."
+            "title": "Un joli emballage cadeau",
+            "text": "Le plaisir d’offrir jusque dans les moindres détails : une enveloppe à refermer soi-même, pour y ajouter cette touche personnelle qui rend chaque cadeau unique."
           }
         },
         "item_4": {
           "type": "item",
           "settings": {
             "icon": "party",
-            "title": "La petite surprise",
-            "text": "Une petite surprise glissée dans le coffret pour ajouter encore un peu de plaisir au moment de l'ouverture, sans détourner l'attention de l'essentiel : les livres."
+            "title": "Les petites attentions qui font la différence",
+            "text": "Un marque-page à son nom et une carte postale pour raconter ses découvertes, partager ses coups de cœur et prolonger le plaisir de la lecture."
           }
         }
       },
@@ -105,7 +105,9 @@
       ],
       "settings": {
         "heading": "À l'intérieur",
-        "subheading": "Un coffret unique, 39,00€, composé pour un enfant précis, de 3 à 12 ans."
+        "subheading": "Un coffret unique, 39,00€, composé pour un enfant précis, de 3 à 12 ans.",
+        "photo_1": "shopify://shop_images/Nature_morte_livresque_chaleureuse.png",
+        "photo_2": "shopify://shop_images/Carnet_du_lecteur_chaleureux_et_illustre.png"
       }
     },
     "coffret_etapes": {
