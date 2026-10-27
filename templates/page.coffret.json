@@ -271,7 +271,7 @@
           "type": "question",
           "settings": {
             "question": "Qu'y a-t-il exactement dans le coffret pour 39,00€ ?",
-            "answer": "2 ou 3 livres choisis par le comité Verty selon l'enfant (jusqu'à 25,00€ de valeur livres), le carnet du lecteur adapté à son âge, et une jolie boîte cadeau prête à offrir. Les frais de livraison sont de 4,90€."
+            "answer": "2 ou 3 livres soigneusement choisis par le comité de lecture Verty selon le profil de l’enfant (jusqu’à 27 € de livres), accompagnés d’un carnet du lecteur adapté à son âge, d’un marque-page à personnaliser, d’une carte postale à remplir et d’une jolie enveloppe cadeau prête à offrir.\nFrais de livraison : 4,90 €."
           }
         },
         "question_2": {
@@ -285,7 +285,7 @@
           "type": "question",
           "settings": {
             "question": "Comment se passe la validation ?",
-            "answer": "Une fois l'achat complété, nous vous envoyons par mail les livres retenus. Vous confirmez, ou vous répondez avec vos remarques ; le comité ajuste et confirme le choix avec vous. Le coffret part ensuite."
+            "answer": "Une fois votre achat effectué, vous recevez la sélection par mail. L’enfant possède déjà un titre ? Signalez-le-nous sous 48 h, et le comité vous propose une alternative. Sans retour de votre part, la sélection est validée et expédiée !"
           }
         },
         "question_4": {
