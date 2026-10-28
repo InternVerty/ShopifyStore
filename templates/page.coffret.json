@@ -170,6 +170,33 @@
             "text": "Deux romans captivants, entre aventures, mystères et rebondissements. Une sélection pensée pour nourrir son imagination et lui donner envie de dévorer les chapitres les uns après les autres."
           }
         },
+        "example_n4NLzi": {
+          "type": "example",
+          "settings": {
+            "image": "shopify://shop_images/Selection_Louise.png",
+            "badge": "9 ans, aime les intrigues",
+            "title": "Louise, aventurière dans l’âme",
+            "text": "Deux romans captivants, entre aventures, mystères et rebondissements. Une sélection pensée pour nourrir son imagination et lui donner envie de dévorer les chapitres les uns après les autres."
+          }
+        },
+        "example_PXDzNF": {
+          "type": "example",
+          "settings": {
+            "image": "shopify://shop_images/Selection_Louise.png",
+            "badge": "9 ans, aime les intrigues",
+            "title": "Louise, aventurière dans l’âme",
+            "text": "Deux romans captivants, entre aventures, mystères et rebondissements. Une sélection pensée pour nourrir son imagination et lui donner envie de dévorer les chapitres les uns après les autres."
+          }
+        },
+        "example_Bjq9gM": {
+          "type": "example",
+          "settings": {
+            "image": "shopify://shop_images/Selection_Louise.png",
+            "badge": "9 ans, aime les intrigues",
+            "title": "Louise, aventurière dans l’âme",
+            "text": "Deux romans captivants, entre aventures, mystères et rebondissements. Une sélection pensée pour nourrir son imagination et lui donner envie de dévorer les chapitres les uns après les autres."
+          }
+        },
         "example_2": {
           "type": "example",
           "settings": {
@@ -191,6 +218,9 @@
       },
       "block_order": [
         "example_1",
+        "example_n4NLzi",
+        "example_PXDzNF",
+        "example_Bjq9gM",
         "example_2",
         "example_3"
       ],
