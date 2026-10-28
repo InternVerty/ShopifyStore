@@ -1,11 +1,13 @@
 {{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'coffret-landing.js' | asset_url }}" defer="defer"></script>
 
 <section class="coffret-page cf-examples" data-section-id="{{ section.id }}">
   <div class="cf-examples__inner">
     {%- if section.settings.heading != blank -%}<h2 class="cf-h2">{{ section.settings.heading | escape }}</h2>{%- endif -%}
     {%- if section.settings.subheading != blank -%}<p class="cf-lead cf-examples__lead">{{ section.settings.subheading | escape }}</p>{%- endif -%}
 
-    <div class="cf-grid3">
+    <div class="cf-carousel" data-cf-carousel>
+      <div class="cf-carousel__track" data-cf-track tabindex="0" role="region" aria-label="{{ section.settings.heading | escape }}">
       {%- for block in section.blocks -%}
         <div class="cf-example" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
@@ -40,6 +42,12 @@
           </div>
         </div>
       {%- endfor -%}
+      </div>
+      <div class="cf-carousel__nav" data-cf-nav hidden>
+        <button type="button" class="cf-carousel__arrow" data-cf-prev aria-label="Exemples précédents">{% render 'coffret-landing-icon', name: 'chevron-left', size: 20 %}</button>
+        <div class="cf-carousel__dots" data-cf-dots></div>
+        <button type="button" class="cf-carousel__arrow" data-cf-next aria-label="Exemples suivants">{% render 'coffret-landing-icon', name: 'chevron-right', size: 20 %}</button>
+      </div>
     </div>
 
     {%- if section.settings.cta_label != blank -%}
@@ -64,7 +72,7 @@
     {
       "type": "example",
       "name": "Exemple de coffret",
-      "limit": 3,
+      "limit": 12,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image d'illustration", "info": "Affichée en pleine largeur au-dessus du texte. Sans image, les couvertures d'exemple du design sont affichées." },
         { "type": "text", "id": "badge", "label": "Badge", "default": "4 ans, aime les histoires partagées" },

@@ -1,6 +1,6 @@
 {%- comment -%}
   Icônes de la landing Coffret (jeu Verty Design System, trait fin, currentColor).
-  Paramètres : name (book | stars | check | notebook | gift | party | share), size (px, défaut 20).
+  Paramètres : name (book | stars | check | notebook | gift | party | share | chevron-left | chevron-right), size (px, défaut 20).
 {%- endcomment -%}
 {%- assign cf_size = size | default: 20 -%}
 {%- case name -%}
@@ -18,4 +18,8 @@
     <svg width="{{ cf_size }}" height="{{ cf_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 20.5 8 10l6 6L4.5 20.5Z"></path><path d="M9.5 8.5c1.5-2 4-2 5.5 0"></path><path d="M14.5 4c.2 1.6 1.4 2.5 3 2.3"></path><path d="M16.5 10.5c1.5-.6 3 .2 3.5 1.7"></path><path d="M12.5 3.5v1.6M20 8l-1.2 1M19.5 15.5l1.3.6"></path><path d="M7 13.5c-1 .8-1.8 2.2-1.2 3.6"></path></svg>
   {%- when 'share' -%}
     <svg width="{{ cf_size }}" height="{{ cf_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+  {%- when 'chevron-left' -%}
+    <svg width="{{ cf_size }}" height="{{ cf_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  {%- when 'chevron-right' -%}
+    <svg width="{{ cf_size }}" height="{{ cf_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="9 18 15 12 9 6"></polyline></svg>
 {%- endcase -%}
