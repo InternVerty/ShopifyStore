@@ -29,6 +29,8 @@
 
 <link rel="stylesheet" href="{{ 'cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+<link rel="stylesheet" href="{{ 'gift-wrap.css' | asset_url }}" media="print" onload="this.media='all'">
+<script src="{{ 'gift-wrap.js' | asset_url }}" defer="defer"></script>
 
 {%- capture cart_summary -%}
   <div class="cart-drawer__summary relative {% if section.settings.position_cart_summary == 'top' %}cart-drawer__summary--top{% elsif section.settings.position_cart_summary == 'bottom' %}drawer__footer{% endif %} cart-drawer--checkout--sticky-{{ section.settings.stick_footer }}">
@@ -126,6 +128,8 @@
           {%- endfor -%}
         </ul>
       {%- endif -%}
+
+      {% render 'gift-wrap' %}
 
       <div class="cart-drawer__checkout-buttons">
         {%- if show_terms_and_conditons -%}

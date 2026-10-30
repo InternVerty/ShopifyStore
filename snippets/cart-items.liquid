@@ -49,6 +49,8 @@
         </tr>
       </thead>
       <tbody>
+        {%- assign gift_wrap_product = settings.gift_wrap_product | default: all_products['gift-wrapping'] -%}
+        {%- assign gift_wrap_variant_id = gift_wrap_product.selected_or_first_available_variant.id -%}
         {%- for item in cart.items -%}
           {%- liquid
             if item.variant.compare_at_price > item.variant.price
@@ -57,7 +59,7 @@
               assign variant_price_reduced = false
             endif
           -%}
-          <tr class="cart-item grid gap-x-6" id="cart-item-{{ item.index | plus: 1 }}" data-product-id="{{ item.product_id }}" data-variant-id="{{ item.variant_id }}">
+          <tr class="cart-item grid gap-x-6{% if item.variant_id == gift_wrap_variant_id %} cart-item--gift{% endif %}" id="cart-item-{{ item.index | plus: 1 }}" data-product-id="{{ item.product_id }}" data-variant-id="{{ item.variant_id }}">
             <td class="cart-item__image">
               <a href="{{ item.url }}" class="block {% if settings.blend_product_images %} image-blend{% endif %}">
                 {%- if item.image -%}

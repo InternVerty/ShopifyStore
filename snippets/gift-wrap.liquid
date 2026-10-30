@@ -1,0 +1,52 @@
+{%- comment -%}
+  Option "Paquet cadeau" pour toute la commande (page panier et tiroir panier).
+
+  Cocher la case ajoute au panier le produit "Paquet cadeau" (quantité 1, prix fixe
+  défini sur le produit) ; la décocher le retire. L'état est relu depuis le panier à
+  chaque rendu de section : il n'y a donc rien à synchroniser côté client.
+
+  Produit utilisé : réglage du thème "Produit paquet cadeau" (Panier), à défaut le
+  produit dont le handle est "gift-wrapping". Voir assets/gift-wrap.js.
+{%- endcomment -%}
+
+{%- liquid
+  assign gw_product = settings.gift_wrap_product
+  if gw_product == blank
+    assign gw_product = all_products['gift-wrapping']
+  endif
+  assign gw_variant = gw_product.selected_or_first_available_variant
+
+  assign gw_in_cart = false
+  assign gw_has_other = false
+  for item in cart.items
+    if item.variant_id == gw_variant.id
+      assign gw_in_cart = true
+    else
+      assign gw_has_other = true
+    endif
+  endfor
+-%}
+
+{%- if settings.show_gift_wrap and gw_variant != blank and gw_variant.available and gw_has_other -%}
+  <gift-wrap class="gift-wrap block" data-variant-id="{{ gw_variant.id }}">
+    <label class="gift-wrap__box">
+      <input type="checkbox" class="gift-wrap__input" {% if gw_in_cart %}checked{% endif %}>
+      <span class="gift-wrap__check" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7.5"></polyline></svg>
+      </span>
+      {%- if gw_product.featured_image != blank -%}
+        <img class="gift-wrap__image" src="{{ gw_product.featured_image | image_url: width: 120 }}" alt="" width="44" height="44" loading="lazy">
+      {%- endif -%}
+      <span class="gift-wrap__text">
+        <span class="gift-wrap__label">{{ settings.gift_wrap_label | default: "C'est un cadeau" }}</span>
+        {%- if settings.gift_wrap_help != blank -%}
+          <span class="gift-wrap__help">{{ settings.gift_wrap_help }}</span>
+        {%- endif -%}
+      </span>
+      <span class="gift-wrap__price">
+        {%- if gw_variant.price > 0 -%}+ {{ gw_variant.price | money }}{%- else -%}Offert{%- endif -%}
+      </span>
+    </label>
+    <p class="gift-wrap__error" role="alert" hidden></p>
+  </gift-wrap>
+{%- endif -%}

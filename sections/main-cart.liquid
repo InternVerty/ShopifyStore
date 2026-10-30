@@ -1,5 +1,7 @@
 {%- comment -%}theme-check-disable NestedSnippet{%- endcomment -%}
 {{ 'cart-items.css' | asset_url | stylesheet_tag }}
+{{ 'gift-wrap.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'gift-wrap.js' | asset_url }}" defer="defer"></script>
 
 {%- if cart != empty -%}
   <link rel="stylesheet" id="cart-summary-css" href="{{ 'cart-summary.css' | asset_url }}">
@@ -128,6 +130,8 @@
               </label>
             </cart-terms>
           {%- endif -%}
+
+          {% render 'gift-wrap' %}
 
           <div class="mt-6">
             <button class="btn btn--primary btn--icon-with-text w-full" name="checkout">
