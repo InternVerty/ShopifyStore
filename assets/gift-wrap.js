@@ -1,10 +1,21 @@
 /* Paquet cadeau pour toute la commande (voir snippets/gift-wrap.liquid).
    - Case cochée : ajoute le produit "Paquet cadeau" (quantité 1) via /cart/add.js.
-   - Case décochée : le retire via /cart/change.js.
+   - Case décochée : le retire via /cart/update.js (toutes les lignes de la variante).
    - Si le dernier livre est retiré, le paquet cadeau est retiré aussi. */
 
 if (!customElements.get('gift-wrap')) {
   var GIFT_JSON_HEADERS = { Accept: 'application/json', 'Content-Type': 'application/json' };
+
+  // Retire toutes les lignes du paquet cadeau (clé = id de variante).
+  var removeGiftWrap = function (variantId) {
+    var updates = {};
+    updates[variantId] = 0;
+    return fetch('/cart/update.js', {
+      method: 'POST',
+      headers: GIFT_JSON_HEADERS,
+      body: JSON.stringify({ updates: updates })
+    });
+  };
 
   // Rafraîchit le(s) panier(s) affiché(s) : tiroir via le composant <cart-items> du thème,
   // page panier par rechargement (le tiroir et la page ne partagent pas leurs sections).
@@ -25,7 +36,11 @@ if (!customElements.get('gift-wrap')) {
       if (this.input) this.input.addEventListener('change', this.onChange.bind(this));
     }
 
-    async onChange() {
+    async onChange(event) {
+      // <cart-items> écoute les 'change' de ses descendants pour les quantités :
+      // celui-ci ne le concerne pas.
+      event.stopPropagation();
+
       var wanted = this.input.checked;
       this.input.disabled = true;
       this.classList.add('is-loading');
@@ -38,11 +53,7 @@ if (!customElements.get('gift-wrap')) {
             headers: GIFT_JSON_HEADERS,
             body: JSON.stringify({ items: [{ id: this.variantId, quantity: 1 }] })
           })
-          : await fetch('/cart/change.js', {
-            method: 'POST',
-            headers: GIFT_JSON_HEADERS,
-            body: JSON.stringify({ id: this.variantId, quantity: 0 })
-          });
+          : await removeGiftWrap(this.variantId);
 
         if (!response.ok) {
           var data = await response.json().catch(function () { return {}; });
@@ -84,11 +95,7 @@ if (!customElements.get('gift-wrap')) {
     if (!onlyGift) return;
 
     try {
-      await fetch('/cart/change.js', {
-        method: 'POST',
-        headers: GIFT_JSON_HEADERS,
-        body: JSON.stringify({ id: giftVariantId, quantity: 0 })
-      });
+      await removeGiftWrap(giftVariantId);
       await refreshGiftCart(giftRow);
     } catch (error) {
       console.error('[gift-wrap]', error); // eslint-disable-line

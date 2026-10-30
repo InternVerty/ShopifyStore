@@ -244,6 +244,9 @@
         {%- endfor -%}
       </tbody>
     </table>
+
+    {%- comment -%} Option paquet cadeau : entre la dernière ligne et les recommandations. {%- endcomment -%}
+    {% render 'gift-wrap' %}
   {%- endif -%}
 
   <p class="visually-hidden" id="cart-live-region-text" role="status" aria-live="polite">
