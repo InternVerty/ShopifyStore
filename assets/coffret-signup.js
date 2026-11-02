@@ -18,7 +18,6 @@
   var THEMES = ['Nature', 'Amitié', 'Histoire', 'Contes et légendes', 'Aventures', 'Animaux', 'Fantastique', 'Mystère', 'Science fiction', 'BD', 'Intrigue', 'Humour', 'Famille', 'Classiques', 'Policiers', 'Biographies', 'Voyages', 'Documentaire', 'Arts', 'Mythologie', 'Emotions', 'Spiritualité', 'Sport'];
   var MAX_THEMES = 5;
   var REQUIRED = ['prenomEnfant', 'age', 'occasion', 'typeLivres', 'pays', 'classe', 'niveau', 'email', 'prenom', 'nom'];
-  var SYNC_URL = '/apps/verty-sync';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var REQUIRED_MSG = 'Ce champ est requis.';
 
@@ -37,7 +36,8 @@
 
   class CoffretSignup extends HTMLElement {
     connectedCallback() {
-      this.redirectUrl = this.getAttribute('data-redirect-url') || '';
+      this.productHandle = this.getAttribute('data-product-handle') || 'coffret';
+      this.cartUrl = this.getAttribute('data-cart-url') || '/cart';
       this.privacyUrl = this.getAttribute('data-privacy-url') || '/pages/donnees-personnelles';
       this.state = {
         d: {
@@ -128,64 +128,59 @@
       }
 
       var d = this.state.d;
-      // Même endpoint et même format que les autres formulaires
-      // (bookclub-signup.js, account-child-modal.liquid) : le backend
-      // verty-sync aiguille selon "action".
-      var payload = {
-        customer_id: this.getAttribute('data-customer-id') || '',
-        customer_mail: d.email.trim(),
-        customer_first_name: d.prenom.trim(),
-        customer_last_name: d.nom.trim(),
-        child: {
-          prenom: d.prenomEnfant.trim(),
-          age: Number(d.age),
-          genre: d.genre,
-          classe: d.classe,
-          niveau: d.niveau,
-          themes: d.themes,
-          livres: d.livres.split('\n').map((s) => s.trim()).filter(Boolean)
-        },
-        coffret: {
-          occasion: d.occasion === 'Autre' ? d.occasionAutre.trim() : d.occasion,
-          type_livres: d.typeLivres,
-          pays_livraison: d.pays
-        },
-        consentement: true,
-        submitted_at: new Date().toISOString(),
-        action: 'coffret'
+      var join = (list) => list.filter(Boolean).join(', ');
+      var typeLabel = (TYPES_LIVRES.filter((t) => t.value === d.typeLivres)[0] || {}).label || d.typeLivres;
+      // Propriétés de la ligne de commande, comme pour le bookclub : visibles dans le
+      // panier et la commande. Celles qui commencent par "_" restent cachées au client.
+      var properties = {
+        'Enfant': d.prenomEnfant.trim(),
+        'Âge': d.age,
+        'Classe': d.classe,
+        'Niveau de lecture': d.niveau,
+        'Genre': d.genre,
+        'Thématiques': join(d.themes),
+        'Livres préférés': join(d.livres.split('\n').map((s) => s.trim())),
+        'Occasion': d.occasion === 'Autre' ? d.occasionAutre.trim() : d.occasion,
+        'Types de livres': typeLabel.split(' : ')[0],
+        'Pays de livraison': d.pays,
+        '_type_livres': d.typeLivres,
+        '_email': d.email.trim(),
+        '_prenom': d.prenom.trim(),
+        '_nom': d.nom.trim(),
+        '_customer_id': this.getAttribute('data-customer-id') || '',
+        '_consentement': 'Oui'
       };
+      Object.keys(properties).forEach((k) => { if (!properties[k]) delete properties[k]; });
 
       this.state.sending = true;
       this.state.failed = false;
       this.state.touched = false;
       this.render();
 
-      var request = fetch(SYNC_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then((res) => {
-        if (res.ok) return;
-        return res.text().then((body) => {
-          throw new Error('HTTP ' + res.status + ' ' + res.url + ' : ' + body.slice(0, 500));
+      fetch('/products/' + this.productHandle + '.js')
+        .then((res) => {
+          if (!res.ok) throw new Error('product-not-found');
+          return res.json();
+        })
+        .then((product) => {
+          var variant = (product.variants || []).filter((v) => v.available)[0] || (product.variants || [])[0];
+          if (!variant) throw new Error('no-variant');
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ items: [{ id: variant.id, quantity: 1, properties: properties }] })
+          });
+        })
+        .then((res) => {
+          if (!res.ok) throw new Error('cart-add-failed ' + res.status);
+          window.location.href = this.cartUrl;
+        })
+        .catch((err) => {
+          console.error('[coffret-signup]', err);
+          this.state.sending = false;
+          this.state.failed = true;
+          this.render();
         });
-      });
-
-      request.then(() => {
-        if (this.redirectUrl) {
-          window.location.href = this.redirectUrl;
-          return;
-        }
-        this.state.sending = false;
-        this.state.sent = true;
-        this.render();
-        this.scrollTo({ top: 0, behavior: 'smooth' });
-      }).catch((err) => {
-        console.error('[coffret-signup]', err);
-        this.state.sending = false;
-        this.state.failed = true;
-        this.render();
-      });
     }
 
     // Champ libellé + contrôle + message d'erreur, identique au popup Sélection.
@@ -415,7 +410,7 @@
         var actionbar = el('div', { class: 'vs-modal__actionbar' });
         var actionRow = el('div', { class: 'vs-modal__actionbar-row' });
         var statusLabel = state.failed
-          ? "L'envoi a échoué. Vérifiez votre connexion et réessayez."
+          ? "Le coffret n'a pas pu être ajouté au panier. Réessayez dans un instant."
           : remaining === 0
             ? 'Tout est complet.'
             : state.touched
@@ -423,7 +418,7 @@
               : 'Champs marqués * obligatoires';
         actionRow.appendChild(el('span', { class: 'vs-modal__status' + ((state.touched && remaining) || state.failed ? ' is-error' : ''), text: statusLabel, 'aria-live': 'polite' }));
 
-        var cta = el('button', { type: 'button', class: 'vs-modal__cta', text: state.sending ? 'Envoi…' : state.failed ? 'Réessayer' : "Je m'inscris" });
+        var cta = el('button', { type: 'button', class: 'vs-modal__cta', text: state.sending ? 'Ajout au panier…' : state.failed ? 'Réessayer' : 'Commander mon coffret' });
         if (state.sending) cta.disabled = true;
         cta.addEventListener('click', () => this.submit());
         actionRow.appendChild(cta);

@@ -5,8 +5,9 @@
   (selection-signup.css). Il s'ouvre depuis tout élément portant l'attribut
   data-coffret-open, comme les boutons de la landing (sections coffret-*).
 
-  Les réponses sont envoyées à /apps/verty-sync avec action "coffret",
-  comme les autres formulaires (voir assets/coffret-signup.js pour le payload).
+  À la validation, le produit coffret est ajouté au panier avec les réponses en
+  propriétés de ligne (comme le bookclub), puis on redirige vers le panier.
+  Plus d'appel à /apps/verty-sync (voir assets/coffret-signup.js).
 {%- endcomment -%}
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
@@ -17,7 +18,8 @@
   class="vs-modal vs-modal--marine"
   hidden
   data-customer-id="{{ customer.id }}"
-  data-redirect-url="{{ section.settings.redirect_url }}"
+  data-product-handle="{{ section.settings.product.handle | default: 'coffret' }}"
+  data-cart-url="{{ routes.cart_url }}"
   data-privacy-url="{{ section.settings.privacy_url | default: '/pages/donnees-personnelles' }}"
   data-customer-email="{{ customer.email | escape }}"
   data-customer-first-name="{{ customer.first_name | escape }}"
@@ -33,10 +35,10 @@
   "class": "coffret-signup-section",
   "settings": [
     {
-      "type": "url",
-      "id": "redirect_url",
-      "label": "Page de redirection après envoi",
-      "info": "Optionnel. Sans page, un message de confirmation s'affiche dans le formulaire."
+      "type": "product",
+      "id": "product",
+      "label": "Produit coffret",
+      "info": "Ajouté au panier à la validation. Par défaut : le produit dont le handle est « coffret »."
     },
     {
       "type": "url",

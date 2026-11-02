@@ -376,7 +376,6 @@
     "coffret_signup": {
       "type": "coffret-signup",
       "settings": {
-        "redirect_url": "",
         "privacy_url": ""
       }
     }
