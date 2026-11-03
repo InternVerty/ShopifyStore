@@ -17,7 +17,7 @@
   var NIVEAUX = ['Au-dessus du niveau de sa classe', 'Conforme au niveau de la classe', 'En-dessous du niveau de sa classe'];
   var THEMES = ['Nature', 'Amitié', 'Histoire', 'Contes et légendes', 'Aventures', 'Animaux', 'Fantastique', 'Mystère', 'Science fiction', 'BD', 'Intrigue', 'Humour', 'Famille', 'Classiques', 'Policiers', 'Biographies', 'Voyages', 'Documentaire', 'Arts', 'Mythologie', 'Emotions', 'Spiritualité', 'Sport'];
   var MAX_THEMES = 5;
-  var REQUIRED = ['prenomEnfant', 'age', 'occasion', 'typeLivres', 'pays', 'classe', 'niveau', 'email', 'prenom', 'nom'];
+  var REQUIRED = ['prenomEnfant', 'age', 'genre', 'occasion', 'typeLivres', 'pays', 'classe', 'niveau', 'email', 'prenom', 'nom'];
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var REQUIRED_MSG = 'Ce champ est requis.';
 
@@ -132,14 +132,15 @@
       var typeLabel = (TYPES_LIVRES.filter((t) => t.value === d.typeLivres)[0] || {}).label || d.typeLivres;
       // Propriétés de la ligne de commande, comme pour le bookclub : visibles dans le
       // panier et la commande. Celles qui commencent par "_" restent cachées au client.
+      // Les noms doivent rester ceux lus par le nœud "Valider coffret" du workflow n8n [track-paid].
       var properties = {
-        'Enfant': d.prenomEnfant.trim(),
+        'Prénom': d.prenomEnfant.trim(),
         'Âge': d.age,
         'Classe': d.classe,
-        'Niveau de lecture': d.niveau,
+        'Niveau': d.niveau,
         'Genre': d.genre,
-        'Thématiques': join(d.themes),
-        'Livres préférés': join(d.livres.split('\n').map((s) => s.trim())),
+        'Thèmes': join(d.themes),
+        'Livres préférés': d.livres.split('\n').map((s) => s.trim()).filter(Boolean).join('; '),
         'Occasion': d.occasion === 'Autre' ? d.occasionAutre.trim() : d.occasion,
         'Types de livres': typeLabel.split(' : ')[0],
         'Pays de livraison': d.pays,
@@ -223,7 +224,7 @@
       options.forEach((o) => {
         var active = this.state.d[key] === o;
         var btn = el('button', { type: 'button', class: 'vs-pill' + (wide ? ' vs-pill--wide' : '') + (active ? ' is-active' : ''), text: o, 'aria-pressed': String(active) });
-        btn.addEventListener('click', () => this.set(key, active && key === 'genre' ? '' : o));
+        btn.addEventListener('click', () => this.set(key, o));
         row.appendChild(btn);
       });
       return row;
@@ -250,7 +251,7 @@
 
       section.appendChild(this.field('Quel est son niveau de lecture', true, this.pills('niveau', NIVEAUX, true), e.niveau, 'Si vous ne savez pas, sélectionnez « Conforme au niveau de la classe ».', false));
 
-      section.appendChild(this.field("Est-ce qu'il / elle est", false, this.pills('genre', ['Une fille', 'Un garçon']), null, null, false));
+      section.appendChild(this.field("Est-ce qu'il / elle est", true, this.pills('genre', ['Une fille', 'Un garçon']), e.genre, null, false));
 
       return section;
     }

@@ -108,6 +108,8 @@
 /* Ligne "Paquet cadeau" du panier : une seule unité, on ne change pas la quantité
    (la corbeille ou la case permettent de la retirer). Le champ reste dans le DOM
    car le script du panier lit la quantité de chaque ligne. */
-.cart-item--gift quantity-input {
+.cart-item--gift quantity-input,
+/* Un coffret = un profil enfant (voir le nœud "Valider coffret" de n8n) : quantité fixée à 1 */
+.cart-item--coffret quantity-input {
   display: none;
 }
