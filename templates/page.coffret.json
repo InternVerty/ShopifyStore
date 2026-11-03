@@ -376,6 +376,7 @@
     "coffret_signup": {
       "type": "coffret-signup",
       "settings": {
+        "product": "coffret-verty",
         "privacy_url": ""
       }
     }
