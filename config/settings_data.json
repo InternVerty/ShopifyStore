@@ -455,6 +455,7 @@
     "show_currency_code": false,
     "cart_icon": "basket",
     "cart_type": "drawer",
+    "show_gift_wrap": false,
     "show_recommendations": true,
     "recommendations_heading": "Vous pouvez également aimer",
     "recommendations_to_show": 3,
