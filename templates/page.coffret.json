@@ -235,11 +235,11 @@
       "settings": {
         "heading": "Deux façons d'offrir",
         "subheading": "Parent, grand-parent, oncle et tante, parrain et marraine...",
-        "covers_note": "lequel choisir ?",
+        "covers_note": "",
         "gift_title": "Vous cherchez un cadeau ?",
         "gift_text": "Un enfant que vous connaissez un peu, beaucoup ou pas assez. Vous dites ce que vous savez, le comité fait le reste, vous validez avant l'envoi.",
         "gift_cta_label": "Je commande son coffret",
-        "share_title": "Tu sais ce qui ferait plaisir à Louis ?",
+        "share_title": "Réglé en deux messages",
         "share_text": "On vous demande, encore, « qu'est-ce qu'on peut lui offrir ? ». Envoyez cette page à vos proches : ils commandent, le comité choisit, personne ne se trompe.",
         "share_cta_label": "Je partage",
         "share_url": "https://verty.eu/coffret",
@@ -248,7 +248,7 @@
         "chat_2": "Trop sympa. Un coffret avec des livres choisis pour lui ! Sur Verty ils ont un comité qui te fait la sélection pour Louis.",
         "chat_link": "verty.eu/coffret",
         "chat_3": "Canon, merci !",
-        "chat_note": "réglé en deux messages"
+        "chat_note": ""
       }
     },
     "coffret_comite": {
