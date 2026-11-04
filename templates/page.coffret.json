@@ -254,6 +254,7 @@
     "coffret_comite": {
       "type": "coffret-comite",
       "settings": {
+        "image": "shopify://shop_images/Portrait_d_equipe_au_salon_du_livre_jeunesse.png",
         "image_alt": "Le comité de lecture Verty réuni autour de livres",
         "heading": "Composé par le comité de lecture",
         "text": "Grands-parents et parents, institutrices, psychologues, orthophonistes : le comité lit, note et valide chaque livre du catalogue. C'est lui qui compose votre coffret, livre par livre, pour cet enfant-là. Et c'est vous qui avez le dernier mot.",
