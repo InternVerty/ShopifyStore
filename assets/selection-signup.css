@@ -171,7 +171,8 @@
   --vs-mint-wash: #D3DBF0;
   --vs-teal: #0F2C61;
 }
-.vs-modal--marine .vs-modal__band { color: #fff; }
+.vs-modal--marine .vs-modal__band,
+.vs-modal--marine .vs-modal__band h1 { color: #fff; }
 .vs-modal--marine .vs-modal__band p { color: rgba(255, 255, 255, 0.88); }
 .vs-modal--marine .vs-pill.is-active { border-color: var(--vs-mint); color: #fff; }
 .vs-modal--marine .vs-rgpd__row.is-checked .vs-rgpd__box { border-color: var(--vs-mint); color: #fff; }

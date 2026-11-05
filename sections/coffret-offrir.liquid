@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap">
 {{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'coffret-landing.js' | asset_url }}" defer="defer"></script>
 
-{%- assign cf_share_text = section.settings.share_message | append: ' ' | append: section.settings.share_url -%}
+{%- assign cf_share_url = section.settings.share_url | default: canonical_url -%}
+{%- assign cf_share_text = section.settings.share_message | append: ' ' | append: cf_share_url -%}
 {%- assign cf_whatsapp = 'https://wa.me/?text=' | append: cf_share_text | url_encode | replace: '+', '%20' -%}
 
 <section class="coffret-page cf-offer" data-section-id="{{ section.id }}">
@@ -37,9 +39,18 @@
         <p class="cf-offer__text cf-offer__share-p">{{ section.settings.share_text | escape }}</p>
         {%- if section.settings.share_cta_label != blank -%}
           <div class="cf-offer__actions cf-offer__share-cta">
-            <a href="{{ cf_whatsapp }}" target="_blank" rel="noopener" class="cf-btn">
+            {%- comment -%}
+              Sans JavaScript : lien WhatsApp. Avec JavaScript (coffret-landing.js) : feuille de partage
+              du téléphone (Web Share API), ou copie du lien si elle n'existe pas (ordinateur).
+            {%- endcomment -%}
+            <a href="{{ cf_whatsapp }}" target="_blank" rel="noopener" class="cf-btn"
+               data-cf-share
+               data-share-url="{{ cf_share_url | escape }}"
+               data-share-title="{{ 'Le Coffret Verty' | escape }}"
+               data-share-text="{{ section.settings.share_message | escape }}"
+               data-copied-label="Lien copié !">
               {% render 'coffret-landing-icon', name: 'share', size: 18 %}
-              {{ section.settings.share_cta_label | escape }}
+              <span data-cf-share-label>{{ section.settings.share_cta_label | escape }}</span>
             </a>
           </div>
         {%- endif -%}

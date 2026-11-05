@@ -106,6 +106,61 @@
     refresh();
   }
 
+  // Bouton "Je partage" : feuille de partage native (mobile), sinon copie du lien.
+  // Sans JavaScript, le lien WhatsApp du href reste utilisable.
+  function initShare(btn) {
+    var label = btn.querySelector('[data-cf-share-label]');
+    var original = label ? label.textContent : '';
+    var timer = null;
+
+    function flash(text) {
+      if (!label) return;
+      label.textContent = text;
+      clearTimeout(timer);
+      timer = setTimeout(function () { label.textContent = original; }, 2200);
+    }
+
+    function copy(url) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(url);
+      }
+      return new Promise(function (resolve, reject) {
+        var input = document.createElement('input');
+        input.value = url;
+        input.setAttribute('readonly', '');
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        try { document.execCommand('copy') ? resolve() : reject(); } catch (err) { reject(err); }
+        document.body.removeChild(input);
+      });
+    }
+
+    btn.addEventListener('click', function (e) {
+      var url = btn.getAttribute('data-share-url') || window.location.href;
+      var data = {
+        title: btn.getAttribute('data-share-title') || document.title,
+        text: btn.getAttribute('data-share-text') || '',
+        url: url
+      };
+      e.preventDefault();
+      if (navigator.share) {
+        navigator.share(data).catch(function (err) {
+          // Fermeture de la feuille par l'utilisateur : rien à faire.
+          if (err && err.name === 'AbortError') return;
+          copy(url).then(function () { flash(btn.getAttribute('data-copied-label')); }, function () { window.open(btn.href, '_blank', 'noopener'); });
+        });
+        return;
+      }
+      copy(url).then(
+        function () { flash(btn.getAttribute('data-copied-label')); },
+        function () { window.open(btn.href, '_blank', 'noopener'); }
+      );
+    });
+  }
+
   document.querySelectorAll('[data-cf-slider]').forEach(initSlider);
+  document.querySelectorAll('[data-cf-share]').forEach(initShare);
   document.querySelectorAll('[data-cf-carousel]').forEach(initCarousel);
 })();

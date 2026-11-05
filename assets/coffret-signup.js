@@ -36,7 +36,7 @@
 
   class CoffretSignup extends HTMLElement {
     connectedCallback() {
-      this.productHandle = this.getAttribute('data-product-handle') || 'coffret';
+      this.productHandle = this.getAttribute('data-product-handle') || 'coffret-verty';
       this.cartUrl = this.getAttribute('data-cart-url') || '/cart';
       this.privacyUrl = this.getAttribute('data-privacy-url') || '/pages/donnees-personnelles';
       this.state = {
@@ -322,11 +322,13 @@
       grid.appendChild(this.field('Nom', true, this.input('nom', 'text'), e.nom));
       section.appendChild(grid);
 
+      section.appendChild(el('p', { class: 'vs-notice', text: 'Vous recevrez la sélection de livres personnalisée par email, à cette adresse, un peu après votre commande. Vous pourrez alors la valider ou demander une nouvelle sélection.' }));
+
       var rgpdWrap = el('div', { class: 'vs-rgpd' });
       var rgpdRow = el('button', { type: 'button', class: 'vs-rgpd__row' + (d.rgpd ? ' is-checked' : '') + (e.rgpd ? ' is-invalid' : ''), role: 'checkbox', 'aria-checked': String(d.rgpd) });
       rgpdRow.appendChild(el('span', { class: 'vs-rgpd__box', text: '✓' }));
       var rgpdText = el('span', { class: 'vs-rgpd__text' });
-      rgpdText.appendChild(document.createTextNode("Je confirme être titulaire de l’autorité parentale ou agir avec son autorisation, et je consens au traitement des données renseignées concernant l’enfant. J'accepte que Verty traite ces données afin de m'adresser, par email, une recommandation personnalisée mensuelle. Je peux me désabonner à tout moment. "));
+      rgpdText.appendChild(document.createTextNode("Je confirme être titulaire de l’autorité parentale ou agir avec son autorisation, et je consens au traitement des données renseignées concernant l’enfant. J'accepte que Verty traite ces données afin de m'adresser, par email, une recommandation personnalisée. Je peux me désabonner à tout moment. "));
       var privacyLink = el('a', { href: this.privacyUrl, text: 'Politique de protection des données personnelles', target: '_blank', rel: 'noopener' });
       privacyLink.addEventListener('click', (ev) => ev.stopPropagation());
       rgpdText.appendChild(privacyLink);
@@ -374,8 +376,7 @@
       var col = el('div', { class: 'vs-modal__col' });
 
       var masthead = el('div', { class: 'vs-modal__masthead' });
-      masthead.appendChild(el('span', { class: 'vs-modal__wordmark', text: 'Verty' }));
-      masthead.appendChild(el('span', { class: 'vs-modal__kicker', text: 'Coffret Verty' }));
+      masthead.appendChild(el('span', { class: 'vs-modal__wordmark', text: 'Coffret Verty' }));
       var closeBtn = el('button', { type: 'button', class: 'vs-modal__close', 'aria-label': 'Fermer' });
       closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
       closeBtn.addEventListener('click', () => this.close());

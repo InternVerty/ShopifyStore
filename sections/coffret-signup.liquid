@@ -18,7 +18,7 @@
   class="vs-modal vs-modal--marine"
   hidden
   data-customer-id="{{ customer.id }}"
-  data-product-handle="{{ section.settings.product.handle | default: 'coffret' }}"
+  data-product-handle="{{ section.settings.product.handle | default: 'coffret-verty' }}"
   data-cart-url="{{ routes.cart_url }}"
   data-privacy-url="{{ section.settings.privacy_url | default: '/pages/donnees-personnelles' }}"
   data-customer-email="{{ customer.email | escape }}"
@@ -38,7 +38,7 @@
       "type": "product",
       "id": "product",
       "label": "Produit coffret",
-      "info": "Ajouté au panier à la validation. Par défaut : le produit dont le handle est « coffret »."
+      "info": "Ajouté au panier à la validation. Par défaut : le produit « Coffret Verty » (handle coffret-verty)."
     },
     {
       "type": "url",
