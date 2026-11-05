@@ -1,0 +1,283 @@
+{%- comment -%}
+  Verty : hero d'accueil V3 (carrousel 3 offres + encart « Vite une idée »)
+  Dépendances (dossier assets/ du thème) :
+    verty-hero.css, verty-hero.js,
+    vh-playfair-700.woff2, vh-playfair-700-italic.woff2,
+    vh-nunito-400.woff2, vh-nunito-700.woff2, vh-nunito-800.woff2
+  Images de secours (si aucune image n'est choisie dans l'éditeur) : vh-pile-livres.webp,
+  vh-plateau-livres.webp, vh-montgolfiere.webp.
+  Encart « Vite une idée » : snippets/verty-finder.liquid, qui rend le widget du thème
+  (snippets/quick-nav.liquid, assets/quick-nav.js, assets/custom-select.js), inchangé côté logique.
+{%- endcomment -%}
+
+{%- style -%}
+  @font-face { font-family: "Playfair Display"; font-weight: 700; font-style: normal; font-display: swap; src: url("{{ 'vh-playfair-700.woff2' | asset_url }}") format("woff2"); }
+  @font-face { font-family: "Playfair Display"; font-weight: 700; font-style: italic; font-display: swap; src: url("{{ 'vh-playfair-700-italic.woff2' | asset_url }}") format("woff2"); }
+  @font-face { font-family: "Nunito"; font-weight: 400; font-style: normal; font-display: swap; src: url("{{ 'vh-nunito-400.woff2' | asset_url }}") format("woff2"); }
+  @font-face { font-family: "Nunito"; font-weight: 700; font-style: normal; font-display: swap; src: url("{{ 'vh-nunito-700.woff2' | asset_url }}") format("woff2"); }
+  @font-face { font-family: "Nunito"; font-weight: 800; font-style: normal; font-display: swap; src: url("{{ 'vh-nunito-800.woff2' | asset_url }}") format("woff2"); }
+{%- endstyle -%}
+<link rel="preload" href="{{ 'vh-playfair-700.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+{{ 'buttons.css' | asset_url | stylesheet_tag }}
+{{ 'quick-nav.css' | asset_url | stylesheet_tag }}
+{{ 'verty-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'verty-hero.js' | asset_url }}" defer></script>
+{%- if section.settings.show_finder and section.settings.finder_menu != blank -%}
+  <script src="{{ 'quick-nav.js' | asset_url }}" defer></script>
+  <script src="{{ 'custom-select.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- capture blob -%}<svg class="vh__blob" viewBox="0 0 400 420" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="currentColor" d="M205 14C292 6 372 58 388 148C404 236 362 282 372 344C382 404 318 420 236 412C150 404 62 416 26 348C-6 286 30 232 18 170C6 104 110 22 205 14Z"/></svg>{%- endcapture -%}
+{%- capture star_path -%}<path d="M13 1l2.6 8.4L24 13l-8.4 2.6L13 24l-2.6-8.4L2 13l8.4-2.6z"/>{%- endcapture -%}
+{%- capture tab_line -%}<svg class="vh__tab-line" viewBox="0 0 120 8" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M2 5C25 2 45 7 65 4C85 1 102 6 118 4"/></svg>{%- endcapture -%}
+
+<div class="vh-wrap" data-interval="{{ section.settings.interval | times: 1000 }}">
+  <section class="vh" aria-roledescription="carrousel" aria-label="{{ section.settings.aria_label | escape }}" data-tone="light">
+    <div class="vh__inner">
+      <div class="vh__carousel">
+        <div class="vh__track">
+          {%- for block in section.blocks -%}
+            {%- case block.settings.style -%}
+              {%- when 'mint-clair' -%}
+                {%- assign bg = '#D5F6E9' -%}{%- assign tone = 'light' -%}
+              {%- when 'marine' -%}
+                {%- assign bg = '#163D83' -%}{%- assign tone = 'dark' -%}
+              {%- else -%}
+                {%- assign bg = '#97E8C7' -%}{%- assign tone = 'light' -%}
+            {%- endcase -%}
+            {%- if forloop.first and section.settings.first_heading_h1 -%}
+              {%- assign heading = 'h1' -%}
+            {%- else -%}
+              {%- assign heading = 'h2' -%}
+            {%- endif -%}
+            {%- assign star_set = forloop.index0 | modulo: 3 -%}
+
+            <div
+              class="vh__slide vh__slide--{{ block.settings.style }}{% if block.settings.image_zoom %} vh__slide--zoom{% endif %}{% if forloop.first %} is-active{% endif %}"
+              data-bg="{{ bg }}" data-tone="{{ tone }}"
+              role="group" aria-roledescription="diapositive" aria-label="{{ forloop.index }} sur {{ forloop.length }}"
+              {% unless forloop.first %}aria-hidden="true"{% endunless %}
+              {{ block.shopify_attributes }}
+            >
+              <div class="vh__text">
+                <{{ heading }} class="vh__title">
+                  {{- block.settings.title_before | escape -}}
+                  {%- if block.settings.title_accent != blank %} <em>{{ block.settings.title_accent | escape }}</em>{% endif -%}
+                  {%- if block.settings.title_after != blank %} {{ block.settings.title_after | escape }}{% endif -%}
+                </{{ heading }}>
+                {%- if block.settings.text != blank -%}
+                  <p class="vh__desc">{{ block.settings.text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank -%}
+                  <a class="vh__cta" href="{{ block.settings.button_link | default: '#' }}">{{ block.settings.button_label | escape }}</a>
+                {%- endif -%}
+              </div>
+
+              <div class="vh__visual">
+                {{ blob }}
+                {%- assign fallback_alt = 'Illustration : des enfants lisent, installés sur une pile de livres' -%}
+                {%- assign fallback_file = 'vh-pile-livres.webp' -%}
+                {%- assign fallback_w = 773 -%}{%- assign fallback_h = 969 -%}
+                {%- if forloop.index == 2 -%}
+                  {%- assign fallback_alt = 'Illustration : un enfant fait voler des livres depuis un plateau, à côté d’un carton de livres' -%}
+                  {%- assign fallback_file = 'vh-plateau-livres.webp' -%}
+                  {%- assign fallback_w = 1100 -%}{%- assign fallback_h = 886 -%}
+                {%- elsif forloop.index == 3 -%}
+                  {%- assign fallback_alt = 'Illustration : des enfants voyagent dans une montgolfière faite de livres' -%}
+                  {%- assign fallback_file = 'vh-montgolfiere.webp' -%}
+                  {%- assign fallback_w = 778 -%}{%- assign fallback_h = 1064 -%}
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  {%- if forloop.first -%}
+                    {{ block.settings.image | image_url: width: 1100 | image_tag: class: 'vh__img', widths: '360, 540, 720, 900, 1100', sizes: '(min-width: 1024px) 30vw, (min-width: 768px) 40vw, 85vw', loading: 'eager', fetchpriority: 'high' }}
+                  {%- else -%}
+                    {{ block.settings.image | image_url: width: 1100 | image_tag: class: 'vh__img', widths: '360, 540, 720, 900, 1100', sizes: '(min-width: 1024px) 30vw, (min-width: 768px) 40vw, 85vw', loading: 'lazy' }}
+                  {%- endif -%}
+                {%- else -%}
+                  <img class="vh__img" src="{{ fallback_file | asset_url }}" width="{{ fallback_w }}" height="{{ fallback_h }}" alt="{{ fallback_alt | escape }}"{% if forloop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+                {%- endif -%}
+
+                {%- case block.settings.sticker -%}
+                  {%- when 'round' -%}
+                    <span class="vh__sticker vh__sticker--round vh__sticker--{{ block.settings.sticker_position }}" aria-hidden="true">
+                      <span class="vh__sticker-small">{{ block.settings.sticker_line_1 | escape }}</span>
+                      <span class="vh__sticker-big">{{ block.settings.sticker_line_2 | escape }}</span>
+                      <span class="vh__sticker-small">{{ block.settings.sticker_line_3 | escape }}</span>
+                    </span>
+                  {%- when 'pill' -%}
+                    <span class="vh__sticker vh__sticker--pill vh__sticker--{{ block.settings.sticker_position }}" aria-hidden="true">
+                      {{- block.settings.sticker_line_1 | escape -}}
+                      {%- if block.settings.sticker_line_2 != blank -%}<br>{{ block.settings.sticker_line_2 | escape }}{%- endif -%}
+                    </span>
+                {%- endcase -%}
+
+                {%- case star_set -%}
+                  {%- when 0 -%}
+                    <svg class="vh__star" style="left: 84%; top: 12%" width="24" height="24" viewBox="0 0 26 26" fill="#F5C842" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 91%; top: 6%" width="13" height="13" viewBox="0 0 26 26" fill="#E8607A" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 8%; top: 84%" width="16" height="16" viewBox="0 0 26 26" fill="#FFFFFF" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                  {%- when 1 -%}
+                    <svg class="vh__star" style="left: 6%; top: 72%" width="22" height="22" viewBox="0 0 26 26" fill="#E8607A" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 90%; top: 66%" width="16" height="16" viewBox="0 0 26 26" fill="#F5C842" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 14%; top: 10%" width="14" height="14" viewBox="0 0 26 26" fill="#5FB892" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                  {%- else -%}
+                    <svg class="vh__star" style="left: 6%; top: 14%" width="24" height="24" viewBox="0 0 26 26" fill="#F5C842" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 88%; top: 74%" width="14" height="14" viewBox="0 0 26 26" fill="#7ECFC0" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 16%; top: 86%" width="16" height="16" viewBox="0 0 26 26" fill="#E8607A" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                {%- endcase -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 1 -%}
+          <div class="vh__controls">
+            <div class="vh__tabs" role="group" aria-label="Choisir une offre">
+              {%- for block in section.blocks -%}
+                {%- assign label = block.settings.tab_label | default: block.settings.title_accent -%}
+                <button class="vh__tab" type="button" data-index="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Afficher : {{ label | escape }}">
+                  <span class="vh__tab-dot vh__tab-dot--{{ block.settings.tab_icon }}" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                      {%- case block.settings.tab_icon -%}
+                        {%- when 'enveloppe' -%}<path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM3.5 7l8.5 6 8.5-6"/>
+                        {%- when 'cadeau' -%}<path d="M4 11h16v9H4zM3 8h18v3H3zM12 8v12M12 8C10.5 5 7 4.5 7 6.5S10.5 8 12 8c1.5 0 5 0 5-1.5S13.5 5 12 8"/>
+                        {%- else -%}<path d="M12 6.5C10.2 5 7.6 4.5 4 4.5v13c3.6 0 6.2.5 8 2 1.8-1.5 4.4-2 8-2v-13c-3.6 0-6.2.5-8 2zM12 6.5v13"/>
+                      {%- endcase -%}
+                    </svg>
+                  </span>
+                  <span class="vh__tab-label">{{ label | escape }}{{ tab_line }}</span>
+                </button>
+              {%- endfor -%}
+            </div>
+            <div class="vh__dots" role="group" aria-label="Choisir une offre">
+              {%- for block in section.blocks -%}
+                {%- assign label = block.settings.tab_label | default: block.settings.title_accent -%}
+                <button class="vh__dot" type="button" data-index="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Afficher : {{ label | escape }}"><span class="vh__dot-bar"><span class="vh__dot-fill"></span></span></button>
+              {%- endfor -%}
+            </div>
+            <button class="vh__pause" type="button" aria-pressed="false" data-label-pause="Mettre le défilement en pause" data-label-play="Relancer le défilement" aria-label="Mettre le défilement en pause">
+              <svg class="vh__icon-pause" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><rect x="3.5" y="2.5" width="3" height="11" rx="1.5"/><rect x="9.5" y="2.5" width="3" height="11" rx="1.5"/></svg>
+              <svg class="vh__icon-play" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4.5 2.8v10.4a.8.8 0 0 0 1.2.7l8.3-5.2a.8.8 0 0 0 0-1.4L5.7 2.1a.8.8 0 0 0-1.2.7Z"/></svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- if section.settings.show_finder and section.settings.finder_menu != blank -%}
+    <div class="vh__finder">
+      <div class="vh__finder-card">
+        <span class="vh__finder-tape" aria-hidden="true"></span>
+        <svg class="vh__finder-star" width="16" height="16" viewBox="0 0 26 26" fill="#F5C842" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+        <div class="vh__finder-head">
+          <h2 class="vh__finder-title">
+            <span class="vh__finder-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 11h16v9H4zM3 8h18v3H3zM12 8v12M12 8C10.5 5 7 4.5 7 6.5S10.5 8 12 8c1.5 0 5 0 5-1.5S13.5 5 12 8"/></svg></span>
+            <span>{{ section.settings.finder_title_before | escape }} <em>{{ section.settings.finder_title_accent | escape }}</em> {{ section.settings.finder_title_after | escape }}</span>
+          </h2>
+          {%- if section.settings.finder_text != blank -%}
+            <p class="vh__finder-desc">{{ section.settings.finder_text | escape }}</p>
+          {%- endif -%}
+        </div>
+        {%- render 'verty-finder',
+          menu: section.settings.finder_menu,
+          menu_1_text: section.settings.finder_menu_1_text,
+          menu_2_text: section.settings.finder_menu_2_text,
+          component_id: section.id
+        -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Hero Verty (3 offres)",
+  "tag": "div",
+  "class": "section-verty-hero",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "range", "id": "interval", "label": "Durée de chaque slide", "min": 4, "max": 12, "step": 1, "unit": "s", "default": 7 },
+    { "type": "checkbox", "id": "first_heading_h1", "label": "Titre de la 1re slide en titre principal de la page (H1)", "info": "À décocher si la page d'accueil a déjà un H1 ailleurs.", "default": true },
+    { "type": "text", "id": "aria_label", "label": "Nom du carrousel pour les lecteurs d'écran", "default": "Les offres Verty" },
+    { "type": "header", "content": "Encart « Vite une idée »" },
+    { "type": "checkbox", "id": "show_finder", "label": "Afficher l'encart", "default": true },
+    { "type": "text", "id": "finder_title_before", "label": "Titre (début)", "default": "Vite une" },
+    { "type": "text", "id": "finder_title_accent", "label": "Titre (mot en italique)", "default": "idée" },
+    { "type": "text", "id": "finder_title_after", "label": "Titre (fin)", "default": "!" },
+    { "type": "text", "id": "finder_text", "label": "Texte sous le titre", "default": "Le livre idéal en 2 clics, selon son âge et ses goûts." },
+    { "type": "link_list", "id": "finder_menu", "label": "Menu de l'encart", "info": "Menu à 2 niveaux : 1er niveau = âge, 2e niveau = goûts. Comme l'ancien encart.", "default": "new-vite-une-id-e" },
+    { "type": "text", "id": "finder_menu_1_text", "label": "1er menu déroulant", "default": "Son âge" },
+    { "type": "text", "id": "finder_menu_2_text", "label": "2e menu déroulant", "default": "Il / Elle aime" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "select", "id": "style", "label": "Ambiance", "options": [
+          { "value": "mint", "label": "Vert (texte bleu marine)" },
+          { "value": "mint-clair", "label": "Vert clair (texte bleu marine)" },
+          { "value": "marine", "label": "Bleu marine (texte blanc)" }
+        ], "default": "mint" },
+        { "type": "text", "id": "title_before", "label": "Titre (début)", "default": "La librairie" },
+        { "type": "text", "id": "title_accent", "label": "Titre (mot en italique)", "info": "Un seul mot ou groupe de mots.", "default": "jeunesse" },
+        { "type": "text", "id": "title_after", "label": "Titre (fin)", "default": "Verty" },
+        { "type": "textarea", "id": "text", "label": "Texte" },
+        { "type": "text", "id": "button_label", "label": "Texte du bouton" },
+        { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+        { "type": "image_picker", "id": "image", "label": "Illustration (PNG ou WebP à fond transparent)", "info": "Renseigner le texte alternatif de l'image dans Fichiers." },
+        { "type": "checkbox", "id": "image_zoom", "label": "Illustration 10 % plus grande", "info": "Pour une illustration très horizontale qui paraît petite dans sa tache.", "default": false },
+        { "type": "header", "content": "Sticker" },
+        { "type": "select", "id": "sticker", "label": "Type", "options": [
+          { "value": "none", "label": "Aucun" },
+          { "value": "round", "label": "Rond jaune (3 lignes)" },
+          { "value": "pill", "label": "Pilule rose (2 lignes)" }
+        ], "default": "none" },
+        { "type": "select", "id": "sticker_position", "label": "Position", "options": [
+          { "value": "left", "label": "En haut à gauche" },
+          { "value": "right", "label": "En haut à droite" }
+        ], "default": "left" },
+        { "type": "text", "id": "sticker_line_1", "label": "Ligne 1" },
+        { "type": "text", "id": "sticker_line_2", "label": "Ligne 2 (grande, pour le rond)" },
+        { "type": "text", "id": "sticker_line_3", "label": "Ligne 3 (rond uniquement)" },
+        { "type": "header", "content": "Onglet (desktop)" },
+        { "type": "text", "id": "tab_label", "label": "Libellé court" },
+        { "type": "select", "id": "tab_icon", "label": "Icône", "options": [
+          { "value": "livre", "label": "Livre (pastille blanche)" },
+          { "value": "enveloppe", "label": "Enveloppe (pastille jaune)" },
+          { "value": "cadeau", "label": "Cadeau (pastille rose)" }
+        ], "default": "livre" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Verty (3 offres)",
+      "blocks": [
+        { "type": "slide", "settings": {
+          "style": "mint", "title_before": "La librairie", "title_accent": "jeunesse", "title_after": "Verty",
+          "text": "Une sélection de livres pour les 0-16 ans, choisis avec soin pour éveiller leur curiosité, nourrir leur imagination et leur donner le goût de lire.",
+          "button_label": "Découvrir la sélection", "button_link": "/collections/all",
+          "sticker": "round", "sticker_position": "left", "sticker_line_1": "De", "sticker_line_2": "0 à 16", "sticker_line_3": "ans",
+          "tab_label": "Librairie jeunesse", "tab_icon": "livre"
+        } },
+        { "type": "slide", "settings": {
+          "style": "mint-clair", "title_before": "La sélection", "title_accent": "personnalisée", "title_after": "Verty",
+          "text": "Chaque mois, recevez gratuitement par e-mail des idées de lecture choisies spécialement pour votre enfant, selon son âge, ses goûts et ses centres d'intérêt.",
+          "button_label": "Recevoir la sélection gratuite", "image_zoom": true,
+          "sticker": "pill", "sticker_position": "right", "sticker_line_1": "100 % personnalisée", "sticker_line_2": "100 % gratuite",
+          "tab_label": "Sélection personnalisée", "tab_icon": "enveloppe"
+        } },
+        { "type": "slide", "settings": {
+          "style": "marine", "title_before": "La sélection", "title_accent": "cadeau", "title_after": "Verty",
+          "text": "Offrez bien plus qu'un livre ! Une sélection de livres choisis avec soin selon l'âge, les goûts et les centres d'intérêt de l'enfant, dans un joli emballage cadeau pour lui donner encore plus envie de lire !",
+          "button_label": "Offrir une sélection cadeau",
+          "sticker": "round", "sticker_position": "right", "sticker_line_1": "Emballage", "sticker_line_2": "cadeau", "sticker_line_3": "inclus",
+          "tab_label": "Sélection cadeau", "tab_icon": "cadeau"
+        } }
+      ]
+    }
+  ]
+}
+{% endschema %}

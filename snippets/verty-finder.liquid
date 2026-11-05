@@ -1,0 +1,33 @@
+{%- comment -%}
+  Encart « Vite une idée » de la hero d'accueil : rend le widget existant du thème (quick-nav),
+  sans changer sa logique (assets/quick-nav.js + assets/custom-select.js) : âge, puis goûts
+  (liste dépendante de l'âge), puis bouton de recherche qui mène à la collection choisie.
+  Mise en forme : section « Encart » de assets/verty-hero.css (.vh__finder .quick-nav ...).
+
+  Paramètres :
+  - menu {Object}          : menu de navigation à 2 niveaux
+  - menu_1_text {String}   : libellé par défaut du menu « âge »
+  - menu_2_text {String}   : libellé par défaut du menu « goûts »
+  - component_id {String}  : identifiant unique (id de la section)
+{%- endcomment -%}
+{%-
+  render 'quick-nav',
+    component_id: component_id,
+    menu: menu,
+    color_scheme: 'none',
+    animate: false,
+    show_price: false,
+    title: false,
+    use_product_image: false,
+    image_ratio: 1,
+    image_fit: 'contain',
+    menu_1_display: 'text',
+    menu_1_boxed: false,
+    menu_1_text: menu_1_text,
+    menu_2_display: 'text',
+    menu_2_boxed: false,
+    menu_2_text: menu_2_text,
+    menu_3_display: 'text',
+    menu_3_boxed: false,
+    menu_3_text: ''
+-%}

@@ -1,0 +1,324 @@
+/* =====================================================================
+   Verty : hero d'accueil V3 (carrousel 3 offres + encart « Vite une idée »)
+   Registre « Marque » du design system Verty.
+   Toutes les classes sont préfixées .vh pour ne rien casser dans le thème.
+   ===================================================================== */
+
+.vh-wrap {
+  --vh-navy: #163D83;
+  --vh-green-deep: #1C7A52;
+  --vh-mint: #97E8C7;
+  --vh-mint-border: #6ECFB5;
+  --vh-mint-marque: #7ECFC0;
+  --vh-mint-light: #D5F6E9;
+  --vh-soleil: #F5C842;
+  --vh-soleil-tint: #FFEDB5;
+  --vh-rose: #E8607A;
+  --vh-creme: #FBF8F3;
+  --vh-font-title: "Playfair Display", Georgia, serif;
+  --vh-font-text: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --vh-gutter: clamp(16px, 3vw, 40px);
+  --vh-max: 1320px;
+  --vh-finder-w: 370px;
+  position: relative;
+  background: #FFFFFF;
+}
+.vh-wrap *, .vh-wrap *::before, .vh-wrap *::after { box-sizing: border-box; }
+
+/* ---------- Section colorée (fond = couleur de la slide active) ---------- */
+.vh {
+  position: relative;
+  overflow: hidden;
+  background: var(--vh-mint);
+  /* Bas de hero : une grande courbe douce et asymétrique (pas de festons) */
+  border-radius: 0 0 45% 55% / 0 0 clamp(28px, 4vw, 56px) clamp(44px, 6.6vw, 96px);
+  transition: background-color 600ms ease;
+  font-family: var(--vh-font-text);
+  color: var(--vh-navy);
+}
+.vh__inner {
+  max-width: var(--vh-max);
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 60px) var(--vh-gutter) clamp(72px, 7vw, 104px);
+}
+.vh__carousel { min-width: 0; display: flex; flex-direction: column; }
+.vh__track { display: grid; }
+
+/* ---------- Une slide ---------- */
+.vh__slide {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-wrap: wrap-reverse; /* mobile : l'illustration passe au-dessus du texte */
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 600ms ease, visibility 600ms ease;
+}
+.vh__slide.is-active { opacity: 1; visibility: visible; }
+
+/* Trois ambiances de slide, choisies dans l'éditeur Shopify */
+.vh__slide--mint {
+  --vh-ink: var(--vh-navy); --vh-accent: var(--vh-green-deep);
+  --vh-cta-bg: var(--vh-navy); --vh-cta-text: #FFFFFF; --vh-cta-border: var(--vh-navy);
+  --vh-blob: rgba(251, 248, 243, 0.6); --vh-focus: var(--vh-navy);
+}
+.vh__slide--mint-clair {
+  --vh-ink: var(--vh-navy); --vh-accent: var(--vh-green-deep);
+  --vh-cta-bg: var(--vh-navy); --vh-cta-text: #FFFFFF; --vh-cta-border: var(--vh-navy);
+  --vh-blob: var(--vh-soleil-tint); --vh-focus: var(--vh-navy);
+}
+.vh__slide--marine {
+  --vh-ink: #FFFFFF; --vh-accent: var(--vh-mint-marque);
+  --vh-cta-bg: var(--vh-mint); --vh-cta-text: var(--vh-navy); --vh-cta-border: var(--vh-mint-border);
+  --vh-blob: rgba(126, 207, 192, 0.22); --vh-focus: #FFFFFF;
+}
+
+.vh__text {
+  flex: 1 1 340px;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  color: var(--vh-ink);
+}
+.vh__title {
+  margin: 0;
+  font-family: var(--vh-font-title);
+  font-weight: 700;
+  font-size: clamp(34px, 3.8vw, 56px);
+  line-height: 1.06;
+  letter-spacing: 0;
+  color: inherit;
+  text-wrap: balance;
+}
+.vh__title em { font-style: italic; color: var(--vh-accent); }
+.vh__desc {
+  margin: 0;
+  font-family: var(--vh-font-text);
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.55;
+  color: inherit;
+}
+.vh__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 4px;
+  padding: 13px 30px;
+  border: 2px solid var(--vh-cta-border);
+  border-radius: 999px;
+  background: var(--vh-cta-bg);
+  color: var(--vh-cta-text);
+  font-family: var(--vh-font-text);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 140ms ease, filter 200ms ease;
+}
+.vh__cta:hover { filter: brightness(1.08); }
+.vh__cta:active { transform: scale(0.97); }
+.vh__cta:focus-visible { outline: 3px solid var(--vh-focus); outline-offset: 3px; }
+
+/* ---------- Illustration + tache de couleur ---------- */
+.vh__visual {
+  position: relative;
+  flex: 1 1 300px;
+  height: clamp(270px, 33vw, 480px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vh__blob { position: absolute; left: 4%; top: 3%; width: 92%; height: 94%; color: var(--vh-blob); }
+.vh__slide--zoom .vh__blob { top: 6%; height: 88%; }
+.vh__img {
+  position: relative;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 88%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Stickers (toujours penchés) et étoiles */
+.vh__sticker { position: absolute; z-index: 2; font-family: var(--vh-font-text); font-weight: 800; line-height: 1; text-align: center; }
+.vh__sticker--left { left: 1%; top: 3%; }
+.vh__sticker--right { right: 2%; top: 8%; }
+.vh__sticker--round {
+  width: 86px; height: 86px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--vh-soleil); color: var(--vh-navy);
+  transform: rotate(-9deg);
+}
+.vh__sticker--right.vh__sticker--round { transform: rotate(8deg); }
+.vh__sticker--round .vh__sticker-small { font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.vh__sticker--round .vh__sticker-big { font-family: var(--vh-font-title); font-weight: 700; font-size: 21px; margin: 2px 0; }
+.vh__sticker--pill {
+  padding: 9px 14px; border-radius: 999px;
+  background: var(--vh-rose); color: #FFFFFF;
+  font-size: 12px; line-height: 1.15;
+  transform: rotate(-6deg);
+}
+.vh__star { position: absolute; display: block; }
+
+/* ---------- Pagination : libellés (desktop) et points (mobile) ---------- */
+.vh__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 26px;
+  margin-top: 30px;
+  color: var(--vh-navy);
+}
+.vh[data-tone="dark"] .vh__controls { color: #FFFFFF; }
+.vh__tabs { display: none; flex-wrap: wrap; gap: 8px 26px; }
+.vh__tab {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 4px 2px;
+  border: 0; background: transparent; color: inherit; cursor: pointer;
+  font-family: var(--vh-font-text); font-size: 15px; font-weight: 800; line-height: 1.2; text-align: left;
+  opacity: 0.85;
+}
+.vh__tab[aria-current="true"] { opacity: 1; }
+.vh__tab-dot {
+  flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.vh__tab-dot--livre { background: #FFFFFF; color: var(--vh-navy); }
+.vh__tab-dot--enveloppe { background: var(--vh-soleil); color: var(--vh-navy); }
+.vh__tab-dot--cadeau { background: var(--vh-rose); color: #FFFFFF; }
+.vh__tab-label { position: relative; display: inline-block; padding-bottom: 7px; }
+.vh__tab-line { position: absolute; left: 0; bottom: 0; width: 100%; height: 8px; overflow: visible; }
+.vh__tab-line path { stroke-dasharray: 120; stroke-dashoffset: 120; transition: stroke-dashoffset 100ms linear; }
+
+.vh__dots { display: flex; align-items: center; gap: 2px; }
+.vh__dot {
+  width: 24px; height: 44px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0; background: transparent; color: inherit; cursor: pointer;
+  transition: width 300ms ease;
+}
+.vh__dot[aria-current="true"] { width: 40px; }
+.vh__dot-bar { display: block; width: 8px; height: 8px; border-radius: 999px; overflow: hidden; background: currentColor; opacity: 0.45; transition: width 300ms ease; }
+.vh__dot[aria-current="true"] .vh__dot-bar { width: 28px; opacity: 1; background: rgba(22, 61, 131, 0.2); }
+.vh[data-tone="dark"] .vh__dot[aria-current="true"] .vh__dot-bar { background: rgba(255, 255, 255, 0.3); }
+.vh__dot-fill { display: block; width: 0; height: 100%; border-radius: 999px; background: currentColor; transition: width 100ms linear; }
+
+.vh__pause {
+  flex: 0 0 44px; width: 44px; height: 44px; margin-left: auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid currentColor; border-radius: 999px;
+  background: transparent; color: inherit; cursor: pointer;
+}
+.vh__pause .vh__icon-play { display: none; }
+.vh__pause[aria-pressed="true"] .vh__icon-play { display: block; }
+.vh__pause[aria-pressed="true"] .vh__icon-pause { display: none; }
+.vh__tab:focus-visible, .vh__dot:focus-visible, .vh__pause:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; border-radius: 12px; }
+
+/* ---------- Encart « Vite une idée » ---------- */
+.vh__finder { padding: 8px 10px; background: #FFFFFF; }
+.vh__finder-card {
+  position: relative;
+  max-width: 460px;
+  margin: 14px auto 0;
+  padding: 36px 28px 26px;
+  display: flex; flex-direction: column; gap: 14px;
+  background: #FFFFFF;
+  border-radius: 32px 26px 34px 28px / 28px 34px 26px 32px;
+  box-shadow: 0 14px 34px rgba(22, 61, 131, 0.16);
+  font-family: var(--vh-font-text);
+  color: var(--vh-navy);
+}
+.vh__finder-tape {
+  position: absolute; top: -8px; left: calc(50% - 27px);
+  width: 54px; height: 16px; border-radius: 2px;
+  background: var(--vh-mint-marque); opacity: 0.85; transform: rotate(-6deg);
+}
+.vh__finder-star { position: absolute; top: 20px; right: 22px; }
+.vh__finder-head { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding-bottom: 4px; }
+.vh__finder-title { margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--vh-font-title); font-weight: 700; font-size: 27px; line-height: 1.1; color: var(--vh-navy); }
+.vh__finder-title em { font-style: italic; color: var(--vh-green-deep); }
+.vh__finder-icon { flex: 0 0 36px; width: 36px; height: 36px; border-radius: 50%; background: var(--vh-soleil); display: inline-flex; align-items: center; justify-content: center; color: var(--vh-navy); }
+.vh__finder-desc { margin: 0; font-size: 15px; line-height: 1.45; color: rgba(22, 61, 131, 0.8); }
+
+/* Widget du thème (snippets/quick-nav.liquid) habillé aux couleurs de la maquette.
+   Seules les règles de présentation sont surchargées : la logique (quick-nav.js, custom-select.js) est intacte. */
+.vh__finder-card .quick-nav {
+  display: flex; flex-direction: column; gap: 14px;
+  position: static; width: 100%; margin: 0; padding: 0;
+  background: transparent; border-radius: 0; box-shadow: none; color: var(--vh-navy);
+}
+.vh__finder-card .quick-nav custom-select { display: block; }
+.vh__finder-card .quick-nav .custom-select { margin: 0; width: 100%; }
+.vh__finder-card .quick-nav .custom-select__btn {
+  --custom-select-button-width: 100%;
+  width: 100%; max-width: 100%; min-width: 100%; height: 48px; min-height: 48px; padding: 0 12px 0 18px;
+  justify-content: space-between; text-align: left;
+  border: 1.5px solid #CCCCCC; border-radius: 999px; background: #FFFFFF; box-shadow: none;
+  font-family: var(--vh-font-text); font-size: 16px; font-weight: 700; line-height: 1.2; color: var(--vh-navy);
+  cursor: pointer; transition: border-color 160ms ease;
+}
+.vh__finder-card .quick-nav custom-select[data-level="1"] .custom-select__btn { border-color: var(--vh-mint); }
+.vh__finder-card .quick-nav .custom-select__btn[aria-expanded="true"] { border-color: var(--vh-navy); }
+.vh__finder-card .quick-nav .custom-select__btn:hover:not([disabled]) { border-color: var(--vh-mint-border); }
+.vh__finder-card .quick-nav .custom-select__btn[disabled] { opacity: 1; cursor: not-allowed; color: rgba(22, 61, 131, 0.5); }
+.vh__finder-card .quick-nav .custom-select__btn:focus-visible { outline: 3px solid var(--vh-navy); outline-offset: 2px; }
+.vh__finder-card .quick-nav .custom-select__btn .icon { width: 22px; height: 20px; margin: 0; padding: 0; color: var(--vh-navy); }
+.vh__finder-card .quick-nav .custom-select__btn[aria-expanded="true"] .icon { transform: rotate(180deg); }
+.vh__finder-card .quick-nav .custom-select__listbox {
+  top: calc(100% + 6px); left: 0; right: 0; min-width: 100%; max-height: 260px; padding: 6px;
+  border: 1.5px solid var(--vh-mint); border-radius: 22px; background: #FFFFFF;
+  box-shadow: 0 12px 28px rgba(22, 61, 131, 0.18);
+  font-family: var(--vh-font-text); font-size: 16px; color: var(--vh-navy);
+}
+.vh__finder-card .quick-nav .custom-select__option { padding: 11px 14px; border-radius: 14px; font-weight: 700; }
+.vh__finder-card .quick-nav .custom-select__option.is-focused,
+.vh__finder-card .quick-nav .custom-select__option[aria-selected="true"] { background: var(--vh-mint-light); color: var(--vh-navy); }
+.vh__finder-card .quick-nav .quick-nav__submit {
+  display: flex; align-items: center; justify-content: center; width: 100%; min-height: 48px; padding: 0 20px; margin: 0;
+  border: 2px solid var(--vh-mint-border); border-radius: 999px;
+  background: var(--vh-mint); color: var(--vh-navy); box-shadow: none; text-decoration: none; white-space: normal; text-align: center;
+  font-family: var(--vh-font-text); font-weight: 700; font-size: 18px; line-height: 1.2; cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+.vh__finder-card .quick-nav .quick-nav__submit:hover { background: #84E0BB; border-color: #6ECFB5; box-shadow: none; }
+.vh__finder-card .quick-nav .quick-nav__submit[aria-disabled] { pointer-events: none; }
+.vh__finder-card .quick-nav .quick-nav__submit:focus-visible { outline: 3px solid var(--vh-navy); outline-offset: 2px; }
+
+/* ---------- Tablette et desktop ---------- */
+@media (min-width: 768px) {
+  .vh__tabs { display: flex; }
+  .vh__dots { display: none; }
+  /* Taches plus larges : l'illustration respire au centre de sa tache */
+  .vh__blob { left: -6%; top: 2%; width: 112%; height: 96%; }
+  .vh__slide--zoom .vh__blob { top: 4%; height: 92%; }
+  .vh__img { max-width: 78%; max-height: 84%; }
+  .vh__slide--zoom .vh__img { max-width: 86%; max-height: 92%; }
+}
+
+/* ---------- Desktop large : l'encart se pose sur la hero, à droite ---------- */
+@media (min-width: 1024px) {
+  .vh-wrap { display: grid; }
+  .vh, .vh__finder { grid-area: 1 / 1; }
+  .vh__inner { padding-right: calc(var(--vh-gutter) + var(--vh-finder-w) + 48px); }
+  .vh__finder {
+    z-index: 3;
+    align-self: center;
+    justify-self: end;
+    width: var(--vh-finder-w);
+    margin-top: -44px; /* centre l'encart sur la zone de contenu (padding bas plus grand que le haut) */
+    margin-right: max(var(--vh-gutter), calc((100% - var(--vh-max)) / 2 + var(--vh-gutter)));
+    padding: 0;
+    background: transparent;
+  }
+  .vh__finder-card { margin: 0; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vh, .vh__slide, .vh__dot, .vh__dot-bar, .vh__dot-fill, .vh__tab-line path { transition: none; }
+}

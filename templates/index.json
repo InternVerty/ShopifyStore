@@ -9,8 +9,88 @@
  */
 {
   "sections": {
+    "verty_hero": {
+      "type": "verty-hero",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "style": "mint",
+            "title_before": "La librairie",
+            "title_accent": "jeunesse",
+            "title_after": "Verty",
+            "text": "Une sélection de livres pour les 0-16 ans, choisis avec soin pour éveiller leur curiosité, nourrir leur imagination et leur donner le goût de lire.",
+            "button_label": "Découvrir la sélection",
+            "button_link": "/collections/all",
+            "sticker": "round",
+            "sticker_position": "left",
+            "sticker_line_1": "De",
+            "sticker_line_2": "0 à 16",
+            "sticker_line_3": "ans",
+            "tab_label": "Librairie jeunesse",
+            "tab_icon": "livre"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "style": "mint-clair",
+            "title_before": "La sélection",
+            "title_accent": "personnalisée",
+            "title_after": "Verty",
+            "text": "Chaque mois, recevez gratuitement par e-mail des idées de lecture choisies spécialement pour votre enfant, selon son âge, ses goûts et ses centres d'intérêt.",
+            "button_label": "Recevoir la sélection gratuite",
+            "image_zoom": true,
+            "sticker": "pill",
+            "sticker_position": "right",
+            "sticker_line_1": "100 % personnalisée",
+            "sticker_line_2": "100 % gratuite",
+            "tab_label": "Sélection personnalisée",
+            "tab_icon": "enveloppe"
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "style": "marine",
+            "title_before": "La sélection",
+            "title_accent": "cadeau",
+            "title_after": "Verty",
+            "text": "Offrez bien plus qu'un livre ! Une sélection de livres choisis avec soin selon l'âge, les goûts et les centres d'intérêt de l'enfant, dans un joli emballage cadeau pour lui donner encore plus envie de lire !",
+            "button_label": "Offrir une sélection cadeau",
+            "button_link": "shopify://pages/coffret",
+            "sticker": "round",
+            "sticker_position": "right",
+            "sticker_line_1": "Emballage",
+            "sticker_line_2": "cadeau",
+            "sticker_line_3": "inclus",
+            "tab_label": "Sélection cadeau",
+            "tab_icon": "cadeau"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
+      "settings": {
+        "interval": 7,
+        "first_heading_h1": true,
+        "aria_label": "Les offres Verty",
+        "show_finder": true,
+        "finder_title_before": "Vite une",
+        "finder_title_accent": "idée",
+        "finder_title_after": "!",
+        "finder_text": "Le livre idéal en 2 clics, selon son âge et ses goûts.",
+        "finder_menu": "new-vite-une-id-e",
+        "finder_menu_1_text": "Son âge",
+        "finder_menu_2_text": "Il / Elle aime"
+      }
+    },
     "98cde450-e122-4f44-a25c-bb42a01a4145": {
       "type": "navigation-slideshow",
+      "disabled": true,
       "blocks": {
         "template--21670123798821__98cde450-e122-4f44-a25c-bb42a01a4145-slide-1": {
           "type": "slide",
@@ -1211,6 +1291,7 @@
     }
   },
   "order": [
+    "verty_hero",
     "98cde450-e122-4f44-a25c-bb42a01a4145",
     "featured_collection_aieDhj",
     "featured_collection_8ehVFE",
