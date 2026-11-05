@@ -21,7 +21,7 @@
             "title_after": "Verty",
             "text": "Une sélection de livres pour les 0-16 ans, choisis avec soin pour éveiller leur curiosité, nourrir leur imagination et leur donner le goût de lire.",
             "button_label": "Découvrir la sélection",
-            "button_link": "/collections/all",
+            "button_link": "shopify://collections/all",
             "image_zoom": false,
             "sticker": "round",
             "sticker_position": "left",
