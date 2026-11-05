@@ -22,6 +22,7 @@
             "text": "Une sélection de livres pour les 0-16 ans, choisis avec soin pour éveiller leur curiosité, nourrir leur imagination et leur donner le goût de lire.",
             "button_label": "Découvrir la sélection",
             "button_link": "/collections/all",
+            "image_zoom": false,
             "sticker": "round",
             "sticker_position": "left",
             "sticker_line_1": "De",
@@ -40,11 +41,13 @@
             "title_after": "Verty",
             "text": "Chaque mois, recevez gratuitement par e-mail des idées de lecture choisies spécialement pour votre enfant, selon son âge, ses goûts et ses centres d'intérêt.",
             "button_label": "Recevoir la sélection gratuite",
+            "button_link": "shopify://pages/la-selection-verty",
             "image_zoom": true,
             "sticker": "pill",
             "sticker_position": "right",
             "sticker_line_1": "100 % personnalisée",
             "sticker_line_2": "100 % gratuite",
+            "sticker_line_3": "",
             "tab_label": "Sélection personnalisée",
             "tab_icon": "enveloppe"
           }
@@ -59,6 +62,7 @@
             "text": "Offrez bien plus qu'un livre ! Une sélection de livres choisis avec soin selon l'âge, les goûts et les centres d'intérêt de l'enfant, dans un joli emballage cadeau pour lui donner encore plus envie de lire !",
             "button_label": "Offrir une sélection cadeau",
             "button_link": "shopify://pages/coffret",
+            "image_zoom": false,
             "sticker": "round",
             "sticker_position": "right",
             "sticker_line_1": "Emballage",
@@ -90,7 +94,6 @@
     },
     "98cde450-e122-4f44-a25c-bb42a01a4145": {
       "type": "navigation-slideshow",
-      "disabled": true,
       "blocks": {
         "template--21670123798821__98cde450-e122-4f44-a25c-bb42a01a4145-slide-1": {
           "type": "slide",
@@ -118,6 +121,7 @@
       "block_order": [
         "template--21670123798821__98cde450-e122-4f44-a25c-bb42a01a4145-slide-1"
       ],
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "height_mode": "fixed",
