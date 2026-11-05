@@ -106,61 +106,90 @@
     refresh();
   }
 
-  // Bouton "Je partage" : feuille de partage native (mobile), sinon copie du lien.
-  // Sans JavaScript, le lien WhatsApp du href reste utilisable.
-  function initShare(btn) {
-    var label = btn.querySelector('[data-cf-share-label]');
-    var original = label ? label.textContent : '';
+  // Bouton "Je partage" : feuille de partage native sur téléphone/tablette ; sur ordinateur, petit menu
+  // (WhatsApp, e-mail, copier le lien). Sans JavaScript, le lien WhatsApp du href reste utilisable.
+  function initShare(wrap) {
+    var btn = wrap.querySelector('[data-cf-share]');
+    var menu = wrap.querySelector('[data-cf-share-menu]');
+    var copyBtn = wrap.querySelector('[data-cf-share-copy]');
+    if (!btn || !menu) return;
+    var url = btn.getAttribute('data-share-url') || window.location.href;
+    var copyLabel = copyBtn ? copyBtn.textContent : '';
     var timer = null;
 
-    function flash(text) {
-      if (!label) return;
-      label.textContent = text;
-      clearTimeout(timer);
-      timer = setTimeout(function () { label.textContent = original; }, 2200);
+    function isOpen() { return !menu.hidden; }
+    function setOpen(open) {
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
     }
 
-    function copy(url) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(url);
-      }
-      return new Promise(function (resolve, reject) {
-        var input = document.createElement('input');
-        input.value = url;
-        input.setAttribute('readonly', '');
-        input.style.position = 'fixed';
-        input.style.opacity = '0';
-        document.body.appendChild(input);
-        input.select();
-        try { document.execCommand('copy') ? resolve() : reject(); } catch (err) { reject(err); }
-        document.body.removeChild(input);
-      });
+    // Écran tactile + Web Share API : feuille de partage du système.
+    function useNativeSheet() {
+      return !!navigator.share && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    }
+
+    // Copie synchrone (execCommand) d'abord : fiable dans le geste de clic, même quand
+    // l'API Clipboard est refusée (iframe, permissions). API Clipboard en second recours.
+    function copyText(text) {
+      var ok = false;
+      var input = document.createElement('textarea');
+      input.value = text;
+      input.setAttribute('readonly', '');
+      input.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, text.length);
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(input);
+      if (ok) return Promise.resolve();
+      if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+      return Promise.reject(new Error('copy'));
     }
 
     btn.addEventListener('click', function (e) {
-      var url = btn.getAttribute('data-share-url') || window.location.href;
-      var data = {
-        title: btn.getAttribute('data-share-title') || document.title,
-        text: btn.getAttribute('data-share-text') || '',
-        url: url
-      };
       e.preventDefault();
-      if (navigator.share) {
-        navigator.share(data).catch(function (err) {
-          // Fermeture de la feuille par l'utilisateur : rien à faire.
-          if (err && err.name === 'AbortError') return;
-          copy(url).then(function () { flash(btn.getAttribute('data-copied-label')); }, function () { window.open(btn.href, '_blank', 'noopener'); });
-        });
+      if (useNativeSheet()) {
+        navigator.share({
+          title: btn.getAttribute('data-share-title') || document.title,
+          text: btn.getAttribute('data-share-text') || '',
+          url: url
+        }).catch(function () { /* fermeture de la feuille : rien à faire */ });
         return;
       }
-      copy(url).then(
-        function () { flash(btn.getAttribute('data-copied-label')); },
-        function () { window.open(btn.href, '_blank', 'noopener'); }
-      );
+      setOpen(!isOpen());
+      if (isOpen()) {
+        var first = menu.querySelector('a, button');
+        if (first) first.focus();
+      }
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        copyText(url).then(function () {
+          copyBtn.textContent = copyBtn.getAttribute('data-copied-label');
+          clearTimeout(timer);
+          timer = setTimeout(function () { copyBtn.textContent = copyLabel; setOpen(false); }, 1400);
+        }, function () {
+          // Copie impossible : on affiche le lien pour qu'il puisse être copié à la main.
+          window.prompt('Copiez ce lien :', url);
+          setOpen(false);
+        });
+      });
+    }
+
+    menu.addEventListener('click', function (e) {
+      // WhatsApp / e-mail : on referme le menu après le clic.
+      if (e.target.closest && e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('click', function (e) {
+      if (isOpen() && !wrap.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen()) { setOpen(false); btn.focus(); }
     });
   }
 
   document.querySelectorAll('[data-cf-slider]').forEach(initSlider);
-  document.querySelectorAll('[data-cf-share]').forEach(initShare);
+  document.querySelectorAll('[data-cf-share-wrap]').forEach(initShare);
   document.querySelectorAll('[data-cf-carousel]').forEach(initCarousel);
 })();

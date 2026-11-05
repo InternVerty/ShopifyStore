@@ -282,6 +282,20 @@
 .cf-offer__text { margin-top: 14px; font-size: 16px; line-height: 1.65; color: var(--cf-text-secondary); max-width: 480px; }
 .cf-offer__cta { display: inline-block; margin-top: 26px; }
 .cf-offer__actions { margin-top: 26px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.cf-share { position: relative; display: inline-block; }
+.cf-share__menu {
+  position: absolute; z-index: 20; left: 0; top: calc(100% + 8px); min-width: 210px; padding: 6px;
+  background: var(--cf-white); border: 1px solid var(--cf-gray-200); border-radius: var(--cf-radius-md);
+  box-shadow: var(--cf-shadow-md); display: flex; flex-direction: column;
+}
+.cf-share__menu[hidden] { display: none; }
+.cf-share__item {
+  display: block; width: 100%; text-align: left; padding: 11px 14px; border: 0; border-radius: 10px; background: transparent;
+  font-family: var(--cf-font-sans); font-size: 16px; font-weight: 600; line-height: 1.2; color: var(--cf-theme-strong);
+  text-decoration: none; cursor: pointer;
+}
+.coffret-page .cf-share__item { color: var(--cf-theme-strong); }
+.cf-share__item:hover, .cf-share__item:focus-visible { background: var(--cf-theme-wash); outline: none; }
 .cf-offer__chatwrap { position: relative; display: flex; justify-content: center; min-height: 260px; align-items: center; }
 .cf-chat {
   position: relative; width: 100%; max-width: 330px; background: #EFEAE2; border-radius: 18px; padding: 16px 12px 14px;

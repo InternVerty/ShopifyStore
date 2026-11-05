@@ -4,6 +4,8 @@
 
 {%- assign cf_share_url = section.settings.share_url | default: canonical_url -%}
 {%- assign cf_share_text = section.settings.share_message | append: ' ' | append: cf_share_url -%}
+{%- assign cf_mail_subject = 'Une idée cadeau : le Coffret Verty' | url_encode | replace: '+', '%20' -%}
+{%- assign cf_mail_body = cf_share_text | url_encode | replace: '+', '%20' -%}
 {%- assign cf_whatsapp = 'https://wa.me/?text=' | append: cf_share_text | url_encode | replace: '+', '%20' -%}
 
 <section class="coffret-page cf-offer" data-section-id="{{ section.id }}">
@@ -40,18 +42,25 @@
         {%- if section.settings.share_cta_label != blank -%}
           <div class="cf-offer__actions cf-offer__share-cta">
             {%- comment -%}
-              Sans JavaScript : lien WhatsApp. Avec JavaScript (coffret-landing.js) : feuille de partage
-              du téléphone (Web Share API), ou copie du lien si elle n'existe pas (ordinateur).
+              Sans JavaScript : lien WhatsApp. Avec JavaScript (coffret-landing.js) : feuille de partage native
+              sur téléphone, petit menu (WhatsApp, e-mail, copier le lien) sur ordinateur.
             {%- endcomment -%}
-            <a href="{{ cf_whatsapp }}" target="_blank" rel="noopener" class="cf-btn"
-               data-cf-share
-               data-share-url="{{ cf_share_url | escape }}"
-               data-share-title="{{ 'Le Coffret Verty' | escape }}"
-               data-share-text="{{ section.settings.share_message | escape }}"
-               data-copied-label="Lien copié !">
-              {% render 'coffret-landing-icon', name: 'share', size: 18 %}
-              <span data-cf-share-label>{{ section.settings.share_cta_label | escape }}</span>
-            </a>
+            <div class="cf-share" data-cf-share-wrap>
+              <a href="{{ cf_whatsapp }}" target="_blank" rel="noopener" class="cf-btn"
+                 data-cf-share
+                 aria-haspopup="menu" aria-expanded="false"
+                 data-share-url="{{ cf_share_url | escape }}"
+                 data-share-title="{{ 'Le Coffret Verty' | escape }}"
+                 data-share-text="{{ section.settings.share_message | escape }}">
+                {% render 'coffret-landing-icon', name: 'share', size: 18 %}
+                {{ section.settings.share_cta_label | escape }}
+              </a>
+              <div class="cf-share__menu" role="menu" data-cf-share-menu hidden>
+                <a role="menuitem" class="cf-share__item" href="{{ cf_whatsapp }}" target="_blank" rel="noopener">WhatsApp</a>
+                <a role="menuitem" class="cf-share__item" href="mailto:?subject={{ cf_mail_subject }}&body={{ cf_mail_body }}">E-mail</a>
+                <button type="button" role="menuitem" class="cf-share__item" data-cf-share-copy data-copied-label="Lien copié !">Copier le lien</button>
+              </div>
+            </div>
           </div>
         {%- endif -%}
       </div>
