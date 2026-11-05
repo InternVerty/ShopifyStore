@@ -106,21 +106,19 @@
     refresh();
   }
 
-  // Bouton "Je partage" : feuille de partage native sur téléphone/tablette ; sur ordinateur, petit menu
-  // (WhatsApp, e-mail, copier le lien). Sans JavaScript, le lien WhatsApp du href reste utilisable.
-  function initShare(wrap) {
-    var btn = wrap.querySelector('[data-cf-share]');
-    var menu = wrap.querySelector('[data-cf-share-menu]');
-    var copyBtn = wrap.querySelector('[data-cf-share-copy]');
-    if (!btn || !menu) return;
+  // Bouton "Je partage" : feuille de partage native sur téléphone/tablette, copie du lien sur ordinateur.
+  // Sans JavaScript, le lien WhatsApp du href reste utilisable.
+  function initShare(btn) {
+    var label = btn.querySelector('[data-cf-share-label]');
+    var original = label ? label.textContent : '';
     var url = btn.getAttribute('data-share-url') || window.location.href;
-    var copyLabel = copyBtn ? copyBtn.textContent : '';
     var timer = null;
 
-    function isOpen() { return !menu.hidden; }
-    function setOpen(open) {
-      menu.hidden = !open;
-      btn.setAttribute('aria-expanded', String(open));
+    function flash(text) {
+      if (!label) return;
+      label.textContent = text;
+      clearTimeout(timer);
+      timer = setTimeout(function () { label.textContent = original; }, 2200);
     }
 
     // Écran tactile + Web Share API : feuille de partage du système.
@@ -156,40 +154,15 @@
         }).catch(function () { /* fermeture de la feuille : rien à faire */ });
         return;
       }
-      setOpen(!isOpen());
-      if (isOpen()) {
-        var first = menu.querySelector('a, button');
-        if (first) first.focus();
-      }
-    });
-
-    if (copyBtn) {
-      copyBtn.addEventListener('click', function () {
-        copyText(url).then(function () {
-          copyBtn.textContent = copyBtn.getAttribute('data-copied-label');
-          clearTimeout(timer);
-          timer = setTimeout(function () { copyBtn.textContent = copyLabel; setOpen(false); }, 1400);
-        }, function () {
-          // Copie impossible : on affiche le lien pour qu'il puisse être copié à la main.
-          window.prompt('Copiez ce lien :', url);
-          setOpen(false);
-        });
-      });
-    }
-
-    menu.addEventListener('click', function (e) {
-      // WhatsApp / e-mail : on referme le menu après le clic.
-      if (e.target.closest && e.target.closest('a')) setOpen(false);
-    });
-    document.addEventListener('click', function (e) {
-      if (isOpen() && !wrap.contains(e.target)) setOpen(false);
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && isOpen()) { setOpen(false); btn.focus(); }
+      copyText(url).then(
+        function () { flash(btn.getAttribute('data-copied-label') || 'Lien copié !'); },
+        // Copie impossible : on affiche le lien pour qu'il puisse être copié à la main.
+        function () { window.prompt('Copiez ce lien :', url); }
+      );
     });
   }
 
   document.querySelectorAll('[data-cf-slider]').forEach(initSlider);
-  document.querySelectorAll('[data-cf-share-wrap]').forEach(initShare);
+  document.querySelectorAll('[data-cf-share]').forEach(initShare);
   document.querySelectorAll('[data-cf-carousel]').forEach(initCarousel);
 })();

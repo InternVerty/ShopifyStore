@@ -25,7 +25,23 @@
   <meta property="og:description" content="{{ og_description | escape }}">
 
 
-  {%- if page_image -%}
+  {%- comment -%}
+    Image de partage propre à une page : métachamp de page « custom.og_image » (type Fichier, image).
+    Recommandé : 1200 × 630 px. Si le métachamp est vide, on garde l'image de partage de la boutique.
+  {%- endcomment -%}
+  {%- assign custom_og_image = null -%}
+  {%- if request.page_type == 'page' -%}
+    {%- assign custom_og_image = page.metafields.custom.og_image.value -%}
+  {%- endif -%}
+
+  {%- if custom_og_image != blank -%}
+    <meta property="og:image" content="{{ custom_og_image | image_url: width: 1200, height: 630, crop: 'center' }}">
+    <meta property="og:image:secure_url" content="{{ custom_og_image | image_url: width: 1200, height: 630, crop: 'center' }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ custom_og_image.alt | default: og_title | escape }}">
+    <meta name="twitter:image" content="{{ custom_og_image | image_url: width: 1200, height: 630, crop: 'center' }}">
+  {%- elsif page_image -%}
     <meta property="og:image" content="http:{{ page_image | image_url: width: 1200, height: 1200 }}">
     <meta property="og:image:secure_url" content="https:{{ page_image | image_url: width: 1200, height: 1200 }}">
     <meta property="og:image:width" content="{{ page_image.width }}">
