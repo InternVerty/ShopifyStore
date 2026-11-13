@@ -426,6 +426,27 @@
     </div>
 
       {%- if settings.enable_quick_add and disable_quickbuy != true -%}
+        {%- assign coffret_handle = settings.coffret_product.handle | default: 'coffret-verty' -%}
+        {%- if product.handle == coffret_handle -%}
+          {%- comment -%}
+            Produit coffret : pas d'ajout rapide au panier (le formulaire doit être rempli avant),
+            le bouton renvoie vers la landing du coffret.
+          {%- endcomment -%}
+          <div class="card__quick-add
+            {% if settings.card_atc_mobile == "text_button_bottom" %}mob:card__quick-add--below{% endif %}
+            {% if settings.card_atc_mobile == "icon" %}mob:card__quick-add--icon{% endif %}
+            {% if settings.card_atc_desktop == "text_button_bottom" %}desktop:card__quick-add--below{% endif %}
+            {% if settings.card_atc_desktop == "icon" %}desktop:card__quick-add--icon{% endif %}
+          ">
+            <a href="{{ settings.coffret_landing_page.url | default: '/pages/coffret' }}" class="btn btn--primary w-full">
+              <span class="quick-add-btn-icon">
+                <span class="visually-hidden">Découvrir le coffret</span>
+                {% render 'icon-chevron-right' %}
+              </span>
+              <span class="quick-add-btn-text">Découvrir le coffret</span>
+            </a>
+          </div>
+        {%- else -%}
         <div class="card__quick-add
           {% if settings.card_atc_mobile == "text_button_bottom" %}mob:card__quick-add--below{% endif %}
           {% if settings.card_atc_mobile == "icon" %}mob:card__quick-add--icon{% endif %}
@@ -488,6 +509,7 @@
             </div>
           {%- endif -%}
         </div>
+        {%- endif -%}
       {%- endif -%}
     </div>
   </product-card>
