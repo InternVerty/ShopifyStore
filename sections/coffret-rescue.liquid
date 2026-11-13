@@ -1,0 +1,59 @@
+{%- comment -%}
+  Page de secours du Coffret Verty : pour une commande passée sans que les réponses du formulaire
+  aient été récupérées. Même formulaire que la landing (snippets/coffret-signup-modal.liquid,
+  assets/coffret-signup.js) en mode "rescue" :
+  - rien n'est ajouté au panier ;
+  - les réponses sont envoyées en POST JSON au webhook de [coffret-engine] (réglage de la section),
+    dans la forme de l'objet que "Préparer entrée engine" ([track-paid]) lui envoie.
+
+  Corps envoyé (shopify.* et shipping_address sont vides : le formulaire ne connaît pas la commande,
+  à compléter côté n8n) :
+    { action: "coffret", source: "rattrapage", customer_mail, customer_first_name, customer_last_name,
+      customer_id, page, submitted_at,
+      child: { prenom, age, genre, classe, niveau, themes[], livres[], occasion, type_livres, parent_prenom },
+      coffret: { occasion, pays_livraison },
+      shipping_address: "", shopify: { order_number: "", line_item_id: "" } }
+
+  Page à créer : Pages > Ajouter une page > modèle « coffret-rescue » (non référencée).
+{%- endcomment -%}
+
+<meta name="robots" content="noindex, nofollow">
+{{ 'coffret-landing.css' | asset_url | stylesheet_tag }}
+
+<section class="coffret-page" style="padding: 64px 20px; text-align: center;">
+  <div style="max-width: 560px; margin: 0 auto;">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="cf-h2" style="margin-bottom: 14px;">{{ section.settings.heading | escape }}</h1>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <p class="cf-lead" style="margin-bottom: 28px;">{{ section.settings.text | escape }}</p>
+    {%- endif -%}
+    <button type="button" class="cf-btn cf-btn--lg" data-coffret-open>{{ section.settings.button_label | default: 'Remplir le formulaire' | escape }}</button>
+  </div>
+</section>
+
+{%- render 'coffret-signup-modal',
+  mode: 'rescue',
+  webhook_url: section.settings.webhook_url,
+  privacy_url: section.settings.privacy_url,
+  autoopen: section.settings.autoopen
+-%}
+
+{% schema %}
+{
+  "name": "Coffret, page de secours",
+  "tag": "div",
+  "class": "coffret-rescue-section",
+  "settings": [
+    { "type": "text", "id": "webhook_url", "label": "URL du webhook (n8n)", "info": "Reçoit les réponses en POST JSON. Si vide, l'envoi échoue." },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Complétez les informations de votre coffret" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Nous n'avons pas pu récupérer les réponses du formulaire pour votre commande. Quelques questions suffisent pour composer la sélection de votre enfant." },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton", "default": "Remplir le formulaire" },
+    { "type": "checkbox", "id": "autoopen", "label": "Ouvrir le formulaire dès l'arrivée sur la page", "default": true },
+    { "type": "url", "id": "privacy_url", "label": "Page de protection des données" }
+  ],
+  "presets": [
+    { "name": "Coffret, page de secours" }
+  ]
+}
+{% endschema %}

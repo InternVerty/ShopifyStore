@@ -9,6 +9,10 @@
   Paramètres :
   - product_handle {String} : handle du produit coffret à ajouter (défaut : coffret-verty)
   - privacy_url {String}    : page de protection des données (défaut : /pages/donnees-personnelles)
+  - mode {String}           : "rescue" = page de secours (voir sections/coffret-rescue.liquid) : pas d'ajout
+                              au panier, les réponses sont envoyées en POST JSON à webhook_url
+  - webhook_url {String}    : webhook qui reçoit les réponses (mode rescue)
+  - autoopen {Boolean}      : ouvre le popup dès le chargement de la page
 {%- endcomment -%}
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
@@ -22,6 +26,13 @@
   data-product-handle="{{ product_handle | default: 'coffret-verty' }}"
   data-cart-url="{{ routes.cart_url }}"
   data-privacy-url="{{ privacy_url | default: '/pages/donnees-personnelles' }}"
+  {%- if mode == 'rescue' %}
+  data-mode="rescue"
+  data-webhook-url="{{ webhook_url | escape }}"
+  {%- endif %}
+  {%- if autoopen %}
+  data-autoopen="true"
+  {%- endif %}
   data-customer-email="{{ customer.email | escape }}"
   data-customer-first-name="{{ customer.first_name | escape }}"
   data-customer-last-name="{{ customer.last_name | escape }}"

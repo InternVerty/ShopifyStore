@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "coffret-rescue",
+      "settings": {
+        "webhook_url": "",
+        "heading": "Complétez les informations de votre coffret",
+        "text": "Nous n'avons pas pu récupérer les réponses du formulaire pour votre commande. Quelques questions suffisent pour composer la sélection de votre enfant.",
+        "button_label": "Remplir le formulaire",
+        "autoopen": true
+      }
+    }
+  },
+  "order": ["main"]
+}

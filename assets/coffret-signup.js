@@ -39,6 +39,11 @@
       this.productHandle = this.getAttribute('data-product-handle') || 'coffret-verty';
       this.cartUrl = this.getAttribute('data-cart-url') || '/cart';
       this.privacyUrl = this.getAttribute('data-privacy-url') || '/pages/donnees-personnelles';
+      // Mode "rattrapage" : page de secours pour une commande passée sans les réponses du formulaire.
+      // Le formulaire n'ajoute rien au panier : il met les réponses en forme (mêmes propriétés que la
+      // ligne de panier) et les envoie en POST JSON au webhook indiqué dans data-webhook-url.
+      this.rescue = this.getAttribute('data-mode') === 'rescue';
+      this.webhookUrl = this.getAttribute('data-webhook-url') || '';
       this.state = {
         d: {
           prenomEnfant: '',
@@ -79,6 +84,8 @@
       });
 
       this.render();
+      // Page de secours : le formulaire s'ouvre dès l'arrivée sur la page.
+      if (this.getAttribute('data-autoopen') === 'true') this.open();
     }
 
     open() {
@@ -158,6 +165,11 @@
       this.state.touched = false;
       this.render();
 
+      if (this.rescue) {
+        this.sendRescue(properties);
+        return;
+      }
+
       fetch('/products/' + this.productHandle + '.js')
         .then((res) => {
           if (!res.ok) throw new Error('product-not-found');
@@ -175,6 +187,67 @@
         .then((res) => {
           if (!res.ok) throw new Error('cart-add-failed ' + res.status);
           window.location.href = this.cartUrl;
+        })
+        .catch((err) => {
+          console.error('[coffret-signup]', err);
+          this.state.sending = false;
+          this.state.failed = true;
+          this.render();
+        });
+    }
+
+    // Mode rattrapage : envoi des réponses au webhook de [coffret-engine] (aucun ajout au panier).
+    // Le corps reprend la forme de l'objet que "Préparer entrée engine" ([track-paid]) envoie au moteur :
+    // child, customer_mail, coffret, shopify, shipping_address... Le formulaire ne connaît pas la commande :
+    // shopify.* et shipping_address sont donc vides, à compléter côté n8n.
+    sendRescue(properties) {
+      var d = this.state.d;
+      var occasion = d.occasion === 'Autre' ? d.occasionAutre.trim() : d.occasion;
+      var prenomParent = d.prenom.trim();
+      var payload = {
+        action: 'coffret',
+        source: 'rattrapage',
+        customer_mail: d.email.trim(),
+        customer_first_name: prenomParent,
+        customer_last_name: d.nom.trim(),
+        customer_id: this.getAttribute('data-customer-id') || '',
+        child: {
+          prenom: d.prenomEnfant.trim(),
+          age: parseInt(d.age, 10),
+          genre: d.genre,
+          classe: d.classe,
+          niveau: d.niveau,
+          themes: d.themes.slice(),
+          livres: d.livres.split('\n').map((t) => t.trim()).filter(Boolean).slice(0, 5),
+          occasion: occasion || 'Autre',
+          type_livres: d.typeLivres || 'confiance',
+          parent_prenom: prenomParent
+        },
+        coffret: { occasion: occasion || 'Autre', pays_livraison: 'France' },
+        shipping_address: '',
+        shopify: { order_number: '', line_item_id: '' },
+        submitted_at: new Date().toISOString(),
+        page: window.location.href
+      };
+
+      if (!this.webhookUrl) {
+        console.error('[coffret-signup] mode rattrapage : data-webhook-url est vide');
+        this.state.sending = false;
+        this.state.failed = true;
+        this.render();
+        return;
+      }
+
+      fetch(this.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error('webhook ' + res.status);
+          this.state.sending = false;
+          this.state.sent = true;
+          this.render();
         })
         .catch((err) => {
           console.error('[coffret-signup]', err);
@@ -393,8 +466,8 @@
 
       if (state.sent) {
         var confirm = el('div', { class: 'vs-confirm' });
-        confirm.appendChild(el('span', { class: 'vs-confirm__title', text: 'Merci pour votre confiance.' }));
-        confirm.appendChild(el('span', { class: 'vs-confirm__text', text: 'La première sélection personnalisée de ' + (state.d.prenomEnfant.trim() || 'votre enfant') + ' vous sera envoyée avant la fin du mois : des livres choisis avec soin pour l’accompagner et nourrir son imaginaire.' }));
+        confirm.appendChild(el('span', { class: 'vs-confirm__title', text: this.rescue ? 'Merci, c’est bien reçu.' : 'Merci pour votre confiance.' }));
+        confirm.appendChild(el('span', { class: 'vs-confirm__text', text: this.rescue ? 'Nous avons bien reçu les informations pour le coffret de ' + (state.d.prenomEnfant.trim() || 'votre enfant') + '. Nous vous écrivons dès que la sélection est prête.' : 'La première sélection personnalisée de ' + (state.d.prenomEnfant.trim() || 'votre enfant') + ' vous sera envoyée avant la fin du mois : des livres choisis avec soin pour l’accompagner et nourrir son imaginaire.' }));
         body.appendChild(confirm);
       } else {
         body.appendChild(this.renderEnfant(e));
@@ -412,7 +485,7 @@
         var actionbar = el('div', { class: 'vs-modal__actionbar' });
         var actionRow = el('div', { class: 'vs-modal__actionbar-row' });
         var statusLabel = state.failed
-          ? "Le coffret n'a pas pu être ajouté au panier. Réessayez dans un instant."
+          ? (this.rescue ? "Les réponses n'ont pas pu être envoyées. Réessayez dans un instant." : "Le coffret n'a pas pu être ajouté au panier. Réessayez dans un instant.")
           : remaining === 0
             ? 'Tout est complet.'
             : state.touched
@@ -420,7 +493,7 @@
               : 'Champs marqués * obligatoires';
         actionRow.appendChild(el('span', { class: 'vs-modal__status' + ((state.touched && remaining) || state.failed ? ' is-error' : ''), text: statusLabel, 'aria-live': 'polite' }));
 
-        var cta = el('button', { type: 'button', class: 'vs-modal__cta', text: state.sending ? 'Ajout au panier…' : state.failed ? 'Réessayer' : 'Commander mon coffret' });
+        var cta = el('button', { type: 'button', class: 'vs-modal__cta', text: state.sending ? (this.rescue ? 'Envoi…' : 'Ajout au panier…') : state.failed ? 'Réessayer' : (this.rescue ? 'Envoyer mes réponses' : 'Commander mon coffret') });
         if (state.sending) cta.disabled = true;
         cta.addEventListener('click', () => this.submit());
         actionRow.appendChild(cta);
