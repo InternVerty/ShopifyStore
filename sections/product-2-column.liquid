@@ -252,6 +252,23 @@
             {%- endif -%}
 
           {%- when 'buy-buttons' -%}
+            {%- assign coffret_handle = settings.coffret_product.handle | default: 'coffret-verty' -%}
+            {%- if product.handle == coffret_handle -%}
+              {%- comment -%}
+                Produit coffret : pas d'ajout direct au panier. Le bouton ouvre le formulaire (popup
+                snippets/coffret-signup-modal.liquid) ; le coffret n'est ajouté qu'une fois le formulaire
+                rempli, avec les réponses en propriétés de ligne. Ni quantité, ni achat express.
+              {%- endcomment -%}
+              <div class="product-info__block buy-buttons--coffret" {{ block.shopify_attributes }}>
+                {%- if current_variant.available -%}
+                  <button type="button" class="btn btn--primary w-full" data-coffret-open>Personnaliser mon coffret</button>
+                  <p class="text-sm mt-2 text-center">Répondez à quelques questions sur l'enfant : le coffret est ensuite ajouté à votre panier.</p>
+                {%- else -%}
+                  <button type="button" class="btn btn--primary w-full" disabled>{{ 'products.product.sold_out' | t }}</button>
+                {%- endif -%}
+              </div>
+              {%- render 'coffret-signup-modal', product_handle: product.handle -%}
+            {%- else -%}
             <div class="product-info__block" {{ block.shopify_attributes }}>
               <product-form>
                 <div class="alert mb-8 bg-error-bg text-error-text js-form-error text-start" role="alert" hidden></div>
@@ -314,6 +331,7 @@
                 {% render 'pickup-availability', current_variant: current_variant %}
               {%- endif -%}
             </div>
+            {%- endif -%}
 
           {%- when 'complementary' -%}
             <div class="product-info__block" {{ block.shopify_attributes }}>

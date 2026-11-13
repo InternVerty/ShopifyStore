@@ -290,6 +290,13 @@
               {%- endif -%}
 
             {%- when 'buy-buttons' -%}
+              {%- assign coffret_handle = settings.coffret_product.handle | default: 'coffret-verty' -%}
+              {%- if product != blank and product.handle == coffret_handle -%}
+                {%- comment -%} Produit coffret : pas d'ajout direct (formulaire à remplir), renvoi vers la landing. {%- endcomment -%}
+                <div class="product-info__block" {{ block.shopify_attributes }}>
+                  <a href="{{ settings.coffret_landing_page.url | default: '/pages/coffret' }}" class="btn btn--primary w-full">Découvrir le coffret</a>
+                </div>
+              {%- else -%}
               <div class="product-info__block" {{ block.shopify_attributes }}>
                 <product-form>
                   <div class="alert mb-8 bg-error-bg text-error-text js-form-error text-start" role="alert" hidden></div>
@@ -362,6 +369,7 @@
                   {%- endif -%}
                 </product-form>
               </div>
+              {%- endif -%}
 
             {%- when 'richtext' -%}
               <div class="product-info__block rte" {{ block.shopify_attributes }}>

@@ -374,7 +374,11 @@
 
             {%- render 'price', product: product -%}
 
-            {%- if product.has_only_default_variant -%}
+            {%- assign coffret_handle = settings.coffret_product.handle | default: 'coffret-verty' -%}
+            {%- if product.handle == coffret_handle -%}
+              {%- comment -%} Produit coffret : pas d'ajout direct (formulaire à remplir), renvoi vers la landing. {%- endcomment -%}
+              <a href="{{ settings.coffret_landing_page.url | default: '/pages/coffret' }}" class="btn btn--primary w-full">Découvrir le coffret</a>
+            {%- elsif product.has_only_default_variant -%}
               {%- comment -%} Variante unique → ATC direct {%- endcomment -%}
               <product-form>
                 <div class="alert mb-8 bg-error-bg text-error-text js-form-error text-start" role="alert" hidden></div>
