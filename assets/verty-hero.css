@@ -9,8 +9,8 @@
   --vh-green-deep: #1C7A52;
   --vh-mint: #97E8C7;
   --vh-mint-border: #6ECFB5;
-  --vh-mint-marque: #7ECFC0;
-  --vh-mint-light: #D5F6E9;
+  --vh-mint-marque: var(--vh-mint); /* ex-turquoise #7ECFC0 : tout est en vert Verty */
+  --vh-mint-light: rgba(151, 232, 199, 0.35); /* vert Verty atténué (survol des listes) */
   --vh-soleil: #F5C842;
   --vh-soleil-tint: #FFEDB5;
   --vh-rose: #E8607A;
@@ -72,7 +72,7 @@
 .vh__slide--marine {
   --vh-ink: #FFFFFF; --vh-accent: var(--vh-mint);
   --vh-cta-bg: var(--vh-mint); --vh-cta-text: var(--vh-navy); --vh-cta-border: var(--vh-mint-border);
-  --vh-blob: rgba(126, 207, 192, 0.22); --vh-focus: #FFFFFF;
+  --vh-blob: rgba(151, 232, 199, 0.22); --vh-focus: #FFFFFF;
 }
 
 .vh__text {

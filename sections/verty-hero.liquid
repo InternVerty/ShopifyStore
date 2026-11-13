@@ -39,7 +39,7 @@
           {%- for block in section.blocks -%}
             {%- case block.settings.style -%}
               {%- when 'mint-clair' -%}
-                {%- assign bg = '#D5F6E9' -%}{%- assign tone = 'light' -%}
+                {%- assign bg = '#97E8C7' -%}{%- assign tone = 'light' -%}
               {%- when 'marine' -%}
                 {%- assign bg = '#163D83' -%}{%- assign tone = 'dark' -%}
               {%- else -%}
@@ -119,10 +119,10 @@
                   {%- when 1 -%}
                     <svg class="vh__star" style="left: 6%; top: 72%" width="22" height="22" viewBox="0 0 26 26" fill="#E8607A" aria-hidden="true" focusable="false">{{ star_path }}</svg>
                     <svg class="vh__star" style="left: 90%; top: 66%" width="16" height="16" viewBox="0 0 26 26" fill="#F5C842" aria-hidden="true" focusable="false">{{ star_path }}</svg>
-                    <svg class="vh__star" style="left: 14%; top: 10%" width="14" height="14" viewBox="0 0 26 26" fill="#5FB892" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 14%; top: 10%" width="14" height="14" viewBox="0 0 26 26" fill="#FFFFFF" aria-hidden="true" focusable="false">{{ star_path }}</svg>
                   {%- else -%}
                     <svg class="vh__star" style="left: 6%; top: 14%" width="24" height="24" viewBox="0 0 26 26" fill="#F5C842" aria-hidden="true" focusable="false">{{ star_path }}</svg>
-                    <svg class="vh__star" style="left: 88%; top: 74%" width="14" height="14" viewBox="0 0 26 26" fill="#7ECFC0" aria-hidden="true" focusable="false">{{ star_path }}</svg>
+                    <svg class="vh__star" style="left: 88%; top: 74%" width="14" height="14" viewBox="0 0 26 26" fill="#97E8C7" aria-hidden="true" focusable="false">{{ star_path }}</svg>
                     <svg class="vh__star" style="left: 16%; top: 86%" width="16" height="16" viewBox="0 0 26 26" fill="#E8607A" aria-hidden="true" focusable="false">{{ star_path }}</svg>
                 {%- endcase -%}
               </div>
@@ -217,7 +217,7 @@
       "settings": [
         { "type": "select", "id": "style", "label": "Ambiance", "options": [
           { "value": "mint", "label": "Vert (texte bleu marine)" },
-          { "value": "mint-clair", "label": "Vert clair (texte bleu marine)" },
+          { "value": "mint-clair", "label": "Vert, tache jaune (texte bleu marine)" },
           { "value": "marine", "label": "Bleu marine (texte blanc)" }
         ], "default": "mint" },
         { "type": "text", "id": "title_before", "label": "Titre (début)", "default": "La librairie" },
