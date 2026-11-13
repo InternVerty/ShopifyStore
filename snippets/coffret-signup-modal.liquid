@@ -1,0 +1,30 @@
+{%- comment -%}
+  Popup du formulaire du Coffret Verty (questions sur l'enfant), partagé par :
+  - la section coffret-signup (landing /pages/coffret),
+  - la page produit du coffret (sections/main-product.liquid) : le bouton « ajouter au panier »
+    y est remplacé par un bouton data-coffret-open qui ouvre ce popup.
+  À la validation, le produit coffret est ajouté au panier avec les réponses en propriétés
+  de ligne, puis redirection vers le panier (voir assets/coffret-signup.js).
+
+  Paramètres :
+  - product_handle {String} : handle du produit coffret à ajouter (défaut : coffret-verty)
+  - privacy_url {String}    : page de protection des données (défaut : /pages/donnees-personnelles)
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
+{{ 'selection-signup.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'coffret-signup.js' | asset_url }}" defer="defer"></script>
+
+<coffret-signup
+  class="vs-modal vs-modal--marine"
+  hidden
+  data-customer-id="{{ customer.id }}"
+  data-product-handle="{{ product_handle | default: 'coffret-verty' }}"
+  data-cart-url="{{ routes.cart_url }}"
+  data-privacy-url="{{ privacy_url | default: '/pages/donnees-personnelles' }}"
+  data-customer-email="{{ customer.email | escape }}"
+  data-customer-first-name="{{ customer.first_name | escape }}"
+  data-customer-last-name="{{ customer.last_name | escape }}"
+>
+  <div data-vs-root></div>
+</coffret-signup>

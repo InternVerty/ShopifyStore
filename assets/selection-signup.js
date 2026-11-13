@@ -27,7 +27,9 @@
 
   class SelectionSignup extends HTMLElement {
     connectedCallback() {
-      this.webhookUrl = this.getAttribute('data-webhook-url') || '';
+      // Même passerelle que les autres formulaires (proxy d'application Shopify) : le backend
+      // vérifie la signature Shopify puis relaie vers n8n. L'URL du webhook n8n n'est plus exposée.
+      this.syncUrl = '/apps/verty-sync';
       this.privacyUrl = this.getAttribute('data-privacy-url') || '/policies/privacy-policy';
       this.state = {
         enfants: [newChild()],
@@ -165,18 +167,16 @@
         }))
       };
 
-      // On n'attend pas la réponse du webhook : l'envoi part en arrière-plan
+      // On n'attend pas la réponse du backend : l'envoi part en arrière-plan
       // et le formulaire passe tout de suite à l'état "envoyé". `keepalive`
       // laisse la requête aboutir même si l'utilisateur ferme le popup ou
       // quitte la page juste après.
-      if (this.webhookUrl) {
-        fetch(this.webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          keepalive: true
-        }).catch(function () {});
-      }
+      fetch(this.syncUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({}, payload, { action: 'selection-verty' })),
+        keepalive: true
+      }).catch(function () {});
 
       this.state.touched = false;
       this.state.sending = false;

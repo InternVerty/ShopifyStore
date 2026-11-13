@@ -70,7 +70,7 @@
   --vh-blob: var(--vh-soleil-tint); --vh-focus: var(--vh-navy);
 }
 .vh__slide--marine {
-  --vh-ink: #FFFFFF; --vh-accent: var(--vh-mint-marque);
+  --vh-ink: #FFFFFF; --vh-accent: var(--vh-mint);
   --vh-cta-bg: var(--vh-mint); --vh-cta-text: var(--vh-navy); --vh-cta-border: var(--vh-mint-border);
   --vh-blob: rgba(126, 207, 192, 0.22); --vh-focus: #FFFFFF;
 }

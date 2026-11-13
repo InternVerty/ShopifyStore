@@ -10,23 +10,10 @@
   Plus d'appel à /apps/verty-sync (voir assets/coffret-signup.js).
 {%- endcomment -%}
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
-{{ 'selection-signup.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'coffret-signup.js' | asset_url }}" defer="defer"></script>
-
-<coffret-signup
-  class="vs-modal vs-modal--marine"
-  hidden
-  data-customer-id="{{ customer.id }}"
-  data-product-handle="{{ section.settings.product.handle | default: 'coffret-verty' }}"
-  data-cart-url="{{ routes.cart_url }}"
-  data-privacy-url="{{ section.settings.privacy_url | default: '/pages/donnees-personnelles' }}"
-  data-customer-email="{{ customer.email | escape }}"
-  data-customer-first-name="{{ customer.first_name | escape }}"
-  data-customer-last-name="{{ customer.last_name | escape }}"
->
-  <div data-vs-root></div>
-</coffret-signup>
+{%- render 'coffret-signup-modal',
+  product_handle: section.settings.product.handle,
+  privacy_url: section.settings.privacy_url
+-%}
 
 {% schema %}
 {
